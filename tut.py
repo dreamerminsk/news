@@ -7,3 +7,5 @@ for child in root:
     print(child.tag, child.attrib)
     for item in child:
         print("    ", item.tag, item.attrib)
+        for c in item:
+            print("    ", c.tag, c.attrib)
