@@ -17,7 +17,7 @@ for channel in root.findall('channel'):
         if '?' in link:
             link = link[:link.find('?')]
         pub = item.find('pubDate').text
-        if !articles.find_one({"link":link}):
+        if not articles.find_one({"link":link}):
             articles.insert_one({"link":link,"title":title})
             print(i)
             print(title)
