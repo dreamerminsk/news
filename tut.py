@@ -4,12 +4,15 @@ from pymongo import MongoClient
 
 r = requests.get('https://news.tut.by/rss/all.rss')
 root = etree.fromstring(r.text)
-i = 1
+i = 0
 for channel in root.findall('channel'):
     for item in channel.findall('item'):
         i += 1
+        print(i)
         title = item.find('title').text
-        print(i, title)
+        print(title)
+        link = item.find('link').text
+        print(link)
             
 client = MongoClient()
 print(client.news)
