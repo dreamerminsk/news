@@ -6,3 +6,5 @@ print(r.text)
 root = etree.fromstring(r.text)
 for child in root:
     print(child.tag, child.attrib)
+    for c in child:
+        print("    ", c.tag, c.attrib)
