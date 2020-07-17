@@ -12,6 +12,8 @@ for channel in root.findall('channel'):
         title = item.find('title').text
         print(title)
         link = item.find('link').text
+        if '?' in link:
+            link = link[:link.find('?')]
         print(link)
         pub = item.find('pubDate').text
         print(pub)
