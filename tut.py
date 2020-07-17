@@ -13,6 +13,8 @@ for channel in root.findall('channel'):
         print(title)
         link = item.find('link').text
         print(link)
+        pub = item.find('pubDate').text
+        print(pub)
             
 client = MongoClient()
 print(client.news)
