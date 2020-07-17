@@ -6,7 +6,7 @@ r = requests.get('https://news.tut.by/rss/all.rss')
 root = etree.fromstring(r.text)
 for channel in root.findall('channel'):
     for item in channel.findall('item'):
-        title = country.find('title').text
+        title = item.find('title').text
         print(title)
             
 client = MongoClient()
