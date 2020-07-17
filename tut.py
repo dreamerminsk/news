@@ -8,4 +8,4 @@ for child in root:
     for item in child:
         print("    ", item.tag, item.attrib)
         for c in item:
-            print("    ", c.tag, c.attrib)
+            print("        ", c.tag, c.attrib)
