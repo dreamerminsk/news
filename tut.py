@@ -1,5 +1,6 @@
 import requests
 import xml.etree.ElementTree as etree
+from pymongo import MongoClient
 
 r = requests.get('https://news.tut.by/rss/all.rss')
 root = etree.fromstring(r.text)
@@ -9,3 +10,6 @@ for child in root:
         print("    ", item.tag, item.attrib)
         for c in item:
             print("        ", c.tag, c.attrib)
+            
+client = MongoClient()
+print(client.news)
