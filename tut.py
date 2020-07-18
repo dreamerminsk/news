@@ -3,7 +3,7 @@ import requests
 import xml.etree.ElementTree as etree
 from pymongo import MongoClient
 import pprint
-from bs4 import *
+from bs4 import BeautifulSoup
 
 print = pprint.pprint
 
@@ -34,7 +34,7 @@ for item in total:
     if 'published' not in item:
         print(item)
         p = requests.get(item['link'])
-        soup = BeautifulSoup(p.text, "html.parser", convertEntities=BeautifulStoneSoup.HTML_ENTITIES)
+        soup = BeautifulSoup(p.text, "html.parser")
         title = soup.select_one('div.b-article div.m_header h1[itemprop="headline"]')
         print(title.text)
         t = soup.select_one('p.b-article-details time')
