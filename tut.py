@@ -33,15 +33,16 @@ total = articles.find()
 for item in total:
     if 'comments' not in item:
         print(item)
-        p = requests.get(item['link'])
-        soup = BeautifulSoup(p.text, "html.parser")
-        title = soup.select_one('div.b-article div.m_header h1[itemprop="headline"]')
-        print(title.text)
-        t = soup.select_one('p.b-article-details time')
-        dt = datetime.datetime.strptime(t.get('datetime'), '%Y-%m-%dT%H:%M:%S%z')
-        print('published: {0}'.format(dt))
-        articles.update_one({'_id': item['_id']}, {'$set': {'published': dt}}, upsert=False)
-        cc = soup.select_one('span[itemprop="commentCount"]')
-        print('comments: {0}'.format(0 if cc is None else int(cc.text)))
-        articles.update_one({'_id': item['_id']}, {'$set': {'comments': 0 if cc is None else int(cc.text)}}, upsert=False)
-        break
+        if 'tut.by' in item['link']:
+            p = requests.get(item['link'])
+            soup = BeautifulSoup(p.text, "html.parser")
+            title = soup.select_one('div.b-article div.m_header h1[itemprop="headline"]')
+            print(title.text)
+            t = soup.select_one('p.b-article-details time')
+            dt = datetime.datetime.strptime(t.get('datetime'), '%Y-%m-%dT%H:%M:%S%z')
+            print('published: {0}'.format(dt))
+            articles.update_one({'_id': item['_id']}, {'$set': {'published': dt}}, upsert=False)
+            cc = soup.select_one('span[itemprop="commentCount"]')
+            print('comments: {0}'.format(0 if cc is None else int(cc.text)))
+            articles.update_one({'_id': item['_id']}, {'$set': {'comments': 0 if cc is None else int(cc.text)}}, upsert=False)
+            break
