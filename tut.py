@@ -33,7 +33,7 @@ for item in total:
     if 'published' not in item:
         print(item)
         p = requests.get(item['link'])
-        soup = BeautifulSoup(p.text)
+        soup = BeautifulSoup(p.text, "html.parser")
         t = soup.select_one('p.b-article-details time')
         print(t)
         break
