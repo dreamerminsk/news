@@ -39,6 +39,9 @@ for item in total:
         print(title.text)
         t = soup.select_one('p.b-article-details time')
         dt = datetime.datetime.strptime(t.get('datetime'), '%Y-%m-%dT%H:%M:%S%z')
-        print(dt)
+        print('published', dt)
         articles.update_one({'_id': item['_id']}, {'$set': {'published': dt}}, upsert=False)
+        cc = soup.select_one('span[itemprop="commentCount"]')
+        print('comments', cc)
+        articles.update_one({'_id': item['_id']}, {'$set': {'comments': int(cc)}}, upsert=False)
         break
