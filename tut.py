@@ -1,3 +1,4 @@
+import datetime
 import requests
 import xml.etree.ElementTree as etree
 from pymongo import MongoClient
