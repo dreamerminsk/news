@@ -1,4 +1,5 @@
 import datetime
+import html
 import requests
 import xml.etree.ElementTree as etree
 from pymongo import MongoClient
@@ -36,7 +37,7 @@ for item in total:
         p = requests.get(item['link'])
         soup = BeautifulSoup(p.text, "html.parser")
         title = soup.select_one('div.b-article div.m_header h1[itemprop="headline"]')
-        print(title.text)
+        print(html.unescape(title.text))
         t = soup.select_one('p.b-article-details time')
         dt = datetime.datetime.strptime(t.get('datetime'), '%Y-%m-%dT%H:%M:%S%z')
         print(dt)
