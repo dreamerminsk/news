@@ -2,6 +2,7 @@ import requests
 import xml.etree.ElementTree as etree
 from pymongo import MongoClient
 import pprint
+from bs4 import BeautifulSoup
 
 print = pprint.pprint
 
@@ -29,4 +30,10 @@ for channel in root.findall('channel'):
 
 total = articles.find()
 for item in total:
-    print(item)
+    if 'published' not in item
+        print(item)
+        p = requests.get(item['link'])
+        soup = BeautifulSoup(p.text)
+        t = soup.select_one('p.b-article-details time[@itemprop="datePublished"]')
+        print(t)
+        break
