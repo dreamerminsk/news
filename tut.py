@@ -24,4 +24,5 @@ for channel in root.findall('channel'):
             print(link)
             print(pub)
 
-print(client.news)
+total = articles.find()
+print(total)
