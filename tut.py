@@ -1,6 +1,9 @@
 import requests
 import xml.etree.ElementTree as etree
 from pymongo import MongoClient
+import pprint
+
+print = pprint.pprint
 
 client = MongoClient()
 news = client.news
@@ -26,4 +29,4 @@ for channel in root.findall('channel'):
 
 total = articles.find()
 for item in total:
-    pprint(item)
+    print(item)
