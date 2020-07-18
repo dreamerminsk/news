@@ -3,7 +3,7 @@ import requests
 import xml.etree.ElementTree as etree
 from pymongo import MongoClient
 import pprint
-from BeautifulSoup import *
+from bs4 import *
 
 print = pprint.pprint
 
