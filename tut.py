@@ -26,4 +26,4 @@ for channel in root.findall('channel'):
 
 total = articles.find()
 for item in total:
-    print(item)
+    print(item.title)
