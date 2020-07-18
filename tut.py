@@ -5,7 +5,7 @@ from pymongo import MongoClient
 import pprint
 from bs4 import BeautifulSoup
 
-#print = pprint.pprint
+print = pprint.pprint
 
 client = MongoClient()
 news = client.news
