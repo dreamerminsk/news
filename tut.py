@@ -38,5 +38,5 @@ for item in total:
         t = soup.select_one('p.b-article-details time')
         dt = datetime.datetime.strptime(t.get('datetime'), '%Y-%m-%dT%H:%M:%S%z')
         print(dt)
-        articles.update_one({'_id': item['_id']}, {'$set:{'published': dt}'}, upsert=False)
+        articles.update_one({'_id': item['_id']}, {'$set': {'published': dt}}, upsert=False)
         break
