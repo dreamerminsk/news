@@ -34,6 +34,6 @@ for item in total:
         print(item)
         p = requests.get(item['link'])
         soup = BeautifulSoup(p.text)
-        t = soup.select_one('p.b-article-details time[@itemprop="datePublished"]')
+        t = soup.select_one('p.b-article-details time')
         print(t)
         break
