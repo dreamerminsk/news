@@ -30,7 +30,7 @@ for channel in root.findall('channel'):
 
 total = articles.find()
 for item in total:
-    if 'published' not in item.keys
+    if 'published' not in item:
         print(item)
         p = requests.get(item['link'])
         soup = BeautifulSoup(p.text)
