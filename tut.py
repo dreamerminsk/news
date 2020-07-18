@@ -31,7 +31,7 @@ for channel in root.findall('channel'):
 
 total = articles.find()
 for item in total:
-    if 'comments' not in item:
+    if 'thread' not in item:
         print(item)
         if 'tut.by' in item['link']:
             p = requests.get(item['link'])
@@ -45,4 +45,7 @@ for item in total:
             cc = soup.select_one('span[itemprop="commentCount"]')
             print('comments: {0}'.format(0 if cc is None else int(cc.text)))
             articles.update_one({'_id': item['_id']}, {'$set': {'comments': 0 if cc is None else int(cc.text)}}, upsert=False)
+            th = soup.select_one('div.b-comments a')
+            print('thread: {0}'.format('' if th is None else th.get('href')))
+            articles.update_one({'_id': item['_id']}, {'$set': {'thread': '' if th is None else th.get('href')}}, upsert=False)
             break
