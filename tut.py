@@ -43,5 +43,5 @@ for item in total:
         articles.update_one({'_id': item['_id']}, {'$set': {'published': dt}}, upsert=False)
         cc = soup.select_one('span[itemprop="commentCount"]')
         print('comments: {0}'.format(cc.text))
-        articles.update_one({'_id': item['_id']}, {'$set': {'comments': int(cc.text)}}, upsert=False)
+        articles.update_one({'_id': item['_id']}, {'$set': {'comments': 0 if cc.text is None else int(cc.text)}}, upsert=False)
         break
