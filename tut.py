@@ -25,4 +25,5 @@ for channel in root.findall('channel'):
             print(pub)
 
 total = articles.find()
-print(total)
+for item in total:
+    print(item)
