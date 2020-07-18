@@ -35,5 +35,5 @@ for item in total:
         p = requests.get(item['link'])
         soup = BeautifulSoup(p.text, "html.parser")
         t = soup.select_one('p.b-article-details time')
-        print(t)
+        print(t.get('datetime'))
         break
