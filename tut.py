@@ -49,3 +49,4 @@ for item in total:
             print('thread: {0}'.format('' if th is None else th.get('href')))
             articles.update_one({'_id': item['_id']}, {'$set': {'thread': '' if th is None else th.get('href')}}, upsert=False)
             break
+print(client)
