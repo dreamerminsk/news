@@ -43,6 +43,7 @@ for item in total:
             p = requests.get(item['link'])
             soup = BeautifulSoup(p.text, "html.parser")
             title = soup.select_one('div.b-article div.m_header h1[itemprop="headline"]')
+            print('***************************************************')
             print(title.text)
             t = soup.select_one('p.b-article-details time')
             dt = datetime.strptime(t.get('datetime'), '%Y-%m-%dT%H:%M:%S%z')
@@ -55,4 +56,5 @@ for item in total:
             print('thread: {0}'.format('' if th is None else th.get('href')))
             articles.update_one({'_id': item['_id']}, {'$set': {'thread': '' if th is None else th.get('href')}}, upsert=False)
             break
+print('***************************************************')
 print('articles: {}'.format(articles.count_documents({})))
