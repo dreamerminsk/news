@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 requests = "*"
 pymongo = "*"
+bs4 = "*"
+starlette = "*"
 
 [requires]
 python_version = "3.8"
