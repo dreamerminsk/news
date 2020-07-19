@@ -58,5 +58,5 @@ for item in total:
             break
 print('***************************************************')
 print('articles: {}'.format(articles.count_documents({})))
-print('{}'.format(articles.stats(1)))
+print('{}'.format(articles.command('collStats')))
 
