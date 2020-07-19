@@ -31,6 +31,7 @@ for feed in feeds.find():
                 print(title)
                 print(link)
                 print(pub)
+    feeds.update_one({'_id': feed['_id']}, {'$set': {'last_access': datetime.datetime.now()}}, upsert=False)
 
 total = articles.find()
 for item in total:
