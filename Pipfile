@@ -10,6 +10,7 @@ requests = "*"
 pymongo = "*"
 bs4 = "*"
 starlette = "*"
+uvicorn = "*"
 
 [requires]
 python_version = "3.8"
