@@ -19,4 +19,4 @@ for link in links:
     
 for feed in feeds.find():
     print(feed)
-print(feeds.count_documents())
+print(feeds.count_documents({}))
