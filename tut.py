@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import requests
 import xml.etree.ElementTree as etree
 from pymongo import MongoClient
@@ -15,7 +15,7 @@ feeds = news.feeds
 i = 0
 for feed in feeds.find():
     print(feed)
-    diff = datetime.datetime.now() - feed['last_access']
+    diff = datetime.now() - feed['last_access']
     if diff.seconds > 900:
         r = requests.get(feed['link'])
         root = etree.fromstring(r.text)
@@ -33,7 +33,7 @@ for feed in feeds.find():
                     print(title)
                     print(link)
                     print(pub)
-        feeds.update_one({'_id': feed['_id']}, {'$set': {'last_access': datetime.datetime.now()}}, upsert=False)
+        feeds.update_one({'_id': feed['_id']}, {'$set': {'last_access': datetime.now()}}, upsert=False)
 
 total = articles.find()
 for item in total:
@@ -45,7 +45,7 @@ for item in total:
             title = soup.select_one('div.b-article div.m_header h1[itemprop="headline"]')
             print(title.text)
             t = soup.select_one('p.b-article-details time')
-            dt = datetime.datetime.strptime(t.get('datetime'), '%Y-%m-%dT%H:%M:%S%z')
+            dt = datetime.strptime(t.get('datetime'), '%Y-%m-%dT%H:%M:%S%z')
             print('published: {0}'.format(dt))
             articles.update_one({'_id': item['_id']}, {'$set': {'published': dt}}, upsert=False)
             cc = soup.select_one('span[itemprop="commentCount"]')
