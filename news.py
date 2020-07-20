@@ -15,9 +15,7 @@ async def homepage(request):
     client = MongoClient()
     news = client.news
     articles = news.articles
-    now = datetime.now()
-    nowp1 = datetime.now() + timedelta(days=1)
-    article = articles.find_one({"published": {"gte": datetime(now.year, now.month, now.day), "lt": datetime(nowp1.year, nowp1.month, nowp1.day)}})
+    article = articles.find().sort({"published": -1}).limit(1)
     article['_id'] = str(article['_id'])
     article['published'] = str(article['published'])
     return JSONResponse(article)
