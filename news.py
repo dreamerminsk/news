@@ -15,7 +15,7 @@ async def homepage(request):
     client = MongoClient()
     news = client.news
     articles = news.articles
-    arts = articles.find({}).sort([("published", -1)]).limit(16)
+    arts = articles.find({}).sort([("published", -1)]).limit(64)
     text = ''
     for art in arts:
         text += art['title'] + '\r\n'
