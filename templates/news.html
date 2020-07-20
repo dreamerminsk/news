@@ -14,7 +14,13 @@
 </head>
 
 <body>
-  
+  <div>
+  {% for article in articles %}
+    <div>
+      <span>{{ article['title'] }}</span>
+    </div>
+  {% endfor %}
+  </div>
   <script src="js/scripts.js"></script>
 </body>
 </html>
