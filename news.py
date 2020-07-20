@@ -15,7 +15,7 @@ async def homepage(request):
     client = MongoClient()
     news = client.news
     articles = news.articles
-    article = articles.find({}).sort({"published": -1}).limit(1)
+    article = articles.find({}).sort([("published", -1)]).limit(1)
     article['_id'] = str(article['_id'])
     article['published'] = str(article['published'])
     return JSONResponse(article)
