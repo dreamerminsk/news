@@ -46,7 +46,7 @@ for item in total:
             if 'tut.by/pda/' in item['link']:
                 continue
             if n > 10:
-                continue
+                break
             p = requests.get(item['link'])
             soup = BeautifulSoup(p.text, "html.parser")
             title = soup.select_one('div.b-article div.m_header h1[itemprop="headline"]')
@@ -62,7 +62,7 @@ for item in total:
             th = soup.select_one('div.b-comments a.b-add_comments')
             print('thread: {0}'.format('' if th is None else th.get('href')))
             articles.update_one({'_id': item['_id']}, {'$set': {'thread': '' if th is None else th.get('href')}}, upsert=False)
-            break
+            n += 1
 print('***************************************************')
 print('articles: {}'.format(articles.count_documents({})))
 print('{}'.format(news.command('dbstats')))
