@@ -56,7 +56,7 @@ for item in total:
             cc = soup.select_one('span[itemprop="commentCount"]')
             print('comments: {0}'.format(0 if cc is None else int(cc.text)))
             articles.update_one({'_id': item['_id']}, {'$set': {'comments': 0 if cc is None else int(cc.text)}}, upsert=False)
-            th = soup.select_one('div.b-comments a')
+            th = soup.select_one('div.b-comments a.b-add_comments')
             print('thread: {0}'.format('' if th is None else th.get('href')))
             articles.update_one({'_id': item['_id']}, {'$set': {'thread': '' if th is None else th.get('href')}}, upsert=False)
             break
