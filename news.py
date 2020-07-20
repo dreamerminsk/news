@@ -13,8 +13,10 @@ feeds = news.feeds
 async def homepage(request):
     client = MongoClient()
     news = client.news
-    articles = news.articles    
-    return JSONResponse(articles.find_one({}))
+    articles = news.articles
+    article = articles.find_one({})
+    article['_id'] = str()
+    return JSONResponse(article)
 
 
 app = Starlette(debug=True, routes=[
