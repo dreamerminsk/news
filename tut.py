@@ -35,6 +35,7 @@ for feed in feeds.find():
                     print(pub)
         feeds.update_one({'_id': feed['_id']}, {'$set': {'last_access': datetime.now()}}, upsert=False)
 
+n = 0
 total = articles.find()
 for item in total:
     if 'thread' not in item:
@@ -43,6 +44,8 @@ for item in total:
             if 'm.tut.by' in item['link']:
                 continue
             if 'tut.by/pda/' in item['link']:
+                continue
+            if n > 10:
                 continue
             p = requests.get(item['link'])
             soup = BeautifulSoup(p.text, "html.parser")
