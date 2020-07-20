@@ -19,7 +19,7 @@ async def homepage(request):
     text = ''
     for art in arts:
         text += art['title'] + '\r\n'
-        text += art['published'] + '\r\n'
+        text += str(art['published']) + '\r\n'
         text += '\r\n'
     return PlainTextResponse(text)
 
