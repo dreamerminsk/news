@@ -1,15 +1,12 @@
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse, PlainTextResponse
-from starlette.routing import Route
+from starlette.routing import Route, Mount
+from starlette.templating import Jinja2Templates
+from starlette.staticfiles import StaticFiles
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 
-
-client = MongoClient()
-news = client.news
-articles = news.articles
-feeds = news.feeds
-
+templates = Jinja2Templates(directory='templates')
 
 async def homepage(request):
     client = MongoClient()
@@ -23,7 +20,14 @@ async def homepage(request):
         text += '\r\n'
     return PlainTextResponse(text)
 
+async def news(request):
+    client = MongoClient()
+    news = client.news
+    articles = news.articles
+    arts = articles.find({}).sort([("published", -1)]).limit(64)
+    return templates.TemplateResponse('news.html', {'articles': arts})
 
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
+    Route('/news', news),
 ])
