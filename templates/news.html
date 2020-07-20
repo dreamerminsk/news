@@ -21,10 +21,11 @@
 <body>
   <div>
   {% for article in articles %}
-    <div class='card'>
-      <div class='badge badge-light'>
+    <div class='card border-dark'>
+      <div class='card-header'>
         {{ article['published'] }}
       </div>
+      <div class='card-body'>
       <div class='alert alert-light'>
         {{ article['title'] }}
       </div>
@@ -34,6 +35,7 @@
         Комментировать
         <span class='badge badge-light'>{{ article['comments'] }}</span>
       </a>
+      </div>
       </div>
     </div>
   {% endfor %}
