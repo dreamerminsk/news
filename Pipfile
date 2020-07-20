@@ -11,6 +11,7 @@ pymongo = "*"
 bs4 = "*"
 starlette = "*"
 uvicorn = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "3.8"
