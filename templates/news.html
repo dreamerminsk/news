@@ -28,7 +28,11 @@
       <div class='alert alert-light'>
         {{ article['title'] }}
       </div>
-      <a class='btn btn-dark' href='{{ article['link'] }}'>Читать</a>
+      <a class='btn btn-info' href='{{ article['link'] }}'>Читать</a>
+      <a class='btn btn-info' href='{{ article['thread'] }}'>
+        Комментировать
+        <span class='badge badge-light'>{{ article['comments'] }}</span>
+      </a>
     </div>
   {% endfor %}
   </div>
