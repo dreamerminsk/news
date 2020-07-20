@@ -45,7 +45,7 @@ for item in total:
                 continue
             if 'tut.by/pda/' in item['link']:
                 continue
-            if n > 10:
+            if n > 32:
                 break
             p = requests.get(item['link'])
             soup = BeautifulSoup(p.text, "html.parser")
