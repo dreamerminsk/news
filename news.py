@@ -2,6 +2,7 @@ from starlette.applications import Starlette
 from starlette.responses import JSONResponse
 from starlette.routing import Route
 from pymongo import MongoClient
+from datetime import datetime
 
 
 client = MongoClient()
@@ -14,7 +15,7 @@ async def homepage(request):
     client = MongoClient()
     news = client.news
     articles = news.articles
-    article = articles.find_one({})
+    article = articles.find_one({"published", datetime.now().date()})
     article['_id'] = str(article['_id'])
     article['published'] = str(article['published'])
     return JSONResponse(article)
