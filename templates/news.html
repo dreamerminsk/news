@@ -23,6 +23,9 @@
   {% for article in articles %}
     <div class='card'>
       <span>{{ article['title'] }}</span>
+      <div class='alert alert-light'>
+        {{ article['published'] }}
+      </div>
     </div>
   {% endfor %}
   </div>
