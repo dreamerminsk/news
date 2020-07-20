@@ -12,6 +12,7 @@ bs4 = "*"
 starlette = "*"
 uvicorn = "*"
 jinja2 = "*"
+aiofiles = "*"
 
 [requires]
 python_version = "3.8"
