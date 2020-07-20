@@ -22,12 +22,13 @@
   <div>
   {% for article in articles %}
     <div class='card'>
-      <div class='alert alert-light'>
-        {{ article['title'] }}
-      </div>
       <div class='badge badge-light'>
         {{ article['published'] }}
       </div>
+      <div class='alert alert-light'>
+        {{ article['title'] }}
+      </div>
+      <a class='btn btn-dark' href='{{ article['link'] }}'></a>
     </div>
   {% endfor %}
   </div>
