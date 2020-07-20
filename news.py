@@ -25,7 +25,7 @@ async def news(request):
     news = client.news
     articles = news.articles
     arts = articles.find({}).sort([("published", -1)]).limit(64)
-    return templates.TemplateResponse('news.html', {'articles': arts})
+    return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
 
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
