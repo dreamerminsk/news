@@ -26,16 +26,16 @@
         {{ article['published'] }}
       </div>
       <div class='card-body'>
-      <div class='alert alert-light'>
-        {{ article['title'] }}
-      </div>
-      <div class='btn-group' role='group'>
-      <a class='btn btn-secondary active' href='{{ article['link'] }}'>Читать</a>
-      <a class='btn btn-secondary' href='{{ article['thread'] }}'>
-        Комментировать
-        <span class='badge badge-light'>{{ article['comments'] }}</span>
-      </a>
-      </div>
+        <div class='alert alert-light'>
+          {{ article['title'] }}
+        </div>
+        <div class='btn-group' role='group'>
+          <a class='btn btn-outline-secondary active' href='{{ article['link'] }}'>Читать</a>
+          <a class='btn btn-outline-secondary' href='{{ article['thread'] }}'>
+            Комментировать
+            <span class='badge badge-light'>{{ article['comments'] }}</span>
+          </a>
+        </div>
       </div>
     </div>
   {% endfor %}
