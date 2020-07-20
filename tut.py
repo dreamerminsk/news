@@ -42,6 +42,8 @@ for item in total:
         if 'tut.by' in item['link']:
             if 'm.tut.by' in item['link']:
                 continue
+            if 'tut.by/pda/' in item['link']:
+                continue
             p = requests.get(item['link'])
             soup = BeautifulSoup(p.text, "html.parser")
             title = soup.select_one('div.b-article div.m_header h1[itemprop="headline"]')
