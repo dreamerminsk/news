@@ -24,14 +24,14 @@ async def news(request):
     client = MongoClient()
     news = client.news
     articles = news.articles
-    arts = feeds.find({}).sort([("published", -1)]).limit(64)
+    arts = articles.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
 
 async def feeds(request):
     client = MongoClient()
     news = client.news
     feeds = news.feeds
-    arts = articles.find({})
+    arts = feeds.find({})
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
 app = Starlette(debug=True, routes=[
