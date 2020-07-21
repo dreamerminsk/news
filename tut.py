@@ -20,8 +20,8 @@ for feed in feeds.find():
         r = requests.get(feed['link'])
         root = etree.fromstring(r.text)
         for channel in root.findall('channel'):
-            feeds.update_one({'link': feed['link']}, {'$set': {'title': channel.find('title').text}}, upsert=False)
-            feeds.update_one({'link': feed['link']}, {'$set': {'description': channel.find('description').text}}, upsert=False)
+            feeds.update_one({'_id': feed['_id']}, {'$set': {'title': channel.find('title').text}}, upsert=False)
+            feeds.update_one({'_id': feed['_id']}, {'$set': {'description': channel.find('description').text}}, upsert=False)
             for item in channel.findall('item'):
                 i += 1
                 title = item.find('title').text
