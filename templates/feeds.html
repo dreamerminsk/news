@@ -1,0 +1,18 @@
+{% extends "app.html" %}
+{% block content %}
+  {% for feed in feeds %}
+    <div class='card carf-dark border-dark'>
+      <div class='card-header'>
+        {{ feed['last_access'] }}
+      </div>
+      <div class='card-body'>
+        <div class='card-text'>
+          {{ feed['title'] }}
+        </div>
+        <div class='btn-group' role='group'>
+          <a class='btn btn-outline-secondary active' href='{{ feed['link'] }}'>Читать</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
