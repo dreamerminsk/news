@@ -27,7 +27,15 @@ async def news(request):
     arts = articles.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
 
+async def channels(request):
+    client = MongoClient()
+    news = client.news
+    feeds = news.feeds
+    arts = articles.find({})
+    return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
+
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
     Route('/news', news),
+    Route('/channels', channels),
 ])
