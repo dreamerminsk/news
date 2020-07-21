@@ -21,7 +21,9 @@ for feed in feeds.find():
         root = etree.fromstring(r.text)
         for channel in root.findall('channel'):
             feeds.update_one({'_id': feed['_id']}, {'$set': {'title': channel.find('title').text}}, upsert=False)
+            print(channel.find('title').text)
             feeds.update_one({'_id': feed['_id']}, {'$set': {'description': channel.find('description').text}}, upsert=False)
+            print(channel.find('description').text)
             for item in channel.findall('item'):
                 i += 1
                 title = item.find('title').text
