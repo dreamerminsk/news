@@ -3,11 +3,16 @@
   {% for feed in feeds %}
     <div class='card carf-dark border-dark'>
       <div class='card-header'>
-        {{ feed['last_access'] }}
+        {{ feed['title'] }}
       </div>
       <div class='card-body'>
         <div class='card-text'>
-          {{ feed['title'] }}
+          {{ feed['description'] }}
+        </div>
+        <div class='card-text'>
+          <small>
+            {{ feed['last_access'] }}
+          </small>
         </div>
         <div class='btn-group' role='group'>
           <a class='btn btn-outline-secondary active' href='{{ feed['link'] }}'>Читать</a>
