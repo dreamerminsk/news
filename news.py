@@ -24,7 +24,7 @@ async def news(request):
     client = MongoClient()
     news = client.news
     articles = news.articles
-    arts = articles.find({}).sort([("published", -1)]).limit(64)
+    arts = feeds.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
 
 async def feeds(request):
