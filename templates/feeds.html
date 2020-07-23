@@ -14,6 +14,11 @@
             {{ feed['last_access'] }} -  {{ feed['ttl'] }}
           </small>
         </div>
+        <div class='card-text'>
+          <small>
+            {{ feed['next_access'] }}
+          </small>
+        </div>
         <div class='btn-group' role='group'>
           <a class='btn btn-outline-secondary active' href='{{ feed['link'] }}'>Читать</a>
         </div>
