@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 
 templates = Jinja2Templates(directory='templates')
 
+
 async def homepage(request):
     client = MongoClient()
     news = client.news
@@ -22,12 +23,14 @@ async def homepage(request):
         text += '\r\n'
     return PlainTextResponse(text)
 
+
 async def news(request):
     client = MongoClient()
     news = client.news
     articles = news.articles
     arts = articles.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
+
 
 async def feeds(request):
     client = MongoClient()
