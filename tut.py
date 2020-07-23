@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import requests
 import xml.etree.ElementTree as etree
 from pymongo import MongoClient
@@ -43,12 +43,14 @@ for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
         feeds.update_one({'_id': feed['_id']}, {
                          '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
         feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'next_access': datetime.now()}}, upsert=False)
+                         '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
+}}, upsert=False)
     else:
         feeds.update_one({'_id': feed['_id']}, {
                          '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
         feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'next_access': datetime.now()}}, upsert=False)
+                         '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
+}}, upsert=False)}}, upsert=False)
 
 n = 0
 total = articles.find()
