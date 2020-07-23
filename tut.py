@@ -50,7 +50,7 @@ for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
                          '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
         feeds.update_one({'_id': feed['_id']}, {
                          '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
-}}, upsert=False)}}, upsert=False)
+}}, upsert=False)
 
 n = 0
 total = articles.find()
