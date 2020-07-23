@@ -12,45 +12,43 @@ news = client.news
 articles = news.articles
 feeds = news.feeds
 
-for feed in feeds.find():
+for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
     print(feed)
-    diff = datetime.now() - feed['last_access']
-    if diff.seconds > 900:
-        i = 0
-        r = requests.get(feed['link'])
-        root = etree.fromstring(r.text)
-        for channel in root.findall('channel'):
-            feeds.update_one({'_id': feed['_id']}, {
-                             '$set': {'title': channel.find('title').text}}, upsert=False)
-            print(channel.find('title').text)
-            feeds.update_one({'_id': feed['_id']}, {
-                             '$set': {'description': channel.find('description').text}}, upsert=False)
-            print(channel.find('description').text)
-            for item in channel.findall('item'):
-                title = item.find('title').text
-                link = item.find('link').text
-                if '?' in link:
-                    link = link[:link.find('?')]
-                pub = item.find('pubDate').text
-                if not articles.find_one({"link": link}):
-                    i += 1
-                    articles.insert_one({"link": link, "title": title})
-                    print(i)
-                    print(title)
-                    print(link)
-                    print(pub)
+    i = 0
+    r = requests.get(feed['link'])
+    root = etree.fromstring(r.text)
+    for channel in root.findall('channel'):
         feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'last_access': datetime.now()}}, upsert=False)
-        if i > 0:
-            feeds.update_one({'_id': feed['_id']}, {
-                             '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
-            feeds.update_one({'_id': feed['_id']}, {
-                             '$set': {'next_access': datetime.now()}}, upsert=False)
-        else:
-            feeds.update_one({'_id': feed['_id']}, {
-                             '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
-            feeds.update_one({'_id': feed['_id']}, {
-                             '$set': {'next_access': datetime.now()}}, upsert=False)
+                         '$set': {'title': channel.find('title').text}}, upsert=False)
+        print(channel.find('title').text)
+        feeds.update_one({'_id': feed['_id']}, {
+                         '$set': {'description': channel.find('description').text}}, upsert=False)
+        print(channel.find('description').text)
+        for item in channel.findall('item'):
+            title = item.find('title').text
+            link = item.find('link').text
+            if '?' in link:
+                link = link[:link.find('?')]
+            pub = item.find('pubDate').text
+            if not articles.find_one({"link": link}):
+                i += 1
+                articles.insert_one({"link": link, "title": title})
+                print(i)
+                print(title)
+                print(link)
+                print(pub)
+    feeds.update_one({'_id': feed['_id']}, {
+                     '$set': {'last_access': datetime.now()}}, upsert=False)
+    if i > 0:
+        feeds.update_one({'_id': feed['_id']}, {
+                         '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
+        feeds.update_one({'_id': feed['_id']}, {
+                         '$set': {'next_access': datetime.now()}}, upsert=False)
+    else:
+        feeds.update_one({'_id': feed['_id']}, {
+                         '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
+        feeds.update_one({'_id': feed['_id']}, {
+                         '$set': {'next_access': datetime.now()}}, upsert=False)
 
 n = 0
 total = articles.find()
