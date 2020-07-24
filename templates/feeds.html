@@ -4,8 +4,19 @@
   async function updateFeeds() {
     let response = await fetch('/feeds/update');
     let commits = await response.json();
-    console.log(commits);
-    alert(commits);
+    document.querySelectorAll(div.card).forEach(div => {
+      if (match.classList.contains('card-success')) {
+        match.classList.remove('card-success');
+        match.classList.add('card-dark');
+      }
+    });
+    commits.ids.forEach(id => {
+      var match = document.getElementById(id);
+      match.classList.add('card-success');
+      if (match.classList.contains('card-dark')) {
+          match.classList.remove('card-dark');
+      }
+    });
   }
   let timerId = setInterval(updateFeeds, 60000);
 </script>
