@@ -19,17 +19,11 @@
       let res = await fetch(`/feeds/${id}`);
       let feed = await res.json();
       let la = document.getElementById(`la${id}`);
-      if (la) {
-        la.textContent = feed['last_access'];
-      }
+      la.textContent = feed['last_access'];
       let na = document.getElementById(`na${id}`);
-      if (na) {
-        na.textContent = feed['next_access'];
-      }
+      na.textContent = feed['next_access'];
       let ttl = document.getElementById(`ttl${id}`);
-      if (ttl) {
-        ttl.textContent = feed['last_access'];
-      }
+      ttl.textContent = feed['last_access'];
     });
   }
   let timerId = setInterval(updateFeeds, 60000);
