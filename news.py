@@ -38,51 +38,52 @@ async def feeds(request):
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
 async def update_feeds(request):
-    task = BackgroundTask(uf)
-    message = {'status': 'Signup successful'}
-    return JSONResponse(message, background=task)
-
-async def uf():
-    arts = feeds.find({})
+    tasks = BackgroundTasks()
+    ids = []
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
-        print(feed)
-        i = 0
-        r = requests.get(feed['link'])
-        root = etree.fromstring(r.text)
-        for channel in root.findall('channel'):
-            feeds.update_one({'_id': feed['_id']}, {
-                '$set': {'title': channel.find('title').text}}, upsert=False)
-        print(channel.find('title').text)
+        ids.append(feed['_id'])
+        tasks.add_task(update_feed, feed)
+    message = {'status': 'Successful', 'ids': ids}
+    return JSONResponse(message, background=tasks)
+
+async def update_feed(feed):
+    print(feed)
+    i = 0
+    r = requests.get(feed['link'])
+    root = etree.fromstring(r.text)
+    for channel in root.findall('channel'):
         feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'description': channel.find('description').text}}, upsert=False)
-        print(channel.find('description').text)
-        for item in channel.findall('item'):
-            title = item.find('title').text
-            link = item.find('link').text
-            if '?' in link:
-                link = link[:link.find('?')]
-            pub = item.find('pubDate').text
-            if not articles.find_one({"link": link}):
-                i += 1
-                articles.insert_one({"link": link, "title": title})
-                print(i)
-                print(title)
-                print(link)
-                print(pub)
+            '$set': {'title': channel.find('title').text}}, upsert=False)
+    print(channel.find('title').text)
+    feeds.update_one({'_id': feed['_id']}, {
+                     '$set': {'description': channel.find('description').text}}, upsert=False)
+    print(channel.find('description').text)
+    for item in channel.findall('item'):
+        title = item.find('title').text
+        link = item.find('link').text
+        if '?' in link:
+            link = link[:link.find('?')]
+        pub = item.find('pubDate').text
+        if not articles.find_one({"link": link}):
+            i += 1
+            articles.insert_one({"link": link, "title": title})
+            print('{}. {}'.format(i, title))
+            print(link)
+            print(pub)
+    feeds.update_one({'_id': feed['_id']}, {
+                     '$set': {'last_access': datetime.now()}}, upsert=False)
+    if i > 0:
         feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'last_access': datetime.now()}}, upsert=False)
-        if i > 0:
-            feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
-            feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
-                                 }}, upsert=False)
-        else:
-            feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
-            feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
-                                 }}, upsert=False)
+                     '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
+        feeds.update_one({'_id': feed['_id']}, {
+                     '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
+                             }}, upsert=False)
+    else:
+        feeds.update_one({'_id': feed['_id']}, {
+                     '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
+        feeds.update_one({'_id': feed['_id']}, {
+                     '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
+                             }}, upsert=False)
 
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
