@@ -20,15 +20,15 @@
       let feed = await res.json();
       let la = document.getElementById(`la${id}`);
       if (la) {
-        la.InnerText = feed['last_access']
+        la.InnerText = feed['last_access'];
       }
       let na = document.getElementById(`na${id}`);
       if (na) {
-        na.InnerText = feed['next_access']
+        na.InnerText = feed['next_access'];
       }
       let ttl = document.getElementById(`ttl${id}`);
       if (ttl) {
-        ttl.InnerText = feed['last_access']
+        ttl.InnerText = feed['last_access'];
       }
     });
   }
