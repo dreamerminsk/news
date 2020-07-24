@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 import requests
 import xml.etree.ElementTree as etree
 from bs4 import BeautifulSoup
+from bson.objectid import ObjectId
 
 templates = Jinja2Templates(directory='templates')
 
@@ -41,7 +42,7 @@ async def show_feeds(request):
 class FeedEndpoint(HTTPEndpoint):
     async def get(self, request):
         feed_id = request.path_params['feed_id']
-        feed = feeds.find_one({"_id": feed_id})
+        feed = feeds.find_one({"_id": ObjectId(feed_id)})
         feed['_id'] = str(feed['_id'])
         feed['last_access'] = str(feed['last_access'])
         feed['next_access'] = str(feed['next_access'])
