@@ -1,4 +1,13 @@
 {% extends "app.html" %}
+<script>
+  function updateFeeds() {
+    alert('Привет');
+    let response = await fetch('/feeds/update');
+    let commits = await response.json();
+    alert(commits);
+  }
+  setTimeout(sayHi, 60000);
+</script>
 {% block content %}
   {% for feed in feeds %}
     <div class='card carf-dark border-dark'>
