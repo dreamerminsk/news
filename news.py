@@ -41,7 +41,7 @@ async def update_feeds(request):
     tasks = BackgroundTasks()
     ids = []
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
-        ids.append(feed['_id'])
+        ids.append(str(feed['_id']))
         tasks.add_task(update_feed, feed)
     message = {'status': 'Successful', 'ids': ids}
     return JSONResponse(message, background=tasks)
