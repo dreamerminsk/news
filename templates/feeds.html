@@ -5,16 +5,16 @@
     let response = await fetch('/feeds/update');
     let commits = await response.json();
     document.querySelectorAll('div.card').forEach(div => {
-      if (div.classList.contains('card-success')) {
-        div.classList.remove('card-success');
-        div.classList.add('card-dark');
+      if (div.classList.contains('border-success')) {
+        div.classList.remove('border-success');
+        div.classList.add('border-dark');
       }
     });
     commits.ids.forEach(id => {
       var match = document.getElementById(id);
-      match.classList.add('card-success');
-      if (match.classList.contains('card-dark')) {
-          match.classList.remove('card-dark');
+      match.classList.add('border-success');
+      if (match.classList.contains('border-dark')) {
+          match.classList.remove('border-dark');
       }
     });
   }
