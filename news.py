@@ -7,6 +7,9 @@ from starlette.templating import Jinja2Templates
 from starlette.staticfiles import StaticFiles
 from pymongo import MongoClient
 from datetime import datetime, timedelta
+import requests
+import xml.etree.ElementTree as etree
+from bs4 import BeautifulSoup
 
 templates = Jinja2Templates(directory='templates')
 
