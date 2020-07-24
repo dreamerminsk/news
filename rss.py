@@ -42,6 +42,6 @@ for link in links:
         #feeds.update_one({'link': link.get('href')}, {
                          #'$set': {'ttl': 1000}}, upsert=True)
 
-for feed in feeds.find():
+#for feed in feeds.find():
     #print(feed)
 print(feeds.count_documents({}))
