@@ -39,7 +39,12 @@ async def feeds(request):
     arts = feeds.find({})
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
-async def fu(request):
+async def update_feeds(request):
+    task = BackgroundTask(uf)
+    message = {'status': 'Signup successful'}
+    return JSONResponse(message, background=task)
+
+async def uf():
     client = MongoClient()
     news = client.news
     feeds = news.feeds
@@ -83,11 +88,10 @@ async def fu(request):
             feeds.update_one({'_id': feed['_id']}, {
                          '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
                                  }}, upsert=False)
-    return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
     Route('/news', news),
     Route('/feeds', feeds),
-    Route('/fu', feed_update),
+    Route('/feeds/update', update_feeds),
 ])
