@@ -10,8 +10,6 @@ client = MongoClient()
 news = client.news
 feeds = news.feeds
 
-feeds.remove({})
-
 r = requests.get('https://news.tut.by/rss.html')
 soup = BeautifulSoup(r.text, "html.parser")
 links = soup.select('li.lists__li a')
