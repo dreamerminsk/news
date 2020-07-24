@@ -51,6 +51,7 @@ async def uf():
     client = MongoClient()
     news = client.news
     feeds = news.feeds
+    articles = news.articles
     arts = feeds.find({})
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
         print(feed)
