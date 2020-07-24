@@ -18,11 +18,11 @@
     commits.ids.forEach(async id => {
       let res = await fetch(`/feeds/${id}`);
       let feed = await res.json();
-      let la = document.getElementById(`la${id}`);
+      let la = document.getElementById(`la-${id}`);
       la.textContent = feed['last_access'];
-      let na = document.getElementById(`na${id}`);
+      let na = document.getElementById(`na-${id}`);
       na.textContent = feed['next_access'];
-      let ttl = document.getElementById(`ttl${id}`);
+      let ttl = document.getElementById(`ttl-${id}`);
       ttl.textContent = feed['last_access'];
     });
   }
