@@ -4,12 +4,13 @@
   async function updateFeeds() {
     let response = await fetch('/feeds/update');
     let commits = await response.json();
+    console.log(commits);
     alert(commits);
   }
   let timerId = setInterval(updateFeeds, 60000);
 </script>
   {% for feed in feeds %}
-    <div class='card carf-dark border-dark'>
+    <div id='{{ feed['_id'] }}' class='card card-dark border-dark'>
       <div class='card-header'>
         {{ feed['title'] }}
       </div>
