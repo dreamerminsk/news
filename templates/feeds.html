@@ -23,7 +23,7 @@
       let na = document.getElementById(`na-${id}`);
       na.textContent = feed['next_access'];
       let ttl = document.getElementById(`ttl-${id}`);
-      ttl.textContent = feed['last_access'];
+      ttl.textContent = feed['ttl'];
     });
   }
   let timerId = setInterval(updateFeeds, 60000);
