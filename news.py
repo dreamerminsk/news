@@ -13,11 +13,12 @@ from bs4 import BeautifulSoup
 
 templates = Jinja2Templates(directory='templates')
 
+client = MongoClient()
+news = client.news
+feeds = news.feeds
+articles = news.articles
 
 async def homepage(request):
-    client = MongoClient()
-    news = client.news
-    articles = news.articles
     arts = articles.find({}).sort([("published", -1)]).limit(64)
     text = ''
     for art in arts:
@@ -28,17 +29,11 @@ async def homepage(request):
 
 
 async def news(request):
-    client = MongoClient()
-    news = client.news
-    articles = news.articles
     arts = articles.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
 
 
 async def feeds(request):
-    client = MongoClient()
-    news = client.news
-    feeds = news.feeds
     arts = feeds.find({})
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
@@ -48,10 +43,6 @@ async def update_feeds(request):
     return JSONResponse(message, background=task)
 
 async def uf():
-    client = MongoClient()
-    news = client.news
-    feeds = news.feeds
-    articles = news.articles
     arts = feeds.find({})
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
         print(feed)
