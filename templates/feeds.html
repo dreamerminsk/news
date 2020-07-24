@@ -5,17 +5,15 @@
     let response = await fetch('/feeds/update');
     let commits = await response.json();
     document.querySelectorAll('div.card').forEach(div => {
-      if (div.classList.contains('border-success')) {
-        div.classList.remove('border-success');
-        div.classList.add('border-dark');
+      if (div.classList.contains('bg-success')) {
+        div.classList.remove('bg-success');
+        div.classList.remove('text-white');
       }
     });
     commits.ids.forEach(id => {
       var match = document.getElementById(id);
-      match.classList.add('border-success');
-      if (match.classList.contains('border-dark')) {
-          match.classList.remove('border-dark');
-      }
+      match.classList.add('bg-success');
+      match.classList.add('text-white');
     });
   }
   let timerId = setInterval(updateFeeds, 60000);
