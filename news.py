@@ -98,6 +98,6 @@ app = Starlette(debug=True, routes=[
     Route('/', homepage),
     Route('/news', news),
     Route('/feeds', show_feeds),
-    Route("/{feed_id}", FeedEndpoint),
+    Route('/feeds/{feed_id}', FeedEndpoint),
     Route('/feeds/update', update_feeds),
 ])
