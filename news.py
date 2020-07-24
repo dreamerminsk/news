@@ -33,7 +33,7 @@ async def news(request):
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
 
 
-async def feeds(request):
+async def show_feeds(request):
     arts = feeds.find({})
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
@@ -88,6 +88,6 @@ async def update_feed(feed):
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
     Route('/news', news),
-    Route('/feeds', feeds),
+    Route('/feeds', show_feeds),
     Route('/feeds/update', update_feeds),
 ])
