@@ -16,11 +16,20 @@
       match.classList.add('text-white');
     });
     commits.ids.forEach(id => {
-      let res = await fetch('/feeds/');
+      let res = await fetch(`/feeds/${id}`);
       let feed = await res.json();
-      var match = document.getElementById(id);
-      match.classList.add('bg-success');
-      match.classList.add('text-white');
+      let la = document.getElementById(`la${id}`);
+      if (la) {
+        la.InnerText = feed['last_access']
+      }
+      let na = document.getElementById(`na${id}`);
+      if (na) {
+        na.InnerText = feed['next_access']
+      }
+      let ttl = document.getElementById(`ttl${id}`);
+      if (ttl) {
+        ttl.InnerText = feed['last_access']
+      }
     });
   }
   let timerId = setInterval(updateFeeds, 60000);
