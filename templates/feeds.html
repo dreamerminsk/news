@@ -4,7 +4,7 @@
   async function updateFeeds() {
     let response = await fetch('/feeds/update');
     let commits = await response.json();
-    document.querySelectorAll(div.card).forEach(div => {
+    document.querySelectorAll('div.card').forEach(div => {
       if (match.classList.contains('card-success')) {
         match.classList.remove('card-success');
         match.classList.add('card-dark');
