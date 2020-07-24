@@ -28,7 +28,7 @@ for link in links:
         
 r = requests.get('https://www.onliner.by')
 soup = BeautifulSoup(r.text, "html.parser")
-links = soup.select('a')
+links = soup.select('a[href]')
 for link in links:
     if link.get('href').endswith('feed'):
         print(link.text)
