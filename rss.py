@@ -43,5 +43,5 @@ for link in links:
                          #'$set': {'ttl': 1000}}, upsert=True)
 
 for feed in feeds.find():
-    print(feed)
+    #print(feed)
 print(feeds.count_documents({}))
