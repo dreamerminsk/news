@@ -39,8 +39,16 @@ async def feeds(request):
     arts = feeds.find({})
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
+async def fu(request):
+    client = MongoClient()
+    news = client.news
+    feeds = news.feeds
+    arts = feeds.find({})
+    return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
+
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
     Route('/news', news),
     Route('/feeds', feeds),
+    Route('/fu', feed_update),
 ])
