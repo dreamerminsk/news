@@ -43,6 +43,7 @@
         <div class='card-text'>
           {{ feed['description'] }}
         </div>
+        <div class="alert alert-danger" role="alert">
         <div class='card-text'>
           <small>
             last_access: <span id='la-{{ feed['_id'] }}'>{{ feed['last_access'] }}</span>
@@ -57,6 +58,7 @@
           <small>
             ttl: <span id='ttl-{{ feed['_id'] }}'>{{ feed['ttl'] }}</span>
           </small>
+        </div>
         </div>
         <div class='btn-group' role='group'>
           <a class='btn btn-outline-secondary active' href='{{ feed['link'] }}'>Читать</a>
