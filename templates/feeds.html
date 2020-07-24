@@ -1,7 +1,7 @@
 {% extends "app.html" %}
 {% block content %}
   <script>
-  function updateFeeds() {
+  async function updateFeeds() {
     alert('Привет');
     let response = await fetch('/feeds/update');
     let commits = await response.json();
