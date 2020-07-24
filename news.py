@@ -36,7 +36,7 @@ async def news(request):
 
 
 async def show_feeds(request):
-    arts = feeds.find({})
+    arts = feeds.find({}).sort({"ttl": 1})
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
 class FeedEndpoint(HTTPEndpoint):
