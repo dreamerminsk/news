@@ -23,6 +23,10 @@ for link in links:
                          '$set': {'title': link.text}}, upsert=True)
         feeds.update_one({'link': link.get('href')}, {
                          '$set': {'last_access': datetime.now()}}, upsert=True)
+        feeds.update_one({'link': link.get('href')}, {
+                         '$set': {'next_access': datetime.now()}}, upsert=True)
+        feeds.update_one({'link': link.get('href')}, {
+                         '$set': {'ttl': 1000}}, upsert=True)
 
 for feed in feeds.find():
     print(feed)
