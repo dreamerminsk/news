@@ -37,6 +37,15 @@ async def show_feeds(request):
     arts = feeds.find({})
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
+class FeedEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        feed_id = request.path_params['feed_id']
+        feed = feeds.find_one({"_id": feed_id})
+        feed['_id'] = str(feed['_id'])
+        feed['last_access'] = str(feed['last_access'])
+        feed['next_access'] = str(feed['next_access'])
+        return JSONResponse(feed)
+
 async def update_feeds(request):
     tasks = BackgroundTasks()
     ids = []
@@ -89,5 +98,6 @@ app = Starlette(debug=True, routes=[
     Route('/', homepage),
     Route('/news', news),
     Route('/feeds', show_feeds),
+    Route("/{feed_id}", FeedEndpoint),
     Route('/feeds/update', update_feeds),
 ])
