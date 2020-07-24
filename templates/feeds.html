@@ -1,5 +1,6 @@
 {% extends "app.html" %}
-<script>
+{% block content %}
+  <script>
   function updateFeeds() {
     alert('Привет');
     let response = await fetch('/feeds/update');
@@ -8,7 +9,6 @@
   }
   setTimeout(sayHi, 60000);
 </script>
-{% block content %}
   {% for feed in feeds %}
     <div class='card carf-dark border-dark'>
       <div class='card-header'>
