@@ -15,7 +15,7 @@
       match.classList.add('bg-success');
       match.classList.add('text-white');
     });
-    commits.ids.forEach(id => {
+    commits.ids.forEach(async id => {
       let res = await fetch(`/feeds/${id}`);
       let feed = await res.json();
       let la = document.getElementById(`la${id}`);
