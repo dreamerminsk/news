@@ -35,7 +35,7 @@
   }
 </script>
   {% for feed in feeds %}
-    <div id='{{ feed['_id'] }}' class='card card-dark border-dark'>
+    <div id='{{ feed['_id'] }}' class='card card-dark border-dark m-3'>
       <div class='card-header'>
         {{ feed['title'] }}
       </div>
@@ -43,6 +43,8 @@
         <div class='card-text'>
           {{ feed['description'] }}
         </div>
+      </div>
+      <div class='card-body'>
         <div class="alert alert-info" role="alert">
         <div class='card-text'>
           <small>
@@ -60,6 +62,8 @@
           </small>
         </div>
         </div>
+      </div>
+      <div class='card-body'>
         <div class='btn-group' role='group'>
           <a class='btn btn-outline-secondary active' href='{{ feed['link'] }}'>Читать</a>
         </div>
