@@ -2,12 +2,11 @@
 {% block content %}
   <script>
   async function updateFeeds() {
-    alert('Привет');
     let response = await fetch('/feeds/update');
     let commits = await response.json();
     alert(commits);
   }
-  setTimeout(updateFeeds, 60000);
+  let timerId = setInterval(updateFeeds, 60000);
 </script>
   {% for feed in feeds %}
     <div class='card carf-dark border-dark'>
