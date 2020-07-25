@@ -27,8 +27,8 @@ async def news(request):
 
 async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
-    for art in arts:
-        art['ttlf'] = str(art['ttl'])
+    #for art in arts:
+        #art['ttlf'] = str(art['ttl'])
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': arts})
 
 class FeedEndpoint(HTTPEndpoint):
