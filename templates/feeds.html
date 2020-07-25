@@ -1,5 +1,9 @@
 {% extends "app.html" %}
 {% block content %}
+  <ul class="list-group">
+  <li class="list-group-item">Cras justo odio</li>
+  <li class="list-group-item">Dapibus ac facilisis in</li>
+</ul>
   {% for feed in feeds %}
     <div id='{{ feed['_id'] }}' class='card card-dark border-dark m-2'>
       <div class='card-header'>
