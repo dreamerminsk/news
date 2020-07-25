@@ -10,6 +10,7 @@
     document.querySelectorAll('.table').forEach(div => {
       if (div.classList.contains('table-success')) {
         div.classList.remove('table-success');
+        div.classList.remove('text-white');
       }
     });
     commits.ids.forEach(id => {
@@ -18,6 +19,7 @@
       match.classList.add('text-white');
       let t = document.querySelector(`#${id} .table`);
       t.classList.add('table-success');
+      t.classList.add('text-white');
     });
     commits.ids.forEach(async id => {
       let res = await fetch(`/feeds/${id}`);
