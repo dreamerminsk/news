@@ -32,7 +32,7 @@
       ttl.textContent = feed['ttlf'];
     });
   }
-  let timerId = setInterval(updateFeeds, 60000);
+  let timerId = setInterval(updateFeeds, 600000);
     
   function toString(sec) {
     let measuredTime = new Date(null);
