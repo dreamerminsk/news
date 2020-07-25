@@ -97,7 +97,7 @@ async def update_feed(feed):
                              }}, upsert=False)
 
 app = Starlette(debug=True, routes=[
-    Route('/', homepage),
+    Route('/', news),
     Route('/news', news),
     Route('/feeds', show_feeds),
     Route('/feeds/update', update_feeds),
