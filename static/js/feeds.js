@@ -17,7 +17,7 @@
       let match = document.getElementById(id);
       match.classList.add('bg-success');
       match.classList.add('text-white');
-      let t = document.querySelector(`div#${id} table.table`);
+      let t = match.querySelector(`.table`);
       t.classList.add('table-success');
       t.classList.add('text-white');
     });
