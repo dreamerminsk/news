@@ -8,8 +8,7 @@
       }
     });
     document.querySelectorAll('.table').forEach(div => {
-      if (div.classList.contains('table-success')) {
-        div.classList.remove('table-success');
+      if (div.classList.contains('text-white')) {
         div.classList.remove('text-white');
       }
     });
@@ -18,7 +17,6 @@
       match.classList.add('bg-success');
       match.classList.add('text-white');
       let t = match.querySelector(`.table`);
-      t.classList.add('table-success');
       t.classList.add('text-white');
     });
     commits.ids.forEach(async id => {
