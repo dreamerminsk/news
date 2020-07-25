@@ -20,16 +20,6 @@ news = client.news
 feeds = news.feeds
 articles = news.articles
 
-async def homepage(request):
-    arts = articles.find({}).sort([("published", -1)]).limit(64)
-    text = ''
-    for art in arts:
-        text += art['title'] + '\r\n'
-        text += str(art['published']) + '\r\n'
-        text += '\r\n'
-    return PlainTextResponse(text)
-
-
 async def news(request):
     arts = articles.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
