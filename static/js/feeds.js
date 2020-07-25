@@ -1,4 +1,6 @@
   async function updateFeeds() {
+    stats.last = new Date();
+    document.getElementById("last").textContent = stats.last;
     let response = await fetch('/feeds/update');
     let commits = await response.json();
     document.querySelectorAll('div.card').forEach(div => {
@@ -10,7 +12,7 @@
     document.querySelectorAll('.table').forEach(div => {
       if (div.classList.contains('text-white')) {
         div.classList.remove('text-white');
-      }
+      };
     });
     commits.ids.forEach(id => {
       let match = document.getElementById(id);
