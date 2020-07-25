@@ -20,7 +20,7 @@
       let na = document.getElementById(`na-${id}`);
       na.textContent = feed['next_access'];
       let ttl = document.getElementById(`ttl-${id}`);
-      ttl.textContent = toString(feed['ttl']);
+      ttl.textContent = feed['ttlf'];
     });
   }
   let timerId = setInterval(updateFeeds, 60000);
