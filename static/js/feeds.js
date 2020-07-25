@@ -30,6 +30,9 @@
       ttl.textContent = feed['ttlf'];
     });
   }
+
+  let stats = { "last": null, }
+
   let timerId = setInterval(updateFeeds, 600000);
     
   function toString(sec) {
