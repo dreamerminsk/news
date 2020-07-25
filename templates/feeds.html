@@ -1,7 +1,7 @@
 {% extends "app.html" %}
 {% block content %}
   <ul class="list-group">
-  <li class="list-group-item">Cras justo odio</li>
+  <li id="last" class="list-group-item"></li>
   <li class="list-group-item">Dapibus ac facilisis in</li>
 </ul>
   {% for feed in feeds %}
@@ -17,13 +17,13 @@
       <div class='card-footer'>
           <table class="table table-sm small p-0 m-0">
           <tr>
-            <td>last_access: </td><td id='la-{{ feed['_id'] }}'>{{ feed['last_access'] }}</td>
+            <td>last_access</td><td id='la-{{ feed['_id'] }}'>{{ feed['last_access'] }}</td>
           </tr>
           <tr>
-            <td>next_access: </td><td id='na-{{ feed['_id'] }}'>{{ feed['next_access'] }}</td>
+            <td>next_access</td><td id='na-{{ feed['_id'] }}'>{{ feed['next_access'] }}</td>
           </tr>
           <tr>
-            <td>ttl: </td><td id='ttl-{{ feed['_id'] }}'>{{ feed['ttlf'] }}</td>
+            <td>ttl</td><td id='ttl-{{ feed['_id'] }}'>{{ feed['ttlf'] }}</td>
           </tr>
           </table>
       </div>
