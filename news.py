@@ -29,7 +29,7 @@ async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
     fds = []
     for art in arts:
-        art['ttlf'] = str(art['ttl'])
+        art['ttlf'] = str(timedelta(seconds=art['ttl']))
         fds.append(art)
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': fds})
 
@@ -40,7 +40,7 @@ class FeedEndpoint(HTTPEndpoint):
         feed['_id'] = str(feed['_id'])
         feed['last_access'] = str(feed['last_access'])
         feed['next_access'] = str(feed['next_access'])
-        feed['ttlf'] = str(feed['ttl'])
+        feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
         return JSONResponse(feed)
 
 async def update_feeds(request):
