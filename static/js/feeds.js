@@ -7,10 +7,17 @@
         div.classList.remove('text-white');
       }
     });
+    document.querySelectorAll('.table').forEach(div => {
+      if (div.classList.contains('table-success')) {
+        div.classList.remove('table-success');
+      }
+    });
     commits.ids.forEach(id => {
-      var match = document.getElementById(id);
+      let match = document.getElementById(id);
       match.classList.add('bg-success');
       match.classList.add('text-white');
+      let t = document.querySelector(`#${id} .table`);
+      t.classList.add('table-success');
     });
     commits.ids.forEach(async id => {
       let res = await fetch(`/feeds/${id}`);
