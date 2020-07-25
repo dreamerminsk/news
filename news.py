@@ -102,4 +102,5 @@ app = Starlette(debug=True, routes=[
     Route('/feeds', show_feeds),
     Route('/feeds/update', update_feeds),
     Route('/feeds/{feed_id}', FeedEndpoint),
+    Mount('/static', StaticFiles(directory='static'), name='static')
 ])
