@@ -1,11 +1,14 @@
   async function updateFeeds() {
     stats.id = stats.id + 1;
+    document.getElementById("task-id").textContent = stats.last.toISOString();
     stats.last = new Date();
-    document.getElementById("last").textContent = stats.last.toISOString();
+    document.getElementById("task-start").textContent = stats.last.toISOString();
     let response = await fetch('/feeds/update');
     let commits = await response.json();
     stats.last_rss = commits.ids.length; 
+    document.getElementById("task-rss").textContent = stats.last_rss;
     stats.total_rss = stats.total_rss + commits.ids.length;
+    document.getElementById("task-rss-total").textContent = stats.total_rss;
     document.querySelectorAll('div.card').forEach(div => {
       if (div.classList.contains('bg-success')) {
         div.classList.remove('bg-success');
