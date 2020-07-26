@@ -2,7 +2,7 @@ import requests
 from pymongo import MongoClient
 import pprint
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timedelta
 
 print = pprint.pprint
 
@@ -24,7 +24,7 @@ for link in links:
         feeds.update_one({'link': link.get('href')}, {
                          '$set': {'next_access': datetime.now()}}, upsert=True)
         feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'ttl': 1000}}, upsert=True)
+                         '$set': {'ttl': 100}}, upsert=True)
         
 
 r = requests.get('https://www.onliner.by')
@@ -41,16 +41,18 @@ for link in links:
         feeds.update_one({'link': link.get('href')}, {
                          '$set': {'next_access': datetime.now()}}, upsert=True)
         feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'ttl': 1000}}, upsert=True)
+                         '$set': {'ttl': 100}}, upsert=True)
 
 
-r = requests.get('https://www.championat.com')
-soup = BeautifulSoup(r.text, "html.parser")
-links = soup.select('a[href]')
-for link in links:
-    if 'rss' in link.get('href'):
-        print(link.text)
-        print(link.get('href'))
+feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+                         '$set': {'title': 'ch'}}, upsert=True)
+        feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+                         '$set': {'last_access': datetime.now()}}, upsert=True)
+        feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+                         '$set': {'next_access': datetime.now() - timedelta(seconds=1000)}}, upsert=True)
+        feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+                         '$set': {'ttl': 100}}, upsert=True)
+        
 #https://www.championat.com/rss/article/
 #for feed in feeds.find():
     #print(feed)
