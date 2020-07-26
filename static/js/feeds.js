@@ -1,6 +1,6 @@
   async function updateFeeds() {
     stats.last = new Date();
-    document.getElementById("last").textContent = stats.last;
+    document.getElementById("last").textContent = stats.last.toISOString();
     let response = await fetch('/feeds/update');
     let commits = await response.json();
     document.querySelectorAll('div.card').forEach(div => {
