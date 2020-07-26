@@ -46,11 +46,11 @@ for link in links:
 
 feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
                          '$set': {'title': 'ch'}}, upsert=True)
-        feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
                          '$set': {'last_access': datetime.now()}}, upsert=True)
-        feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
                          '$set': {'next_access': datetime.now() - timedelta(seconds=1000)}}, upsert=True)
-        feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
                          '$set': {'ttl': 100}}, upsert=True)
         
 #https://www.championat.com/rss/article/
