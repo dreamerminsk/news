@@ -1,6 +1,6 @@
   async function updateFeeds() {
     stats.id = stats.id + 1;
-    document.getElementById("task-id").textContent = stats.last.toISOString();
+    document.getElementById("task-id").textContent = stats.id;
     stats.last = new Date();
     document.getElementById("task-start").textContent = stats.last.toISOString();
     let response = await fetch('/feeds/update');
