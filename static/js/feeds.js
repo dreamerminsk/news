@@ -1,8 +1,11 @@
   async function updateFeeds() {
+    stats.id = stats.id + 1;
     stats.last = new Date();
     document.getElementById("last").textContent = stats.last.toISOString();
     let response = await fetch('/feeds/update');
     let commits = await response.json();
+    stats.last_rss = commits.ids.length; 
+    stats.total_rss = stats.total_rss + commits.ids.length;
     document.querySelectorAll('div.card').forEach(div => {
       if (div.classList.contains('bg-success')) {
         div.classList.remove('bg-success');
@@ -33,7 +36,7 @@
     });
   }
 
-  let stats = { "last": null, }
+  let stats = { "id": 0, "last": null, "last_rss": 0, "total_rss": 0, }
 
   let timerId = setInterval(updateFeeds, 60000);
     
