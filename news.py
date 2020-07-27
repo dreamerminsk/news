@@ -127,8 +127,9 @@ async def start_job():
 async def long_job():
     for i in range(32):
         count = articles.count_documents({})
+        print('{}. {}'.format(i, count))
         news.tasks.update({}, {'articles': count})
-        await asyncio.sleep(60)
+        await asyncio.sleep(2)
       
 
 app = Starlette(debug=True, routes=[
