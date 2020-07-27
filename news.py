@@ -56,7 +56,7 @@ async def update_feeds(request):
 async def update_feed(feed):
     print(feed)
     i = 0
-    r = requests.get(feed['link'], headers={'User-Agent': UserAgent().chrome})
+    r = requests.get(feed['link'], headers={'User-Agent': UserAgent().random})
     root = etree.fromstring(r.text)
     for channel in root.findall('channel'):
         feeds.update_one({'_id': feed['_id']}, {
