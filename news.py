@@ -50,7 +50,7 @@ class FeedEndpoint(HTTPEndpoint):
 class TaskEndpoint(HTTPEndpoint):
     async def get(self, request):
         host = request.path_params['host']
-        task = client.tasks.find_one({"host": host})
+        task = news.tasks.find_one({"host": host})
         if task is not None:
             task['_id'] = str(task['_id'])
             task['start'] = str(task['start'])
