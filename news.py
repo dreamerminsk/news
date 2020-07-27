@@ -21,6 +21,7 @@ news = client.news
 feeds = news.feeds
 articles = news.articles
 
+
 async def news(request):
     arts = articles.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
@@ -34,6 +35,7 @@ async def show_feeds(request):
         fds.append(art)
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': fds})
 
+
 class FeedEndpoint(HTTPEndpoint):
     async def get(self, request):
         feed_id = request.path_params['feed_id']
@@ -44,6 +46,7 @@ class FeedEndpoint(HTTPEndpoint):
         feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
         return JSONResponse(feed)
 
+
 async def update_feeds(request):
     tasks = BackgroundTasks()
     ids = []
@@ -52,6 +55,7 @@ async def update_feeds(request):
         tasks.add_task(update_feed, feed)
     message = {'status': 'Successful', 'ids': ids}
     return JSONResponse(message, background=tasks)
+
 
 async def update_feed(feed):
     print(feed)
@@ -81,16 +85,16 @@ async def update_feed(feed):
                      '$set': {'last_access': datetime.now()}}, upsert=False)
     if i > 0:
         feeds.update_one({'_id': feed['_id']}, {
-                     '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
+            '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
         feeds.update_one({'_id': feed['_id']}, {
-                     '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
-                             }}, upsert=False)
+            '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
+                     }}, upsert=False)
     else:
         feeds.update_one({'_id': feed['_id']}, {
-                     '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
+            '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
         feeds.update_one({'_id': feed['_id']}, {
-                     '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
-                             }}, upsert=False)
+            '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
+                     }}, upsert=False)
 
 app = Starlette(debug=True, routes=[
     Route('/', news),

@@ -19,7 +19,7 @@ for link in links:
         print(link.get('href'))
         feeds.update_one({'link': link.get('href')}, {
                          '$set': {'title': link.text}}, upsert=True)
-        
+
 
 r = requests.get('https://www.onliner.by')
 soup = BeautifulSoup(r.text, "html.parser")
@@ -33,15 +33,15 @@ for link in links:
 
 
 feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
-                         '$set': {'title': 'ch'}}, upsert=True)
+    '$set': {'title': 'ch'}}, upsert=True)
 feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
-                         '$set': {'last_access': datetime.now()}}, upsert=True)
+    '$set': {'last_access': datetime.now()}}, upsert=True)
 feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
-                         '$set': {'next_access': datetime.now() - timedelta(seconds=1000)}}, upsert=True)
+    '$set': {'next_access': datetime.now() - timedelta(seconds=1000)}}, upsert=True)
 feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
-                         '$set': {'ttl': 100}}, upsert=True)
-        
-#https://www.championat.com/rss/article/
-#for feed in feeds.find():
-    #print(feed)
+    '$set': {'ttl': 100}}, upsert=True)
+
+# https://www.championat.com/rss/article/
+# for feed in feeds.find():
+# print(feed)
 print(feeds.count_documents({}))
