@@ -70,19 +70,17 @@ async def update_feeds(request):
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
         ids.append(str(feed['_id']))
         tasks.add_task(update_feed, feed)
-    print(str(request.client.host))
-    client.tasks.update_one({'host': str(request.client.host)}, {
+    print(type(request.client.host))
+    client.tasks.update_one({'host': str(request.client.host)},
+                            {
         '$set': {'start': datetime.now()}
     }, upsert=True)
-    client.tasks.update_one({"host": str(request.client.host)}, {
-        '$set': {'rss': len(ids)}
-    }, upsert=True)
-    #client.tasks.update_one({"host": str(request.client.host)}, {
-        #'$set': {'ids': ids}
-    #}, upsert=True)
-    client.tasks.update_one({"host": str(request.client.host)}, {
-        '$inc': {'idx': 1, 'rss_total': len(ids)}
-    }, upsert=True)
+    client.tasks.update_one({"host": str(request.client.host)},
+                            {'$set': {'rss': len(ids)}}, upsert=True)
+    client.tasks.update_one({"host": str(request.client.host)},
+                            {'$set': {'ids': ids}}, upsert=True)
+    client.tasks.update_one({"host": str(request.client.host)},
+                            {'$inc': {'idx': 1, 'rss_total': len(ids)}}, upsert=True)
     return RedirectResponse(url='/tasks/{}'.format(request.client.host), background=tasks)
 
 
