@@ -126,10 +126,11 @@ async def start_job():
     task = loop.create_task(long_job())
 
 async def long_job():
-    count = articles.count_documents({})
-    print('{}. {}'.format(datetime.now(), count))
-    news.tasks.update_many({}, { '$set': {'articles': count}})
-    await asyncio.sleep(2)
+    while True:
+        count = articles.count_documents({})
+        print('{}. {}'.format(datetime.now(), count))
+        news.tasks.update_many({}, { '$set': {'articles': count}})
+        await asyncio.sleep(20)
       
 
 app = Starlette(debug=True, routes=[
