@@ -58,7 +58,7 @@ async def update_feed(feed):
     r = requests.get(feed['link'])
     if 'championat' in feed['link']:
         print(r.text)
-        continue
+        return
     root = etree.fromstring(r.text)
     for channel in root.findall('channel'):
         feeds.update_one({'_id': feed['_id']}, {
