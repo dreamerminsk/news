@@ -120,6 +120,14 @@ async def update_feed(feed):
             '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
                      }}, upsert=False)
 
+async def start_job():
+    await long_job()
+
+async def long_job():
+    await task()
+    await asyncio.sleep(settings.SLEEP)
+      
+
 app = Starlette(debug=True, routes=[
     Route('/', show_news),
     Route('/news', show_news),
@@ -128,4 +136,4 @@ app = Starlette(debug=True, routes=[
     Route('/feeds/{feed_id}', FeedEndpoint),
     Route('/tasks/{host}', TaskEndpoint),
     Mount('/static', StaticFiles(directory='static'), name='static')
-])
+], on_startup=[start_job])
