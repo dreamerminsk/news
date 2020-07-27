@@ -125,10 +125,10 @@ async def start_job():
     await long_job()
 
 async def long_job():
-    for i in range(32):
+    for i in range(8):
         count = articles.count_documents({})
         print('{}. {}'.format(i, count))
-        news.tasks.update({}, {'articles': count})
+        news.tasks.update_many({}, { '$set': {'articles': count}})
         await asyncio.sleep(2)
       
 
