@@ -70,7 +70,7 @@ async def update_feeds(request):
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
         ids.append(str(feed['_id']))
         tasks.add_task(update_feed, feed)
-    client.tasks.update_one({"host": 'localhost' if request.client.host is None else request.client.host}, {
+    client.tasks.update_one({"host": str(request.client.host)}, {
         {'$set': {'start': datetime.now(), 'rss': len(ids), 'ids': ids, }},
         {'$inc': {'idx': 1, 'rss_total': len(ids), }},
     }, upsert=True)
