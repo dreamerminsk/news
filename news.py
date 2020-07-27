@@ -71,8 +71,10 @@ async def update_feeds(request):
         ids.append(str(feed['_id']))
         tasks.add_task(update_feed, feed)
     client.tasks.update_one({"host": str(request.client.host)}, {
-        '$set': {'start': datetime.now(), 'rss': len(ids), 'ids': ids, },
-        '$inc': {'idx': 1, 'rss_total': len(ids), },
+        '$set': {'start': datetime.now(), 'rss': len(ids), 'ids': ids, }
+    }, upsert=True)
+    client.tasks.update_one({"host": str(request.client.host)}, {
+        '$inc': {'idx': 1, 'rss_total': len(ids), }
     }, upsert=True)
     return RedirectResponse(url='/tasks/{}'.format(request.client.host), background=tasks)
 
