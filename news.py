@@ -122,14 +122,14 @@ async def update_feed(feed):
                      }}, upsert=False)
 
 async def start_job():
-    await long_job()
+    loop = asyncio.get_event_loop()
+    task = loop.create_task(self.long_job())
 
 async def long_job():
-    for i in range(8):
-        count = articles.count_documents({})
-        print('{}. {}'.format(i, count))
-        news.tasks.update_many({}, { '$set': {'articles': count}})
-        await asyncio.sleep(2)
+    count = articles.count_documents({})
+    print('{}. {}'.format(i, count))
+    news.tasks.update_many({}, { '$set': {'articles': count}})
+    await asyncio.sleep(2)
       
 
 app = Starlette(debug=True, routes=[
