@@ -13,6 +13,7 @@ import xml.etree.ElementTree as etree
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from fake_useragent import UserAgent
+import asyncio
 
 templates = Jinja2Templates(directory='templates')
 
