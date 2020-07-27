@@ -2,7 +2,7 @@ from starlette.applications import Starlette
 from starlette.background import BackgroundTask
 from starlette.background import BackgroundTasks
 from starlette.endpoints import HTTPEndpoint
-from starlette.responses import JSONResponse, PlainTextResponse
+from starlette.responses import JSONResponse, PlainTextResponse, RedirectResponse
 from starlette.routing import Route, Mount
 from starlette.templating import Jinja2Templates
 from starlette.staticfiles import StaticFiles
@@ -22,7 +22,7 @@ feeds = news.feeds
 articles = news.articles
 
 
-async def news(request):
+async def show_news(request):
     arts = articles.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
 
@@ -47,14 +47,34 @@ class FeedEndpoint(HTTPEndpoint):
         return JSONResponse(feed)
 
 
+class TaskEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        host = request.path_params['host']
+        task = client.tasks.find_one({"host": host})
+        if task is not None:
+            task['_id'] = str(task['_id'])
+            task['start'] = str(task['start'])
+        else:
+            task = {
+                'idx': 0,
+                'host': host,
+                'rss': 0,
+                'rss_total': 0,
+            }
+        return JSONResponse(task)
+
+
 async def update_feeds(request):
     tasks = BackgroundTasks()
     ids = []
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
         ids.append(str(feed['_id']))
         tasks.add_task(update_feed, feed)
-    message = {'status': 'Successful', 'ids': ids}
-    return JSONResponse(message, background=tasks)
+    client.tasks.update_one({"host": request.client.host}, {
+        {'$set': {'start': datetime.now(), 'rss': len(ids), 'ids': ids, }},
+        {'$inc': {'idx': 1, 'rss_total': len(ids), }},
+    }, upsert=True)
+    return RedirectResponse(url='/tasks/{}'.format(request.client.host), background=tasks)
 
 
 async def update_feed(feed):
@@ -97,10 +117,11 @@ async def update_feed(feed):
                      }}, upsert=False)
 
 app = Starlette(debug=True, routes=[
-    Route('/', news),
-    Route('/news', news),
+    Route('/', show_news),
+    Route('/news', show_news),
     Route('/feeds', show_feeds),
     Route('/feeds/update', update_feeds),
     Route('/feeds/{feed_id}', FeedEndpoint),
+    Route('/tasks/{host}', TaskEndpoint),
     Mount('/static', StaticFiles(directory='static'), name='static')
 ])
