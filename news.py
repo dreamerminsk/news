@@ -127,7 +127,7 @@ async def start_job():
 
 async def long_job():
     count = articles.count_documents({})
-    print('{}. {}'.format(i, count))
+    print('{}. {}'.format(datetime.now(), count))
     news.tasks.update_many({}, { '$set': {'articles': count}})
     await asyncio.sleep(2)
       
