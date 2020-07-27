@@ -65,6 +65,7 @@ class TaskEndpoint(HTTPEndpoint):
 
 
 async def update_feeds(request):
+    client.tasks.insert_one({})
     tasks = BackgroundTasks()
     ids = []
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
