@@ -19,12 +19,6 @@ for link in links:
         print(link.get('href'))
         feeds.update_one({'link': link.get('href')}, {
                          '$set': {'title': link.text}}, upsert=True)
-        feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'last_access': datetime.now()}}, upsert=True)
-        feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'next_access': datetime.now()}}, upsert=True)
-        feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'ttl': 100}}, upsert=True)
         
 
 r = requests.get('https://www.onliner.by')
@@ -36,21 +30,15 @@ for link in links:
         print(link.get('href'))
         feeds.update_one({'link': link.get('href')}, {
                          '$set': {'title': link.text}}, upsert=True)
-        feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'last_access': datetime.now()}}, upsert=True)
-        feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'next_access': datetime.now()}}, upsert=True)
-        feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'ttl': 100}}, upsert=True)
 
 
-feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
                          '$set': {'title': 'ch'}}, upsert=True)
-feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
                          '$set': {'last_access': datetime.now()}}, upsert=True)
-feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
                          '$set': {'next_access': datetime.now() - timedelta(seconds=1000)}}, upsert=True)
-feeds.update_one({'link': 'https://www.championat.com/rss/article/'}, {
+feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
                          '$set': {'ttl': 100}}, upsert=True)
         
 #https://www.championat.com/rss/article/
