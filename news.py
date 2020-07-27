@@ -12,6 +12,7 @@ import requests
 import xml.etree.ElementTree as etree
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
+from fake_useragent import UserAgent
 
 templates = Jinja2Templates(directory='templates')
 
@@ -55,7 +56,7 @@ async def update_feeds(request):
 async def update_feed(feed):
     print(feed)
     i = 0
-    r = requests.get(feed['link'])
+    r = requests.get(feed['link'], headers={'User-Agent': UserAgent().chrome})
     if 'championat' in feed['link']:
         print(r.text)
         return
