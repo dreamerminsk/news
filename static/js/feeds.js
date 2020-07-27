@@ -2,7 +2,7 @@ async function updateFeeds() {
   let response = await fetch('/feeds/update');
   let commits = await response.json();
   document.getElementById("task-id").textContent = `${commits.idx}-${commits.host}`;
-  document.getElementById("task-start").textContent = commits.start.toLocalString();
+  document.getElementById("task-start").textContent = commits.start.toLocaleString();
   document.getElementById("task-rss").textContent = commits.rss;
   document.getElementById("task-rss-total").textContent = commits.total_rss;
   document.querySelectorAll('div.card').forEach(div => {
