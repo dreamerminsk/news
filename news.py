@@ -77,9 +77,9 @@ async def update_feeds(request):
     client.tasks.update({"host": str(request.client.host)}, {
         '$set': {'rss': len(ids)}
     }, upsert=True)
-    client.tasks.update({"host": str(request.client.host)}, {
-        '$set': {'ids': ids}
-    }, upsert=True)
+    #client.tasks.update({"host": str(request.client.host)}, {
+        #'$set': {'ids': ids}
+    #}, upsert=True)
     client.tasks.update({"host": str(request.client.host)}, {
         '$inc': {'idx': 1, 'rss_total': len(ids)}
     }, upsert=True)
