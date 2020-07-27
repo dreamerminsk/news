@@ -123,7 +123,7 @@ async def update_feed(feed):
 
 async def start_job():
     loop = asyncio.get_event_loop()
-    task = loop.create_task(self.long_job())
+    task = loop.create_task(long_job())
 
 async def long_job():
     count = articles.count_documents({})
