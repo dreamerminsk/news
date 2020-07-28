@@ -121,8 +121,8 @@ async def start_job():
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
-    tasks = [loop.create_task(queue_feeds, q),
-             loop.create_task(process_feeds, q)]
+    tasks = [loop.create_task(queue_feeds(q)),
+             loop.create_task(process_feeds(q))]
 
 
 async def queue_feeds(q):
