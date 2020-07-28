@@ -33,10 +33,5 @@ async function updateFeeds() {
   });
 }
 
+setTimer(updateFeeds, 1000);
 let timerId = setInterval(updateFeeds, 60000);
-
-function toString(sec) {
-  let measuredTime = new Date(null);
-  measuredTime.setSeconds(sec);
-  return measuredTime.toISOString().substr(11, 8);
-}
