@@ -63,7 +63,7 @@ class TaskEndpoint(HTTPEndpoint):
         return JSONResponse(task)
 
 
-async def update_feeds(request):
+async def latest_feeds(request):
     latest = []
     for feed in feeds.find({"last_access": {"$gte": datetime.now() - datetime.timedelta(seconds=600)}}):
         feed['_id'] = str(feed['_id'])
