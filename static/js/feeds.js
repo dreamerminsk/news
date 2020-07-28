@@ -33,5 +33,4 @@ async function updateFeeds() {
   });
 }
 
-setTimer(updateFeeds, 1000);
-let timerId = setInterval(updateFeeds, 60000);
+let timerId = setInterval(updateFeeds, 400, 60000);
