@@ -56,7 +56,7 @@ class TaskEndpoint(HTTPEndpoint):
             task['_id'] = str(task['_id'])
             task['elapsed'] = str(datetime.now() - task['start'])
             task['start'] = str(task['start'])
-            task['total'] = articles.count_documments({})
+            task['total'] = articles.count_documents({})
         else:
             task = {
             }
