@@ -16,16 +16,14 @@ async function updateFeeds() {
       div.classList.remove('text-white');
     };
   });
-  commits.ids.forEach(id => {
-    let match = document.getElementById(id);
+  let res = await fetch(`/feeds/latest`);
+  let feeds = await res.json();
+  feeds.ids.forEach(feed => {
+    let match = document.getElementById(feed['_id']);
     match.classList.add('bg-success');
     match.classList.add('text-white');
     let t = match.querySelector(`.table`);
     t.classList.add('text-white');
-  });
-  commits.ids.forEach(async id => {
-    let res = await fetch(`/feeds/${id}`);
-    let feed = await res.json();
     let la = document.getElementById(`la-${id}`);
     la.textContent = feed['last_access'];
     let na = document.getElementById(`na-${id}`);
