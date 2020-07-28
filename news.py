@@ -64,56 +64,14 @@ class TaskEndpoint(HTTPEndpoint):
 
 
 async def update_feeds(request):
-    tasks = BackgroundTasks()
-    ids = []
-    for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
-        ids.append(str(feed['_id']))
-        tasks.add_task(update_feed, feed)
-    news.tasks.update_one({'host': str(request.client.host)},                          {
-                          '$set': {'start': datetime.now(), 'rss': len(ids), 'ids': ids}}, upsert=True)
-    news.tasks.update_one({"host": str(request.client.host)},                          {
-                          '$inc': {'idx': 1, 'rss_total': len(ids)}}, upsert=True)
-    return RedirectResponse(url='/tasks/{}'.format(request.client.host), background=tasks)
-
-
-async def update_feed(feed):
-    print(feed)
-    i = 0
-    r = requests.get(feed['link'], headers={'User-Agent': UserAgent().random})
-    root = etree.fromstring(r.text)
-    for channel in root.findall('channel'):
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'title': channel.find('title').text}}, upsert=False)
-    print(channel.find('title').text)
-    feeds.update_one({'_id': feed['_id']}, {
-                     '$set': {'description': channel.find('description').text}}, upsert=False)
-    print(channel.find('description').text)
-    for item in channel.findall('item'):
-        title = item.find('title').text
-        link = item.find('link').text
-        if '?' in link:
-            link = link[:link.find('?')]
-        pub = item.find('pubDate').text
-        if not articles.find_one({"link": link}):
-            i += 1
-            articles.insert_one({"link": link, "title": title})
-            print('{}. {}'.format(i, title))
-            print(link)
-            print(pub)
-    feeds.update_one({'_id': feed['_id']}, {
-                     '$set': {'last_access': datetime.now()}}, upsert=False)
-    if i > 0:
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
-                     }}, upsert=False)
-    else:
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
-                     }}, upsert=False)
+    latest = []
+    for feed in feeds.find({"last_access": {"$gte": datetime.now() - datetime.timedelta(seconds=600)}}):
+        feed['_id'] = str(feed['_id'])
+        feed['last_access'] = str(feed['last_access'])
+        feed['next_access'] = str(feed['next_access'])
+        feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
+        latest.append(feed)
+    return JSONResponse(latest)
 
 
 async def start_job():
@@ -179,7 +137,7 @@ app = Starlette(debug=True, routes=[
     Route('/', show_news),
     Route('/news', show_news),
     Route('/feeds', show_feeds),
-    Route('/feeds/update', update_feeds),
+    Route('/feeds/latest', latest_feeds),
     Route('/feeds/{feed_id}', FeedEndpoint),
     Route('/tasks/{name}', TaskEndpoint),
     Mount('/static', StaticFiles(directory='static'), name='static')
