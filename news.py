@@ -131,11 +131,9 @@ async def long_job():
         await asyncio.sleep(20)
 
 
-async def update_feeds2(request):
-    ids = []
+async def update_feeds2(q):
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
-        ids.append(str(feed['_id']))
-        tasks.add_task(update_feed, feed)
+        await q.put(feed)
     news.tasks.update_one({'host': str(request.client.host)},                          {
                           '$set': {'start': datetime.now(), 'rss': len(ids), 'ids': ids}}, upsert=True)
     news.tasks.update_one({"host": str(request.client.host)},                          {
