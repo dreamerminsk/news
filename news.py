@@ -71,14 +71,10 @@ async def update_feeds(request):
     for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
         ids.append(str(feed['_id']))
         tasks.add_task(update_feed, feed)
-    news.tasks.update_one({'host': str(request.client.host)},
-                          {'$set': {'start': datetime.now()}}, upsert=True)
-    news.tasks.update_one({"host": str(request.client.host)},
-                          {'$set': {'rss': len(ids)}}, upsert=True)
-    news.tasks.update_one({"host": str(request.client.host)},
-                          {'$set': {'ids': ids}}, upsert=True)
-    news.tasks.update_one({"host": str(request.client.host)},
-                          {'$inc': {'idx': 1, 'rss_total': len(ids)}}, upsert=True)
+    news.tasks.update_one({'host': str(request.client.host)},                          {
+                          '$set': {'start': datetime.now(), 'rss': len(ids), 'ids': ids}}, upsert=True)
+    news.tasks.update_one({"host": str(request.client.host)},                          {
+                          '$inc': {'idx': 1, 'rss_total': len(ids)}}, upsert=True)
     return RedirectResponse(url='/tasks/{}'.format(request.client.host), background=tasks)
 
 
@@ -121,17 +117,19 @@ async def update_feed(feed):
             '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
                      }}, upsert=False)
 
+
 async def start_job():
     loop = asyncio.get_event_loop()
     task = loop.create_task(long_job())
+
 
 async def long_job():
     while True:
         count = articles.count_documents({})
         print('{}. {}'.format(datetime.now(), count))
-        news.tasks.update_many({}, { '$set': {'articles': count}})
+        news.tasks.update_many({}, {'$set': {'articles': count}})
         await asyncio.sleep(20)
-      
+
 
 app = Starlette(debug=True, routes=[
     Route('/', show_news),

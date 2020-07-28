@@ -3,8 +3,8 @@ async function updateFeeds() {
   let commits = await response.json();
   document.getElementById("task-id").textContent = `${commits.idx}-${commits.host}`;
   document.getElementById("task-start").textContent = commits.start.toLocaleString();
-  document.getElementById("task-rss").textContent = commits.rss;
-  document.getElementById("task-rss-total").textContent = `${commits.rss_total} - ${commits.articles}`;
+  document.getElementById("task-rss").textContent = `${commits.rss} - ${commits.rss_total}`;
+  document.getElementById("task-rss-total").textContent = `${commits.articles}`;
   document.querySelectorAll('div.card').forEach(div => {
     if (div.classList.contains('bg-success')) {
       div.classList.remove('bg-success');
