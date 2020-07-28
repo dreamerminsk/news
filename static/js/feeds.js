@@ -32,5 +32,5 @@ async function updateFeeds() {
     ttl.textContent = feed['ttlf'];
   });
 }
-
-let timerId = setInterval(updateFeeds, 400, 60000);
+let timerId = setTimeout(updateFeeds, 400);
+let intervalId = setInterval(updateFeeds, 60000);
