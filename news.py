@@ -127,7 +127,8 @@ async def long_job():
     while True:
         count = articles.count_documents({})
         print('{}. {}'.format(datetime.now(), count))
-        news.tasks.update_one({'name': 'feeds'}, {'$set': {'articles': count}}, upsert=True)
+        news.tasks.update_one({'name': 'feeds'}, {
+                              '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
         await asyncio.sleep(20)
 
 
