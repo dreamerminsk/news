@@ -1,3 +1,11 @@
+from pymongo import MongoClient
+from datetime import datetime, timedelta
+import requests
+import xml.etree.ElementTree as etree
+from bs4 import BeautifulSoup
+from bson.objectid import ObjectId
+from fake_useragent import UserAgent
+import asyncio
 
 async def parse(text):
     root = etree.fromstring(text)
