@@ -139,6 +139,7 @@ async def queue_feeds(q):
 async def process_feeds(q):
     while True:
         feed = await q.get()
+        update_feed2(feed)
         q.task_done()
 
 
