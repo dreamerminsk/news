@@ -2,8 +2,9 @@ async function updateFeeds() {
   let response = await fetch('/tasks/feeds');
   let commits = await response.json();
   document.getElementById("task-start").textContent = commits.start.toLocaleString();
-  document.getElementById("task-rss").textContent = `${commits.feeds}`;
-  document.getElementById("task-rss-total").textContent = `${commits.articles}`;
+  document.getElementById("task-elapsed").textContent = commits.elapsed;
+  document.getElementById("task-feeds").textContent = `${commits.feeds}`;
+  document.getElementById("task-articles").textContent = `${commits.total - commits.articles}`;
   document.querySelectorAll('div.card').forEach(div => {
     if (div.classList.contains('bg-success')) {
       div.classList.remove('bg-success');
