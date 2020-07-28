@@ -55,6 +55,8 @@ class TaskEndpoint(HTTPEndpoint):
         if task is not None:
             task['_id'] = str(task['_id'])
             task['start'] = str(task['start'])
+            task['elapsed'] = str(datetime.now() - task['start'])
+            task['total'] = articles.count_documments({})
         else:
             task = {
             }
@@ -135,7 +137,7 @@ async def queue_feeds(q):
 async def process_feeds(q):
     while True:
         feed = await q.get()
-        update_feed2(feed)
+        await update_feed2(feed)
         q.task_done()
         news.tasks.update_one({'name': 'feeds'}, {
         '$inc': {'feeds': 1}}, upsert=True)
