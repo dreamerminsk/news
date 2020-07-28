@@ -127,7 +127,7 @@ async def long_job():
     while True:
         count = articles.count_documents({})
         print('{}. {}'.format(datetime.now(), count))
-        news.tasks.update_many({}, {'$set': {'articles': count}})
+        news.tasks.update_one({'name': 'feeds'}, {'$set': {'articles': count}}, upsert=True)
         await asyncio.sleep(20)
 
 
@@ -144,17 +144,14 @@ async def process_feeds(q):
 
 
 async def update_feed2(feed):
-    print(feed)
     i = 0
     r = requests.get(feed['link'], headers={'User-Agent': UserAgent().random})
     root = etree.fromstring(r.text)
     for channel in root.findall('channel'):
         feeds.update_one({'_id': feed['_id']}, {
             '$set': {'title': channel.find('title').text}}, upsert=False)
-    print(channel.find('title').text)
     feeds.update_one({'_id': feed['_id']}, {
                      '$set': {'description': channel.find('description').text}}, upsert=False)
-    print(channel.find('description').text)
     for item in channel.findall('item'):
         title = item.find('title').text
         link = item.find('link').text
@@ -164,9 +161,6 @@ async def update_feed2(feed):
         if not articles.find_one({"link": link}):
             i += 1
             articles.insert_one({"link": link, "title": title})
-            print('{}. {}'.format(i, title))
-            print(link)
-            print(pub)
     feeds.update_one({'_id': feed['_id']}, {
                      '$set': {'last_access': datetime.now()}}, upsert=False)
     if i > 0:
