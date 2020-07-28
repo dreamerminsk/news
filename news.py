@@ -131,6 +131,56 @@ async def long_job():
         await asyncio.sleep(20)
 
 
+async def update_feeds2(request):
+    ids = []
+    for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
+        ids.append(str(feed['_id']))
+        tasks.add_task(update_feed, feed)
+    news.tasks.update_one({'host': str(request.client.host)},                          {
+                          '$set': {'start': datetime.now(), 'rss': len(ids), 'ids': ids}}, upsert=True)
+    news.tasks.update_one({"host": str(request.client.host)},                          {
+                          '$inc': {'idx': 1, 'rss_total': len(ids)}}, upsert=True)
+
+
+async def update_feed2(feed):
+    print(feed)
+    i = 0
+    r = requests.get(feed['link'], headers={'User-Agent': UserAgent().random})
+    root = etree.fromstring(r.text)
+    for channel in root.findall('channel'):
+        feeds.update_one({'_id': feed['_id']}, {
+            '$set': {'title': channel.find('title').text}}, upsert=False)
+    print(channel.find('title').text)
+    feeds.update_one({'_id': feed['_id']}, {
+                     '$set': {'description': channel.find('description').text}}, upsert=False)
+    print(channel.find('description').text)
+    for item in channel.findall('item'):
+        title = item.find('title').text
+        link = item.find('link').text
+        if '?' in link:
+            link = link[:link.find('?')]
+        pub = item.find('pubDate').text
+        if not articles.find_one({"link": link}):
+            i += 1
+            articles.insert_one({"link": link, "title": title})
+            print('{}. {}'.format(i, title))
+            print(link)
+            print(pub)
+    feeds.update_one({'_id': feed['_id']}, {
+                     '$set': {'last_access': datetime.now()}}, upsert=False)
+    if i > 0:
+        feeds.update_one({'_id': feed['_id']}, {
+            '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
+        feeds.update_one({'_id': feed['_id']}, {
+            '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
+                     }}, upsert=False)
+    else:
+        feeds.update_one({'_id': feed['_id']}, {
+            '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
+        feeds.update_one({'_id': feed['_id']}, {
+            '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
+                     }}, upsert=False)
+
 app = Starlette(debug=True, routes=[
     Route('/', show_news),
     Route('/news', show_news),
