@@ -50,17 +50,13 @@ class FeedEndpoint(HTTPEndpoint):
 
 class TaskEndpoint(HTTPEndpoint):
     async def get(self, request):
-        host = request.path_params['host']
-        task = news.tasks.find_one({"host": host})
+        name = request.path_params['name']
+        task = news.tasks.find_one({"name": name})
         if task is not None:
             task['_id'] = str(task['_id'])
             task['start'] = str(task['start'])
         else:
             task = {
-                'idx': 0,
-                'host': host,
-                'rss': 0,
-                'rss_total': 0,
             }
         return JSONResponse(task)
 
@@ -125,7 +121,8 @@ async def start_job():
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
-    tasks = [loop.create_task(queue_feeds, q), loop.create_task(process_feeds, q)]
+    tasks = [loop.create_task(queue_feeds, q),
+             loop.create_task(process_feeds, q)]
 
 
 async def queue_feeds(q):
@@ -140,6 +137,8 @@ async def process_feeds(q):
         feed = await q.get()
         update_feed2(feed)
         q.task_done()
+        news.tasks.update_one({'name': 'feeds'}, {
+        '$inc': {'feeds': 1}}, upsert=True)
 
 
 async def update_feed2(feed):
@@ -156,7 +155,6 @@ async def update_feed2(feed):
         link = item.find('link').text
         if '?' in link:
             link = link[:link.find('?')]
-        pub = item.find('pubDate').text
         if not articles.find_one({"link": link}):
             i += 1
             articles.insert_one({"link": link, "title": title})
@@ -181,6 +179,6 @@ app = Starlette(debug=True, routes=[
     Route('/feeds', show_feeds),
     Route('/feeds/update', update_feeds),
     Route('/feeds/{feed_id}', FeedEndpoint),
-    Route('/tasks/{host}', TaskEndpoint),
+    Route('/tasks/{name}', TaskEndpoint),
     Mount('/static', StaticFiles(directory='static'), name='static')
 ], on_startup=[start_job])
