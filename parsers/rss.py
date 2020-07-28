@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import asyncio
 
 async def parse(text):
-    root = etree.fromstring(text)
+    soup = BeautifulSoup(text, 'xml')
     for channel in root.findall('channel'):
         for item in channel.findall('item'):
             article = await parse_item(item)
