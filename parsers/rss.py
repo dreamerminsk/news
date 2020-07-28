@@ -2,8 +2,8 @@
 async def parse(text):
     root = etree.fromstring(text)
     for channel in root.findall('channel'):
-    for item in channel.findall('item'):
-        article = await parse_item(item)
+        for item in channel.findall('item'):
+            article = await parse_item(item)
 
 
 async def parse_item(item):
