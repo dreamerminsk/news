@@ -119,22 +119,20 @@ async def update_feed(feed):
 
 
 async def start_job():
+    count = articles.count_documents({})
+    print('{}. {}'.format(datetime.now(), count))
+    news.tasks.update_one({'name': 'feeds'}, {
+        '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
+    q = asyncio.Queue()
     loop = asyncio.get_event_loop()
-    task = loop.create_task(long_job())
-
-
-async def long_job():
-    while True:
-        count = articles.count_documents({})
-        print('{}. {}'.format(datetime.now(), count))
-        news.tasks.update_one({'name': 'feeds'}, {
-                              '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
-        await asyncio.sleep(20)
+    tasks = [loop.create_task(queue_feeds, q), loop.create_task(process_feeds, q)]
 
 
 async def queue_feeds(q):
-    for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
-        await q.put(feed)
+    while True:
+        for feed in feeds.find({"next_access": {"$lte": datetime.now()}}):
+            await q.put(feed)
+        await asyncio.sleep(60)
 
 
 async def process_feeds(q):
