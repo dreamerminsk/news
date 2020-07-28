@@ -65,7 +65,7 @@ class TaskEndpoint(HTTPEndpoint):
 
 async def latest_feeds(request):
     latest = []
-    for feed in feeds.find({"last_access": {"$gte": datetime.now() - datetime.timedelta(seconds=600)}}):
+    for feed in feeds.find({"last_access": {"$gte": datetime.now() - timedelta(seconds=600)}}):
         feed['_id'] = str(feed['_id'])
         feed['last_access'] = str(feed['last_access'])
         feed['next_access'] = str(feed['next_access'])
