@@ -54,8 +54,8 @@ class TaskEndpoint(HTTPEndpoint):
         task = news.tasks.find_one({"name": name})
         if task is not None:
             task['_id'] = str(task['_id'])
-            task['start'] = str(task['start'])
             task['elapsed'] = str(datetime.now() - task['start'])
+            task['start'] = str(task['start'])
             task['total'] = articles.count_documments({})
         else:
             task = {
