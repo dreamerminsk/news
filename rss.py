@@ -18,7 +18,7 @@ for link in links:
         print(link.text)
         print(link.get('href'))
         feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'title': link.text}}, upsert=True)
+                         '$set': {'title': link.text, 'ttl': 100}}, upsert=True)
 
 
 r = requests.get('https://www.onliner.by')
@@ -29,7 +29,7 @@ for link in links:
         print(link.text)
         print(link.get('href'))
         feeds.update_one({'link': link.get('href')}, {
-                         '$set': {'title': link.text}}, upsert=True)
+                         '$set': {'title': link.text, 'ttl': 100}}, upsert=True)
 
 
 feeds.update_one(
