@@ -36,10 +36,7 @@ async def show_feeds(request):
     fds = []
     for art in arts:
         print(art)
-        if art['ttl']:
-            art['ttlf'] = str(timedelta(seconds=art['ttl']))
-        else:
-            art['ttlf'] = '0'
+        art['ttlf'] = str(timedelta(seconds=art['ttl']))
         fds.append(art)
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': fds})
 
