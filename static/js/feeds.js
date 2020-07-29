@@ -18,10 +18,8 @@ async function updateFeeds() {
   });
   let res = await fetch(`/feeds/latest`);
   let json = await res.json();
-  document.getElementById("feeds").textContent = `${json.feeds.length}: `;
   json.feeds.forEach(feed => {
     try {
-    document.getElementById("feeds").textContent += `${feed.title}`;
     let match = document.getElementById(feed['_id']);
     match.classList.add('bg-success');
     match.classList.add('text-white');
