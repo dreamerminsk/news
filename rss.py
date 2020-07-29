@@ -20,5 +20,12 @@ feeds.update_one(
         'ttl': 100}},
     upsert=True)
 
+feeds.update_one(
+    {'title': 'От застройщика'},
+    {'$set': {
+        'last_access': datetime.now(),
+        'next_access': datetime.now() - timedelta(seconds=1000),
+        'ttl': 100}})
+
 
 print(feeds.count_documents({}))
