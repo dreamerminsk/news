@@ -14,6 +14,9 @@ from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from fake_useragent import UserAgent
 import asyncio
+import pprint
+
+print = pprint.pprint
 
 templates = Jinja2Templates(directory='templates')
 
@@ -32,7 +35,7 @@ async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
     fds = []
     for art in arts:
-        print('{}-{}'.format(art['title'], art['link']))
+        print(art)
         if art['ttl']:
             art['ttlf'] = str(timedelta(seconds=art['ttl']))
         else:
