@@ -75,7 +75,7 @@ async def latest_feeds(request):
         feed['next_access'] = str(feed['next_access'])
         feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
         latest.append(feed)
-    return JSONResponse(latest)
+    return JSONResponse({'status': 'ok', 'feeds': latest})
 
 
 async def start_job():
