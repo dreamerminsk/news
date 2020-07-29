@@ -18,7 +18,7 @@ async function updateFeeds() {
   });
   let res = await fetch(`/feeds/latest`);
   let feeds = await res.json();
-  document.getElementById("task-articles").textContent = feeds;
+  document.getElementById("task-articles").textContent = `${feeds}`;
   feeds.ids.forEach(feed => {
     let match = document.getElementById(feed['_id']);
     match.classList.add('bg-success');
