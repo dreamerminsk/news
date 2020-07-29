@@ -32,16 +32,14 @@ for link in links:
                          '$set': {'title': link.text}}, upsert=True)
 
 
-feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
-    '$set': {'title': 'ch'}}, upsert=True)
-feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
-    '$set': {'last_access': datetime.now()}}, upsert=True)
-feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
-    '$set': {'next_access': datetime.now() - timedelta(seconds=1000)}}, upsert=True)
-feeds.update_one({'link': 'https://www.championat.com/rss/news/'}, {
-    '$set': {'ttl': 100}}, upsert=True)
+feeds.update_one(
+    {'link': 'https://www.eurosport.ru/rss.xml'},
+    {'$set': {
+        'title': 'ch',
+        'last_access': datetime.now(),
+        'next_access': datetime.now() - timedelta(seconds=1000),
+        'ttl': 100}},
+    upsert=True)
 
-# https://www.championat.com/rss/article/
-# for feed in feeds.find():
-# print(feed)
+
 print(feeds.count_documents({}))
