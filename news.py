@@ -32,7 +32,10 @@ async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
     fds = []
     for art in arts:
-        art['ttlf'] = str(timedelta(seconds=art['ttl']))
+        if art['ttl']:
+            art['ttlf'] = str(timedelta(seconds=art['ttl']))
+        else:
+            art['ttlf'] = '0'
         fds.append(art)
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': fds})
 
@@ -98,7 +101,7 @@ async def process_feeds(q):
         await update_feed2(feed)
         q.task_done()
         news.tasks.update_one({'name': 'feeds'}, {
-        '$inc': {'feeds': 1}}, upsert=True)
+            '$inc': {'feeds': 1}}, upsert=True)
 
 
 async def update_feed2(feed):
