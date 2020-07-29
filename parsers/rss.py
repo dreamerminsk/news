@@ -6,29 +6,28 @@ import asyncio
 
 async def parse(text):
     soup = BeautifulSoup(text, 'xml')
-    for channel in soup.findall('channel'):
-        for item in channel.findall('item'):
-            article = await parse_item(item)
+    channel  = {}
+    for channel_node in soup.find_all('channel'):
+        channel = await parse_channel(channel_node)
+    return channel
+
+
+async def parse_channel(node):
+    channel  = {}
+    channel['title'] = node.find('title').text
+    channel['link'] = node.find('link').text
+    channel['description'] = node.find('description').text
+    channel['items'] = []
+    for item_node in node.find_all('item'):
+        channel['items'].append(await parse_item(item_node))
+    return channel 
 
 
 async def parse_item(item):
-    item  = {}
-    item.title = item.find('title').text
-    item.link = item.find('link').text
-    if '?' in link:
-        link = link[:link.find('?')]
-    feeds.update_one({'_id': feed['_id']}, {
-                     '$set': {'last_access': datetime.now()}}, upsert=False)
-    if i > 0:
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
-                     }}, upsert=False)
-    else:
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
-                     }}, upsert=False)
-    return item                 
+    article  = {}
+    article['title'] = item.find('title').text
+    article['link'] = item.find('link').text
+    if '?' in article['link']:
+        article['link'] = article['link'][:article['link'].find('?')]
+    article['last_access'] = datetime.now()
+    return article                 
