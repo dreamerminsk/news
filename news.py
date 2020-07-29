@@ -32,7 +32,7 @@ async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
     fds = []
     for art in arts:
-        print(art['title'])
+        print('{}-{}'.format(art['title'], art['link']))
         if art['ttl']:
             art['ttlf'] = str(timedelta(seconds=art['ttl']))
         else:
