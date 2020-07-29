@@ -20,6 +20,7 @@ async function updateFeeds() {
   let json = await res.json();
   document.getElementById("feeds").textContent = `${json.feeds.length}: `;
   json.feeds.forEach(feed => {
+    try {
     document.getElementById("feeds").textContent += `${feed.title}`;
     let match = document.getElementById(feed['_id']);
     match.classList.add('bg-success');
@@ -32,6 +33,9 @@ async function updateFeeds() {
     na.textContent = feed['next_access'];
     let ttl = document.getElementById(`ttl-${id}`);
     ttl.textContent = feed['ttlf'];
+    } catch (e) {
+      document.getElementById("feeds").textContent += `${e}`;
+    }
   });
 }
 let timerId = setTimeout(updateFeeds, 400);
