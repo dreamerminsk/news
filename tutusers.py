@@ -22,5 +22,5 @@ if text:
     user_nodes = soup.select('div.row-user a.username')
     if user_nodes:
         for user_node in user_nodes:
-            print(user_node.text)
+            print(user_node.text())
             print(user_node.get('href'))
