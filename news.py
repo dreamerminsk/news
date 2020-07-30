@@ -25,6 +25,7 @@ client = MongoClient()
 news = client.news
 feeds = news.feeds
 articles = news.articles
+users = news.users
 
 
 async def show_news(request):
@@ -47,6 +48,7 @@ async def show_users(request):
     for art in arts:
         fds.append(art)
     return templates.TemplateResponse('users.html', {'request': request, 'users': fds})
+
 
 class FeedEndpoint(HTTPEndpoint):
     async def get(self, request):
