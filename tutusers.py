@@ -26,5 +26,6 @@ if text:
             query = parse.urlsplit(user_node.get('href')).query
             params = parse.parse_qs(query)
             print(user_node.text)
-            print(user_node.get('href'))
             print(params['u'][0])
+            users.update_one({'u': params['u'][0]}, {
+                             'name': user_node.text}, upsert=True)
