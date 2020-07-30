@@ -17,7 +17,7 @@ client = MongoClient()
 news = client.news
 users = news.users
 
-urls=set()
+urls = set()
 
 threads_url = 'https://talks.by/forumdisplay.php?f=45'
 threads_page = get_text(threads_url)
@@ -32,15 +32,15 @@ if threads_page:
                 urls.add(params['t'][0])
 print(len(urls))
 
-text = get_text('https://talks.by/showthread.php?t=14463681&page=2')
-if text:
-    soup = BeautifulSoup(text, 'html.parser')
-    user_nodes = soup.select('div.row-user a.username')
-    if user_nodes:
-        for user_node in user_nodes:
-            query = parse.urlsplit(user_node.get('href')).query
-            params = parse.parse_qs(query)
-            print(user_node.text)
-            print(params['u'][0])
-            users.update_one({'u': params['u'][0]}, {
-                             '$set': {'name': user_node.text}}, upsert=True)
+while len(urls) > 0:
+    text = get_text('https://talks.by/showthread.php?t={}'.format(urls.pop()))
+    if text:
+        soup = BeautifulSoup(text, 'html.parser')
+        user_nodes = soup.select('div.row-user a.username')
+        if user_nodes:
+            for user_node in user_nodes:
+                query = parse.urlsplit(user_node.get('href')).query
+                params = parse.parse_qs(query)
+                print('{} - {}'.format(params['u'][0], user_node.text))
+                users.update_one({'u': params['u'][0]}, {
+                    '$set': {'name': user_node.text}}, upsert=True)
