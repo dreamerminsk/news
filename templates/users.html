@@ -1,18 +1,31 @@
 {% extends "app.html" %}
 {% block content %}
-  {% for user in users %}
-    <table id='letters'>
-
-    </table>
-    <div class='card carf-dark border-dark'>
-      <div class='card-header'>
+<table id='letters'>
+    <thead>
+        {% for letter in letters %}
+        <th>
+        <td>{{ letter._id }}</td>
+        </th>
+        {% endfor %}
+    </thead>
+    <tbody>
+        {% for letter in letters %}
+        <tr>
+            <td>{{ letter.count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% for user in users %}
+<div class='card carf-dark border-dark'>
+    <div class='card-header'>
         {{ user.name }}
-      </div>
-      <div class='card-body'>
-        <div class='card-text'>
-          
-        </div>
-      </div>
     </div>
-  {% endfor %}
+    <div class='card-body'>
+        <div class='card-text'>
+
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
