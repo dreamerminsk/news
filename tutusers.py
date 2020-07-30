@@ -10,7 +10,7 @@ from pymongo import MongoClient
 from web import get_text
 
 
-print = pprint
+#print = pprint
 
 client = MongoClient()
 news = client.news
