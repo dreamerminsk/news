@@ -1,9 +1,10 @@
-from datetime import datetime, timedelta
-import requests
-import xml.etree.ElementTree as etree
-from pymongo import MongoClient
 import pprint
+import xml.etree.ElementTree as etree
+from datetime import datetime, timedelta
+
+import requests
 from bs4 import BeautifulSoup
+from pymongo import MongoClient
 
 print = pprint.pprint
 

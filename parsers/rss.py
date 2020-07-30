@@ -1,7 +1,8 @@
-from datetime import datetime, timedelta
-import xml.etree.ElementTree as etree
-from bs4 import BeautifulSoup
 import asyncio
+import xml.etree.ElementTree as etree
+from datetime import datetime, timedelta
+
+from bs4 import BeautifulSoup
 
 
 async def parse(text):

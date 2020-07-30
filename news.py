@@ -1,20 +1,22 @@
-from starlette.applications import Starlette
-from starlette.background import BackgroundTask
-from starlette.background import BackgroundTasks
-from starlette.endpoints import HTTPEndpoint
-from starlette.responses import JSONResponse, PlainTextResponse, RedirectResponse
-from starlette.routing import Route, Mount
-from starlette.templating import Jinja2Templates
-from starlette.staticfiles import StaticFiles
-from pymongo import MongoClient
-from datetime import datetime, timedelta
-import requests
-import xml.etree.ElementTree as etree
-from bs4 import BeautifulSoup
-from bson.objectid import ObjectId
-from fake_useragent import UserAgent
 import asyncio
 import pprint
+import xml.etree.ElementTree as etree
+from datetime import datetime, timedelta
+
+import requests
+from bs4 import BeautifulSoup
+from bson.objectid import ObjectId
+from pymongo import MongoClient
+
+from fake_useragent import UserAgent
+from starlette.applications import Starlette
+from starlette.background import BackgroundTask, BackgroundTasks
+from starlette.endpoints import HTTPEndpoint
+from starlette.responses import (JSONResponse, PlainTextResponse,
+                                 RedirectResponse)
+from starlette.routing import Mount, Route
+from starlette.staticfiles import StaticFiles
+from starlette.templating import Jinja2Templates
 
 print = pprint.pprint
 

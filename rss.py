@@ -1,8 +1,9 @@
-import requests
-from pymongo import MongoClient
 import pprint
-from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+
+import requests
+from bs4 import BeautifulSoup
+from pymongo import MongoClient
 
 print = pprint.pprint
 
