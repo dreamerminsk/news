@@ -17,6 +17,8 @@ client = MongoClient()
 news = client.news
 users = news.users
 
+urls=set()
+
 threads_url = 'https://talks.by/forumdisplay.php?f=45'
 threads_page = get_text(threads_url)
 if threads_page:
@@ -27,7 +29,8 @@ if threads_page:
             query = parse.urlsplit(ref_node.get('href')).query
             params = parse.parse_qs(query)
             if 't' in params:
-                print(params['t'][0])
+                urls.add(params['t'][0])
+print(len(urls))
 
 text = get_text('https://talks.by/showthread.php?t=14463681&page=2')
 if text:
