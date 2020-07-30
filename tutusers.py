@@ -23,8 +23,8 @@ if text:
     user_nodes = soup.select('div.row-user a.username')
     if user_nodes:
         for user_node in user_nodes:
-            query = parse.urlsplit(user_node.get('href')).query
+            query = parse.urlsplit(user_node.get('abs:href')).query
             params = parse.parse_qs(query)
             print(user_node.text)
-            print(user_node.get('href'))
+            print(user_node.get('abs:href'))
             print(user_node.params['u'][0])
