@@ -28,4 +28,4 @@ if text:
             print(user_node.text)
             print(params['u'][0])
             users.update_one({'u': params['u'][0]}, {
-                             'name': user_node.text}, upsert=True)
+                             '$set': {'name': user_node.text}}, upsert=True)
