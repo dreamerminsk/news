@@ -19,4 +19,8 @@ users = news.users
 text = get_text('https://talks.by/showthread.php?t=14464110')
 if text:
     soup = BeautifulSoup(text, 'html.parser')
-    soup.select('div.row-user a.username')
+    user_nodes = soup.select('div.row-user a.username')
+    if user_nodes:
+        for user_node in user_nodes:
+            print(user_node.text)
+            print(user_node.get('href'))
