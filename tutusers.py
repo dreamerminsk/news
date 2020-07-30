@@ -24,8 +24,8 @@ if text:
     if user_nodes:
         for user_node in user_nodes:
             query = parse.urlsplit(
-                'https://talks.by/' + user_node.get('abs:href')).query
+                'https://talks.by/' + user_node.get('href')).query
             params = parse.parse_qs(query)
             print(user_node.text)
-            print(user_node.get('abs:href'))
+            print(user_node.get('href'))
             print(user_node.params['u'][0])
