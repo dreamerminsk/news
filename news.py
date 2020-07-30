@@ -36,11 +36,17 @@ async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
     fds = []
     for art in arts:
-        print(art)
         art['ttlf'] = str(timedelta(seconds=art['ttl']))
         fds.append(art)
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': fds})
 
+
+async def show_users(request):
+    arts = users.find({})
+    fds = []
+    for art in arts:
+        fds.append(art)
+    return templates.TemplateResponse('users.html', {'request': request, 'users': fds})
 
 class FeedEndpoint(HTTPEndpoint):
     async def get(self, request):
@@ -146,5 +152,6 @@ app = Starlette(debug=True, routes=[
     Route('/feeds/latest', latest_feeds),
     Route('/feeds/{feed_id}', FeedEndpoint),
     Route('/tasks/{name}', TaskEndpoint),
+    Route('/users', show_users),
     Mount('/static', StaticFiles(directory='static'), name='static')
 ], on_startup=[start_job])
