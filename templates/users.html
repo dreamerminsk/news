@@ -2,11 +2,11 @@
 {% block content %}
 <table id='letters'>
     <thead>
-        <th>
-        {% for letter in letters %}
-        <td>{{ letter._id }}</td>
-        {% endfor %}
-        </th>
+        <tr>
+            {% for letter in letters %}
+            <td>{{ letter._id }}</td>
+            {% endfor %}
+        </tr>
     </thead>
     <tbody>
         <tr>
