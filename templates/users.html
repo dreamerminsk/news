@@ -2,18 +2,18 @@
 {% block content %}
 <table id='letters'>
     <thead>
-        {% for letter in letters %}
         <th>
+        {% for letter in letters %}
         <td>{{ letter._id }}</td>
-        </th>
         {% endfor %}
+        </th>
     </thead>
     <tbody>
-        {% for letter in letters %}
         <tr>
+            {% for letter in letters %}
             <td>{{ letter.count }}</td>
+            {% endfor %}
         </tr>
-        {% endfor %}
     </tbody>
 </table>
 {% for user in users %}
