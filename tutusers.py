@@ -17,6 +17,12 @@ client = MongoClient()
 news = client.news
 users = news.users
 
+threads_url = 'https://talks.by/forumdisplay.php?f=45'
+threads_page = get_text(threads_url)
+if threads_page:
+    soup = BeautifulSoup(threads_page, 'html.parser')
+    
+
 text = get_text('https://talks.by/showthread.php?t=14464110&page=5')
 if text:
     soup = BeautifulSoup(text, 'html.parser')
