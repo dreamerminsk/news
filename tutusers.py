@@ -28,4 +28,4 @@ if text:
             params = parse.parse_qs(query)
             print(user_node.text)
             print(user_node.get('href'))
-            print(user_node.params['u'][0])
+            print(params['u'][0])
