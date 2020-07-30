@@ -44,7 +44,7 @@ async def show_feeds(request):
 
 async def show_users(request):
     user_list = users.find({})
-    letter_list = users.find({}).aggregate(
+    letter_list = users.aggregate(
         [{'$group': {'_id': {'$substr': ['$name', 0, 1]}, 'count': {'$sum': 1}}}])
     fds = []
     for user in user_list:
