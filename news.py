@@ -43,9 +43,9 @@ async def show_feeds(request):
 
 
 async def show_users(request):
-    us = users.find({})
+    user_list = users.find({})
     fds = []
-    for user in arts:
+    for user in user_list:
         fds.append(user)
     return templates.TemplateResponse('users.html', {'request': request, 'users': fds})
 
