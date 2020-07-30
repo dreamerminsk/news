@@ -15,3 +15,8 @@ print = pprint
 client = MongoClient()
 news = client.news
 users = news.users
+
+text = get_text('https://talks.by/showthread.php?t=14464110')
+if text:
+    soup = BeautifulSoup(text, 'html.parser')
+    soup.select('div.row-user a.username')
