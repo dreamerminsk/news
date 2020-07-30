@@ -51,13 +51,20 @@ async def show_users(request):
              'uname': {'$toUpper': '$name'}
          }
          },
-            {'$group': {'_id': {'$substrCP': [
-                '$uname', 0, 1]}, 'count': {'$sum': 1}}},
-            {'$sort': {'_id': 1}}])
+            {
+                '$group':
+            {
+                '_id': {'$substrCP': ['$uname', 0, 1]}, 'count': {'$sum': 1}}
+        },
+            {
+                '$sort': {'_id': 1}
+        }
+        ])
     fds = []
     for user in user_list:
         fds.append(user)
-    return templates.TemplateResponse('users.html', {'request': request, 'letters': letter_list, 'users': fds})
+    return templates.TemplateResponse('users.html', {
+        'request': request, 'counts': letter_list, 'letters': letter_list, 'users': fds})
 
 
 class FeedEndpoint(HTTPEndpoint):
