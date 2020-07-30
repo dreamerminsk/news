@@ -3,12 +3,10 @@ import pprint
 import xml.etree.ElementTree as etree
 from datetime import datetime, timedelta
 
-import requests
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 
-from fake_useragent import UserAgent
 from starlette.applications import Starlette
 from starlette.background import BackgroundTask, BackgroundTasks
 from starlette.endpoints import HTTPEndpoint
@@ -17,6 +15,7 @@ from starlette.responses import (JSONResponse, PlainTextResponse,
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
+from web import get_text
 
 print = pprint.pprint
 
@@ -109,35 +108,36 @@ async def process_feeds(q):
 
 async def update_feed2(feed):
     i = 0
-    r = requests.get(feed['link'], headers={'User-Agent': UserAgent().random})
-    root = etree.fromstring(r.text)
-    for channel in root.findall('channel'):
+    text = get_text(feed['link'])
+    if text:
+        root = etree.fromstring(text)
+        for channel in root.findall('channel'):
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {'title': channel.find('title').text}}, upsert=False)
         feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'title': channel.find('title').text}}, upsert=False)
-    feeds.update_one({'_id': feed['_id']}, {
-                     '$set': {'description': channel.find('description').text}}, upsert=False)
-    for item in channel.findall('item'):
-        title = item.find('title').text
-        link = item.find('link').text
-        if '?' in link:
-            link = link[:link.find('?')]
-        if not articles.find_one({"link": link}):
-            i += 1
-            articles.insert_one({"link": link, "title": title})
-    feeds.update_one({'_id': feed['_id']}, {
-                     '$set': {'last_access': datetime.now()}}, upsert=False)
-    if i > 0:
+                         '$set': {'description': channel.find('description').text}}, upsert=False)
+        for item in channel.findall('item'):
+            title = item.find('title').text
+            link = item.find('link').text
+            if '?' in link:
+                link = link[:link.find('?')]
+            if not articles.find_one({"link": link}):
+                i += 1
+                articles.insert_one({"link": link, "title": title})
         feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
-                     }}, upsert=False)
-    else:
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
-        feeds.update_one({'_id': feed['_id']}, {
-            '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
-                     }}, upsert=False)
+                         '$set': {'last_access': datetime.now()}}, upsert=False)
+        if i > 0:
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
+                         }}, upsert=False)
+        else:
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
+                         }}, upsert=False)
 
 app = Starlette(debug=True, routes=[
     Route('/', show_news),
