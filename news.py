@@ -44,10 +44,12 @@ async def show_feeds(request):
 
 async def show_users(request):
     user_list = users.find({})
+    letter_list = users.aggregate(
+        {'$group': {'_id': {'$substr': ['$name', 0, 1]}, 'count': {'$sum': 1}}})
     fds = []
     for user in user_list:
         fds.append(user)
-    return templates.TemplateResponse('users.html', {'request': request, 'users': fds})
+    return templates.TemplateResponse('users.html', {'request': request, 'letters': letter_list, 'users': fds})
 
 
 class FeedEndpoint(HTTPEndpoint):
