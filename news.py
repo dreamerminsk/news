@@ -27,6 +27,8 @@ feeds = news.feeds
 articles = news.articles
 users = news.users
 
+async def show(request):
+    return RedirectResponse(url='/view/feeds')
 
 async def show_news(request):
     arts = articles.find({}).sort([("published", -1)]).limit(64)
@@ -165,12 +167,14 @@ async def update_feed2(feed):
                          }}, upsert=False)
 
 app = Starlette(debug=True, routes=[
-    Route('/', show_news),
-    Route('/news', show_news),
-    Route('/feeds', show_feeds),
     Route('/feeds/latest', latest_feeds),
     Route('/feeds/{feed_id}', FeedEndpoint),
     Route('/tasks/{name}', TaskEndpoint),
-    Route('/users', show_users),
+
+    Route('/', show),
+    Route('/view/news', show_news),
+    Route('/view/feeds', show_feeds),
+    Route('/view/users', show_users),
+
     Mount('/static', StaticFiles(directory='static'), name='static')
 ], on_startup=[start_job])
