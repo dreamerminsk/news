@@ -22,8 +22,8 @@ turls = set()
 
 urls = set()
 
-for i in range(32):
-    turls.add('https://talks.by/forumdisplay.php?f=45&page={}&order=desc'.format(i))
+for i in range(64):
+    turls.add('https://talks.by/forumdisplay.php?f=160&page={}&order=desc'.format(i))
 
 while len(turls) > 0:
     turl = turls.pop()
