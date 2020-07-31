@@ -44,6 +44,6 @@ while len(urls) > 0:
                 params = parse.parse_qs(query)
                 op_result = users.update_one({'u': params['u'][0]}, {
                     '$set': {'name': user_node.text}}, upsert=True)
-                pp.pprint(op_result.modified_count)    
+                pp.pprint(op_result)    
                 if op_result.modified_count > 0:
                     print('{} - {}'.format(params['u'][0], user_node.text))
