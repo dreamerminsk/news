@@ -22,7 +22,7 @@ turls = set()
 
 urls = set()
 
-for i in range(16):
+for i in range(32):
     turls.add('https://talks.by/forumdisplay.php?f=45&page={}&order=desc'.format(i))
 
 while len(turls) > 0:
