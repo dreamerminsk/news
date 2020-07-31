@@ -22,4 +22,8 @@ feeds.update_one(
     upsert=True)
 
 
+feeds.delete_one(
+    {'link': 'https://www.wtatennis.com/rss-news.xml/?x=1'})
+
+
 print(feeds.count_documents({}))
