@@ -12,6 +12,7 @@ from urllib import parse
 
 
 #print = pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 client = MongoClient()
 news = client.news
@@ -19,7 +20,7 @@ users = news.users
 
 urls = set()
 
-threads_url = 'https://talks.by/forumdisplay.php?f=45&page=30&order=desc'
+threads_url = 'https://talks.by/forumdisplay.php?f=45&page=37&order=desc'
 threads_page = get_text(threads_url)
 if threads_page:
     soup = BeautifulSoup(threads_page, 'html.parser')
@@ -43,6 +44,6 @@ while len(urls) > 0:
                 params = parse.parse_qs(query)
                 op_result = users.update_one({'u': params['u'][0]}, {
                     '$set': {'name': user_node.text}}, upsert=True)
-                pprint.pprint(op_result.modified_count)    
+                pp.pprint(op_result.modified_count)    
                 if op_result.modified_count > 0:
                     print('{} - {}'.format(params['u'][0], user_node.text))
