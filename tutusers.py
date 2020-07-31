@@ -23,12 +23,12 @@ turls = set()
 urls = set()
 
 for i in range(16):
-    urls.add('https://talks.by/forumdisplay.php?f=45&page={}&order=desc'.format(i))
+    turls.add('https://talks.by/forumdisplay.php?f=45&page={}&order=desc'.format(i))
 
 while len(turls) > 0:
     turl = turls.pop()
     print(turl)
-    threads_page = get_text(threads_url)
+    threads_page = get_text(turl)
     if threads_page:
         soup = BeautifulSoup(threads_page, 'html.parser')
         ref_nodes = soup.select('a[href]')
