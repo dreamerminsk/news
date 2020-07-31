@@ -1,5 +1,5 @@
 async function updateFeeds() {
-  let response = await fetch('/tasks/feeds');
+  let response = await fetch('/api/tasks/feeds');
   let commits = await response.json();
   document.getElementById("task-start").textContent = commits.start.toLocaleString();
   document.getElementById("task-elapsed").textContent = commits.elapsed;
@@ -16,7 +16,7 @@ async function updateFeeds() {
       div.classList.remove('text-white');
     };
   });
-  let res = await fetch(`/feeds/latest`);
+  let res = await fetch(`/api/feeds/latest`);
   let json = await res.json();
   json.feeds.forEach(feed => {
     try {

@@ -167,9 +167,9 @@ async def update_feed2(feed):
                          }}, upsert=False)
 
 app = Starlette(debug=True, routes=[
-    Route('/feeds/latest', latest_feeds),
-    Route('/feeds/{feed_id}', FeedEndpoint),
-    Route('/tasks/{name}', TaskEndpoint),
+    Route('/api/feeds/latest', latest_feeds),
+    Route('/api/feeds/{feed_id}', FeedEndpoint),
+    Route('/api/tasks/{name}', TaskEndpoint),
 
     Route('/', show),
     Route('/view/news', show_news),
