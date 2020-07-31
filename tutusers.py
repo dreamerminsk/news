@@ -20,7 +20,7 @@ users = news.users
 
 urls = set()
 
-threads_url = 'https://talks.by/forumdisplay.php?f=45&page=50&order=desc'
+threads_url = 'https://talks.by/forumdisplay.php?f=45&page=1&order=desc'
 threads_page = get_text(threads_url)
 if threads_page:
     soup = BeautifulSoup(threads_page, 'html.parser')
