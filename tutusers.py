@@ -41,6 +41,7 @@ while len(urls) > 0:
             for user_node in user_nodes:
                 query = parse.urlsplit(user_node.get('href')).query
                 params = parse.parse_qs(query)
-                print('{} - {}'.format(params['u'][0], user_node.text))
-                users.update_one({'u': params['u'][0]}, {
+                op_result = users.update_one({'u': params['u'][0]}, {
                     '$set': {'name': user_node.text}}, upsert=True)
+                if op_result.modifiedCount > 0:
+                    print('{} - {}'.format(params['u'][0], user_node.text))
