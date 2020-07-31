@@ -20,7 +20,7 @@ users = news.users
 
 urls = set()
 
-threads_url = 'https://talks.by/forumdisplay.php?f=45&page=17&order=desc'
+threads_url = 'https://talks.by/forumdisplay.php?f=45&page=48&order=desc'
 threads_page = get_text(threads_url)
 if threads_page:
     soup = BeautifulSoup(threads_page, 'html.parser')
@@ -47,3 +47,4 @@ while len(urls) > 0:
                 pp.pprint('{}, {}'.format(op_result.matched_count, op_result.modified_count))  
                 if op_result.modified_count > 0:
                     print('{} - {}'.format(params['u'][0], user_node.text))
+print(users.count_documents({}))
