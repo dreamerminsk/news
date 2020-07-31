@@ -60,5 +60,5 @@ while len(urls) > 0:
                     '$set': {'name': user_node.text}}, upsert=True)
                 #pp.pprint('{}, {}, {}'.format(op_result.matched_count, op_result.modified_count, op_result.upserted_id))  
                 if op_result.upserted_id:
-                    print('{} - {}'.format(params['u'][0], user_node.text))
+                    print('\t{} - {}'.format(params['u'][0], user_node.text))
 print(users.count_documents({}))
