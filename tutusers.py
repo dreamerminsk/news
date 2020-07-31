@@ -43,7 +43,7 @@ while len(urls) > 0:
         if ref_nodes:
             for ref_node in ref_nodes:
                 if '>>' in ref_node.text:
-                    urls.add(ref_node.get('href'))
+                    urls.add('https://talks.by/{}'.format(ref_node.get('href')))
         user_nodes = soup.select('div.row-user a.username')
         if user_nodes:
             for user_node in user_nodes:
