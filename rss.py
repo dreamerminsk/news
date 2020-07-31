@@ -13,7 +13,7 @@ feeds = news.feeds
 
 
 feeds.update_one(
-    {'link': 'https://www.atptour.com/en/media/rss-feed/xml-feed'},
+    {'link': 'https://www.wtatennis.com/rss-news.xml/?x=1'},
     {'$set': {
         'title': 'ch',
         'last_access': datetime.now(),
