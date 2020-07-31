@@ -13,17 +13,13 @@ feeds = news.feeds
 
 
 feeds.update_one(
-    {'link': 'https://www.wtatennis.com/rss-news.xml/?x=1'},
+    {'link': 'https://nn.by/?c=rss-top'},
     {'$set': {
         'title': 'ch',
         'last_access': datetime.now(),
         'next_access': datetime.now() - timedelta(seconds=1000),
         'ttl': 100}},
     upsert=True)
-
-
-feeds.delete_one(
-    {'link': 'https://www.wtatennis.com/rss-news.xml/?x=1'})
 
 
 print(feeds.count_documents({}))
