@@ -45,7 +45,7 @@ async def show_feeds(request):
 
 
 async def show_users(request):
-    user_list = users.find({})
+    user_list = users.find({}).limit(32)
     letter_list = users.aggregate(
         [{
             '$project':
