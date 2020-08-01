@@ -13,7 +13,7 @@ feeds = news.feeds
 
 
 feeds.update_one(
-    {'link': 'https://nn.by/?c=rss-top'},
+    {'link': 'https://nn.by/?c=rss-all'},
     {'$set': {
         'title': 'ch',
         'last_access': datetime.now(),
