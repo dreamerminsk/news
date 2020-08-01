@@ -29,7 +29,8 @@
     </div>
     <div class='card-footer'>
         <div class='btn-group' role='group'>
-          <a class='btn btn-outline-secondary active' href='https://talks.by/member.php?u={{ user['u'] }}'>Профиль</a>
+            <a class='btn btn-outline-secondary active'
+                href={{ "https://talks.by/member.php?u={}".format(user['u']) }}>Профиль</a>
         </div>
     </div>
 </div>
