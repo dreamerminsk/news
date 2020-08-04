@@ -1,10 +1,13 @@
 from qwikidata.sparql  import return_sparql_query_results
 
 query_string = """
-        SELECT $WDid
-         WHERE {
-          ?WDid (wdt:P279)* wd:Q4022
-        }"""
+        SELECT ?child ?childLabel
+WHERE
+{
+# ?child  father   Bach
+  ?child wdt:P22 wd:Q1339.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
+}"""
 
 res = return_sparql_query_results(query_string)
 print(res)
