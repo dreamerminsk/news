@@ -7,6 +7,6 @@ query_string = """
         }"""
 
 res = return_sparql_query_results(query_string)
-
+print(res)
 for row in res["results"]["bindings"]:
    print(row)
