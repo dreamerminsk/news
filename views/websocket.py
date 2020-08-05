@@ -24,7 +24,7 @@ class WebsocketView(WebSocketEndpointCustom):
 
     async def on_connect(self, websocket: WebSocket):
         self.channel_name = self.get_params(websocket).get('username', 'default_name')
-        if self.channel_name == constants.__ALL__:
+        if self.channel_name == '__ALL__':
             await websocket.close()
 
         await websocket.accept()
