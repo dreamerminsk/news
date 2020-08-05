@@ -37,7 +37,8 @@ while len(turls) > 0:
                 query = parse.urlsplit(ref_node.get('href')).query
                 params = parse.parse_qs(query)
                 if 't' in params:
-                    urls.add('https://talks.by/showthread.php?t={}'.format(params['t'][0]))
+                    urls.add(
+                        'https://talks.by/showthread.php?t={}'.format(params['t'][0]))
     print(len(urls))
 
 while len(urls) > 0:
@@ -58,7 +59,7 @@ while len(urls) > 0:
                 params = parse.parse_qs(query)
                 op_result = users.update_one({'u': params['u'][0]}, {
                     '$set': {'name': user_node.text}}, upsert=True)
-                #pp.pprint('{}, {}, {}'.format(op_result.matched_count, op_result.modified_count, op_result.upserted_id))  
+                #pp.pprint('{}, {}, {}'.format(op_result.matched_count, op_result.modified_count, op_result.upserted_id))
                 if op_result.upserted_id:
                     print('\t{} - {}'.format(params['u'][0], user_node.text))
 print(users.count_documents({}))
