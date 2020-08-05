@@ -35,7 +35,7 @@ class WebsocketView(WebSocketEndpointCustom):
         await super().on_disconnect(websocket, close_code)
 
     async def on_receive(self, ws, data):
-        await self.send_message(self.get_channel_name(constants.__ALL__), 'receive_message', data, self.channel_name)
+        await self.send_message(self.get_channel_name('__ALL__'), 'receive_message', data, self.channel_name)
 
     async def login_user(self, websocket, name):
         app = self.scope.get('app', None)
@@ -44,7 +44,7 @@ class WebsocketView(WebSocketEndpointCustom):
         logger.info('login_user: {}'.format(name))
         await app.redis_cache.set('users', json.dumps(users))
         await self.send_message(
-            self.get_channel_name(constants.__ALL__),
+            self.get_channel_name('__ALL__'),
             'connected_user',
             json.dumps({'message': 'user connected', 'users': users}),
             self.channel_name
@@ -55,7 +55,7 @@ class WebsocketView(WebSocketEndpointCustom):
         users = await self.get_users()
         logger.info('unlogin_user: Logout user to ws: {}'.format(name))
         await app.redis_cache.set('users', json.dumps(list(filter(lambda x: x != name, users))))
-        await self.send_message(self.get_channel_name(constants.__ALL__), 'disconnected_user', '{}', self.channel_name)
+        await self.send_message(self.get_channel_name('__ALL__'), 'disconnected_user', '{}', self.channel_name)
 
     async def send_message(self, channel, type, message_raw, username):
         message = json.loads(message_raw)
