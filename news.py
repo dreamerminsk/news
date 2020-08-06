@@ -176,5 +176,7 @@ app = Starlette(debug=True, routes=[
     Route('/view/feeds', show_feeds),
     Route('/view/users', show_users),
 
+    Route('/view/talksby', show_talks),
+
     Mount('/static', StaticFiles(directory='static'), name='static')
 ], on_startup=[start_job])
