@@ -30,25 +30,6 @@ turls = set()
 
 urls = set()
 
-for i in range(64):
-    turls.add('https://talks.by/forumdisplay.php?f=45&page={}&order=desc'.format(i))
-
-while len(turls) > 0:
-    turl = turls.pop()
-    print(turl)
-    threads_page = get_text(turl)
-    if threads_page:
-        soup = BeautifulSoup(threads_page, 'html.parser')
-        ref_nodes = soup.select('a[href]')
-        if ref_nodes:
-            for ref_node in ref_nodes:
-                query = parse.urlsplit(ref_node.get('href')).query
-                params = parse.parse_qs(query)
-                if 't' in params:
-                    urls.add(
-                        'https://talks.by/showthread.php?t={}'.format(params['t'][0]))
-    print(len(urls))
-
 while len(urls) > 0:
     url = urls.pop()
     print(url)
