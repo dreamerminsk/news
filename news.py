@@ -67,6 +67,9 @@ async def show_users(request):
         fds.append(user)
     return templates.TemplateResponse('users.html', {
         'request': request, 'counts': letter_list, 'letters': letter_list, 'users': fds})
+  
+async def show_talks(request):
+    return templates.TemplateResponse('talks.html', {'request': request})
 
 
 class FeedEndpoint(HTTPEndpoint):
