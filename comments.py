@@ -7,6 +7,7 @@
 #     div.row-content-date
 #       Добавлено: Сегодня 08:29 из Беларуси
 #       Добавлено: 19.07.20 12:39 из Беларуси
+#       link_rate_up link_rate_down
 
 
 import asyncio
@@ -34,6 +35,9 @@ for thread in threads4:
     thread_url = 'https://talks.by/showthread.php?t={}'.format(
         thread['thread_id'])
     urls.add(thread_url)
+
+
+def parse_user(node):
 
 
 while len(urls) > 0:
