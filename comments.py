@@ -29,7 +29,7 @@ threads = news.threads
 
 urls = set()
 
-threads4 = threads.find({}).sort([("thread_id", 1)]).limit(4)
+threads4 = threads.find({}).sort([("thread_id", 1)]).limit(32)
 for thread in threads4:
     thread_url = 'https://talks.by/showthread.php?t={}'.format(
         thread['thread_id'])
