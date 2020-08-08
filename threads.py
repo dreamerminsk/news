@@ -36,10 +36,11 @@ while len(turls) > 0:
             for ref_node in ref_nodes:
                 query = parse.urlsplit(ref_node.get('href')).query
                 params = parse.parse_qs(query)
-                if 't' in params:
-                    print('{}. {}'.format(params['t'][0], ref_node.text))
-                    urls.add(
-                        'https://talks.by/showthread.php?t={}'.format(params['t'][0]))
+                if 't' in params:                    
+                    thread_url = 'https://talks.by/showthread.php?t={}'.format(params['t'][0])
+                    if thread_url not in urls:
+                        print('{}. {}'.format(params['t'][0], ref_node.text))
+                        urls.add(thread_url)
     print(len(urls))
 
 print(users.count_documents({}))
