@@ -22,9 +22,6 @@ from web import get_text
 from urllib import parse
 
 
-#print = pprint
-pp = pprint.PrettyPrinter(indent=4)
-
 client = MongoClient()
 news = client.news
 users = news.users
@@ -70,7 +67,6 @@ while len(urls) > 0:
                 params = parse.parse_qs(query)
                 op_result = users.update_one({'u': params['u'][0]}, {
                     '$set': {'name': user_node.text}}, upsert=True)
-                #pp.pprint('{}, {}, {}'.format(op_result.matched_count, op_result.modified_count, op_result.upserted_id))
                 if op_result.upserted_id:
                     print('\t{} - {}'.format(params['u'][0], user_node.text))
 print(users.count_documents({}))
