@@ -17,6 +17,7 @@ pp = pprint.PrettyPrinter(indent=4)
 client = MongoClient()
 news = client.news
 users = news.users
+threads = news.threads
 
 turls = set()
 
@@ -43,4 +44,4 @@ while len(turls) > 0:
                         urls.add(thread_url)
     print(len(urls))
 
-print(users.count_documents({}))
+print(threads.count_documents({}))
