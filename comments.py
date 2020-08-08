@@ -25,10 +25,11 @@ from urllib import parse
 client = MongoClient()
 news = client.news
 users = news.users
-
-turls = set()
+threads = news.threads
 
 urls = set()
+
+
 
 while len(urls) > 0:
     url = urls.pop()
