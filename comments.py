@@ -38,7 +38,7 @@ for thread in threads4:
 
 
 def parse_user(node):
-
+    return None
 
 while len(urls) > 0:
     url = urls.pop()
