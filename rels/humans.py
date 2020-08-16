@@ -9,6 +9,9 @@ from starlette.endpoints import HTTPEndpoint
 from starlette.responses import (JSONResponse, PlainTextResponse,
                                  RedirectResponse)
 
+client = MongoClient()
+rels = client.rels
+
 
 class HumansEndpoint(HTTPEndpoint):
     async def get(self, request):
