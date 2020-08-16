@@ -27,8 +27,10 @@ feeds = news.feeds
 articles = news.articles
 users = news.users
 
+
 async def show(request):
     return RedirectResponse(url='/view/feeds')
+
 
 async def show_news(request):
     arts = articles.find({}).sort([("published", -1)]).limit(64)
@@ -67,7 +69,8 @@ async def show_users(request):
         fds.append(user)
     return templates.TemplateResponse('users.html', {
         'request': request, 'counts': letter_list, 'letters': letter_list, 'users': fds})
-  
+
+
 async def show_talks(request):
     return templates.TemplateResponse('talks.html', {'request': request})
 
@@ -170,6 +173,8 @@ async def update_feed2(feed):
                          }}, upsert=False)
 
 app = Starlette(debug=True, routes=[
+    Route('/api/humans/{name}', TaskEndpoint),
+
     Route('/api/feeds/latest', latest_feeds),
     Route('/api/feeds/{feed_id}', FeedEndpoint),
     Route('/api/tasks/{name}', TaskEndpoint),
