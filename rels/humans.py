@@ -15,13 +15,10 @@ rels = client.rels
 
 class HumansEndpoint(HTTPEndpoint):
     async def get(self, request):
-        name = request.path_params['name']
-        task = news.tasks.find_one({"name": name})
+        limit = request.path_params['name']
+        task = rels.humans.find_one({}).limit(limit)
         if task is not None:
             task['_id'] = str(task['_id'])
-            task['elapsed'] = str(datetime.now() - task['start'])
-            task['start'] = str(task['start'])
-            task['total'] = articles.count_documents({})
         else:
             task = {
             }
