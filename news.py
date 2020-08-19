@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 from pymongo import MongoClient
 
 from rels.humans import HumansEndpoint
-from rels.countries import CountriesEndpoint
+from rels.countries import CountriesEndpoint, CountryEndpoint
 from starlette.applications import Starlette
 from starlette.background import BackgroundTask, BackgroundTasks
 from starlette.endpoints import HTTPEndpoint
@@ -176,7 +176,8 @@ async def update_feed2(feed):
 
 app = Starlette(debug=True, routes=[
     Route('/api/humans/', HumansEndpoint),
-    Route('/api/rels/countries/', CountriesEndpoint),
+    Route('/api/rels/countries', CountriesEndpoint),
+    Route('/api/rels/countries/{wikidataid}', CountryEndpoint),
 
     Route('/api/feeds/latest', latest_feeds),
     Route('/api/feeds/{feed_id}', FeedEndpoint),
