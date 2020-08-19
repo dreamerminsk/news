@@ -26,7 +26,7 @@ class CountriesEndpoint(HTTPEndpoint):
     async def post(self, request):
         country = await request.json()
         rels.countries.update_one({'WikiDataID': country['WikiDataID']}, {'Name': country['Name'], 'RusName': country['RusName'],}, upsert=True)
-        return PlainTextResponse('')
+        return JSONResponse({'result': 'ok'}, status_code=201)
       
       
       
