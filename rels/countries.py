@@ -15,13 +15,11 @@ rels = client.rels
 
 class CountriesEndpoint(HTTPEndpoint):
     async def get(self, request):
-        task = rels.countries.find({})
-        if task is not None:
-            task['_id'] = str(task['_id'])
-        else:
-            task = {
-            }
-        return JSONResponse(task)
+        latest = []
+        for country in rels.countries.find({}):
+            country['_id'] = str(country['_id'])
+            latest.append(country)
+        return JSONResponse({'status': 'ok', 'countries': latest})
       
     async def post(self, request):
         country = await request.json()
