@@ -9,6 +9,7 @@ from pymongo import MongoClient
 
 from rels.humans import HumansEndpoint
 from rels.countries import CountriesEndpoint, CountryEndpoint
+from rels.instances import InstancesEndpoint, InstanceEndpoint
 from starlette.applications import Starlette
 from starlette.background import BackgroundTask, BackgroundTasks
 from starlette.endpoints import HTTPEndpoint
@@ -178,6 +179,8 @@ app = Starlette(debug=True, routes=[
     Route('/api/humans/', HumansEndpoint),
     Route('/api/rels/countries', CountriesEndpoint),
     Route('/api/rels/countries/{wikidataid}', CountryEndpoint),
+    Route('/api/rels/instances', InstancesEndpoint),
+    Route('/api/rels/instances/{wikidataid}', InstanceEndpoint),
 
     Route('/api/feeds/latest', latest_feeds),
     Route('/api/feeds/{feed_id}', FeedEndpoint),
