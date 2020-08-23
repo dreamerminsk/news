@@ -20,14 +20,14 @@ class CountriesEndpoint(HTTPEndpoint):
             country['_id'] = str(country['_id'])
             latest.append(country)
         return JSONResponse({'status': 'ok', 'countries': latest})
-      
+
     async def post(self, request):
         country = await request.json()
-        rels.countries.update_one({'WikiDataID': country['WikiDataID']}, {'$set': {'Name': country['Name'], 'RusName': country['RusName'],}}, upsert=True)
+        rels.countries.update_one({'WikiDataID': country['WikiDataID']}, {'$set': {
+                                  'Name': country['Name'], 'RusName': country['RusName'], }}, upsert=True)
         return JSONResponse({'result': 'ok'}, status_code=201)
-      
-      
-      
+
+
 class CountryEndpoint(HTTPEndpoint):
     async def get(self, request):
         wdid = request.path_params['wikidataid']
@@ -38,6 +38,6 @@ class CountryEndpoint(HTTPEndpoint):
             task = {
             }
         return JSONResponse(task)
-      
+
     async def put(self, request):
         pass
