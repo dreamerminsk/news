@@ -20,14 +20,14 @@ class InstancesEndpoint(HTTPEndpoint):
             instance['_id'] = str(instance['_id'])
             latest.append(instance)
         return JSONResponse({'status': 'ok', 'instances': latest})
-      
+
     async def post(self, request):
         instance = await request.json()
-        rels.instances.update_one({'WikiDataID': instance['WikiDataID']}, {'$set': {'Name': instance['Name'], 'RusName': instance['RusName'],}}, upsert=True)
+        rels.instances.update_one({'WikiDataID': instance['WikiDataID']}, {'$set': {
+                                  'Name': instance['Name'], 'RusName': instance['RusName'], }}, upsert=True)
         return JSONResponse({'result': 'ok'}, status_code=201)
-      
-      
-      
+
+
 class InstanceEndpoint(HTTPEndpoint):
     async def get(self, request):
         wdid = request.path_params['wikidataid']
@@ -38,6 +38,6 @@ class InstanceEndpoint(HTTPEndpoint):
             task = {
             }
         return JSONResponse(task)
-      
+
     async def put(self, request):
         pass
