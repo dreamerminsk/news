@@ -148,20 +148,24 @@ async def update_feed2(feed):
     i = 0
     text = get_text(feed['link'])
     if text:
-        root = etree.fromstring(text)
-        for channel in root.findall('channel'):
-            feeds.update_one({'_id': feed['_id']}, {
-                '$set': {'title': channel.find('title').text}}, upsert=False)
-        feeds.update_one({'_id': feed['_id']}, {
+        try:
+            root = etree.fromstring(text)
+            for channel in root.findall('channel'):
+                feeds.update_one({'_id': feed['_id']}, {
+                    '$set': {'title': channel.find('title').text}}, upsert=False)
+                feeds.update_one({'_id': feed['_id']}, {
                          '$set': {'description': channel.find('description').text}}, upsert=False)
-        for item in channel.findall('item'):
-            title = item.find('title').text
-            link = item.find('link').text
-            if '?' in link:
-                link = link[:link.find('?')]
-            if not articles.find_one({"link": link}):
-                i += 1
-                articles.insert_one({"link": link, "title": title})
+                for item in channel.findall('item'):
+                    title = item.find('title').text
+                    link = item.find('link').text
+                    if '?' in link:
+                        link = link[:link.find('?')]
+                    if not articles.find_one({"link": link}):
+                        i += 1
+                        articles.insert_one({"link": link, "title": title})
+        except Exception as e:
+            print(e)
+        
         feeds.update_one({'_id': feed['_id']}, {
                          '$set': {'last_access': datetime.now()}}, upsert=False)
         if i > 0:
