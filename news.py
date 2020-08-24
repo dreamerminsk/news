@@ -135,11 +135,13 @@ async def queue_feeds(q):
 
 async def process_feeds(q):
     while True:
-        feed = await q.get()
-        await update_feed2(feed)
-        q.task_done()
-        news.tasks.update_one({'name': 'feeds'}, {
-            '$inc': {'feeds': 1}}, upsert=True)
+        try:
+            feed = await q.get()
+            await update_feed2(feed)
+        finally:
+            q.task_done()
+            news.tasks.update_one({'name': 'feeds'}, {
+                '$inc': {'feeds': 1}}, upsert=True)
 
 
 async def update_feed2(feed):
