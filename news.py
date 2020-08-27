@@ -180,6 +180,16 @@ async def update_feed2(feed):
             feeds.update_one({'_id': feed['_id']}, {
                 '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
                          }}, upsert=False)
+'
+class LoggingMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        
+        return response
+
+middleware = [
+    Middleware(LoggingMiddleware)
+]
 
 app = Starlette(debug=True, routes=[
     Route('/api/humans/', HumansEndpoint),
@@ -201,4 +211,4 @@ app = Starlette(debug=True, routes=[
     Route('/view/talksby', show_talks),
 
     Mount('/static', StaticFiles(directory='static'), name='static')
-], on_startup=[start_job])
+], middleware=middleware, on_startup=[start_job])
