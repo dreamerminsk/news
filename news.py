@@ -11,10 +11,10 @@ from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
 from starlette.applications import Starlette
-from starlette.middleware import Middleware
-from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.background import BackgroundTask, BackgroundTasks
 from starlette.endpoints import HTTPEndpoint
+from starlette.middleware import Middleware
+from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import (JSONResponse, PlainTextResponse,
                                  RedirectResponse)
 from starlette.routing import Mount, Route
@@ -75,6 +75,7 @@ async def show_users(request):
     return templates.TemplateResponse('users.html', {
         'request': request, 'counts': letter_list, 'letters': letter_list, 'users': fds})
 
+
 async def show_hosts(request):
     host_stats = client.stats.hosts.find({})
     hosts = []
@@ -82,6 +83,7 @@ async def show_hosts(request):
         host['last'] = str(host['last'])
         hosts.append(host)
     return templates.TemplateResponse('hosts.html', {'request': request, 'hosts': hosts})
+
 
 async def show_talks(request):
     return templates.TemplateResponse('talks.html', {'request': request})
@@ -163,7 +165,7 @@ async def update_feed2(feed):
                 feeds.update_one({'_id': feed['_id']}, {
                     '$set': {'title': channel.find('title').text}}, upsert=False)
                 feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'description': channel.find('description').text}}, upsert=False)
+                    '$set': {'description': channel.find('description').text}}, upsert=False)
                 for item in channel.findall('item'):
                     title = item.find('title').text
                     link = item.find('link').text
@@ -174,7 +176,7 @@ async def update_feed2(feed):
                         articles.insert_one({"link": link, "title": title})
         except Exception as e:
             print(e)
-        
+
         feeds.update_one({'_id': feed['_id']}, {
                          '$set': {'last_access': datetime.now()}}, upsert=False)
         if i > 0:
@@ -190,13 +192,18 @@ async def update_feed2(feed):
                 '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
                          }}, upsert=False)
 
+
 class LoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         response = await call_next(request)
-        client.stats.hosts.update_one({'host': request.client.host},{'$inc':{'requests': 1}}, upsert=True)
-        client.stats.hosts.update_one({'host': request.client.host},{'$set':{'last': datetime.now()}}, upsert=True)
-        client.stats.hosts.update_one({'host': request.client.host},{'$set':{'last_path': request.url.path}}, upsert=True)
+        client.stats.hosts.update_one({'host': request.client.host}, {
+                                      '$inc': {'requests': 1}}, upsert=True)
+        client.stats.hosts.update_one({'host': request.client.host}, {
+                                      '$set': {'last': datetime.now()}}, upsert=True)
+        client.stats.hosts.update_one({'host': request.client.host}, {
+                                      '$set': {'last_path': request.url.path}}, upsert=True)
         return response
+
 
 middleware = [
     Middleware(LoggingMiddleware)
