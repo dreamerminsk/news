@@ -73,6 +73,13 @@ async def show_users(request):
     return templates.TemplateResponse('users.html', {
         'request': request, 'counts': letter_list, 'letters': letter_list, 'users': fds})
 
+async def show_hosts(request):
+    host_stats = client.stats.hosts.find({})
+    hosts = []
+    for host in host_stats:
+        host['last'] = str(host['last'])
+        hosts.append(host)
+    return templates.TemplateResponse('hosts.html', {'request': request, 'hosts': hosts})
 
 async def show_talks(request):
     return templates.TemplateResponse('talks.html', {'request': request})
@@ -185,7 +192,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         response = await call_next(request)
         client.stats.hosts.update_one({'host': request.client.host},{'$inc':{'requests': 1}}, upsert=True)
-        client.stats.hosts.update_one({'host': request.client.host},{'$set':{'requests': 1}}, upsert=True)
+        client.stats.hosts.update_one({'host': request.client.host},{'$set':{'last': datetime.now()}}, upsert=True)
         return response
 
 middleware = [
@@ -208,6 +215,8 @@ app = Starlette(debug=True, routes=[
     Route('/view/news', show_news),
     Route('/view/feeds', show_feeds),
     Route('/view/users', show_users),
+    Route('/view/hosts', show_hosts),
+
 
     Route('/view/talksby', show_talks),
 
