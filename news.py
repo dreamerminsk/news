@@ -195,6 +195,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
         client.stats.hosts.update_one({'host': request.client.host},{'$inc':{'requests': 1}}, upsert=True)
         client.stats.hosts.update_one({'host': request.client.host},{'$set':{'last': datetime.now()}}, upsert=True)
+        client.stats.hosts.update_one({'host': request.client.host},{'$set':{'last_path': request.url.path}}, upsert=True)
         return response
 
 middleware = [
