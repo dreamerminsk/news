@@ -8,21 +8,27 @@
       </div>
       <div class='card-body'>
         <div class='card-text'>
-          Requests: {{ host['requests'] }}
+          requests: {{ host['requests'] }}
         </div>
         <div class='card-text'>
-          Last: {{ host['last'] }}
+          last_access: {{ host['last'] }}
+        </div>
+        <div class='card-text'>
+          last_path: {{ host['last_path'] }}
         </div>
       </div>
       <div class='card-footer'>
           <table class="table table-sm small p-0 m-0">
-          <tr>
-            <td>last_access</td><td id='la-{{ host['_id'] }}'>{{ host['last'] }}</td>
-          </tr>
-          <tr>
-            <td>requests</td><td id='ttl-{{ host['_id'] }}'>{{ host['requests'] }}</td>
-          </tr>
-          </table>
+            <tr>
+              <td>last_access</td><td id='la-{{ host['_id'] }}'>{{ host['last'] }}</td>
+            </tr>
+            <tr>
+              <td>last_path</td><td id='ttl-{{ host['_id'] }}'>{{ host['last_path'] }}</td>
+            </tr>
+            <tr>
+              <td>requests</td><td id='ttl-{{ host['_id'] }}'>{{ host['requests'] }}</td>
+            </tr>
+        </table>
       </div>
       <div class='card-footer'>
  
