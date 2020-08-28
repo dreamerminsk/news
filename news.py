@@ -180,11 +180,12 @@ async def update_feed2(feed):
             feeds.update_one({'_id': feed['_id']}, {
                 '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
                          }}, upsert=False)
-'
+
 class LoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         response = await call_next(request)
-        
+        client.stats.hosts.update_one({'host': request.client.host},{'$inc':{'requests': 1}}, upsert=True)
+        client.stats.hosts.update_one({'host': request.client.host},{'$set':{'requests': 1}}, upsert=True)
         return response
 
 middleware = [
