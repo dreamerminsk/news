@@ -7,13 +7,13 @@ from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 
+from endpoints.news import FeedEndpoint, TaskEndpoint
 from middleware import LoggingMiddleware
 from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
 from starlette.applications import Starlette
 from starlette.background import BackgroundTask, BackgroundTasks
-from starlette.endpoints import HTTPEndpoint
 from starlette.middleware import Middleware
 from starlette.responses import (JSONResponse, PlainTextResponse,
                                  RedirectResponse)
@@ -87,32 +87,6 @@ async def show_hosts(request):
 
 async def show_talks(request):
     return templates.TemplateResponse('talks.html', {'request': request})
-
-
-class FeedEndpoint(HTTPEndpoint):
-    async def get(self, request):
-        feed_id = request.path_params['feed_id']
-        feed = feeds.find_one({"_id": ObjectId(feed_id)})
-        feed['_id'] = str(feed['_id'])
-        feed['last_access'] = str(feed['last_access'])
-        feed['next_access'] = str(feed['next_access'])
-        feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
-        return JSONResponse(feed)
-
-
-class TaskEndpoint(HTTPEndpoint):
-    async def get(self, request):
-        name = request.path_params['name']
-        task = news.tasks.find_one({"name": name})
-        if task is not None:
-            task['_id'] = str(task['_id'])
-            task['elapsed'] = str(datetime.now() - task['start'])
-            task['start'] = str(task['start'])
-            task['total'] = articles.count_documents({})
-        else:
-            task = {
-            }
-        return JSONResponse(task)
 
 
 async def latest_feeds(request):
