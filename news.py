@@ -11,6 +11,7 @@ from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
 from starlette.applications import Starlette
+from starlette.middleware import Middleware, BaseHTTPMiddleware
 from starlette.background import BackgroundTask, BackgroundTasks
 from starlette.endpoints import HTTPEndpoint
 from starlette.responses import (JSONResponse, PlainTextResponse,
