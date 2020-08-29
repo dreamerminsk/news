@@ -27,6 +27,7 @@ print = pprint.pprint
 templates = Jinja2Templates(directory='templates')
 
 client = MongoClient()
+client.stats.hosts.remove({})
 news = client.news
 feeds = news.feeds
 articles = news.articles
