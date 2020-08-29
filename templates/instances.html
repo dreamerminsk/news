@@ -1,0 +1,23 @@
+{% extends "rels.html" %}
+{% block title %}Rels :: Instances{% endblock %}
+{% block content %}
+{% for instance in instances %}
+<div class='card card-dark border-dark'>
+    <div class='card-header'>
+        {{ instance.WikiDataID }}
+    </div>
+    <div class='card-body'>
+        <div class='card-text'>
+            Name (en): {{ instance.Name }}</br>
+            Name (ru): {{ instance.RusName }}
+        </div>
+    </div>
+    <div class='card-footer'>
+        <div class='btn-group' role='group'>
+            <a class='btn btn-outline-secondary active'
+                href={{ "https://talks.by/member.php?u={}".format(user['u']) }}>Профиль</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
