@@ -14,13 +14,10 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
         client.stats.hosts.update_one({'host': request.client.host}, {
                                       '$inc': {'requests': 1}}, upsert=True)
-        client.stats.hosts.update_one(
-            {'host': request.client.host},
-            {
-                '$inc': {'last-req-count': 1},
-                '$push': {'last-requests': {'datetime': datetime.now(), 'path': request.url.path}}
-            })
-        client.stats.hosts.update_one(
-            {'host': request.client.host, 'last-req-count': {'$gt': 3}},
-            {'$inc': {'last-req-count': -1}, '$pop': {'last-requests': -1}})
+        client.stats.hosts.update_one({'host': request.client.host},
+                                      {'$inc': {'last-req-count': 1},
+                                       '$push': {'last-requests': {'datetime': datetime.now(), 'path': request.url.path}}
+                                       }, upsert=True)
+        client.stats.hosts.update_one({'host': request.client.host, 'last-req-count': {'$gt': 3}},
+                                      {'$inc': {'last-req-count': -1}, '$pop': {'last-requests': -1}}, upsert=True)
         return response
