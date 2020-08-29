@@ -1,29 +1,29 @@
 {% extends "app.html" %}
 {% block title %}News :: Hosts{% endblock %}
 {% block content %}
-  {% for host in hosts %}
-    <div id='{{ host['_id'] }}' class='card card-dark border-dark m-2'>
-      <div class='card-header'>
-        {{ host['host'] }}
-      </div>
-      <div class='card-body'>
-        <div class='card-text'>
-          requests: {{ host['requests'] }}
-        </div>
-      </div>
-      <div class='card-footer'>
-          <table class="table table-sm small p-0 m-0">
-            {% for req in host['last-requests'] %}
-            <tr>
-              <td>{{ req['datetime'] }}</td><td>{{ req['path'] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-      </div>
-      <div class='card-footer'>
- 
-      </div>
+{% for host in hosts %}
+<div id='{{ host['_id'] }}' class='card card-dark border-dark m-2'>
+  <div class='card-header'>
+    {{ host['host'] }}
+  </div>
+  <div class='card-body'>
+    <div class='card-text'>
+      requests: {{ host['requests'] }}
     </div>
-  {% endfor %}
-{% endblock %}
+  </div>
+  <div class='card-footer'>
+    <table class="table table-sm small p-0 m-0">
+      {% for req in host['last-requests'] %}
+      <tr>
+        <td>{{ req['datetime'] }}</td>
+        <td>{{ req['path'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class='card-footer'>
 
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
