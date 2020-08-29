@@ -80,7 +80,6 @@ async def show_hosts(request):
     host_stats = client.stats.hosts.find({})
     hosts = []
     for host in host_stats:
-        host['last'] = str(host['last'])
         hosts.append(host)
     return templates.TemplateResponse('hosts.html', {'request': request, 'hosts': hosts})
 
