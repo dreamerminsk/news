@@ -18,6 +18,6 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                                       {'$inc': {'last-req-count': 1},
                                        '$push': {'last-requests': {'datetime': datetime.now(), 'path': request.url.path}}
                                        }, upsert=False)
-        client.stats.hosts.update_one({'host': request.client.host, 'last-req-count': {'$gt': 3}},
+        client.stats.hosts.update_one({'host': request.client.host, 'last-req-count': {'$gt': 8}},
                                       {'$inc': {'last-req-count': -1}, '$pop': {'last-requests': -1}}, upsert=False)
         return response
