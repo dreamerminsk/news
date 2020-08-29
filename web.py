@@ -8,5 +8,5 @@ def get_text(url):
         r = requests.get(url, headers={'User-Agent': UserAgent().random})
         return r.text
     except Exception as e:
-        print('ERROR: {}'.format(e))
+        print('ERROR: {}\r\n{}'.format(url, e))
         return None
