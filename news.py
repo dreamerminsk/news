@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 from pymongo import MongoClient
 
 from endpoints.news import FeedEndpoint, TaskEndpoint
-from middleware import LoggingMiddleware
+from middleware.logging import LoggingMiddleware
 from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
