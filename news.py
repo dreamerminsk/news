@@ -42,6 +42,10 @@ async def show_news(request):
     arts = articles.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
 
+async def show_rels(request):
+    return templates.TemplateResponse('rels.html', {'request': request})
+
+
 
 async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
@@ -188,6 +192,8 @@ app = Starlette(debug=True, routes=[
     Route('/view/feeds', show_feeds),
     Route('/view/users', show_users),
     Route('/view/hosts', show_hosts),
+
+    Route('/view/rels', show_rels),
 
 
     Route('/view/talksby', show_talks),
