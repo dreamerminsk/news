@@ -45,7 +45,9 @@ async def show_news(request):
 async def show_rels(request):
     return templates.TemplateResponse('rels.html', {'request': request})
 
-
+async def show_instances(request):
+    instances = client.rels.instances.find({})
+    return templates.TemplateResponse('instances.html', {'request': request, 'instances': instances})
 
 async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
@@ -194,6 +196,7 @@ app = Starlette(debug=True, routes=[
     Route('/view/hosts', show_hosts),
 
     Route('/view/rels', show_rels),
+    Route('/view/instances', show_instances),
 
 
     Route('/view/talksby', show_talks),
