@@ -1,0 +1,23 @@
+{% extends "rels.html" %}
+{% block title %}Rels :: Countries{% endblock %}
+{% block content %}
+{% for country in countries %}
+<div class='card card-dark border-dark'>
+    <div class='card-header'>
+        {{ country.WikiDataID }}
+    </div>
+    <div class='card-body'>
+        <div class='card-text'>
+            Name (en): {{ country.Name }}</br>
+            Name (ru): {{ country.RusName }}
+        </div>
+    </div>
+    <div class='card-footer'>
+        <div class='btn-group' role='group'>
+            <a class='btn btn-outline-secondary active'
+                href={{ "https://www.wikidata.org/wiki/Special:EntityPage/{}".format(country.WikiDataID) }}>Профиль</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
