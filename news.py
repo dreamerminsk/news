@@ -197,6 +197,7 @@ app = Starlette(debug=True, routes=[
 
     Route('/view/rels', show_rels),
     Route('/view/instances', show_instances),
+    Route('/view/countries', show_countries),
 
 
     Route('/view/talksby', show_talks),
