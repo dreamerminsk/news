@@ -27,7 +27,7 @@ print = pprint.pprint
 templates = Jinja2Templates(directory='templates')
 
 client = MongoClient()
-#client.stats.hosts.remove({})
+# client.stats.hosts.remove({})
 news = client.news
 feeds = news.feeds
 articles = news.articles
@@ -42,20 +42,25 @@ async def show_news(request):
     arts = articles.find({}).sort([("published", -1)]).limit(64)
     return templates.TemplateResponse('news.html', {'request': request, 'articles': arts})
 
+
 async def show_rels(request):
     return templates.TemplateResponse('rels.html', {'request': request})
+
 
 async def show_instances(request):
     instances = client.rels.instances.find({})
     return templates.TemplateResponse('instances.html', {'request': request, 'instances': instances})
 
+
 async def show_countries(request):
     countries = client.rels.countries.find({})
     return templates.TemplateResponse('countries.html', {'request': request, 'countries': countries})
 
+
 async def show_categories(request):
     categories = client.rels.categories.find({})
     return templates.TemplateResponse('categories.html', {'request': request, 'categories': categories})
+
 
 async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
@@ -123,7 +128,12 @@ async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
-             loop.create_task()]
+             loop.create_task(queue_cat())]
+
+
+async def queue_cat():
+    cat = 'Category:Peter the Great'
+    text = get_text('https://en.wikipedia.org/wiki/{}'.format(cat))
 
 
 async def queue_feeds(q):
