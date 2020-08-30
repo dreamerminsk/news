@@ -49,6 +49,10 @@ async def show_instances(request):
     instances = client.rels.instances.find({})
     return templates.TemplateResponse('instances.html', {'request': request, 'instances': instances})
 
+async def show_countries(request):
+    countries = client.rels.countries.find({})
+    return templates.TemplateResponse('countries.html', {'request': request, 'countries': countries})
+
 async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
     fds = []
