@@ -53,6 +53,10 @@ async def show_countries(request):
     countries = client.rels.countries.find({})
     return templates.TemplateResponse('countries.html', {'request': request, 'countries': countries})
 
+async def show_categories(request):
+    categories = client.rels.categories.find({})
+    return templates.TemplateResponse('categories.html', {'request': request, 'categories': categories})
+
 async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
     fds = []
@@ -202,6 +206,7 @@ app = Starlette(debug=True, routes=[
     Route('/view/rels', show_rels),
     Route('/view/instances', show_instances),
     Route('/view/countries', show_countries),
+    Route('/view/categories', show_categories),
 
 
     Route('/view/talksby', show_talks),
