@@ -134,6 +134,12 @@ async def start_job():
 async def queue_cat():
     cat = 'Category:Peter the Great'
     text = get_text('https://en.wikipedia.org/wiki/{}'.format(cat))
+    if text:
+        soup = BeautifulSoup(text, 'html.parser')
+        ref_nodes = soup.select('li#t-wikibase a[href]')
+        if ref_nodes:
+            for ref_node in ref_nodes:
+                wdref=ref_node.get('href').split('/')[:-1]
 
 
 async def queue_feeds(q):
