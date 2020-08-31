@@ -124,6 +124,7 @@ async def start_job():
     print('{}. {}'.format(datetime.now(), count))
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
+    client.rels.categories.remove({})    
     client.rels.categories.insert_one(
         {'labels': {'en': 'Category:Peter the Great'}})
     q = asyncio.Queue()
@@ -155,7 +156,8 @@ async def queue_cat():
                     {'labels.en': current['labels']['en']},
                     {'$push': {'categories': cat_title}},
                     upsert=True)
-                client.rels.categories.insert_one({'labels.en': cat_title})
+                client.rels.categories.insert_one(
+                    {'labels': {'en': cat_title}})
 
 
 async def queue_feeds(q):
