@@ -137,7 +137,7 @@ async def start_job():
 async def queue_cat():
     while True:
         current = client.rels.categories.find_one({'wikidataid': None})
-        print('{}'.format(current['labels']['en']))
+        print('{}'.format(current))
         text = get_text(
             'https://en.wikipedia.org/wiki/{}'.format(current['labels']['en']))
         if text:
@@ -147,7 +147,7 @@ async def queue_cat():
                 for wdi_node in wdi_nodes:
                     wdi = wdi_node.get('href').split('/')[-1]
                     print('WikiDataID: {} - {}'.format(wdi, type(wdi)))
-                    us = client.rels.categories.update_one(
+                    us = client.rels.categories.update_many(
                         {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}})
                     print('{} - {}'.format(us.matched_count, us.modified_count))
             cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
