@@ -141,7 +141,7 @@ async def start_job():
 async def queue_cat():
     while True:
         current = client.rels.categories.find_one({'wikidataid': None})
-        print('---\r\n{}'.format(str(current)))
+        print('\r\n{}'.format(str(current)))
         text = get_text(
             'https://en.wikipedia.org/wiki/{}'.format(current['labels']['en']))
         if text:
@@ -150,10 +150,10 @@ async def queue_cat():
             if wdi_nodes:
                 for wdi_node in wdi_nodes:
                     wdi = wdi_node.get('href').split('/')[-1]
-                    print('WikiDataID: {} - {}'.format(wdi, type(wdi)))
+                    print('\tWikiDataID: {} - {}'.format(wdi, type(wdi)))
                     us = client.rels.categories.update_one(
                         {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}})
-                    print('{} - {}'.format(us.matched_count, us.modified_count))
+                    print('\t{} - {}'.format(us.matched_count, us.modified_count))
             cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
             if cat_nodes:
                 client.rels.categories.update_one(
@@ -161,7 +161,7 @@ async def queue_cat():
                         {'$set': {'categories': []}})
                 for cat_node in cat_nodes:
                     cat_title = cat_node.get('title')
-                    print('Category: {}'.format(cat_title))
+                    print('\t{}'.format(cat_title))
                     client.rels.categories.update_one(
                         {'labels.en': current['labels']['en']},
                         {'$push': {'categories': cat_title}})
