@@ -139,7 +139,7 @@ async def queue_cat():
         ref_nodes = soup.select('li#t-wikibase a[href]')
         if ref_nodes:
             for ref_node in ref_nodes:
-                wdref=ref_node.get('href').split('/')[-1:]
+                wdref=ref_node.get('href').split('/')[-1]
                 print('WikiDataID: {} : {}'.format(wdref, type(wdref)))
 
 
