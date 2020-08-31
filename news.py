@@ -135,31 +135,32 @@ async def start_job():
 
 
 async def queue_cat():
-    current = client.rels.categories.find_one({'wikidataid': None})
-    print('{}'.format(current['labels']['en']))
-    text = get_text(
-        'https://en.wikipedia.org/wiki/{}'.format(current['labels']['en']))
-    if text:
-        soup = BeautifulSoup(text, 'html.parser')
-        wdi_nodes = soup.select('li#t-wikibase a[href]')
-        if wdi_nodes:
-            for wdi_node in wdi_nodes:
-                wdi = wdi_node.get('href').split('/')[-1]
-                print('WikiDataID: {}'.format(wdi))
-                client.rels.categories.update_one(
-                    {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}}, upsert=True)
-        cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
-        if cat_nodes:
-            for cat_node in cat_nodes:
-                cat_title = cat_node.get('title')
-                print('Category: {}'.format(cat_title))
-                client.rels.categories.update_one(
-                    {'labels.en': current['labels']['en']},
-                    {'$push': {'categories': cat_title}},
-                    upsert=True)
-                client.rels.categories.insert_one(
-                    {'labels': {'en': cat_title}})
-    await asyncio.sleep(60)
+    while True:
+        current = client.rels.categories.find_one({'wikidataid': None})
+        print('{}'.format(current['labels']['en']))
+        text = get_text(
+            'https://en.wikipedia.org/wiki/{}'.format(current['labels']['en']))
+        if text:
+            soup = BeautifulSoup(text, 'html.parser')
+            wdi_nodes = soup.select('li#t-wikibase a[href]')
+            if wdi_nodes:
+                for wdi_node in wdi_nodes:
+                    wdi = wdi_node.get('href').split('/')[-1]
+                    print('WikiDataID: {}'.format(wdi))
+                    client.rels.categories.update_one(
+                        {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}}, upsert=True)
+            cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
+            if cat_nodes:
+                for cat_node in cat_nodes:
+                    cat_title = cat_node.get('title')
+                    print('Category: {}'.format(cat_title))
+                    client.rels.categories.update_one(
+                        {'labels.en': current['labels']['en']},
+                        {'$push': {'categories': cat_title}},
+                        upsert=True)
+                    client.rels.categories.insert_one(
+                        {'labels': {'en': cat_title}})
+        await asyncio.sleep(60)
 
 
 async def queue_feeds(q):
