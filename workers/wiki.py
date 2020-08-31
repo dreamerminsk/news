@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from web import get_text
+from workers.web import get_text
 
 
 async def get_category(title):
