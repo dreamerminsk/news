@@ -4,18 +4,18 @@
 {% for instance in instances %}
 <div class='card card-dark border-dark'>
     <div class='card-header'>
-        {{ instance.WikiDataID }}
+        {{ instance.wikidataid }}
     </div>
     <div class='card-body'>
         <div class='card-text'>
-            Name (en): {{ instance.Name }}</br>
-            Name (ru): {{ instance.RusName }}
+            Name (en): {{ instance.labels.en }}</br>
+            Name (ru): {{ instance.labels.ru }}
         </div>
     </div>
     <div class='card-footer'>
         <div class='btn-group' role='group'>
             <a class='btn btn-outline-secondary active'
-                href={{ "https://www.wikidata.org/wiki/Special:EntityPage/{}".format(instance.WikiDataID) }}>Профиль</a>
+                href={{ "https://www.wikidata.org/wiki/Special:EntityPage/{}".format(instance.wikidataid) }}>Профиль</a>
         </div>
     </div>
 </div>
