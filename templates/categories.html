@@ -1,21 +1,21 @@
 {% extends "rels.html" %}
 {% block title %}Rels :: Categories{% endblock %}
 {% block content %}
-{% for instance in instances %}
+{% for category in categories %}
 <div class='card card-dark border-dark'>
     <div class='card-header'>
-        {{ instance.wikidataid }}
+        {{ category.wikidataid }}
     </div>
     <div class='card-body'>
         <div class='card-text'>
-            Name (en): {{ instance.labels.en }}</br>
-            Name (ru): {{ instance.labels.ru }}
+            Name (en): {{ category.labels.en }}</br>
+            Name (ru): {{ category.labels.ru }}
         </div>
     </div>
     <div class='card-footer'>
         <div class='btn-group' role='group'>
             <a class='btn btn-outline-secondary active'
-                href={{ "https://www.wikidata.org/wiki/Special:EntityPage/{}".format(instance.wikidataid) }}>Профиль</a>
+                href={{ "https://www.wikidata.org/wiki/Special:EntityPage/{}".format(category.wikidataid) }}>Профиль</a>
         </div>
     </div>
 </div>
