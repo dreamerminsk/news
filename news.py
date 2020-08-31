@@ -154,6 +154,9 @@ async def queue_cat():
                     print('{} - {}'.format(us.matched_count, us.modified_count))
             cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
             if cat_nodes:
+                client.rels.categories.update_one(
+                        {'labels.en': current['labels']['en']},
+                        {'$set': {'categories': []}})
                 for cat_node in cat_nodes:
                     cat_title = cat_node.get('title')
                     print('Category: {}'.format(cat_title))
