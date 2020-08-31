@@ -143,7 +143,7 @@ async def queue_cat():
     while True:
         current = client.rels.categories.find_one({'wikidataid': None})
         print('\r\n{}'.format(str(current)))
-        category = get_category(current['labels']['en'])
+        category = await get_category(current['labels']['en'])
         print('\tWikiDataID: {}'.format(category['wikidataid']))
         update_result = client.rels.categories.update_one(
             {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': category['wikidataid']}})
