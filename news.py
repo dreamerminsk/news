@@ -23,7 +23,7 @@ from starlette.templating import Jinja2Templates
 from workers.web import get_text
 from workers.wiki import get_category
 
-print = pprint.pprint
+#print = pprint.pprint
 
 templates = Jinja2Templates(directory='templates')
 
