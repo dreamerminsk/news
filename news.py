@@ -149,7 +149,7 @@ async def queue_cat():
                     print('WikiDataID: {}'.format(wdi))
                     us=client.rels.categories.update_one(
                         {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}}, upsert=True)
-                    print('{}'.format(dict(us)))
+                    print('{}'.format(us.raw_result))
             cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
             if cat_nodes:
                 for cat_node in cat_nodes:
