@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 
-from web import get_text
+from workers.web import get_text
 
 #print = pprint
 pp = pprint.PrettyPrinter(indent=4)
