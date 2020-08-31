@@ -129,6 +129,8 @@ async def start_job():
        {'labels': {'en': 'Category:Peter the Great'}})
     client.rels.categories.insert_one(
        {'labels': {'en': 'Category:Napoleon'}})
+    client.rels.categories.insert_one(
+       {'labels': {'en': 'Category:Ramesses II'}})
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
@@ -139,7 +141,7 @@ async def start_job():
 async def queue_cat():
     while True:
         current = client.rels.categories.find_one({'wikidataid': None})
-        print('---\r\n{}'.format(current))
+        print('---\r\n{}'.format(str(current)))
         text = get_text(
             'https://en.wikipedia.org/wiki/{}'.format(current['labels']['en']))
         if text:
