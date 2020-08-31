@@ -124,7 +124,8 @@ async def start_job():
     print('{}. {}'.format(datetime.now(), count))
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
-    client.rels.categories.insert_one({'labels.en': 'Category:Peter the Great'})    
+    client.rels.categories.insert_one(
+        {'labels': {'en': 'Category:Peter the Great'}})
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
@@ -133,8 +134,9 @@ async def start_job():
 
 
 async def queue_cat():
-    current=client.rels.categories.find_one({'wikidataid': None})
-    text = get_text('https://en.wikipedia.org/wiki/{}'.format(current['labels']['en']))
+    current = client.rels.categories.find_one({'wikidataid': None})
+    text = get_text(
+        'https://en.wikipedia.org/wiki/{}'.format(current['labels']['en']))
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         wdi_nodes = soup.select('li#t-wikibase a[href]')
