@@ -2,14 +2,13 @@ import asyncio
 import pprint
 import xml.etree.ElementTree as etree
 from datetime import datetime, timedelta
+from urllib import parse
 
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 
-from web import get_text
-from urllib import parse
-
+from workers.web import get_text
 
 #print = pprint
 pp = pprint.PrettyPrinter(indent=4)
