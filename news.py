@@ -21,6 +21,7 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from workers.web import get_text
+from workers.wiki import get_category
 
 print = pprint.pprint
 
@@ -142,34 +143,23 @@ async def queue_cat():
     while True:
         current = client.rels.categories.find_one({'wikidataid': None})
         print('\r\n{}'.format(str(current)))
-        text = get_text(
-            'https://en.wikipedia.org/wiki/{}'.format(current['labels']['en']))
-        if text:
-            soup = BeautifulSoup(text, 'html.parser')
-            wdi_nodes = soup.select('li#t-wikibase a[href]')
-            if wdi_nodes:
-                for wdi_node in wdi_nodes:
-                    wdi = wdi_node.get('href').split('/')[-1]
-                    print('\tWikiDataID: {} - {}'.format(wdi, type(wdi)))
-                    us = client.rels.categories.update_one(
-                        {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}})
-                    print('\t{} - {}'.format(us.matched_count, us.modified_count))
-            cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
-            if cat_nodes:
-                client.rels.categories.update_one(
-                    {'labels.en': current['labels']['en']},
-                    {'$set': {'categories': []}})
-                for cat_node in cat_nodes:
-                    cat_title = cat_node.get('title')
-                    print('\t{}'.format(cat_title))
-                    client.rels.categories.update_one(
-                        {'labels.en': current['labels']['en']},
-                        {'$push': {'categories': cat_title}})
-                    found = client.rels.categories.find_one(
-                        {'labels.en': cat_title})
-                    if found is None:
-                        client.rels.categories.insert_one(
-                            {'labels': {'en': cat_title}})
+        category = get_category(current['labels']['en'])
+        print('\tWikiDataID: {}'.format(category['wikidataid']))
+        update_result = client.rels.categories.update_one(
+            {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': category['wikidataid']}})
+        client.rels.categories.update_one(
+            {'labels.en': current['labels']['en']},
+            {'$set': {'categories': []}})
+        for parent in category['categories']:
+            print('\t{}'.format(parent))
+            client.rels.categories.update_one(
+                {'labels.en': current['labels']['en']},
+                {'$push': {'categories': parent}})
+            found = client.rels.categories.find_one(
+                {'labels.en': parent})
+            if found is None:
+                client.rels.categories.insert_one(
+                    {'labels': {'en': parent}})
         await asyncio.sleep(16)
 
 
