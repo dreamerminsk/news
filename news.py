@@ -144,7 +144,7 @@ async def queue_cat():
         cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
         if cat_nodes:
             for cat_node in cat_nodes:
-                wdref=cat_nodes.get('title')
+                wdref=cat_node.get('title')
                 print('Category: {}'.format(wdref))
 
 
