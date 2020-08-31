@@ -125,8 +125,8 @@ async def start_job():
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     # client.rels.categories.remove({})
-    client.rels.categories.insert_one(
-        {'labels': {'en': 'Category:Napoleon'}})
+    # client.rels.categories.insert_one(
+    #    {'labels': {'en': 'Category:Napoleon'}})
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
@@ -149,7 +149,7 @@ async def queue_cat():
                     print('WikiDataID: {}'.format(wdi))
                     us = client.rels.categories.update_one(
                         {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}})
-                    print('{}'.format(us.raw_result))
+                    print('{} - {}'.format(us.matched_count, us.modified_count))
             cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
             if cat_nodes:
                 for cat_node in cat_nodes:
