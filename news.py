@@ -124,6 +124,7 @@ async def start_job():
     print('{}. {}'.format(datetime.now(), count))
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
+    client.rels.categories.insert_one({'labels.en': 'Category:Peter the Great'})    
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
@@ -132,21 +133,27 @@ async def start_job():
 
 
 async def queue_cat():
-    title = 'Category:Peter the Great'
-    text = get_text('https://en.wikipedia.org/wiki/{}'.format(title))
+    current=client.rels.categories.find_one({'wikidataid': None})
+    text = get_text('https://en.wikipedia.org/wiki/{}'.format(current['labels']['en']))
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        ref_nodes = soup.select('li#t-wikibase a[href]')
-        if ref_nodes:
-            for ref_node in ref_nodes:
-                wdref=ref_node.get('href').split('/')[-1]
-                print('WikiDataID: {}'.format(wdref))
+        wdi_nodes = soup.select('li#t-wikibase a[href]')
+        if wdi_nodes:
+            for wdi_node in wdi_nodes:
+                wdi = wdi_node.get('href').split('/')[-1]
+                print('WikiDataID: {}'.format(wdi))
+                client.rels.categories.update_one(
+                    {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}}, upsert=True)
         cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
         if cat_nodes:
             for cat_node in cat_nodes:
-                wdref=cat_node.get('title')
-                print('Category: {}'.format(wdref))
-
+                cat_title = cat_node.get('title')
+                print('Category: {}'.format(cat_title))
+                client.rels.categories.update_one(
+                    {'labels.en': current['labels']['en']},
+                    {'$push': {'categories': cat_title}},
+                    upsert=True)
+                client.rels.categories.insert_one({'labels.en': cat_title})
 
 
 async def queue_feeds(q):
