@@ -20,7 +20,7 @@ from starlette.responses import (JSONResponse, PlainTextResponse,
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-from web import get_text
+from workers.web import get_text
 
 print = pprint.pprint
 
@@ -126,11 +126,11 @@ async def start_job():
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     client.rels.categories.remove({})
     client.rels.categories.insert_one(
-       {'labels': {'en': 'Category:Peter the Great'}})
+        {'labels': {'en': 'Category:Peter the Great'}})
     client.rels.categories.insert_one(
-       {'labels': {'en': 'Category:Napoleon'}})
+        {'labels': {'en': 'Category:Napoleon'}})
     client.rels.categories.insert_one(
-       {'labels': {'en': 'Category:Ramesses II'}})
+        {'labels': {'en': 'Category:Ramesses II'}})
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
@@ -157,15 +157,16 @@ async def queue_cat():
             cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
             if cat_nodes:
                 client.rels.categories.update_one(
-                        {'labels.en': current['labels']['en']},
-                        {'$set': {'categories': []}})
+                    {'labels.en': current['labels']['en']},
+                    {'$set': {'categories': []}})
                 for cat_node in cat_nodes:
                     cat_title = cat_node.get('title')
                     print('\t{}'.format(cat_title))
                     client.rels.categories.update_one(
                         {'labels.en': current['labels']['en']},
                         {'$push': {'categories': cat_title}})
-                    found = client.rels.categories.find_one({'labels.en': cat_title})
+                    found = client.rels.categories.find_one(
+                        {'labels.en': cat_title})
                     if found is None:
                         client.rels.categories.insert_one(
                             {'labels': {'en': cat_title}})
