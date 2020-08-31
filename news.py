@@ -140,7 +140,7 @@ async def queue_cat():
         if ref_nodes:
             for ref_node in ref_nodes:
                 wdref=ref_node.get('href').split('/')[-1:]
-                print('WikiDataID: {}'.format(wdref))
+                print('WikiDataID: {} : {}'.format(wdref, typeof(wdref)))
 
 
 
