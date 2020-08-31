@@ -145,11 +145,14 @@ async def queue_cat():
             wdi_nodes = soup.select('li#t-wikibase a[href]')
             if wdi_nodes:
                 for wdi_node in wdi_nodes:
-                    wdi = wdi_node.get('href').split('/')[-1]
-                    print('WikiDataID: {}'.format(wdi))
-                    us = client.rels.categories.update_one(
-                        {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}})
-                    print('{} - {}'.format(us.matched_count, us.modified_count))
+                    try:
+                        wdi = wdi_node.get('href').split('/')[-1]
+                        print('WikiDataID: {}'.format(wdi))
+                        us = client.rels.categories.update_one(
+                            {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': wdi}})
+                        print('{} - {}'.format(us.matched_count, us.modified_count))
+                    except Exception as e:
+                        print(e)
             cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
             if cat_nodes:
                 for cat_node in cat_nodes:
