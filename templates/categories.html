@@ -12,6 +12,13 @@
             Name (ru): {{ category.labels.ru }}
         </div>
     </div>
+    <div class='card-body'>
+        {% for pcategory in category.categories %}
+        <div class='card-text'>
+            {{ pcategory }}
+        </div>
+        {% endfor %}
+    </div>
     <div class='card-footer'>
         <div class='btn-group' role='group'>
             <a class='btn btn-outline-secondary active'
