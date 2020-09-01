@@ -5,6 +5,8 @@ from workers.web import get_text
 
 async def get_category(title):
     text = get_text('https://en.wikipedia.org/wiki/{}'.format(title))
+    if text is None:
+        return {'wikidataid': None, 'categories': []}
     category = {'wikidataid': 'None', 'categories': []}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
