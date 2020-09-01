@@ -162,7 +162,7 @@ async def queue_cat():
             if found is None:
                 client.rels.categories.insert_one(
                     {'labels': {'en': parent}})
-        await asyncio.sleep(16)
+        await asyncio.sleep(32)
 
 
 async def queue_feeds(q):
