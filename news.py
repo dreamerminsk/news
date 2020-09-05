@@ -66,7 +66,7 @@ async def show_categories(request):
 
 
 async def show_snooker(request):
-    return templates.TemplateResponse('snooker.html', {'request': request})
+    return templates.TemplateResponse('snooker.org.html', {'request': request})
 
 
 async def show_feeds(request):
