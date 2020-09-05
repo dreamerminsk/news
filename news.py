@@ -65,6 +65,10 @@ async def show_categories(request):
     return templates.TemplateResponse('categories.html', {'request': request, 'categories': categories})
 
 
+async def show_snooker(request):
+    return templates.TemplateResponse('snooker.html', {'request': request})
+
+
 async def show_feeds(request):
     arts = feeds.find({}).sort([("ttl", 1)])
     fds = []
@@ -248,6 +252,8 @@ app = Starlette(debug=True, routes=[
     Route('/view/countries', show_countries),
     Route('/view/categories', show_categories),
 
+
+    Route('/view/snooker', show_snooker),
 
     Route('/view/talksby', show_talks),
 
