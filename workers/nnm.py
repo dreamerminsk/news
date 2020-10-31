@@ -9,4 +9,7 @@ for t in soup.select('table.pline'):
         if link['href'].startswith('magnet'):
             pcatHead = t.select_one('td.pcatHead')
             print(n, pcatHead.text)
+            print('\t', link['href'])
+            print('\t', pcatHead.text.split('-')[0].strip())
+            print('\t', pcatHead.text.split('-')[1].split('(')[0].strip())
             n=n+1
