@@ -10,6 +10,11 @@ for t in soup.select('table.pline'):
             pcatHead = t.select_one('td.pcatHead')
             print(n, pcatHead.text)
             print('\t', link['href'])
-            print('\t', pcatHead.text.split('-')[0].strip())
-            print('\t', pcatHead.text.split('-')[1].split('(')[0].strip())
+            if ' - ' in pcatHead.text:
+                ad = pcatHead.text.find(' - ')
+                td = pcatHead.text.find(' (')
+                td = td if td > -1 else pcatHead.text.find(' [')
+                print('\t', pcatHead.text[0 : ad].strip())
+                print('\t', pcatHead.text[ad + 3 : td].strip())
             n=n+1
+            
