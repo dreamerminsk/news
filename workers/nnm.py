@@ -12,9 +12,11 @@ for t in soup.select('table.pline'):
             print('\t', link['href'])
             if ' - ' in pcatHead.text:
                 ad = pcatHead.text.find(' - ')
-                td = pcatHead.text.find(' (')
-                td = td if td > -1 else pcatHead.text.find(' [')
+                td = pcatHead.text.find(' (', ad)
+                td = td if td > -1 else pcatHead.text.find(' [', ad)
                 print('\t', pcatHead.text[0 : ad].strip())
                 print('\t', pcatHead.text[ad + 3 : td].strip())
+                gs = pcatHead.text[pcatHead.text.find('<')+1 : pcatHead.text.find('>')].strip()
+                print('\t', gs.strip())
             n=n+1
             
