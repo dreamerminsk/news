@@ -7,7 +7,7 @@ import time
 
 def wiki(page):
     print(page)
-    time.sleep(4000)
+    time.sleep(4)
     url = 'https://en.wikipedia.org' + page
     req = requests.get(url)
     soup = BeautifulSoup(req.text, features='html.parser')
