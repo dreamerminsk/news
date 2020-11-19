@@ -12,7 +12,9 @@ def wiki(page):
     req = requests.get(url)
     soup = BeautifulSoup(req.text, features='html.parser')
     for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(2)'):
-        print ('\t', link.text)
+        print ('\t', link.text, '\n\r')
+    for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr'):
+        print ('\t', link.text, '\n\r')
     for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(3) > td > a'):
         print ('\t', link['title'], '\n\r')
     for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(4) > td > a'):
