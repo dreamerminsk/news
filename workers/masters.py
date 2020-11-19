@@ -15,11 +15,12 @@ def wiki(page):
         print ('\t', link.text, '\n\r')
     for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr'):
         for scope in link.select('th'):
-            print ('\tSCOPE', scope.text, '\n\r')
-    for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(3) > td > a'):
-        print ('\t', link['title'], '\n\r')
-    for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(4) > td > a'):
-        print ('\t', link['title'], '\n\r')
+            if scope.text == 'Champion':
+                c = link.select_one('td > a')
+                print ('\tChampion', c['title'], '\n\r')
+            if scope.text == 'Runner-up':
+                rup = link.select_one('td > a')
+                print ('\tRunner-up', rup['title'], '\n\r')
 
 
 r = requests.get('https://en.wikipedia.org/wiki/Tennis_Masters_Series_records_and_statistics')
