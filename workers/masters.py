@@ -14,7 +14,8 @@ def wiki(page):
     for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(2)'):
         print ('\t', link.text, '\n\r')
     for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr'):
-        print ('\t', link.text, '\n\r')
+        for scope in link.select('th'):
+            print ('\t', scope.text, '\n\r')
     for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(3) > td > a'):
         print ('\t', link['title'], '\n\r')
     for link in soup.select('#mw-content-text > div.mw-parser-output > table.infobox > tbody > tr:nth-child(4) > td > a'):
