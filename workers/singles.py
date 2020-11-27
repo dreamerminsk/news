@@ -33,7 +33,10 @@ def wiki(page):
     k = 1
     for link in soup.select('span.mw-headline'):
         print (k, link.text, '\n\r')
-        print (k, link.parent.findNext('table'), '\n\r')
+        table = link.parent.findNext('table')
+        row = table.find('tr')
+        for td in row.findChildren('td'):
+            print ('\t', td.text, '\n\r')
         k += 1
 
 
