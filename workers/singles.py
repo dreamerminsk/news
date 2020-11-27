@@ -32,11 +32,13 @@ def wiki(page):
     soup = BeautifulSoup(req.text, features='html.parser')
     k = 1
     for link in soup.select('span.mw-headline'):
-        print (k, link.text, '\n\r')
-        table = link.parent.findNext('table')
-        row = table.find('tr')
-        for td in row.findChildren('td'):
-            print ('\t', td.text, '\n\r')
+        print ('{}. {} - {}'.format(k, link.parent.name, link.text))
+        if 'table' in link.parent.find_next_siblings()[0].name:
+            table = link.parent.findNext('table')
+            row = table.find('tr')
+            for td in row.findChildren('td'):
+                if len(td.text):
+                    print ('\t"{}"'.format(td.text.strip()))
         k += 1
 
 
