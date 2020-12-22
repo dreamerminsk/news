@@ -29,8 +29,8 @@ templates = Jinja2Templates(directory='templates')
 
 client = MongoClient()
 # client.stats.hosts.remove({})
-client.rels.categories.update_many(
-    {'wikidataid': 'None'}, {'$set': {'wikidataid': None}})
+# client.rels.categories.update_many(
+#     {'wikidataid': 'None'}, {'$set': {'wikidataid': None}})
 news = client.news
 feeds = news.feeds
 articles = news.articles
@@ -141,8 +141,8 @@ async def start_job():
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
-             loop.create_task(process_feeds(q)),
-             loop.create_task(queue_cat())]
+             loop.create_task(process_feeds(q)),]
+   #          loop.create_task(queue_cat())]
 
 
 async def queue_cat():
