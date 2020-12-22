@@ -1,6 +1,7 @@
 {% extends "snooker.html" %}
 {% block title %}ibustats{% endblock %}
 {% block content %}
+<div class="container">
 <form>
   <div class="form-group">
     <label for="firstNameInput">first name</label>
@@ -14,7 +15,7 @@
     <label for="lastNameInput">last name</label>
     <input type="text" class="form-control" id="lastNameInput" placeholder="last name">
   </div>
-  <button type="submit" class="btn btn-primary">add</button>
+  <button type="submit" class="btn btn-outline-success btn-block">add</button>
 </form>
-<button type="button" class="btn btn-outline-primary btn-block">add</button>
+</div>
 {% endblock %}
