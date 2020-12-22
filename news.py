@@ -65,8 +65,8 @@ async def show_categories(request):
     return templates.TemplateResponse('categories.html', {'request': request, 'categories': categories})
 
 
-async def show_snooker(request):
-    return templates.TemplateResponse('snooker.org.html', {'request': request})
+async def show_ibu(request):
+    return templates.TemplateResponse('ibustats.html', {'request': request})
 
 
 async def show_feeds(request):
@@ -253,7 +253,7 @@ app = Starlette(debug=True, routes=[
     Route('/view/categories', show_categories),
 
 
-    Route('/view/snooker', show_snooker),
+    Route('/view/ibu', show_ibu),
 
     Route('/view/talksby', show_talks),
 
