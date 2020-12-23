@@ -21,8 +21,8 @@ async def get_category(title):
 
 
 
-async def get_links(title):
-    text = get_text('https://en.wikipedia.org/wiki/{}'.format(title))
+async def get_links(lang, title):
+    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
         return {'title': title, 'links': []}
     category = {'title': title, 'links': []}
