@@ -171,11 +171,11 @@ async def queue_cat():
         
 async def queue_ibu():
     while True:
-        category = await get_category(current['labels']['en'])
-        found = client.rels.categories.find_one(
+        links = await get_links('ru', 'Кубок мира по биатлону 2020/2021')
+        found = client.ibustats.racers.find_one(
             {'labels.en': parent})
         if found is None:
-            client.rels.categories.insert_one(
+            client.ibustats.racers.insert_one(
                 {'labels': {'en': parent}})
         await asyncio.sleep(32)
 
