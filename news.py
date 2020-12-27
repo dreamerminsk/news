@@ -170,15 +170,13 @@ async def queue_cat():
         
         
 async def queue_ibu():
-    while True:
-        links = await get_links('ru', 'Кубок мира по биатлону 2020/2021')
-        for parent in category['categories']:
-            found = client.ibustats.racers.find_one(
-                {'labels.en': parent})
-            if found is None:
-                client.ibustats.racers.insert_one(
-                    {'labels': {'en': parent}})
-        await asyncio.sleep(32)
+    links = await get_links('ru', 'Кубок мира по биатлону 2020/2021')
+    for link in links['links']:
+        found = client.ibustats.racers.find_one(
+            {'wiki.ru': link})
+        if found is None:
+            client.ibustats.racers.insert_one(
+                {'wiki': {'ru': link}})
 
 
 async def queue_feeds(q):
