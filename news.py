@@ -133,7 +133,7 @@ async def start_job():
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     feeds.update_one({'link': 'https://meduza.io/rss/all'}, {
-                '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=False)
+                '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     # client.rels.categories.remove({})
     # client.rels.categories.insert_one(
     #     {'labels': {'en': 'Category:Peter the Great'}})
