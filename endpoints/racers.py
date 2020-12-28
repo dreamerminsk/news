@@ -16,13 +16,13 @@ ibustats = client.ibustats
 class RacersEndpoint(HTTPEndpoint):
     async def get(self, request):
         limit = request.path_params['limit']
-        task = ibustats.racers.find_one({}).limit(limit)
-        if task is not None:
-            task['_id'] = str(task['_id'])
-        else:
-            task = {
-            }
-        return JSONResponse(task)
+        limit = 100 if limit is None else limit
+        racers = ibustats.racers.find({}).limit(limit)
+        latest = []
+        for racer in racers:
+            racer['_id'] = str(racer['_id'])
+            latest.append(racer)
+        return JSONResponse({'status': 'ok', 'racers': latest})
 
     async def post(self, request):
         pass
