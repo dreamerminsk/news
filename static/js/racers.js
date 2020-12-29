@@ -26,7 +26,7 @@ async function initLetters() {
         row.insertAdjacentHTML("beforeend",  
         `<td id="letter-${i}" title="${e}">${e}</td>`);
     } catch (ex) {
-        row.innerHTML(`<td>${ex}</td>`);
+        row.innerHTML = `<td>${ex}</td>`;
     }
 }
 
