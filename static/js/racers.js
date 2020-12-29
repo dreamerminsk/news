@@ -21,9 +21,13 @@ async function updateRacers() {
 
 async function initLetters() {
     const row = document.getElementById("head-letters");
+    try {
     Array.from('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ').forEach((e, i) => 
         row.insertAdjacentHTML("beforeend",  
         `<td id="letter-${i}" title="${e}">${e}</td>`);
+    } catch (ex) {
+        row.innerHTML(`<td>${ex}</td>`);
+    }
 }
 
 let letterId = setTimeout(initLetters, 200);
