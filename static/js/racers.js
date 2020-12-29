@@ -44,9 +44,9 @@ async function initLetters() {
 }
 
 
-document.addActionListener('DOMContentLoaded', (event) =>);
+document.addActionListener('DOMContentLoaded', async (event) => {
+    await initLetters();
+    await updateRacers();
+});
 
-
-let letterId = setTimeout(initLetters, 200);
-let timerId = setTimeout(updateRacers, 400);
 let intervalId = setInterval(updateRacers, 60000);
