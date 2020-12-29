@@ -22,7 +22,7 @@ async function updateRacers() {
 async function initLetters() {
     const row = document.getElementById("head-letters");
     Array.from('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ').forEach((e, i) => 
-        row.innerHTML += 
+        row.insertAdjacentHTML("beforeend",  
         `<td id="letter-${i}" title="${e}">${e}</td>`);
 }
 
