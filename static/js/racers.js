@@ -20,9 +20,9 @@ async function updateRacers() {
 }
 
 async function initLetters() {
-    Array.from("Hello, World!").forEach((e, i) => console.log(e));
+    Array.from("").forEach((e, i) => document.getElementById("racers").innerHTML += `<td>${e}</td>`);
 }
 
-
+let letterId = setTimeout(initLetters, 200);
 let timerId = setTimeout(updateRacers, 400);
 let intervalId = setInterval(updateRacers, 60000);
