@@ -1,0 +1,1 @@
+div.mw-parser-output > p[0] first paragraph
