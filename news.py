@@ -173,7 +173,7 @@ async def queue_cat():
         
         
 async def queue_ibu():
-    links = await get_links('ru', 'Кубок мира по биатлону 2015/2016')
+    links = await get_links('ru', 'Кубок мира по биатлону 2014/2015')
     for link in links['links']:
         if ', ' not in link:
             continue
