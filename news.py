@@ -144,7 +144,7 @@ async def start_job():
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
-             loop.create_task(process_feeds(q)),]
+             loop.create_task(process_feeds(q)),
              loop.create_task(queue_ibu())]
 
 
