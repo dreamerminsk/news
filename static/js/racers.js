@@ -4,7 +4,7 @@ async function updateRacers() {
   document.getElementById("racers").innerHTML = '';
   json.racers.forEach(racer => {
     try {
-      document.getElementById("racers").innerHTML += `<div class='container'>${racer.wiki.ru}</div>`;
+      document.getElementById("racers").innerHTML += `<div class="card"><div class="card-body">${racer.wiki.ru}</div></div>`;
     } catch (e) {
       document.getElementById("racers").textContent += `${e}`;
     }
