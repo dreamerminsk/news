@@ -43,6 +43,10 @@ async function initLetters() {
         `<td id="letter-${i}" title="${e}">${e}</td>`));
 }
 
+
+document.addActionListener('DOMContentLoaded', (event) =>);
+
+
 let letterId = setTimeout(initLetters, 200);
 let timerId = setTimeout(updateRacers, 400);
 let intervalId = setInterval(updateRacers, 60000);
