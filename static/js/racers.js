@@ -20,8 +20,9 @@ async function updateRacers() {
 }
 
 async function initLetters() {
+    const row = document.getElementById("head-letters");
     Array.from('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ').forEach((e, i) => 
-        document.getElementById("head-letters").innerHTML += 
+        row.innerHTML += 
         `<td id="letter-${i}" title="${e}">${e}</td>`);
 }
 
