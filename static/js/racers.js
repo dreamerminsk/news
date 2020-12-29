@@ -20,11 +20,15 @@ async function updateRacers() {
 }
 
 async function initLetters() {
+    const ABC = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
     const row = document.getElementById("head-letters");
     try {
-    Array.from('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ').forEach((e, i) => 
+    Array.from(ABC).forEach((e, i) => 
         row.insertAdjacentHTML("beforeend",  
         `<td id="letter-${i}" title="${e}">${e}</td>`));
+    Array.from(ABC).forEach((e, i) =>
+        document.getElementById(`letter-${i}`)
+        .addEventListener('click') );
     } catch (ex) {
         row.innerHTML = `<td>${ex}</td>`;
     }
