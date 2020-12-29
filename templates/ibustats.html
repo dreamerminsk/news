@@ -3,19 +3,22 @@
 {% block content %}
 <div id="div-letters" class="container-fluid">
   <div class="row">
-    <table id='table-letters' class='table table-sm small p-0 m-0'>
-      <thead>
-        <tr id='head-letters'></tr>
-      </thead>
-      <tbody>
-        <tr></tr>
-      </tbody>
-    </table>
+    <div class="col">
+      <table id='table-letters' class='table table-sm small p-0 m-0'>
+        <thead>
+          <tr id='head-letters'></tr>
+        </thead>
+        <tbody>
+          <tr></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-    
-</div>
-<div id="racers" class="container">
-  list of racers
+  <div class="row">
+    <div class="col">
+      <div id="racers"></div>      
+    </div>
+  </div>
 </div>
 <script src="{{ url_for('static', path='/js/racers.js') }}"></script>
 {% endblock %}
