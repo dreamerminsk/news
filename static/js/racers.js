@@ -20,7 +20,9 @@ async function updateRacers() {
 }
 
 async function initLetters() {
-    Array.from('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ').forEach((e, i) => document.getElementById("head-letters").innerHTML += `<td>${e}</td>`);
+    Array.from('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ').forEach((e, i) => 
+        document.getElementById("head-letters").innerHTML += 
+        `<td id="letter-${i}" title="${e}">${e}</td>`);
 }
 
 let letterId = setTimeout(initLetters, 200);
