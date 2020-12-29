@@ -44,10 +44,10 @@ async function initLetters() {
 }
 
 
-document.addActionListener('DOMContentLoaded', async () => {
+document.addActionListener('DOMContentLoaded', () => {
     alert('Страница загружена');
-    await initLetters();
-    await updateRacers();
+    setTimer(initLetters, 200);
+    setTimer(updateRacers, 400);
 });
 
 let intervalId = setInterval(updateRacers, 60000);
