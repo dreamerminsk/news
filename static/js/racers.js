@@ -4,7 +4,7 @@ async function updateRacers() {
   document.getElementById("racers").innerHTML = '';
   json.racers.forEach(racer => {
     try {
-      document.getElementById("racers").innerHTML += `<div class="card"><div class="card-body">${racer.wiki.ru}</div></div>`;
+      document.getElementById("racers").innerHTML += 
       `<div class="card border-dark mb-3">
          <div class="card-header">${racer.wiki.ru}</div>
          <div class="card-body text-dark">
