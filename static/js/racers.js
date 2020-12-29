@@ -28,7 +28,7 @@ async function initLetters() {
         `<td id="letter-${i}" title="${e}">${e}</td>`));
     Array.from(ABC).forEach((e, i) =>
         document.getElementById(`letter-${i}`)
-        .addEventListener('click') );
+        .addEventListener('click', (ev) => ev.currentTarget.classList.add('table-success')) );
     } catch (ex) {
         row.innerHTML = `<td>${ex}</td>`;
     }
