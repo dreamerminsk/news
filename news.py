@@ -145,7 +145,7 @@ async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),]
-   #          loop.create_task(queue_cat())]
+             loop.create_task(queue_ibu())]
 
 
 async def queue_cat():
@@ -175,6 +175,8 @@ async def queue_cat():
 async def queue_ibu():
     links = await get_links('ru', 'Кубок мира по биатлону 2020/2021')
     for link in links['links']:
+        if ', ' not in link:
+            continue
         found = client.ibustats.racers.find_one(
             {'wiki.ru': link})
         if found is None:
