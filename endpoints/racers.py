@@ -15,9 +15,7 @@ ibustats = client.ibustats
 
 class RacersEndpoint(HTTPEndpoint):
     async def get(self, request):
-        limit = request.path_params['limit']
-        limit = 100 if limit is None else limit
-        racers = ibustats.racers.find({}).limit(limit)
+        racers = ibustats.racers.find({})
         latest = []
         for racer in racers:
             racer['_id'] = str(racer['_id'])
