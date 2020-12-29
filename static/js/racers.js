@@ -19,19 +19,22 @@ async function updateRacers() {
   });
 }
 
+let selectedTd;
+
+function highlight(td) {
+  if (selectedTd) {
+    selectedTd.classList.remove('table-success');
+  }
+  selectedTd = td;
+  selectedTd.classList.add('table-success');
+}
+
 async function initLetters() {
     const ABC = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
     const row = document.getElementById("head-letters");
-    try {
     Array.from(ABC).forEach((e, i) => 
         row.insertAdjacentHTML("beforeend",  
         `<td id="letter-${i}" title="${e}">${e}</td>`));
-    Array.from(ABC).forEach((e, i) =>
-        document.getElementById(`letter-${i}`)
-        .addEventListener('click', (ev) => ev.currentTarget.classList.add('table-success')) );
-    } catch (ex) {
-        row.innerHTML = `<td>${ex}</td>`;
-    }
 }
 
 let letterId = setTimeout(initLetters, 200);
