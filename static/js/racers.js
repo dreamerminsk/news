@@ -44,7 +44,7 @@ async function initLetters() {
 }
 
 
-document.addActionListener('DOMContentLoaded', async (event) => {
+document.addActionListener('DOMContentLoaded', async () => {
     alert('Страница загружена');
     await initLetters();
     await updateRacers();
