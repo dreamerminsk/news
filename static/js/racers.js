@@ -24,7 +24,7 @@ async function initLetters() {
     try {
     Array.from('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ').forEach((e, i) => 
         row.insertAdjacentHTML("beforeend",  
-        `<td id="letter-${i}" title="${e}">${e}</td>`);
+        `<td id="letter-${i}" title="${e}">${e}</td>`));
     } catch (ex) {
         row.innerHTML = `<td>${ex}</td>`;
     }
