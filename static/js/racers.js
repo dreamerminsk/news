@@ -5,7 +5,7 @@ async function updateRacers() {
   let response = await fetch('/api/ibu/racers');
   let json = await response.json();
   if (json.racers) {
-    racers.clear();
+    racers = [];
     racers.append(json.racers);
   }
 }
