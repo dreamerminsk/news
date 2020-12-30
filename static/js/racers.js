@@ -46,8 +46,8 @@ async function initLetters() {
 
 document.addEventListener('DOMContentLoaded', function(event) {
     alert('Страница загружена');
-    setTimer(initLetters, 200);
-    setTimer(updateRacers, 400);
+    initLetters();
+    updateRacers();
 });
 
 let intervalId = setInterval(updateRacers, 60000);
