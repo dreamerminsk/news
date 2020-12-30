@@ -145,7 +145,7 @@ async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
-             loop.create_task(queue_ibu())]
+             loop.create_task(queue_wiki_info())]
 
 
 async def queue_cat():
@@ -190,7 +190,8 @@ async def queue_wiki_info():
     for racer in racers:
         info = await get_info('ru', racer['wiki']['ru'])
         client.ibustats.racers.update_one({'wiki.ru': link}, {
-                'countries': {'feeds': 1}}, upsert=False)
+                '$set': {'countries': racer['countries']}}, upsert=False)
+        await asyncio.sleep(8)
     await asyncio.sleep(32)
 
 
