@@ -28,10 +28,10 @@ async def get_info(lang, title):
     category = {'title': title, 'countries': []}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        nodes = soup.select("span[data-wikidata-property-id='P27']")
+        nodes = soup.select("span[data-wikidata-property-id='P27'] a[title]")
         if nodes:
             for node in nodes:
-                category['countries'].append(node.text)
+                category['countries'].append(node.get('title'))
     return category
 
 
