@@ -145,6 +145,7 @@ async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
+             loop.create_task(queue_ibu()),
              loop.create_task(queue_wiki_info())]
 
 
@@ -173,7 +174,8 @@ async def queue_cat():
         
         
 async def queue_ibu():
-    links = await get_links('ru', 'Кубок мира по биатлону 2020/2021')
+    await asyncio.sleep(4)
+    links = await get_links('ru', 'Кубок мира по биатлону 2019/2020. Общий зачёт')
     for link in links['links']:
         if ', ' not in link:
             continue
