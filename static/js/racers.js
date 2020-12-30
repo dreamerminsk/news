@@ -14,7 +14,9 @@ function filter() {
   if (!selectedTd) return;
   const node = document.getElementById("racers");
   node.innerHTML = '';
-  racers.filter(racer => racer.wiki.ru.startsWith(selectedTd.title)).forEach(racer => {
+  racers.filter(racer => racer.wiki.ru.startsWith(selectedTd.title))
+    .sort((a, b) => a.wiki.ru.localeCompare(b.wiki.ru))
+    .forEach(racer => {
       node.innerHTML += 
       `<div class="card border-dark mb-3">
          <div class="card-header">${racer.wiki.ru}</div>
