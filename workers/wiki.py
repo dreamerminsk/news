@@ -21,6 +21,21 @@ async def get_category(title):
 
 
 
+async def get_info(lang, title):
+    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
+    if text is None:
+        return {'title': title, 'links': []}
+    category = {'title': title, 'links': []}
+    if text:
+        soup = BeautifulSoup(text, 'html.parser')
+        cat_nodes = soup.select('div#mw-content-text a[title]')
+        if cat_nodes:
+            for cat_node in cat_nodes:
+                category['links'].append(cat_node.get('title'))
+    return category
+
+
+
 async def get_links(lang, title):
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
