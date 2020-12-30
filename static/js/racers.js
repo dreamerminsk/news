@@ -22,7 +22,7 @@ function filter() {
          <div class="card-header">${racer.wiki.ru}</div>
          <div class="card-body text-dark">
            <h5 class="card-title">${racer.wiki.ru}</h5>
-           <p class="card-text"></p>
+           <p class="card-text">${racer.countries}</p>
            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
          </div>
        </div>`;
