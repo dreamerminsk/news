@@ -182,6 +182,16 @@ async def queue_ibu():
         if found is None:
             client.ibustats.racers.insert_one(
                 {'wiki': {'ru': link}})
+    await asyncio.sleep(32)
+    
+    
+async def queue_wiki_info():
+    racers = client.ibustats.racers.find({})
+    for racer in racers:
+        info = await get_info('ru', racer['wiki']['ru'])
+        client.ibustats.racers.update_one({'wiki.ru': link}, {
+                'countries': {'feeds': 1}}, upsert=False)
+    await asyncio.sleep(32)
 
 
 async def queue_feeds(q):
