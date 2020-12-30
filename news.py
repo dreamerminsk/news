@@ -22,7 +22,7 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from workers.web import get_text
-from workers.wiki import get_category, get_links
+from workers.wiki import get_category, get_links, get_info
 
 #print = pprint.pprint
 
