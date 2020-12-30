@@ -6,7 +6,7 @@ async function updateRacers() {
   let json = await response.json();
   if (json.racers) {
     racers = [];
-    racers.append(json.racers);
+    racers.push(json.racers);
   }
 }
 
