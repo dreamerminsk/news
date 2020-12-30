@@ -5,7 +5,9 @@ async function updateRacers() {
   let response = await fetch('/api/ibu/racers');
   let json = await response.json();
   racers = [];
-  racers.push(json.racers);
+  for (const racer of json.racers) {
+    racers.push(racer);
+  }
 }
 
 function filter() {
