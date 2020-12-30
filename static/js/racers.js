@@ -1,13 +1,11 @@
-let racers = [];
+let racers;
 let selectedTd;
 
 async function updateRacers() {
   let response = await fetch('/api/ibu/racers');
   let json = await response.json();
-  if (json.racers) {
-    racers = [];
-    racers.push(json.racers);
-  }
+  racers = [];
+  racers.push(json.racers);
 }
 
 function filter() {
