@@ -189,7 +189,7 @@ async def queue_wiki_info():
     racers = client.ibustats.racers.find({})
     for racer in racers:
         info = await get_info('ru', racer['wiki']['ru'])
-        client.ibustats.racers.update_one({'wiki.ru': link}, {
+        client.ibustats.racers.update_one({'wiki.ru': racer['wiki']['ru']}, {
                 '$set': {'countries': racer['countries']}}, upsert=False)
         await asyncio.sleep(8)
     await asyncio.sleep(32)
