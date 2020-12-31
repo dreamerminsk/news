@@ -199,7 +199,7 @@ async def queue_wiki_info():
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
                 '$set': {'name': info['name']}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
-                '$set': {'bday': info['bday']}}, upsert=False)
+                '$set': {'bday': str(info['bday'])}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
                 '$set': {'last_modified': datetime.now()}}, upsert=False)
         await asyncio.sleep(8)
