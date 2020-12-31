@@ -47,7 +47,7 @@ def get_bday_info(soup):
     nodes = soup.select("span.bday")
     if nodes:
         for node in nodes:
-            name = datetime(node.text)
+            name = datetime.strptime(node.text, '%Y-%m-%d').date()
     return name
 
 async def get_info(lang, title):
