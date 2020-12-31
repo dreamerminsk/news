@@ -19,6 +19,8 @@ class RacersEndpoint(HTTPEndpoint):
         latest = []
         for racer in racers:
             racer['_id'] = str(racer['_id'])
+            if 'bday' in racer:
+                racer['bday'] = str(racer['bday'])
             if 'last_modified' in racer:
                 racer['last_modified'] = str(racer['last_modified'])
             latest.append(racer)
