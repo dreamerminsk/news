@@ -19,8 +19,8 @@ class RacersEndpoint(HTTPEndpoint):
         latest = []
         for racer in racers:
             racer['_id'] = str(racer['_id'])
-            if 'last_updated' in racer:
-                racer['last_updated'] = str(racer['last_updated'])
+            if 'last_modified' in racer:
+                racer['last_modified'] = str(racer['last_modified'])
             latest.append(racer)
         return JSONResponse({'status': 'ok', 'racers': latest})
 
