@@ -32,10 +32,10 @@ async def get_info(lang, title):
         if nodes:
             for node in nodes:
                 category['countries'].append(node.get('title'))
-        nodes = soup.select("span[data-wikidata-property-id='P27'] a[title]")
+        nodes = soup.select("div.ts_Спортсмен_имя div.label")
         if nodes:
             for node in nodes:
-                category['countries'].append(node.get('title'))
+                category['name'] = node.text
     return category
 
 
