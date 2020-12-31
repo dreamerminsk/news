@@ -22,7 +22,7 @@ async def get_category(title):
 
 
 
-async def get_country_info(soup):
+def get_country_info(soup):
     countries = []
     nodes = soup.select("span[data-wikidata-property-id='P27'] a[title]")
     if nodes:
@@ -34,12 +34,20 @@ async def get_country_info(soup):
             countries.append(node.get('title'))
     return countries
 
-async def get_name_info(soup):
+def get_name_info(soup):
     name = None
     nodes = soup.select("div.ts_Спортсмен_имя div.label")
     if nodes:
         for node in nodes:
             name = node.text
+    return name
+
+def get_bday_info(soup):
+    name = None
+    nodes = soup.select("span.bday")
+    if nodes:
+        for node in nodes:
+            name = datetime(node.text)
     return name
 
 async def get_info(lang, title):
@@ -54,6 +62,7 @@ async def get_info(lang, title):
         category['name'] = get_name_info(soup)
         if category['name'] == None:
             category['name'] = title
+        category['bday'] = get_bday_info(soup)
     print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
