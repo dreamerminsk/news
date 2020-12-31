@@ -30,6 +30,14 @@ async def get_country_info(soup):
     print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
+async def get_name_info(soup):
+    name = None
+    nodes = soup.select("div.ts_Спортсмен_имя div.label")
+    if nodes:
+        for node in nodes:
+            name = node.text
+    return name
+
 async def get_info(lang, title):
     print('INFO\tget_info({}, {}'.format(lang, title))
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
@@ -38,14 +46,8 @@ async def get_info(lang, title):
     category = {'name': title, 'countries': []}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        nodes = soup.select("span[data-wikidata-property-id='P27'] a[title]")
-        if nodes:
-            for node in nodes:
-                category['countries'].append(node.get('title'))
-        nodes = soup.select("div.ts_Спортсмен_имя div.label")
-        if nodes:
-            for node in nodes:
-                category['name'] = node.text
+        category['countries'] = get_country_info(soup)
+        category['name'] = get_name_info(soup)
     print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
