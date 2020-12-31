@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
 
 from workers.web import get_text
 
