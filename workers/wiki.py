@@ -32,6 +32,10 @@ async def get_info(lang, title):
         if nodes:
             for node in nodes:
                 category['countries'].append(node.get('title'))
+        nodes = soup.select("span[data-wikidata-property-id='P27'] a[title]")
+        if nodes:
+            for node in nodes:
+                category['countries'].append(node.get('title'))
     return category
 
 
