@@ -24,8 +24,8 @@ async def get_category(title):
 async def get_info(lang, title):
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
-        return {'title': title, 'countries': []}
-    category = {'title': title, 'countries': []}
+        return {'name': title, 'countries': []}
+    category = {'name': title, 'countries': []}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select("span[data-wikidata-property-id='P27'] a[title]")
