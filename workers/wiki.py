@@ -21,6 +21,15 @@ async def get_category(title):
 
 
 
+
+async def get_country_info(soup):
+    nodes = soup.select("span[data-wikidata-property-id='P27'] a[title]")
+    if nodes:
+        for node in nodes:
+            category['countries'].append(node.get('title'))
+    print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
+    return category
+
 async def get_info(lang, title):
     print('INFO\tget_info({}, {}'.format(lang, title))
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
