@@ -23,12 +23,16 @@ async def get_category(title):
 
 
 async def get_country_info(soup):
+    countries = []
     nodes = soup.select("span[data-wikidata-property-id='P27'] a[title]")
     if nodes:
         for node in nodes:
-            category['countries'].append(node.get('title'))
-    print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
-    return category
+            if 'Флаг' in node.get('title'):
+                continue
+            if node.get('title') in countries:
+                continue
+            countries.append(node.get('title'))
+    return countries
 
 async def get_name_info(soup):
     name = None
@@ -48,6 +52,8 @@ async def get_info(lang, title):
         soup = BeautifulSoup(text, 'html.parser')
         category['countries'] = get_country_info(soup)
         category['name'] = get_name_info(soup)
+        if category['name'] == None:
+            category['name'] = title
     print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
