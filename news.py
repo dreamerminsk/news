@@ -175,7 +175,7 @@ async def queue_cat():
         
 async def queue_ibu():
     await asyncio.sleep(4)
-    links = await get_links('ru', 'Кубок мира по биатлону 2016/2017. Общий зачёт')
+    links = await get_links('ru', 'Кубок мира по биатлону 2015/2016. Общий зачёт')
     for link in links['links']:
         if ', ' not in link:
             continue
@@ -189,13 +189,16 @@ async def queue_ibu():
     
 async def queue_wiki_info():
     racers = client.ibustats.racers.find({})
+    wikis = []
     for racer in racers:
-        info = await get_info('ru', racer['wiki']['ru'])
-        client.ibustats.racers.update_one({'wiki.ru': racer['wiki']['ru']}, {
+        wikis.append(racer['wiki']['ru'])
+    for wiki in wikis:
+        info = await get_info('ru', wiki)
+        client.ibustats.racers.update_one({'wiki.ru': wiki}, {
                 '$set': {'countries': info['countries']}}, upsert=False)
-        client.ibustats.racers.update_one({'wiki.ru': racer['wiki']['ru']}, {
+        client.ibustats.racers.update_one({'wiki.ru': wiki}, {
                 '$set': {'name': info['name']}}, upsert=False)
-        client.ibustats.racers.update_one({'wiki.ru': racer['wiki']['ru']}, {
+        client.ibustats.racers.update_one({'wiki.ru': wiki}, {
                 '$set': {'last_modified': datetime.now()}}, upsert=False)
         await asyncio.sleep(8)
     await asyncio.sleep(32)
