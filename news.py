@@ -175,7 +175,7 @@ async def queue_cat():
         
 async def queue_ibu():
     await asyncio.sleep(4)
-    links = await get_links('ru', 'Кубок мира по биатлону 2020/2021. Общий зачёт')
+    links = await get_links('ru', 'Общий зачёт Кубка мира по биатлону')
     for link in links['links']:
         if ', ' not in link:
             continue
