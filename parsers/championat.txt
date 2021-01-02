@@ -9,4 +9,6 @@ https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/players/392
     div.entity-header__info div.entity-header__img
 
 https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/match/36313/
-    div.match-info__game
+    div.match-info__head div.match-info__game   [Мужчины. 12.5 км Гонка преследования]
+    div.match-info__head div.match-info__stage  [Этап 3, Хохфильцен, Австрия]
+    div.match-info__head div.match-info__title  [12 декабря 2020, суббота. 16:45 МСК]
