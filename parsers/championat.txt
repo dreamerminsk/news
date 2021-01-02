@@ -1,6 +1,7 @@
 https://www.championat.com/biathlon/_biathlonworldcup/
 
 https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/
+   div.entity-header__title-name
 
 https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/teams/66/
 
