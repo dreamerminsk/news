@@ -6,6 +6,7 @@ https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/teams/66/
 
 https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/players/39220/
     div.entity-header__title-name
+    div.entity-header__info div.entity-header__img
 
 https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/match/36313/
     div.match-info__game
