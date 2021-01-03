@@ -147,30 +147,6 @@ async def start_job():
              loop.create_task(process_feeds(q)),
              loop.create_task(queue_ibu2()),
              loop.create_task(queue_wiki_info())]
-
-
-async def queue_cat():
-    while True:
-        current = client.rels.categories.find_one({'wikidataid': None})
-        print('\r\n{}'.format(current['labels']['en']))
-        category = await get_category(current['labels']['en'])
-        print('\tWikiDataID: {}'.format(category['wikidataid']))
-        update_result = client.rels.categories.update_one(
-            {'labels.en': current['labels']['en']}, {'$set': {'wikidataid': category['wikidataid']}})
-        client.rels.categories.update_one(
-            {'labels.en': current['labels']['en']},
-            {'$set': {'categories': []}})
-        for parent in category['categories']:
-            print('\t{}'.format(parent))
-            client.rels.categories.update_one(
-                {'labels.en': current['labels']['en']},
-                {'$push': {'categories': parent}})
-            found = client.rels.categories.find_one(
-                {'labels.en': parent})
-            if found is None:
-                client.rels.categories.insert_one(
-                    {'labels': {'en': parent}})
-        await asyncio.sleep(32)
         
         
 async def queue_ibu2():
