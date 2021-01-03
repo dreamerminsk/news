@@ -94,11 +94,15 @@ async def get_pages(lang, title):
         ps = await _get_pages(url)
         for p in ps['pages']:
             pages.append(p)
-        url = 'https://ru.wikipedia.org{}'.format(ps['next'])  
+        if ps['next']:
+            url = 'https://ru.wikipedia.org{}'.format(ps['next'])
+        else:
+            url = None
     return pages
 
 async def _get_pages(url):
     text = get_text(url)
+    
     if text is None:
         return {'pages': [], 'next': None}
     category = {'pages': [], 'next': None}
