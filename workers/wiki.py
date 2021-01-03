@@ -81,3 +81,20 @@ async def get_links(lang, title):
             for cat_node in cat_nodes:
                 category['links'].append(cat_node.get('title'))
     return category
+
+
+
+async def get_pages(lang, title):
+    url = 'https://{}.wikipedia.org/wiki/{}'.format(lang, title)
+    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
+    if text is None:
+        return {'title': title, 'pages': []}
+    category = {'title': title, 'pages': []}
+    if text:
+        soup = BeautifulSoup(text, 'html.parser')
+        cat_nodes = soup.select('div#mw-content-text a[title]')
+        if cat_nodes:
+            for cat_node in cat_nodes:
+                category['links'].append(cat_node.get('title'))
+    return category
+
