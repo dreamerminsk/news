@@ -105,7 +105,13 @@ async def _get_pages(url):
     category = {'pages': [], 'next': None}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        cat_nodes = soup.select('div#mw-content-text a[title]')
+        next_nodes = soup.select('div#mw-pages div.mw-category li a[title]')
+        if cat_nodes:
+            for cat_node in cat_nodes:
+                if 'Следующая страница' in cat_node.text:
+                    category['next'] = cat_node.get('href')
+                category['pages'].append(cat_node.get('title'))
+        cat_nodes = soup.select('div#mw-pages div.mw-category li a[title]')
         if cat_nodes:
             for cat_node in cat_nodes:
                 if 'Следующая страница' in cat_node.text:
