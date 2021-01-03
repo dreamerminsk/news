@@ -48,7 +48,7 @@ class RacerEndpoint(HTTPEndpoint):
 class NamesEndpoint(HTTPEndpoint):
     async def get(self, request):
         startswith = request.path_params['startswith']
-        racers = ibustats.racers.find({})
+        racers = ibustats.racers.find({'wiki.ru':{'$regex':'^{}'.format(startswith)}})
         latest = []
         for racer in racers:
             racer['_id'] = str(racer['_id'])
