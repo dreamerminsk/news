@@ -91,7 +91,7 @@ async def get_pages(lang, title):
     url = 'https://{}.wikipedia.org/wiki/{}'.format(lang, title)
     pages = []
     while url is not None:
-        ps = _get_pages(url)
+        ps = await _get_pages(url)
         for p in ps['pages']:
             pages.append(p)
         url = ps['next']    
