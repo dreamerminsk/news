@@ -86,17 +86,13 @@ async def get_links(lang, title):
 
 async def get_pages(lang, title):
     url = 'https://{}.wikipedia.org/wiki/{}'.format(lang, title)
-    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
-    if text is None:
-        return {'title': title, 'pages': []}
-    category = {'title': title, 'pages': []}
-    if text:
-        soup = BeautifulSoup(text, 'html.parser')
-        cat_nodes = soup.select('div#mw-content-text a[title]')
-        if cat_nodes:
-            for cat_node in cat_nodes:
-                category['links'].append(cat_node.get('title'))
-    return category
+    pages = []
+    while url is not None:
+        ps = _get_pages(url)
+        for p in ps['pages']:
+            pages.append(p)
+        url = ps['next']    
+    return pages
 
 async def _get_pages(url):
     text = get_text(url)
