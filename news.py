@@ -177,7 +177,7 @@ async def queue_ibu2():
     await asyncio.sleep(4)
     total = 0
     links = await get_pages('ru', 'Категория:Биатлонисты по алфавиту')
-    for link in links['links']:
+    for link in links['pages']:
         found = client.ibustats.racers.find_one(
             {'wiki.ru': link})
         if found is None:
