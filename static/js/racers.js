@@ -1,8 +1,8 @@
 let racers;
 let selectedTd;
 
-async function updateRacers() {
-  let response = await fetch('/api/ibu/racers');
+async function loadRacers() {
+  let response = await fetch(`/api/ibu/racers/names/${selectedTd.title}`);
   let json = await response.json();
   racers = [];
   for (const racer of json.racers) {
@@ -10,11 +10,12 @@ async function updateRacers() {
   }
 }
 
-function filter() {
+async function filter() {
   if (!selectedTd) return;
   const node = document.getElementById("racers");
   node.innerHTML = '';
-  racers.filter(racer => racer.wiki.ru.startsWith(selectedTd.title))
+  await loadRacers();
+  racers.filter(racer => racer.wiki.ru
     .sort((a, b) => a.wiki.ru.localeCompare(b.wiki.ru))
     .forEach(racer => {
       node.innerHTML += 
@@ -31,23 +32,23 @@ function filter() {
 }
 
 
-function highlight(td) {
+async function highlight(td) {
   if (selectedTd) {
     selectedTd.classList.remove('table-success');
   }
   selectedTd = td;
-  filter();
+  await filter();
   selectedTd.classList.add('table-success');
 }
 
 async function initLetters() {
     const ABC = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
     const row = document.getElementById("head-letters");
-    row.onclick = function(event) {
+    row.onclick = async function(event) {
         let td = event.target.closest('td');
         if (!td) return;
         if (!row.contains(td)) return;
-        highlight(td);
+        await highlight(td);
     };
     Array.from(ABC).forEach((e, i) => 
         row.insertAdjacentHTML("beforeend",  
@@ -59,5 +60,3 @@ document.addEventListener('DOMContentLoaded', function(event) {
     initLetters();
     updateRacers();
 });
-
-let intervalId = setInterval(updateRacers, 60000);
