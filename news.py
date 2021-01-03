@@ -22,7 +22,7 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from workers.web import get_text
-from workers.wiki import get_category, get_links, get_info
+from workers.wiki import get_category, get_links, get_info, get_pages
 
 #print = pprint.pprint
 
@@ -145,7 +145,7 @@ async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
-             loop.create_task(queue_ibu()),
+             loop.create_task(queue_ibu2()),
              loop.create_task(queue_wiki_info())]
 
 
@@ -172,6 +172,20 @@ async def queue_cat():
                     {'labels': {'en': parent}})
         await asyncio.sleep(32)
         
+        
+async def queue_ibu2():
+    await asyncio.sleep(4)
+    total = 0
+    links = await get_pages('ru', 'Категория:Биатлонисты по алфавиту')
+    for link in links['links']:
+        found = client.ibustats.racers.find_one(
+            {'wiki.ru': link})
+        if found is None:
+            total += 1
+            client.ibustats.racers.insert_one(
+                {'wiki': {'ru': link}})
+    print('queue_ibu2(): {}'.format(total))
+    await asyncio.sleep(32)
         
 async def queue_ibu():
     await asyncio.sleep(4)
