@@ -43,3 +43,21 @@ class RacerEndpoint(HTTPEndpoint):
 
     async def put(self, request):
         pass
+
+
+class NamesEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        startswith = request.path_params['startswith']
+        racers = ibustats.racers.find({})
+        latest = []
+        for racer in racers:
+            racer['_id'] = str(racer['_id'])
+            if 'bday' in racer:
+                racer['bday'] = str(racer['bday'])
+            if 'last_modified' in racer:
+                racer['last_modified'] = str(racer['last_modified'])
+            latest.append(racer)
+        return JSONResponse({'status': 'ok', 'racers': latest})
+
+    async def post(self, request):
+        pass
