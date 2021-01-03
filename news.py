@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 from pymongo import MongoClient
 
 from endpoints.news import FeedEndpoint, TaskEndpoint
-from endpoints.racers import RacersEndpoint
+from endpoints.racers import RacersEndpoint, NamesEndpoint
 from middleware.logging import LoggingMiddleware
 from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
@@ -283,6 +283,7 @@ app = Starlette(debug=True, routes=[
 
 
     Route('/api/ibu/racers', RacersEndpoint),
+    Route('/api/ibu/racers/names/{startswith}', NamesEndpoint),
     Route('/view/ibu', show_ibu),
 
     Route('/view/talksby', show_talks),
