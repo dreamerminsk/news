@@ -29,9 +29,8 @@ from workers.wiki import get_category, get_links, get_info, get_pages
 templates = Jinja2Templates(directory='templates')
 
 client = MongoClient()
+client.rels.categories.remove({})
 # client.stats.hosts.remove({})
-# client.rels.categories.update_many(
-#     {'wikidataid': 'None'}, {'$set': {'wikidataid': None}})
 news = client.news
 feeds = news.feeds
 articles = news.articles
