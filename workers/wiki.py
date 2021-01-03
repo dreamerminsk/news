@@ -48,7 +48,7 @@ def get_bday_info(soup):
     nodes = soup.select("span.bday")
     if nodes:
         for node in nodes:
-            try
+            try:
                 name = datetime.strptime(node.text, '%Y-%m-%d').date()
             except Exception as e:
                 name = None
