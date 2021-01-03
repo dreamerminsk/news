@@ -102,7 +102,7 @@ async def get_pages(lang, title):
 
 async def _get_pages(url):
     text = get_text(url)
-    
+    await asyncio.sleep(4)
     if text is None:
         return {'pages': [], 'next': None}
     category = {'pages': [], 'next': None}
