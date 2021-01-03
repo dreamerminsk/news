@@ -94,7 +94,7 @@ async def get_pages(lang, title):
         ps = await _get_pages(url)
         for p in ps['pages']:
             pages.append(p)
-        url = ps['next']    
+        url = 'https://ru.wikipedia.org{}'.format(ps['next'])  
     return pages
 
 async def _get_pages(url):
