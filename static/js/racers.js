@@ -12,7 +12,7 @@ async function loadRacers() {
 
 function country_list(countries) {
   return countries.map((c) => `
-  <div class='button-group mr-2'>
+  <div class='btn-group mr-2'>
   <a class='btn btn-outline-dark btn-sm' href='#'>${c}</a>
   <a class='btn btn-outline-dark btn-sm' href='https://ru.wikipedia.org/wiki/${c}'>
     ru
