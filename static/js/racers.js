@@ -48,6 +48,7 @@ async function filter() {
              </div>
            </p>
            <p class="card-text">${new Date(racer.bday)?.toLocaleDateString()}</p>
+           <p class="card-text">${racer.desc}</p>
            <p class="card-text"><small class="text-muted">Last updated at ${racer.last_modified}</small></p>
          </div>
        </div>`;

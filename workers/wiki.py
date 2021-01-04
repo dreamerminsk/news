@@ -55,6 +55,13 @@ def get_image_info(soup):
     return name
 
 
+def get_desc(soup):
+    nodes = soup.select(
+        "div#mw-content-text div.mw-parser-output p")
+    if nodes:
+        return nodes[0]
+
+
 def get_bday_info(soup):
     name = None
     nodes = soup.select("span.bday")
@@ -77,6 +84,7 @@ async def get_info(lang, title):
         soup = BeautifulSoup(text, 'html.parser')
         category['countries'] = get_country_info(soup)
         category['image'] = get_image_info(soup)
+        category['desc'] = get_desc(soup)
         category['name'] = get_name_info(soup)
         if category['name'] == None:
             category['name'] = title

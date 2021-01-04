@@ -144,7 +144,6 @@ async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
-             loop.create_task(queue_ibu2()),
              loop.create_task(queue_wiki_info())]
 
 
@@ -193,6 +192,8 @@ async def queue_wiki_info():
             '$set': {'name': info['name']}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
             '$set': {'image': info['image']}}, upsert=False)
+        client.ibustats.racers.update_one({'wiki.ru': wiki}, {
+            '$set': {'desc': info['desc']}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
             '$set': {'bday': str(info['bday'])}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
