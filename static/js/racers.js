@@ -44,11 +44,11 @@ async function highlight(td) {
 async function initLetters() {
     const ABC = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
     const row = document.getElementById("head-letters");
-    row.onclick = async function(event) {
+    row.onclick = function(event) {
         let td = event.target.closest('td');
         if (!td) return;
         if (!row.contains(td)) return;
-        await highlight(td);
+        highlight(td);
     };
     Array.from(ABC).forEach((e, i) => 
         row.insertAdjacentHTML("beforeend",  
