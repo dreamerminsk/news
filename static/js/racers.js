@@ -22,7 +22,7 @@ function country_list(countries) {
 }
 
 function racer_image(image) {
-  if (image !== undefined) {
+  if (!image && image !== undefined) {
     return `<img class="card-img-top" async src="${image.replace('200px', '400px')}"></img>`;
   }
   else return '';
