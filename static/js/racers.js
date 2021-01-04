@@ -58,5 +58,4 @@ async function initLetters() {
 
 document.addEventListener('DOMContentLoaded', function(event) {
     initLetters();
-    updateRacers();
 });
