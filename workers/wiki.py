@@ -1,4 +1,6 @@
 import asyncio
+from datetime import datetime, timedelta
+
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
@@ -22,8 +24,6 @@ async def get_category(title):
     return category
 
 
-
-
 def get_country_info(soup):
     countries = []
     nodes = soup.select("span[data-wikidata-property-id='P27'] a[title]")
@@ -36,6 +36,7 @@ def get_country_info(soup):
             countries.append(node.get('title'))
     return countries
 
+
 def get_name_info(soup):
     name = None
     nodes = soup.select("div.ts_Спортсмен_имя div.label")
@@ -43,6 +44,7 @@ def get_name_info(soup):
         for node in nodes:
             name = node.text
     return name
+
 
 def get_bday_info(soup):
     name = None
@@ -54,6 +56,7 @@ def get_bday_info(soup):
             except Exception as e:
                 name = None
     return name
+
 
 async def get_info(lang, title):
     print('INFO\tget_info({}, {}'.format(lang, title))
@@ -72,7 +75,6 @@ async def get_info(lang, title):
     return category
 
 
-
 async def get_links(lang, title):
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
@@ -87,7 +89,6 @@ async def get_links(lang, title):
     return category
 
 
-
 async def get_pages(lang, title):
     url = 'https://{}.wikipedia.org/wiki/{}'.format(lang, title)
     pages = []
@@ -100,6 +101,7 @@ async def get_pages(lang, title):
         else:
             url = None
     return pages
+
 
 async def _get_pages(url):
     text = get_text(url)
@@ -119,5 +121,3 @@ async def _get_pages(url):
             for cat_node in cat_nodes:
                 category['pages'].append(cat_node.get('title'))
     return category
-
-
