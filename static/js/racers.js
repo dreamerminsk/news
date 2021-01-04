@@ -21,6 +21,17 @@ function country_list(countries) {
   `).join('');
 }
 
+function racer_image(countries) {
+  return countries.map((c) => `
+  <div class='btn-group mr-1'>
+  <a class='btn btn-outline-dark btn-sm' href='#'>${c}</a>
+  <a class='btn btn-outline-dark btn-sm' href='https://ru.wikipedia.org/wiki/${c}'>
+    ru
+  </a>
+  </div>
+  `).join('');
+}
+
 async function filter() {
   if (!selectedTd) return;
   const node = document.getElementById("racers");
@@ -31,7 +42,7 @@ async function filter() {
     .forEach(racer => {
       node.innerHTML +=
         `<div class="card border-dark mb-3">
-         <img class="card-img-top" src="${racer.image}">
+         <img class="card-img-top" async src="${racer.image}">
          <div class="card-header">${racer.wiki.ru}</div>
          <div class="card-body text-dark">
            <h6 class="card-title">${racer.name}</h6>
