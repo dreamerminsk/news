@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 from pymongo import MongoClient
 
 from endpoints.news import FeedEndpoint, TaskEndpoint
-from endpoints.racers import RacersEndpoint, NamesEndpoint
+from endpoints.racers import NamesEndpoint, RacersEndpoint
 from middleware.logging import LoggingMiddleware
 from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
@@ -22,7 +22,7 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from workers.web import get_text
-from workers.wiki import get_category, get_links, get_info, get_pages
+from workers.wiki import get_category, get_info, get_links, get_pages
 
 #print = pprint.pprint
 
@@ -132,7 +132,7 @@ async def start_job():
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     feeds.update_one({'link': 'https://meduza.io/rss/all'}, {
-                '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
+        '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     # client.rels.categories.remove({})
     # client.rels.categories.insert_one(
     #     {'labels': {'en': 'Category:Peter the Great'}})
@@ -146,8 +146,8 @@ async def start_job():
              loop.create_task(process_feeds(q)),
              loop.create_task(queue_ibu2()),
              loop.create_task(queue_wiki_info())]
-        
-        
+
+
 async def queue_ibu2():
     await asyncio.sleep(4)
     total = 0
@@ -161,7 +161,8 @@ async def queue_ibu2():
                 {'wiki': {'ru': link}})
     print('queue_ibu2(): {}'.format(total))
     await asyncio.sleep(32)
-        
+
+
 async def queue_ibu():
     await asyncio.sleep(4)
     total = 0
@@ -177,8 +178,8 @@ async def queue_ibu():
                 {'wiki': {'ru': link}})
     print('queue_ibu(): {}'.format(total))
     await asyncio.sleep(32)
-    
-    
+
+
 async def queue_wiki_info():
     racers = client.ibustats.racers.find({})
     wikis = []
@@ -187,13 +188,13 @@ async def queue_wiki_info():
     for wiki in wikis:
         info = await get_info('ru', wiki)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
-                '$set': {'countries': info['countries']}}, upsert=False)
+            '$set': {'countries': info['countries']}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
-                '$set': {'name': info['name']}}, upsert=False)
+            '$set': {'name': info['name']}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
-                '$set': {'bday': str(info['bday'])}}, upsert=False)
+            '$set': {'bday': str(info['bday'])}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
-                '$set': {'last_modified': datetime.now()}}, upsert=False)
+            '$set': {'last_modified': datetime.now()}}, upsert=False)
         await asyncio.sleep(8)
     await asyncio.sleep(32)
 
