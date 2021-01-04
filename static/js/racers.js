@@ -18,7 +18,7 @@ function country_list(countries) {
     ru
   </a>
   </div>
-  `).join();
+  `).join('');
 }
 
 async function filter() {
