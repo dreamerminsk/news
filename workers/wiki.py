@@ -59,7 +59,7 @@ def get_desc(soup):
     nodes = soup.select(
         "div#mw-content-text div.mw-parser-output p")
     if nodes:
-        return nodes[0]
+        return nodes[0].text
 
 
 def get_bday_info(soup):
