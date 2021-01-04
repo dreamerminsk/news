@@ -23,7 +23,7 @@ function country_list(countries) {
 
 function racer_image(image) {
   if (!image) {
-    return <img class="card-img-top" async src="${image}"></img>;
+    return `<img class="card-img-top" async src="${image}"></img>`;
   }
   else return '';
 }
