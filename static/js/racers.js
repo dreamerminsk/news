@@ -12,9 +12,12 @@ async function loadRacers() {
 
 function country_list(countries) {
   return countries.map((c) => `
-  ${c}<a class='btn btn-outline-dark btn-sm' href='https://ru.wikipedia.org/wiki/${c}'>
-    ru-wiki
+  <div class='button-group mr-2'>
+  <a class='btn btn-outline-dark btn-sm' href='#'>${c}</a>
+  <a class='btn btn-outline-dark btn-sm' href='https://ru.wikipedia.org/wiki/${c}'>
+    ru
   </a>
+  </div>
   `).join();
 }
 
@@ -32,7 +35,7 @@ async function filter() {
          <div class="card-body text-dark">
            <h6 class="card-title">${racer.name}</h6>
            <p class="card-text">
-             <div class="button-group">
+             <div class="button-toolbar">
                ${country_list(racer.countries)}
              </div>
            </p>
