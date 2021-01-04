@@ -23,7 +23,7 @@ async function filter() {
          <div class="card-header">${racer.wiki.ru}</div>
          <div class="card-body text-dark">
            <h5 class="card-title">${racer.name}</h5>
-           <p class="card-text">${racer.countries}</p>
+           <p class="card-text">${racer.countries}<a href='https://ru.wikipedia.org/wiki/${racer.countries[0]}'></a></p>
            <p class="card-text">${new Date(racer.bday).toLocaleDateString()}</p>
            <p class="card-text"><small class="text-muted">Last updated at ${racer.last_modified}</small></p>
          </div>
