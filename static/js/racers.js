@@ -13,7 +13,7 @@ async function loadRacers() {
 function country_list(countries) {
   return countries.map((c) => `
   ${c}<a href='https://ru.wikipedia.org/wiki/${c}'>
-    <img width='16px' height='16px' src='https://ru.wikipedia.org/static/favicon/wikipedia.ico'>
+    wiki
   </a>
   `).join();
 }
