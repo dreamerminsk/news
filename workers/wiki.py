@@ -2,7 +2,6 @@ import asyncio
 from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
 
 from workers.web import get_text
 
@@ -46,6 +45,16 @@ def get_name_info(soup):
     return name
 
 
+def get_image_info(soup):
+    name = None
+    nodes = soup.select(
+        "span[data-wikidata-property-id='P18'] a.image img[src]")
+    if nodes:
+        for node in nodes:
+            name = 'https:{}'.format(node.get('src'))
+    return name
+
+
 def get_bday_info(soup):
     name = None
     nodes = soup.select("span.bday")
@@ -67,6 +76,7 @@ async def get_info(lang, title):
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         category['countries'] = get_country_info(soup)
+        category['image'] = get_image_info(soup)
         category['name'] = get_name_info(soup)
         if category['name'] == None:
             category['name'] = title
