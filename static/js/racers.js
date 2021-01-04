@@ -31,7 +31,11 @@ async function filter() {
          <div class="card-header">${racer.wiki.ru}</div>
          <div class="card-body text-dark">
            <h6 class="card-title">${racer.name}</h6>
-           <p class="card-text">${country_list(racer.countries)}</p>
+           <p class="card-text">
+             <div class="button-group">
+               ${country_list(racer.countries)}
+             </div>
+           </p>
            <p class="card-text">${new Date(racer.bday)?.toLocaleDateString()}</p>
            <p class="card-text"><small class="text-muted">Last updated at ${racer.last_modified}</small></p>
          </div>
