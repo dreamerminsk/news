@@ -57,7 +57,7 @@ def get_image_info(soup):
 
 def get_desc(soup):
     nodes = soup.select(
-        "div#mw-content-text div.mw-parser-output p")
+        "div#mw-content-text div.mw-parser-output > p")
     if nodes:
         return nodes[0].text
 
