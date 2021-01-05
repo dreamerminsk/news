@@ -288,7 +288,10 @@ app = Starlette(debug=True, routes=[
 
     Route('/api/ibu/racers', RacersEndpoint),
     Route('/api/ibu/racers/names/{startswith}', NamesEndpoint),
+
     Route('/view/ibu', show_ibu),
+    Route('/view/ibu/racers', show_ibu),
+    Route('/view/ibu/countries', show_ibu),
 
     Route('/view/talksby', show_talks),
 
