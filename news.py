@@ -157,10 +157,10 @@ async def process_tournaments():
     print('process_tournaments')
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        wdi_nodes = soup.select('div.entity-header__select > div.select > select > option')
+        wdi_nodes = soup.select('div.entity-header__select  div.select  select.js-entity-header-select1  option')
         if wdi_nodes:
             for wdi_node in wdi_nodes:
-                print(wdi_node)
+                print(wdi_node.get('value'))
     await asyncio.sleep(2)
     
     
