@@ -152,9 +152,15 @@ async def start_job():
              loop.create_task(queue_wiki_info())]
 
 async def process_tournaments():
+    await asyncio.sleep(2)
     text = get_text('https://www.championat.com/biathlon/_biathlonworldcup.html')
     if text:
-        pass
+        soup = BeautifulSoup(text, 'html.parser')
+        wdi_nodes = soup.select('div.select > select[name="year"] > option')
+        if wdi_nodes:
+            for wdi_node in wdi_nodes:
+                print(wdi_node)
+    await asyncio.sleep(2)
     
     
 async def queue_wiki_info():
