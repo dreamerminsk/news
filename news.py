@@ -160,7 +160,7 @@ async def process_tournaments():
         wdi_nodes = soup.select('script.js-entity-header-select-data')
         if wdi_nodes:
             for wdi_node in wdi_nodes:
-                print(wdi_node.text)
+                print(wdi_node)
     await asyncio.sleep(2)
     
     
