@@ -155,7 +155,6 @@ async def process_tournaments():
     await asyncio.sleep(2)
     text = get_text('https://www.championat.com/biathlon/_biathlonworldcup.html')
     print('process_tournaments')
-    print(text)
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         wdi_nodes = soup.select('div.entity-header__select > div.select > select > option')
