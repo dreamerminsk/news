@@ -158,7 +158,7 @@ async def process_tournaments():
     print(text)
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        wdi_nodes = soup.select('div.select > select[name="year"] > option')
+        wdi_nodes = soup.select('div.entity-header__select > div.select > select > option')
         if wdi_nodes:
             for wdi_node in wdi_nodes:
                 print(wdi_node)
