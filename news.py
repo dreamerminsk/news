@@ -148,9 +148,15 @@ async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
+             loop.create_task(process_tournaments()),
              loop.create_task(queue_wiki_info())]
 
-
+async def process_tournaments():
+    text = get_text('https://www.championat.com/biathlon/_biathlonworldcup.html')
+    if text:
+        pass
+    
+    
 async def queue_wiki_info():
     racers = client.ibustats.racers.find({})
     wikis = []
