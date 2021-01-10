@@ -22,7 +22,7 @@ async function filter() {
            <h6 class="card-title">${season.title}</h6>
          </div>
 		 <div class="card-body text-dark">
-           <p class="card-text"><small class="text-muted">Last updated at ${racer.last_modified}</small></p>
+           <p class="card-text"><small class="text-muted">Last updated at ...</small></p>
 		 </div>
        </div>`;
     });
