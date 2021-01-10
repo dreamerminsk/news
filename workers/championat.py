@@ -17,7 +17,7 @@ async def process_season(season):
     text = get_text('https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/teams/'.format(season['cc_id']))
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        wdi_nodes = soup.select('a[href]')
+        nodes = soup.select('a[href]')
 
 
 async def process_seasons():
