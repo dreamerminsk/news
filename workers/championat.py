@@ -18,6 +18,12 @@ async def process_season(season):
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select('a[href]')
+        for node in nodes:
+            url = node.get('href')
+            if '' not in url:
+                continue
+            if '' not in url:
+                continue
 
 
 async def process_seasons():
