@@ -69,6 +69,9 @@ async def show_ibu(request):
   
 async def show_ibu_countries(request):
     return templates.TemplateResponse('ibucountries.html', {'request': request})
+    
+async def show_ibu_seasons(request):
+    return templates.TemplateResponse('ibuseasons.html', {'request': request})
 
 
 async def show_feeds(request):
@@ -255,6 +258,7 @@ app = Starlette(debug=True, routes=[
     Route('/view/ibu', show_ibu),
     Route('/view/ibu/racers', show_ibu),
     Route('/view/ibu/countries', show_ibu_countries),
+    Route('/view/ibu/seasons', show_ibu_seasons),
 
     Route('/view/talksby', show_talks),
 
