@@ -1,0 +1,26 @@
+{% extends "snooker.html" %}
+{% block title %}ibustats{% endblock %}
+{% block content %}
+<div id="div-letters" class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table id='table-letters' class='table table-bordered p-1 m-1'>
+          <thead>
+            <tr id='head-letters'></tr>
+          </thead>
+          <tbody>
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div id="racers"></div>
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', path='/js/seasons.js') }}"></script>
+{% endblock %}
