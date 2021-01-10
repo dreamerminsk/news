@@ -13,6 +13,19 @@ from pymongo import MongoClient
 client = MongoClient()
 
 
+async def process_season(season):
+    text = get_text('https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/teams/'.format(season['cc_id']))
+    if text:
+        soup = BeautifulSoup(text, 'html.parser')
+        wdi_nodes = soup.select('script.js-entity-header-select-data')
+
+
+async def process_seasons():
+    seasons = client.ibustats.seasons.find({})
+    for season in seasons:
+        await process_season(season)
+
+
 async def process_tournaments():
     text = get_text('https://www.championat.com/biathlon/_biathlonworldcup.html')
     if text:
