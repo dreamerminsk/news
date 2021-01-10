@@ -3,6 +3,15 @@ from datetime import datetime, timedelta
 
 from workers.web import get_text
 
+import asyncio
+import pprint
+from datetime import datetime, timedelta
+
+from bson.objectid import ObjectId
+from pymongo import MongoClient
+
+client = MongoClient()
+
 
 async def process_tournaments():
     text = get_text('https://www.championat.com/biathlon/_biathlonworldcup.html')
