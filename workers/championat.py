@@ -1,20 +1,19 @@
-from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
-
-from workers.web import get_text
-
 import asyncio
 import pprint
 from datetime import datetime, timedelta
 
+from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+
+from workers.web import get_text
 
 client = MongoClient()
 
 
 async def process_season(season):
-    text = get_text('https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/teams/'.format(season['cc_id']))
+    text = get_text(
+        'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/teams/'.format(season['cc_id']))
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select('a[href]')
