@@ -19,9 +19,9 @@ async def process_season(season):
         nodes = soup.select('a[href]')
         for node in nodes:
             url = node.get('href')
-            if '' not in url:
+            if '/biathlon/_biathlonworldcup/tournament/' not in url:
                 continue
-            if '' not in url:
+            if '/teams/' not in url:
                 continue
 
 
