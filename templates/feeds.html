@@ -1,20 +1,32 @@
 {% extends "app.html" %}
 {% block title %}News :: Feeds{% endblock %}
 {% block content %}
-  <ul class="list-group">
+<ul class="list-group">
   <li id="last" class="list-group-item">
     <table class="table table-sm small p-0 m-0">
       <tr>
-        <td>start</td><td id='task-start'></td><td>start</td><td id='day-task-start'></td>
+        <td>start</td>
+        <td id='task-start'></td>
+        <td>start</td>
+        <td id='day-task-start'></td>
       </tr>
       <tr>
-        <td>elapsed</td><td id='task-elapsed'></td><td>elapsed</td><td id='day-task-elapsed'></td>
+        <td>elapsed</td>
+        <td id='task-elapsed'></td>
+        <td>elapsed</td>
+        <td id='day-task-elapsed'></td>
       </tr>
       <tr>
-        <td>feeds</td><td id='task-feeds'>0</td><td>feeds</td><td id='day-task-feeds'>0</td>
+        <td>feeds</td>
+        <td id='task-feeds'>0</td>
+        <td>feeds</td>
+        <td id='day-task-feeds'>0</td>
       </tr>
       <tr>
-        <td>articles</td><td id='task-articles'>0</td><td>articles</td><td id='day-task-articles'>0</td>
+        <td>articles</td>
+        <td id='task-articles'>0</td>
+        <td>articles</td>
+        <td id='day-task-articles'>0</td>
       </tr>
     </table>
   </li>
@@ -22,37 +34,40 @@
     <span id="feeds" class="small"></span>
   </li>
 </ul>
-  {% for feed in feeds %}
-    <div id='{{ feed['_id'] }}' class='card card-dark border-dark m-2'>
-      <div class='card-header'>
-        {{ feed['title'] }}
-      </div>
-      <div class='card-body'>
-        <div class='card-text'>
-          {{ feed['description'] }}
-        </div>
-      </div>
-      <div class='card-footer'>
-          <table class="table table-sm small p-0 m-0">
-          <tr>
-            <td>last_access</td><td id='la-{{ feed['_id'] }}'>{{ feed['last_access'] }}</td>
-          </tr>
-          <tr>
-            <td>next_access</td><td id='na-{{ feed['_id'] }}'>{{ feed['next_access'] }}</td>
-          </tr>
-          <tr>
-            <td>ttl</td><td id='ttl-{{ feed['_id'] }}'>{{ feed['ttlf'] }}</td>
-          </tr>
-          </table>
-      </div>
-      <div class='card-footer'>
-        <div class='btn-group float-right' role='group'>
-          <a class='btn btn-outline-secondary active' href='{{ feed["link"] }}'>Читать</a>
-          <a class='btn btn-dark' href='{{ feed["link"] }}'>Источник</a>
-          <a class='btn btn-danger active' href='#'>Удалить</a>
-        </div>
-      </div>
+{% for feed in feeds %}
+<div id='{{ feed[' _id'] }}' class='card card-dark border-dark m-2'>
+  <div class='card-header'>
+    {{ feed['title'] }}
+  </div>
+  <div class='card-body'>
+    <div class='card-text'>
+      {{ feed['description'] }}
     </div>
-  {% endfor %}
+  </div>
+  <div class='card-footer'>
+    <table class="table table-sm small p-0 m-0">
+      <tr>
+        <td>last_access</td>
+        <td id='la-{{ feed[' _id'] }}'>{{ feed['last_access'] }}</td>
+      </tr>
+      <tr>
+        <td>next_access</td>
+        <td id='na-{{ feed[' _id'] }}'>{{ feed['next_access'] }}</td>
+      </tr>
+      <tr>
+        <td>ttl</td>
+        <td id='ttl-{{ feed[' _id'] }}'>{{ feed['ttlf'] }}</td>
+      </tr>
+    </table>
+  </div>
+  <div class='card-footer'>
+    <div class='btn-group float-right' role='group'>
+      <a class='btn btn-outline-secondary active' href='{{ feed["link"] }}'>Читать</a>
+      <a class='btn btn-dark' href='{{ feed["link"] }}'>Источник</a>
+      <a class='btn btn-danger active' href='#'>Удалить</a>
+    </div>
+  </div>
+</div>
+{% endfor %}
 <script src="{{ url_for('static', path='/js/feeds.js') }}"></script>
 {% endblock %}
