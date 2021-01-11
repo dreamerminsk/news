@@ -19,9 +19,27 @@ async def process_season(season):
         nodes = soup.select('a[href]')
         for node in nodes:
             country = {}
+            prev = ''
             url = node.get('href')
             if '/biathlon/_biathlonworldcup/' not in url:
                 continue
+            urlsplit = url.split('/')
+
+
+
+def get_country(node):
+    country = {}
+    prev = ''
+    parts = node.get('href').split('/')
+    for part in parts:
+        if prev == 'tournament':
+            country['tournament'] = part
+        if prev == 'teams':
+            country['cc_id'] = part
+            country['name'] = node.text
+        prev = part
+    return country
+
 
 
 async def process_seasons():
