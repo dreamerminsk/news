@@ -6,14 +6,6 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from pymongo import MongoClient
-
-from endpoints.news import FeedEndpoint, TaskEndpoint
-from endpoints.racers import NamesEndpoint, RacersEndpoint
-from endpoints.seasons import SeasonsEndpoint
-from middleware.logging import LoggingMiddleware
-from rels.countries import CountriesEndpoint, CountryEndpoint
-from rels.humans import HumanEndpoint, HumansEndpoint
-from rels.instances import InstanceEndpoint, InstancesEndpoint
 from starlette.applications import Starlette
 from starlette.background import BackgroundTask, BackgroundTasks
 from starlette.middleware import Middleware
@@ -22,6 +14,14 @@ from starlette.responses import (JSONResponse, PlainTextResponse,
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
+
+from endpoints.news import FeedEndpoint, TaskEndpoint
+from endpoints.racers import NamesEndpoint, RacersEndpoint
+from endpoints.seasons import SeasonsEndpoint
+from middleware.logging import LoggingMiddleware
+from rels.countries import CountriesEndpoint, CountryEndpoint
+from rels.humans import HumanEndpoint, HumansEndpoint
+from rels.instances import InstanceEndpoint, InstancesEndpoint
 from workers.web import get_text
 from workers.wiki import get_category, get_info, get_links, get_pages
 
