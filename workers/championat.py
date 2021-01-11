@@ -18,12 +18,8 @@ async def process_season(season):
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select('a[href]')
         for node in nodes:
-            country = {}
-            prev = ''
-            url = node.get('href')
-            if '/biathlon/_biathlonworldcup/' not in url:
-                continue
-            urlsplit = url.split('/')
+            if '/biathlon/_biathlonworldcup/' in url:
+                country = get_country(node)
 
 
 
