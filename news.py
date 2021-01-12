@@ -137,7 +137,7 @@ async def start_job():
     print('{}. {}'.format(datetime.now(), count))
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
-    feeds.update_one({'link': 'https://meduza.io/rss/all'}, {
+    feeds.update_one({'link': 'https://lenta.ru/rss'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
