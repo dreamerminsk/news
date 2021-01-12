@@ -26,6 +26,28 @@ class FeedEndpoint(HTTPEndpoint):
         return JSONResponse(feed)
 
 
+class RssReaderEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        feed_id = request.path_params['feed_id']
+        feed = feeds.find_one({"_id": ObjectId(feed_id)})
+        feed['_id'] = str(feed['_id'])
+        feed['last_access'] = str(feed['last_access'])
+        feed['next_access'] = str(feed['next_access'])
+        feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
+        return JSONResponse(feed)
+
+
+class XmlEditorEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        feed_id = request.path_params['feed_id']
+        feed = feeds.find_one({"_id": ObjectId(feed_id)})
+        feed['_id'] = str(feed['_id'])
+        feed['last_access'] = str(feed['last_access'])
+        feed['next_access'] = str(feed['next_access'])
+        feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
+        return JSONResponse(feed)
+
+
 class TaskEndpoint(HTTPEndpoint):
     async def get(self, request):
         name = request.path_params['name']
