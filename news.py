@@ -241,6 +241,9 @@ app = Starlette(debug=True, routes=[
     Route('/api/feeds/{feed_id}', FeedEndpoint),
     Route('/api/tasks/{name}', TaskEndpoint),
 
+    Route('/reader/feeds/{feed_id}', RssReaderEndpoint),
+    Route('/editor/feeds/{feed_id}', XmlEditorEndpoint),
+
     Route('/', show),
     Route('/view/news', show_news),
     Route('/view/feeds', show_feeds),
