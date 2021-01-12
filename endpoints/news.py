@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 
+from starlette.templating import Jinja2Templates
+
 from starlette.endpoints import HTTPEndpoint
 from starlette.responses import (JSONResponse, PlainTextResponse,
                                  RedirectResponse)
