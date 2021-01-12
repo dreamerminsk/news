@@ -32,7 +32,7 @@ async function updateFeeds() {
       let ttl = document.getElementById(`ttl-${feed['_id']}`);
       ttl.textContent = feed['ttlf'];
     } catch (e) {
-      document.getElementById("feeds").textContent += `${e}`;
+      document.getElementById("feeds").textContent += `${feed['_id']} - ${e}`;
     }
   });
 }
