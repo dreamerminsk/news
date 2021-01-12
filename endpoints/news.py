@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 from starlette.endpoints import HTTPEndpoint
 from starlette.responses import (JSONResponse, PlainTextResponse,
-                                 RedirectResponse, TemplateResponse)
+                                 RedirectResponse)
 
 
 client = MongoClient()
@@ -13,6 +13,9 @@ news = client.news
 feeds = news.feeds
 articles = news.articles
 users = news.users
+
+
+templates = Jinja2Templates(directory='templates')
 
 
 class FeedEndpoint(HTTPEndpoint):
