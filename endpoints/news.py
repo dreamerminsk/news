@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 from starlette.endpoints import HTTPEndpoint
 from starlette.responses import (JSONResponse, PlainTextResponse,
-                                 RedirectResponse)
+                                 RedirectResponse, TemplateResponse)
 
 
 client = MongoClient()
@@ -30,22 +30,14 @@ class RssReaderEndpoint(HTTPEndpoint):
     async def get(self, request):
         feed_id = request.path_params['feed_id']
         feed = feeds.find_one({"_id": ObjectId(feed_id)})
-        feed['_id'] = str(feed['_id'])
-        feed['last_access'] = str(feed['last_access'])
-        feed['next_access'] = str(feed['next_access'])
-        feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
-        return JSONResponse(feed)
+        return templates.TemplateResponse('rss-reader.html', {'request': request, 'feed': feed})
 
 
 class XmlEditorEndpoint(HTTPEndpoint):
     async def get(self, request):
         feed_id = request.path_params['feed_id']
         feed = feeds.find_one({"_id": ObjectId(feed_id)})
-        feed['_id'] = str(feed['_id'])
-        feed['last_access'] = str(feed['last_access'])
-        feed['next_access'] = str(feed['next_access'])
-        feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
-        return JSONResponse(feed)
+        return templates.TemplateResponse('xml-editor.html', {'request': request, 'feed': feed})
 
 
 class TaskEndpoint(HTTPEndpoint):
