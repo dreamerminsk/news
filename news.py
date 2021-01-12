@@ -139,6 +139,8 @@ async def start_job():
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     feeds.update_one({'link': 'https://lenta.ru/rss'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
+    feeds.update_one({'link': 'http://www.filmz.ru/rss/files/rambler.xml'}, {
+        '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
