@@ -1,10 +1,13 @@
 async function loadFeed(url) {
   let response = await fetch(url);
-  let commits = await response.json();
-  let parser = new DOMParser();
-  let xmlDoc = parser.parseFromString(text,"text/xml");
-  let res = await fetch(`/api/feeds/latest`);
-  let json = await res.json();
+
+  if (response.ok) {
+    let text = await response.text();
+    let parser = new DOMParser();
+    let xmlDoc = parser.parseFromString(text, "text/xml");
+  } else {
+    alert("Ошибка HTTP: " + response.status);
+  }
   json.feeds.forEach(feed => {
     try {
       let match = document.getElementById(feed['_id']);
