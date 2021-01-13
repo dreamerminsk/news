@@ -4,7 +4,7 @@ let currentNode;
 async function loadFeed(url) {
 try {
   document.getElementById('messages').innerHTML = url;
-  let response = await fetch(url, {mode:'no-cors'});
+  let response = await fetch(url, {mode:'cors'});
   alert(`${response}`);
 
   if (response.ok) {
