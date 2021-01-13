@@ -1,6 +1,10 @@
 let xmlDoc;
 let currentNode;
 
+let headers = new Headers({
+    "User-Agent"   : "MY-UA-STRING"
+});
+
 async function loadFeed(url) {
 try {
   document.getElementById('messages').innerHTML = url;
