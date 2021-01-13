@@ -3,7 +3,7 @@ let currentNode;
 
 async function loadFeed(url) {
   let response = await fetch(url);
-  document.getElementById('current-name').innerHtml = url;
+  document.getElementById('current-name').innerHTML = url;
 
   if (response.ok) {
     let text = await response.text();
@@ -18,7 +18,7 @@ async function loadFeed(url) {
 
 function update() {
   let match = document.getElementById('current-name');
-  match.innerHtml = `${currentNode.nodeName}`;
+  match.innerHTML = `${currentNode.nodeName}`;
 }
 
 
