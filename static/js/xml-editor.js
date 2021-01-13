@@ -21,7 +21,7 @@ try {
     currentNode = xmlDoc.documentElement;
     update();
   } else {
-    alert("Ошибка HTTP: " + response.status);
+    alert("Ошибка HTTP: " + await response.text());
   }
 } catch(e) {
 document.getElementById('messages').innerHTML = `${e}`;
