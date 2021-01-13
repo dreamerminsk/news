@@ -2,7 +2,7 @@ let xmlDoc;
 let currentNode;
 
 let headers = new Headers({
-    "User-Agent"   : "MY-UA-STRING"
+    "User-Agent"   : "Mozilla/5.0 (Windows NT 6.1; rv:83.0) Gecko/20100101 Firefox/83.0"
 });
 
 async function loadFeed(url) {
