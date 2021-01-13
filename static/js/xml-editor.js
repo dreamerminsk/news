@@ -1,4 +1,4 @@
-async function updateFeeds() {
+async function loadFeed() {
   let response = await fetch('/api/tasks/feeds');
   let commits = await response.json();
   document.getElementById("task-start").textContent = commits.start.toLocaleString();
@@ -36,5 +36,9 @@ async function updateFeeds() {
     }
   });
 }
-let timerId = setTimeout(updateFeeds, 400);
-let intervalId = setInterval(updateFeeds, 60000);
+
+
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  loadFeed();
+});
