@@ -16,8 +16,8 @@ async function loadFeed(url) {
 }
 
 function update() {
-  let match = document.getElementById('');
-  
+  let match = document.getElementById('current-name');
+  match.innerHtml = `${currentNode.nodeName}`;
 }
 
 
