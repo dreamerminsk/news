@@ -2,6 +2,8 @@ let xmlDoc;
 let currentNode;
 
 async function loadFeed(url) {
+  alert(`${url}`);
+  document.getElementById('messages').innerHTML = url;
   let response = await fetch(url);
   alert(`${response}`);
   document.getElementById('current-name').innerHTML = url;
