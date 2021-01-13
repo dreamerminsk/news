@@ -1,5 +1,5 @@
-async function loadFeed() {
-  let response = await fetch('/api/tasks/feeds');
+async function loadFeed(url) {
+  let response = await fetch(url);
   let commits = await response.json();
   document.getElementById("task-start").textContent = commits.start.toLocaleString();
   document.getElementById("task-elapsed").textContent = commits.elapsed;
@@ -41,5 +41,5 @@ async function loadFeed() {
 
 document.addEventListener('DOMContentLoaded', function (event) {
   let source = document.getElementById('source');
-  loadFeed();
+  loadFeed(source.getAttribute('href'));
 });
