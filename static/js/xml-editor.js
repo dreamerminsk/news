@@ -3,6 +3,7 @@ let currentNode;
 
 async function loadFeed(url) {
   let response = await fetch(url);
+  alert(`${response}`);
   document.getElementById('current-name').innerHTML = url;
 
   if (response.ok) {
