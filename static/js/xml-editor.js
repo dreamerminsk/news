@@ -25,6 +25,6 @@ function update() {
 
 document.addEventListener('DOMContentLoaded', function (event) {
   let source = document.getElementById('source');
-  alert(`${source}`);
+  alert(`${source.getAttribute('href')}`);
   loadFeed(source.getAttribute('href'));
 });
