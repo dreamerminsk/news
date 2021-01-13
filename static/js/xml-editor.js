@@ -16,8 +16,8 @@ try {
   } else {
     alert("Ошибка HTTP: " + response.status);
   }
-} catch() {
-document.getElementById('messages').innerHTML = url;
+} catch(e) {
+document.getElementById('messages').innerHTML = `${e}`;
 }
 }
 
