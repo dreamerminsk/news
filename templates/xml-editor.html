@@ -7,17 +7,18 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     
-  <title>{% block title %}{% endblock %}</title>
-  <meta name="description" content="The HTML5 Herald">
+  <title>xmlEditor - {{ feed['link'] }}</title>
+  <meta name="description" content="xmlEditor">
   <meta name="author" content="Micah Teeuws">
 </head>
 
 <body>
-  
+  <div id="messages" class="container">
+  </div>
   <div id="content" class="container">
-    <div class="card">
+    <div id="current-node" class="card">
       <div class="card-body">
-        <a href="{{ feed['link'] }}" class="card-link">Ссылка карты</a>
+        <a id="source" href="{{ feed['link'] }}" class="card-link">Ссылка карты</a>
         <a href="{{ feed['link'] }}" class="card-link">Другая ссылка</a>
       </div>
     </div>
