@@ -40,5 +40,6 @@ async function loadFeed() {
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
+  let source = document.getElementById('source');
   loadFeed();
 });
