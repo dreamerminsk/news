@@ -8,7 +8,10 @@ let headers = new Headers({
 async function loadFeed(url) {
 try {
   document.getElementById('messages').innerHTML = url;
-  let response = await fetch(url, {mode:'cors'});
+  let response = await fetch(url, {
+    method  : 'GET', 
+    headers : headers,
+    mode:'no-cors'});
   alert(`${response}`);
 
   if (response.ok) {
