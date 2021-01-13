@@ -2,11 +2,10 @@ let xmlDoc;
 let currentNode;
 
 async function loadFeed(url) {
-  alert(`${url}`);
+try {
   document.getElementById('messages').innerHTML = url;
   let response = await fetch(url);
   alert(`${response}`);
-  document.getElementById('current-name').innerHTML = url;
 
   if (response.ok) {
     let text = await response.text();
@@ -17,6 +16,9 @@ async function loadFeed(url) {
   } else {
     alert("Ошибка HTTP: " + response.status);
   }
+} catch() {
+document.getElementById('messages').innerHTML = url;
+}
 }
 
 function update() {
@@ -28,6 +30,5 @@ function update() {
 
 document.addEventListener('DOMContentLoaded', function (event) {
   let source = document.getElementById('source');
-  alert(`${source.getAttribute('href')}`);
   loadFeed(source.getAttribute('href'));
 });
