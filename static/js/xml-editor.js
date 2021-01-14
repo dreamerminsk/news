@@ -7,8 +7,8 @@ let headers = new Headers({
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  let source = document.getElementById('source');
-  loadFeed(source.getAttribute('href'));
+  let content = document.getElementById('content');
+  loadFeed(''.format(content.get('')));
 });
 
 async function loadFeed(url) {
