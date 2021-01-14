@@ -31,21 +31,23 @@ async function loadFeed(url) {
 }
 
 function loadingAlert(url) {
-    `<div class="alert alert-info alert-dismissible fade show" role="alert">
-       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-         <span aria-hidden="true">&times;</span>
-       </button>
-       Loading <a href="${url}" class="alert-link">${url}</a>
-     </div>`;
+    return `
+    <div class="alert alert-in/fo alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      Loading <a href="${url}" class="alert-link">${url}</a>
+    </div>`;
 }
 
 function errorAlert(e) {
-    `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-         <span aria-hidden="true">&times;</span>
-       </button>
-       <strong>${e.name}</strong></hr>${e.message}
-     </div>`;
+    return `
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>${e.name}</strong></hr>${e.message}
+    </div>`;
 }
 
 function update() {
