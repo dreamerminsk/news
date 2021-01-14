@@ -70,6 +70,7 @@ function update() {
     match.innerHTML = `${currentNode.nodeName}`;
     
     let listNodes = document.getElementById('child-nodes');
+    listNodes.innerHTML = ''; 
     listNodes.onclick = nodeClick;
     currentNode.childNodes.forEach(function(child, index){
         listNodes.innerHTML += `
