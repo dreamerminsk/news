@@ -15,7 +15,7 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
-from endpoints.news import RssReaderEndpoint, XmlEditorEndpoint, FeedEndpoint, TaskEndpoint
+from endpoints.news import RssReaderEndpoint, XmlEditorEndpoint, FeedEndpoint, FeedSourceEndpoint, TaskEndpoint
 from endpoints.racers import NamesEndpoint, RacersEndpoint
 from endpoints.seasons import SeasonsEndpoint
 from middleware.logging import LoggingMiddleware
@@ -239,6 +239,7 @@ app = Starlette(debug=True, routes=[
 
     Route('/api/feeds/latest', latest_feeds),
     Route('/api/feeds/{feed_id}', FeedEndpoint),
+    Route('/api/feeds/{feed_id}/source', FeedSourceEndpoint),
     Route('/api/tasks/{name}', TaskEndpoint),
 
     Route('/reader/feeds/{feed_id}', RssReaderEndpoint),
