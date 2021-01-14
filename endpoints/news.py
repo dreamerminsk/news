@@ -6,7 +6,7 @@ from pymongo import MongoClient
 from starlette.templating import Jinja2Templates
 
 from starlette.endpoints import HTTPEndpoint
-from starlette.responses import (JSONResponse, PlainTextResponse,
+from starlette.responses import (Response, JSONResponse, PlainTextResponse,
                                  RedirectResponse)
 
 
@@ -18,6 +18,12 @@ users = news.users
 
 
 templates = Jinja2Templates(directory='templates')
+
+
+
+
+class XmlResponse(Response):
+    media_type = "text/xml"
 
 
 class FeedEndpoint(HTTPEndpoint):
@@ -35,7 +41,7 @@ class FeedSourceEndpoint(HTTPEndpoint):
         feed_id = request.path_params['feed_id']
         feed = feeds.find_one({"_id": ObjectId(feed_id)})
         text = get_text(feed['link'])
-        return PlainTextResponse(text, media_type='text/plain')
+        return XmlResponse(text)
 
 
 class RssReaderEndpoint(HTTPEndpoint):
