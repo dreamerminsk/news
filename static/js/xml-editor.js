@@ -70,11 +70,22 @@ function update() {
     match.innerHTML = `${currentNode.nodeName}`;
     
     let listNodes = document.getElementById('child-nodes');
-    currentNode.childNodes.forEach(function(child){
+    listNodes.onclick = nodeClick;
+    currentNode.childNodes.forEach(function(child, index){
         listNodes.innerHTML += `
-            <div class="card card-body">
+            <div class="card card-body" data-id="${index}">
                 <p>${child.nodeName}</p>
             </div>
         `;
     });
 }
+
+
+function nodeClick(event) {
+    let div = event.target.closest('div.card');
+    if (!div) return;
+    let id = div.dataset.id;
+    if (!id) return;
+    currentNode = currentNode.childNodes[id];
+    update();
+  };
