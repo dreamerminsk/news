@@ -8,7 +8,7 @@ let headers = new Headers({
 
 document.addEventListener('DOMContentLoaded', function (event) {
   let content = document.getElementById('content');
-  loadFeed('/api/feeds/{}/source'.format(content.dataset.feedId));
+  loadFeed(`/api/feeds/${content.dataset.feedId}/source`);
 });
 
 async function loadFeed(url) {
