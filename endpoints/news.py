@@ -29,6 +29,12 @@ class FeedEndpoint(HTTPEndpoint):
         feed['next_access'] = str(feed['next_access'])
         feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
         return JSONResponse(feed)
+      
+class FeedSourceEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        feed_id = request.path_params['feed_id']
+        feed = feeds.find_one({"_id": ObjectId(feed_id)})
+        return JSONResponse(feed)
 
 
 class RssReaderEndpoint(HTTPEndpoint):
