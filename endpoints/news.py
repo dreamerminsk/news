@@ -34,7 +34,8 @@ class FeedSourceEndpoint(HTTPEndpoint):
     async def get(self, request):
         feed_id = request.path_params['feed_id']
         feed = feeds.find_one({"_id": ObjectId(feed_id)})
-        return JSONResponse(feed)
+        text = get_text(feed['link'])
+        return JSONResponse(text)
 
 
 class RssReaderEndpoint(HTTPEndpoint):
