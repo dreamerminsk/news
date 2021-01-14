@@ -50,6 +50,21 @@ function errorAlert(e) {
     </div>`;
 }
 
+
+async function initLetters() {
+  const ABC = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+  const row = document.getElementById("head-letters");
+  row.onclick = function (event) {
+    let td = event.target.closest('td');
+    if (!td) return;
+    if (!row.contains(td)) return;
+    highlight(td);
+  };
+  Array.from(ABC).forEach((e, i) =>
+    row.insertAdjacentHTML("beforeend",
+      `<td id="letter-${i}" title="${e}">${e}</td>`));
+}
+
 function update() {
     let match = document.getElementById('current-name');
     match.innerHTML = `${currentNode.nodeName}`;
