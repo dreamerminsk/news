@@ -25,14 +25,18 @@ async function loadFeed(url) {
             alert("Ошибка HTTP: " + await response.text());
         }
     } catch (e) {
-        document.getElementById('messages').innerHTML =
-            `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        document.getElementById('messages').innerHTML = errorAlert(e);   
+    }
+}
+
+function errorAlert(e) {
+    return 
+    `<div class="alert alert-danger alert-dismissible fade show" role="alert">
        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
          <span aria-hidden="true">&times;</span>
        </button>
        <strong>${e.name}</strong></hr>${e.message}
      </div>`;
-    }
 }
 
 function update() {
