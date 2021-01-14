@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+from workers.web import get_text
 
 from starlette.templating import Jinja2Templates
 
