@@ -5,6 +5,12 @@ let headers = new Headers({
     "User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:83.0) Gecko/20100101 Firefox/83.0"
 });
 
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  let source = document.getElementById('source');
+  loadFeed(source.getAttribute('href'));
+});
+
 async function loadFeed(url) {
     try {
         document.getElementById('messages').innerHTML = url;
