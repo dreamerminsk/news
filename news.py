@@ -66,11 +66,12 @@ async def show_categories(request):
 
 async def show_ibu(request):
     return templates.TemplateResponse('ibustats.html', {'request': request})
-  
-  
+
+
 async def show_ibu_countries(request):
     return templates.TemplateResponse('ibucountries.html', {'request': request})
-    
+
+
 async def show_ibu_seasons(request):
     return templates.TemplateResponse('ibuseasons.html', {'request': request})
 
@@ -137,7 +138,7 @@ async def start_job():
     print('{}. {}'.format(datetime.now(), count))
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
-    #feeds.update_one({'link': 'http://www.filmz.ru/rss/files/rambler.xml'}, {
+    # feeds.update_one({'link': 'http://www.filmz.ru/rss/files/rambler.xml'}, {
     #   '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
