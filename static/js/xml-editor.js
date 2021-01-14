@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 async function loadFeed(url) {
     try {
-        document.getElementById('messages').innerHTML = url;
+        document.getElementById('messages').innerHTML = loadingAlert(url);
         let response = await fetch(url, {
             method: 'GET',
             headers: headers,
@@ -31,11 +31,11 @@ async function loadFeed(url) {
 }
 
 function loadingAlert(url) {
-    `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    `<div class="alert alert-info alert-dismissible fade show" role="alert">
        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
          <span aria-hidden="true">&times;</span>
        </button>
-       <strong>${e.name}</strong></hr>${e.message}
+       Loading <a href="${url}" class="alert-link">${url}</a>
      </div>`;
 }
 
