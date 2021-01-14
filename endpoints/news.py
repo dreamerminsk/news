@@ -18,8 +18,6 @@ users = news.users
 templates = Jinja2Templates(directory='templates')
 
 
-
-
 class XmlResponse(Response):
     media_type = "text/xml"
 
@@ -33,7 +31,8 @@ class FeedEndpoint(HTTPEndpoint):
         feed['next_access'] = str(feed['next_access'])
         feed['ttlf'] = str(timedelta(seconds=feed['ttl']))
         return JSONResponse(feed)
-      
+
+
 class FeedSourceEndpoint(HTTPEndpoint):
     async def get(self, request):
         feed_id = request.path_params['feed_id']
