@@ -2,14 +2,11 @@ from datetime import datetime, timedelta
 
 from bson.objectid import ObjectId
 from pymongo import MongoClient
-from workers.web import get_text
-
-from starlette.templating import Jinja2Templates
-
 from starlette.endpoints import HTTPEndpoint
-from starlette.responses import (Response, JSONResponse, PlainTextResponse,
-                                 RedirectResponse)
-
+from starlette.responses import (JSONResponse, PlainTextResponse,
+                                 RedirectResponse, Response)
+from starlette.templating import Jinja2Templates
+from workers.web import get_text
 
 client = MongoClient()
 news = client.news
