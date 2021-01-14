@@ -53,4 +53,13 @@ function errorAlert(e) {
 function update() {
     let match = document.getElementById('current-name');
     match.innerHTML = `${currentNode.nodeName}`;
+    
+    let listNodes = document.getElementById('child-nodes');
+    currentNode.childNodes.forEach(function(child){
+        listNodes.innerHTML += `
+            <div class="card card-body">
+                <p>${child.nodeName}</p>
+            </div>
+        `;
+    });
 }
