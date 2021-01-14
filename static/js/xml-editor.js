@@ -13,17 +13,12 @@ async function loadFeed(url) {
             headers: headers,
             mode: 'no-cors'
         });
-        alert(`${response}`);
 
-        if (response.ok) {
-            let text = await response.text();
-            let parser = new DOMParser();
-            xmlDoc = parser.parseFromString(text, "text/xml");
-            currentNode = xmlDoc.documentElement;
-            update();
-        } else {
-            alert("Ошибка HTTP: " + await response.text());
-        }
+        let text = await response.text();
+        let parser = new DOMParser();
+        xmlDoc = parser.parseFromString(text, "text/xml");
+        currentNode = xmlDoc.documentElement;
+        update();
     } catch (e) {
         document.getElementById('messages').innerHTML = errorAlert(e);
     }
