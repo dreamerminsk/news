@@ -24,7 +24,10 @@ try {
     alert("Ошибка HTTP: " + await response.text());
   }
 } catch(e) {
-document.getElementById('messages').innerHTML = `${e}`;
+document.getElementById('messages').innerHTML = 
+    `<div class="alert alert-danger" role="alert">
+       ${e}
+     </div>`;
 }
 }
 
