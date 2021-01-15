@@ -225,6 +225,10 @@ async def update_feed2(feed):
                          }}, upsert=False)
 
 
+async def get_channel():
+    pass
+
+
 middleware = [
     Middleware(LoggingMiddleware)
 ]
