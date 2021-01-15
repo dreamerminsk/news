@@ -33,7 +33,7 @@
 {% for feed in feeds %}
 <div id="{{ feed['_id'] }}" class="card card-dark border-dark m-2">
   <div class="card-header">
-    <img src="{{ feed['image'] }}" style="max-height: 64px; width: auto;"></img>
+    <img src="{{ feed['image'] }}" class="img-fluid"></img>
     {{ feed['title'] }}
   </div>
   <div class='card-body'>
