@@ -2,36 +2,36 @@ let xmlDoc;
 let currentNode;
 
 let headers = new Headers({
-    "User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:83.0) Gecko/20100101 Firefox/83.0"
+  "User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:83.0) Gecko/20100101 Firefox/83.0"
 });
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
-    let content = document.getElementById('content');
-    loadFeed(`/api/feeds/${content.dataset.feedId}/source`);
+  let content = document.getElementById('content');
+  loadFeed(`/api/feeds/${content.dataset.feedId}/source`);
 });
 
 async function loadFeed(url) {
-    try {
-        document.getElementById('messages').innerHTML = loadingAlert(url);
-        let response = await fetch(url, {
-            method: 'GET',
-            headers: headers,
-            mode: 'no-cors'
-        });
+  try {
+    document.getElementById('messages').innerHTML = loadingAlert(url);
+    let response = await fetch(url, {
+      method: 'GET',
+      headers: headers,
+      mode: 'no-cors'
+    });
 
-        let text = await response.text();
-        let parser = new DOMParser();
-        xmlDoc = parser.parseFromString(text, "text/xml");
-        currentNode = xmlDoc.documentElement;
-        update();
-    } catch (e) {
-        document.getElementById('messages').innerHTML = errorAlert(e);
-    }
+    let text = await response.text();
+    let parser = new DOMParser();
+    xmlDoc = parser.parseFromString(text, "text/xml");
+    currentNode = xmlDoc.documentElement;
+    update();
+  } catch (e) {
+    document.getElementById('messages').innerHTML = errorAlert(e);
+  }
 }
 
 function loadingAlert(url) {
-    return `
+  return `
     <div class="alert alert-info alert-dismissible fade show" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -41,7 +41,7 @@ function loadingAlert(url) {
 }
 
 function errorAlert(e) {
-    return `
+  return `
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -66,27 +66,27 @@ async function initLetters() {
 }
 
 function update() {
-    let match = document.getElementById('current-name');
-    match.innerHTML = `${currentNode.nodeName}`;
-    
-    let listNodes = document.getElementById('child-nodes');
-    listNodes.innerHTML = ''; 
-    listNodes.onclick = nodeClick;
-    currentNode.childNodes.forEach(function(child, index){
-        listNodes.innerHTML += `
+  let match = document.getElementById('current-name');
+  match.innerHTML = `${currentNode.nodeName}`;
+
+  let listNodes = document.getElementById('child-nodes');
+  listNodes.innerHTML = '';
+  listNodes.onclick = nodeClick;
+  currentNode.childNodes.forEach(function (child, index) {
+    listNodes.innerHTML += `
             <div class="card card-body" data-id="${index}">
                 <p>${child.nodeName}</p>
             </div>
         `;
-    });
+  });
 }
 
 
 function nodeClick(event) {
-    let div = event.target.closest('div.card');
-    if (!div) return;
-    let id = div.dataset.id;
-    if (!id) return;
-    currentNode = currentNode.childNodes[id];
-    update();
-  };
+  let div = event.target.closest('div.card');
+  if (!div) return;
+  let id = div.dataset.id;
+  if (!id) return;
+  currentNode = currentNode.childNodes[id];
+  update();
+};
