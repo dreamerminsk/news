@@ -7,10 +7,8 @@ from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 from starlette.applications import Starlette
-from starlette.background import BackgroundTask, BackgroundTasks
 from starlette.middleware import Middleware
-from starlette.responses import (JSONResponse, PlainTextResponse,
-                                 RedirectResponse)
+from starlette.responses import JSONResponse, RedirectResponse
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
@@ -24,7 +22,7 @@ from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
 from workers.web import get_text
-from workers.wiki import get_category, get_info, get_links, get_pages
+from workers.wiki import get_info
 
 #print = pprint.pprint
 
