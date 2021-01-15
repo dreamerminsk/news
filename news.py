@@ -193,12 +193,15 @@ async def update_feed2(feed):
     if text:
         try:
             root = etree.fromstring(text)
-            for channel in root.findall('channel'):
-                feeds.update_one({'_id': feed['_id']}, {
-                    '$set': {'title': channel.find('title').text}}, upsert=False)
-                feeds.update_one({'_id': feed['_id']}, {
-                    '$set': {'description': channel.find('description').text}}, upsert=False)
-                for item in channel.findall('item'):
+            channel = await get_channel(root)
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {
+                    'title': channel['title'],
+                    'description': channel['description'],
+                    'image': channel['image']}},
+                upsert=False)
+            for channel_node in root.findall('channel'):
+                for item in channel_node.findall('item'):
                     title = item.find('title').text
                     link = item.find('link').text
                     if '?' in link:
@@ -225,8 +228,15 @@ async def update_feed2(feed):
                          }}, upsert=False)
 
 
-async def get_channel():
-    pass
+async def get_channel(root):
+    channel = {}
+    for node in root.findall('channel'):
+        channel['title'] = node.find('title').text
+        channel['description'] = node.find('description').text
+        for image in node.findall('image'):
+            for url in image.findall('url'):
+                channel['image'] = url.text
+    return channel
 
 
 middleware = [
