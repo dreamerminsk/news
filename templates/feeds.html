@@ -31,8 +31,9 @@
   </li>
 </ul>
 {% for feed in feeds %}
-<div id='{{ feed['_id'] }}' class='card card-dark border-dark m-2'>
-  <div class='card-header'>
+<div id="{{ feed['_id'] }}" class="card card-dark border-dark m-2">
+  <div class="card-header">
+    <img src="{{ feed['image'] }}"></img>
     {{ feed['title'] }}
   </div>
   <div class='card-body'>
@@ -44,15 +45,15 @@
     <table class="table table-sm small p-0 m-0">
       <tr>
         <td>last_access</td>
-        <td id='la-{{ feed['_id'] }}'>{{ feed['last_access'] }}</td>
+        <td id="la-{{ feed['_id'] }}">{{ feed['last_access'] }}</td>
       </tr>
       <tr>
         <td>next_access</td>
-        <td id='na-{{ feed['_id'] }}'>{{ feed['next_access'] }}</td>
+        <td id="na-{{ feed['_id'] }}">{{ feed['next_access'] }}</td>
       </tr>
       <tr>
         <td>ttl</td>
-        <td id='ttl-{{ feed['_id'] }}'>{{ feed['ttlf'] }}</td>
+        <td id="ttl-{{ feed['_id'] }}">{{ feed['ttlf'] }}</td>
       </tr>
     </table>
   </div>
