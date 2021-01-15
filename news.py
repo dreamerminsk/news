@@ -15,7 +15,8 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
-from endpoints.news import RssReaderEndpoint, XmlEditorEndpoint, FeedEndpoint, FeedSourceEndpoint, TaskEndpoint
+from endpoints.news import (FeedEndpoint, FeedSourceEndpoint,
+                            RssReaderEndpoint, TaskEndpoint, XmlEditorEndpoint)
 from endpoints.racers import NamesEndpoint, RacersEndpoint
 from endpoints.seasons import SeasonsEndpoint
 from middleware.logging import LoggingMiddleware
