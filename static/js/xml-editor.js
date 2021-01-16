@@ -76,14 +76,14 @@ function update() {
     if (child.nodeName == '#text') {
       listNodes.innerHTML += `
       <div class="card card-body" data-id="${index}">
-          <p>${child.nodeName}</p>
+          <p class="card-text">${child.nodeName}</p>
           <hr/>
-          <p>${child.nodeValue}</p>
+          <p>"${child.nodeValue}"</p>
       </div>`;
     } else {
       listNodes.innerHTML  += `
       <div class="card card-body" data-id="${index}">
-          <p>${child.nodeName}</p>
+          <p class="card-text">${child.nodeName}</p>
       </div>`;
     }
 
