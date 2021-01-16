@@ -81,7 +81,7 @@ function update() {
           <p>${child.innerText}</p>
       </div>`;
     } else {
-      listNodes.innerHTML += `
+      listNodes.nodeValue  += `
       <div class="card card-body" data-id="${index}">
           <p>${child.nodeName}</p>
       </div>`;
