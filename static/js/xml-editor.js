@@ -73,11 +73,18 @@ function update() {
   listNodes.innerHTML = '';
   listNodes.onclick = nodeClick;
   currentNode.childNodes.forEach(function (child, index) {
-    listNodes.innerHTML += `
-            <div class="card card-body" data-id="${index}">
-                <p>${child.nodeName}</p>
-            </div>
-        `;
+    if (child.nodeName == '#text') {
+      listNodes.innerHTML += `
+      <div class="card card-body" data-id="${index}">
+          <p>${child.nodeName}</p>
+      </div>`;
+    } else {
+      listNodes.innerHTML += `
+      <div class="card card-body" data-id="${index}">
+          <p>${child.nodeName}</p>
+      </div>`;
+    }
+
   });
 }
 
