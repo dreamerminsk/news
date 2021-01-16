@@ -78,7 +78,7 @@ function update() {
       <div class="card card-body" data-id="${index}">
           <p>${child.nodeName}</p>
           <hr/>
-          <p>${child.text}</p>
+          <p>${child.innerText}</p>
       </div>`;
     } else {
       listNodes.innerHTML += `
