@@ -10,6 +10,7 @@ let headers = new Headers({
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
+  document.getElementById('child-nodes').onclick = nodeClick;
   let content = document.getElementById('content');
   loadFeed(`/api/feeds/${content.dataset.feedId}/source`);
 });
@@ -87,7 +88,6 @@ async function update() {
 
   let listNodes = document.getElementById('child-nodes');
   await clearChildNodes();
-  listNodes.onclick = nodeClick;
   currentNode.childNodes.forEach(function (child, index) {
     if (child.nodeName == '#text') {
       listNodes.innerHTML += `
@@ -106,7 +106,7 @@ async function update() {
 }
 
 async function clearChildNodes() {
-  document.getElementById('child-nodes').innerHTML = '';
+  document.getElementById('child-nodes').replaceChildren();
 }
 
 
