@@ -27,7 +27,7 @@ async function loadFeed(url) {
     let parser = new DOMParser();
     xmlDoc = parser.parseFromString(text, "text/xml");
     currentNode = xmlDoc.documentElement;
-    update();
+    await update();
   } catch (e) {
     document.getElementById('messages').innerHTML = errorAlert(e);
   }
@@ -78,7 +78,7 @@ async function initLetters() {
       `<td id="letter-${i}" title="${e}">${e}</td>`));
 }
 
-function update() {
+async function update() {
   document.getElementById('messages').innerHTML = loadedAlert(url);
 
   let match = document.getElementById('current-name');
@@ -101,20 +101,19 @@ function update() {
           <p class="card-text">${child.nodeName}</p>
       </div>`;
     }
-
   });
 }
 
 async function clearchildNodes() {
-  document.getElementById('child-nodes')  = '';
+  document.getElementById('child-nodes') = '';
 }
 
 
-function nodeClick(event) {
+async function nodeClick(event) {
   let div = event.target.closest('div.card');
   if (!div) return;
   let id = div.dataset.id;
   if (!id) return;
   currentNode = currentNode.childNodes[id];
-  update();
+  await update();
 };
