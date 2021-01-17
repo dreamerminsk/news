@@ -1,5 +1,6 @@
 let xmlDoc;
 let currentNode;
+let contentNode;
 const whitespaces = new Set([9, 10, 11, 12, 13, 32, 133, 160, 5760,
   8192, 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200, 8201,
   8202, 8232, 8233, 8239, 8287, 12288]);
@@ -11,14 +12,14 @@ let headers = new Headers({
 
 document.addEventListener('DOMContentLoaded', function (event) {
   document.getElementById('child-nodes').onclick = nodeClick;
-  let content = document.getElementById('content');
-  loadFeed(`/api/feeds/${content.dataset.feedId}/source`);
+  contentNode = document.getElementById('content');
+  loadFeed();
 });
 
-async function loadFeed(url) {
+async function loadFeed() {
   try {
     document.getElementById('messages').innerHTML = loadingAlert(url);
-    let response = await fetch(url, {
+    let response = await fetch(getUrl(), {
       method: 'GET',
       headers: headers,
       mode: 'no-cors'
@@ -34,13 +35,13 @@ async function loadFeed(url) {
   }
 }
 
-function loadingAlert(url) {
+function loadingAlert() {
   return `
     <div class="alert alert-info alert-dismissible fade show" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      Loading <a href="${url}" class="alert-link">${url}</a>
+      Loading <a href="${getUrl()}" class="alert-link">${url}</a>
     </div>`;
 }
 
@@ -50,7 +51,7 @@ function loadedAlert(url) {
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      Loaded <a href="${url}" class="alert-link">${url}</a>
+      Loaded <a href="${getUrl()}" class="alert-link">${url}</a>
     </div>`;
 }
 
@@ -120,3 +121,7 @@ async function nodeClick(event) {
   currentNode = currentNode.childNodes[id];
   await update();
 };
+
+async function getUrl() {
+  return `/api/feeds/${contentNode.dataset.feedId}/source`;
+}
