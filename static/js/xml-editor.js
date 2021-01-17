@@ -106,7 +106,7 @@ async function update() {
 }
 
 async function clearchildNodes() {
-  document.getElementById('child-nodes') = '';
+  document.getElementById('child-nodes').innerHTML = '';
 }
 
 
