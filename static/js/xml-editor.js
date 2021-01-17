@@ -59,7 +59,7 @@ function errorAlert(e) {
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <strong>${e.name}</strong></hr>${e.message}
+      <strong>${e.name}</strong> ${e.message}
     </div>`;
 }
 
