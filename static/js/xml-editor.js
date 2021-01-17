@@ -41,7 +41,7 @@ function loadingAlert() {
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      Loading <a href="${getUrl()}" class="alert-link">${url}</a>
+      Loading <a href="${getUrl()}" class="alert-link">${getTitle()}</a>
     </div>`;
 }
 
@@ -51,7 +51,7 @@ function loadedAlert(url) {
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      Loaded <a href="${getUrl()}" class="alert-link">${url}</a>
+      Loaded <a href="${getUrl()}" class="alert-link">${getTitle()}</a>
     </div>`;
 }
 
@@ -122,6 +122,10 @@ async function nodeClick(event) {
   await update();
 };
 
-async function getUrl() {
+function getUrl() {
   return `/api/feeds/${contentNode.dataset.feedId}/source`;
+}
+
+function getTitle() {
+  return `${contentNode.dataset.feedTitle}`;
 }
