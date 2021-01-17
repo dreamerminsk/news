@@ -79,6 +79,8 @@ async function initLetters() {
 }
 
 function update() {
+  document.getElementById('messages').innerHTML = loadingAlert(url);
+
   let match = document.getElementById('current-name');
   match.innerHTML = `${currentNode.nodeName}`;
 
