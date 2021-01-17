@@ -79,13 +79,13 @@ async function initLetters() {
 }
 
 function update() {
-  document.getElementById('messages').innerHTML = loadingAlert(url);
+  document.getElementById('messages').innerHTML = loadedAlert(url);
 
   let match = document.getElementById('current-name');
   match.innerHTML = `${currentNode.nodeName}`;
 
   let listNodes = document.getElementById('child-nodes');
-  listNodes.innerHTML = '';
+  await clearchildNodes();
   listNodes.onclick = nodeClick;
   currentNode.childNodes.forEach(function (child, index) {
     if (child.nodeName == '#text') {
@@ -103,6 +103,10 @@ function update() {
     }
 
   });
+}
+
+async function clearchildNodes() {
+  document.getElementById('child-nodes')  = '';
 }
 
 
