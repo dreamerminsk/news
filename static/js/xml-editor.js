@@ -79,7 +79,8 @@ async function initLetters() {
 }
 
 async function update() {
-  document.getElementById('messages').innerHTML = loadedAlert(url);
+  let content = document.getElementById('content');
+  document.getElementById('messages').innerHTML = loadedAlert(`/api/feeds/${content.dataset.feedId}/source`);
 
   let match = document.getElementById('current-name');
   match.innerHTML = `${currentNode.nodeName}`;
