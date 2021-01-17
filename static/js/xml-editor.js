@@ -86,7 +86,7 @@ async function update() {
   match.innerHTML = `${currentNode.nodeName}`;
 
   let listNodes = document.getElementById('child-nodes');
-  await clearchildNodes();
+  await clearChildNodes();
   listNodes.onclick = nodeClick;
   currentNode.childNodes.forEach(function (child, index) {
     if (child.nodeName == '#text') {
@@ -105,7 +105,7 @@ async function update() {
   });
 }
 
-async function clearchildNodes() {
+async function clearChildNodes() {
   document.getElementById('child-nodes').innerHTML = '';
 }
 
