@@ -1,6 +1,8 @@
 let xmlDoc;
 let currentNode;
 let contentNode;
+let messagesNode;
+let listNodes;
 const whitespaces = new Set([9, 10, 11, 12, 13, 32, 133, 160, 5760,
   8192, 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200, 8201,
   8202, 8232, 8233, 8239, 8287, 12288]);
@@ -13,12 +15,14 @@ let headers = new Headers({
 document.addEventListener('DOMContentLoaded', function (event) {
   document.getElementById('child-nodes').onclick = nodeClick;
   contentNode = document.getElementById('content');
+  messagesNode = document.getElementById('messages');
+  listNodes = document.getElementById('child-nodes');
   loadFeed();
 });
 
 async function loadFeed() {
   try {
-    document.getElementById('messages').innerHTML = loadingAlert(url);
+    messagesNode.innerHTML = loadingAlert(url);
     let response = await fetch(getUrl(), {
       method: 'GET',
       headers: headers,
@@ -31,7 +35,7 @@ async function loadFeed() {
     currentNode = xmlDoc.documentElement;
     await update();
   } catch (e) {
-    document.getElementById('messages').innerHTML = errorAlert(e);
+    messagesNode.innerHTML = errorAlert(e);
   }
 }
 
@@ -82,12 +86,11 @@ async function initLetters() {
 
 async function update() {
   let content = document.getElementById('content');
-  document.getElementById('messages').innerHTML = loadedAlert(`/api/feeds/${content.dataset.feedId}/source`);
+  messagesNode.innerHTML = loadedAlert(`/api/feeds/${content.dataset.feedId}/source`);
 
   let match = document.getElementById('current-name');
   match.innerHTML = `${currentNode.nodeName}`;
 
-  let listNodes = document.getElementById('child-nodes');
   await clearChildNodes(listNodes);
   currentNode.childNodes.forEach(function (child, index) {
     if (child.nodeName == '#text') {
