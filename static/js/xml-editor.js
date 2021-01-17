@@ -42,7 +42,7 @@ async function loadFeed() {
 function loadingAlert() {
   return `
     <div class="alert alert-info alert-dismissible fade show" role="alert">
-      <h5 class="alert-heading">Loading</h5>
+      <h6 class="alert-heading">Loading</h6>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -50,13 +50,15 @@ function loadingAlert() {
     </div>`;
 }
 
+
 function loadedAlert() {
   return `
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <h6 class="alert-heading">Loaded</h6>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      Loaded <a href="${getUrl()}" class="alert-link">${getTitle()}</a>
+      <p><a href="${getUrl()}" class="alert-link">${getTitle()}</a></p>
     </div>`;
 }
 
@@ -86,7 +88,6 @@ async function initLetters() {
 }
 
 async function update() {
-  let content = document.getElementById('content');
   messagesNode.innerHTML = loadedAlert(`/api/feeds/${content.dataset.feedId}/source`);
 
   let match = document.getElementById('current-name');
@@ -99,8 +100,7 @@ async function update() {
         listNodes.innerHTML += `
       <div class="card card-body" data-id="${index}">
           <p class="card-text">${child.nodeName}</p>
-          <hr/>
-          <p>"${child.nodeValue.trim()}"</p>
+          <p class="card-text">"${child.nodeValue.trim()}"</p>
       </div>`;
       }
     } else {
