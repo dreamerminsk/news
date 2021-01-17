@@ -1,7 +1,8 @@
 let xmlDoc;
 let currentNode;
-var whitespaces = new Set([9, 10, 11, 12, 13, 32, 133, 160, 5760,
-8192, 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200, 8201, 8202, 8232, 8233, 8239, 8287, 12288]);
+const whitespaces = new Set([9, 10, 11, 12, 13, 32, 133, 160, 5760,
+  8192, 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200, 8201,
+  8202, 8232, 8233, 8239, 8287, 12288]);
 
 let headers = new Headers({
   "User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:83.0) Gecko/20100101 Firefox/83.0"
@@ -39,6 +40,16 @@ function loadingAlert(url) {
         <span aria-hidden="true">&times;</span>
       </button>
       Loading <a href="${url}" class="alert-link">${url}</a>
+    </div>`;
+}
+
+function loadedAlert(url) {
+  return `
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      Loaded <a href="${url}" class="alert-link">${url}</a>
     </div>`;
 }
 
@@ -83,7 +94,7 @@ function update() {
           <p>"${child.nodeValue.trim()}"</p>
       </div>`;
     } else {
-      listNodes.innerHTML  += `
+      listNodes.innerHTML += `
       <div class="card card-body" data-id="${index}">
           <p class="card-text">${child.nodeName}</p>
       </div>`;
