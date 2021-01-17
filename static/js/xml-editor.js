@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 async function loadFeed() {
   try {
-    messagesNode.innerHTML = loadingAlert(url);
+    messagesNode.innerHTML = loadingAlert();
     let response = await fetch(getUrl(), {
       method: 'GET',
       headers: headers,
@@ -42,14 +42,15 @@ async function loadFeed() {
 function loadingAlert() {
   return `
     <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <h5 class="alert-heading">Loading</h5>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      Loading <a href="${getUrl()}" class="alert-link">${getTitle()}</a>
+      <p><a href="${getUrl()}" class="alert-link">${getTitle()}</a></p>
     </div>`;
 }
 
-function loadedAlert(url) {
+function loadedAlert() {
   return `
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
