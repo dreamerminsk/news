@@ -90,12 +90,14 @@ async function update() {
   await clearChildNodes(listNodes);
   currentNode.childNodes.forEach(function (child, index) {
     if (child.nodeName == '#text') {
-      listNodes.innerHTML += `
+      if (child.nodeValue.trim().length > 0) {
+        listNodes.innerHTML += `
       <div class="card card-body" data-id="${index}">
           <p class="card-text">${child.nodeName}</p>
           <hr/>
           <p>"${child.nodeValue.trim()}"</p>
       </div>`;
+      }
     } else {
       listNodes.innerHTML += `
       <div class="card card-body" data-id="${index}">
