@@ -81,15 +81,21 @@ async function update() {
     if (child.nodeValue) {
       if (child.nodeValue.trim().length > 0) {
         listNodes.innerHTML += `
-      <div class="card card-body" data-id="${index}">
-          <p class="card-text">${child.nodeName}</p>
+      <div class="card border-dark" data-id="${index}">
+        <div class="card-body">
+          <h6 class="card-title">${child.nodeName}</h6>
+        </div>
+        <div class="card-body">
           <p class="card-text">"${child.nodeValue.trim()}"</p>
+        </div>
       </div>`;
       }
     } else {
       listNodes.innerHTML += `
-      <div class="card card-body" data-id="${index}">
-          <p class="card-text">${child.nodeName}</p>
+      <div class="card border-dark" data-id="${index}">
+        <div class="card-body">
+          <h6 class="card-title">${child.nodeName}</h6>
+        </div>
       </div>`;
     }
   });
