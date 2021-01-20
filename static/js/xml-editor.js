@@ -23,8 +23,7 @@ async function loadFeed() {
     messagesNode.insertAdjacentHTML("beforeend", loadingAlert());
     let response = await fetch(getUrl(), {
       method: 'GET',
-      headers: headers,
-      mode: 'no-cors'
+      headers: headers
     });
 
     let text = await response.text();
