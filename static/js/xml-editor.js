@@ -39,7 +39,7 @@ async function loadFeed() {
 
 function loadingAlert() {
   return `
-    <div class="alert alert-secondary alert-dismissible fade show m-0 p-1" role="alert" id="${uuidv4()}">
+    <div class="alert alert-secondary alert-dismissible fade show m-0 p-2" role="alert" id="${uuidv4()}">
       <h6 class="alert-heading">Loading
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -51,7 +51,7 @@ function loadingAlert() {
 
 function loadedAlert() {
   return `
-    <div class="alert alert-info alert-dismissible fade show m-0 p-1" role="alert" id="${uuidv4()}">
+    <div class="alert alert-info alert-dismissible fade show m-0 p-2" role="alert" id="${uuidv4()}">
       <h6 class="alert-heading">Loaded</h6>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -62,7 +62,7 @@ function loadedAlert() {
 
 function errorAlert(e) {
   return `
-    <div class="alert alert-danger alert-dismissible fade show m-0 p-1" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show m-0 p-2" role="alert">
     <h6 class="alert-heading">${e.name}</h6>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
