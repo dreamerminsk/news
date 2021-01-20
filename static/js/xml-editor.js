@@ -85,7 +85,7 @@ async function update() {
           <h6 class="card-title">${child.nodeName}</h6>
         </div>
         <div class="card-body">
-          <p class="card-text">"${child.nodeValue.trim()}"</p>
+          <p class="card-text">${child.nodeValue.trim()}</p>
         </div>
       </div>`;
       }
