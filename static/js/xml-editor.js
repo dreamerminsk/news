@@ -64,10 +64,11 @@ function loadedAlert() {
 function errorAlert(e) {
   return `
     <div class="alert alert-danger alert-dismissible fade show m-0 p-0" role="alert">
+    <h6 class="alert-heading">${e.name}</h6>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <strong>${e.name}</strong> ${e.message}
+      ${e.message}
     </div>`;
 }
 
@@ -75,7 +76,7 @@ async function update() {
   let match = document.getElementById('current-name');
   match.innerHTML = `${currentNode.nodeName}`;
 
-  await clearChildNodes(listNodes);
+  await clearChildNodes();
   currentNode.childNodes.forEach(function (child, index) {
     if (child.nodeValue) {
       if (child.nodeValue.trim().length > 0) {
@@ -94,8 +95,8 @@ async function update() {
   });
 }
 
-async function clearChildNodes(root) {
-  root.replaceChildren();
+async function clearChildNodes() {
+  $('#child-nodes').empty();
 }
 
 
