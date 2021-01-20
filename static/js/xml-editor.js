@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 async function loadFeed() {
   try {
-    messagesNode.innerHTML = loadingAlert();
+    messagesNode.insertAdjacentHTML("beforeend", loadingAlert());
     let response = await fetch(getUrl(), {
       method: 'GET',
       headers: headers,
@@ -33,15 +33,16 @@ async function loadFeed() {
     let parser = new DOMParser();
     xmlDoc = parser.parseFromString(text, "text/xml");
     currentNode = xmlDoc.documentElement;
+    messagesNode.insertAdjacentHTML("beforeend", loadedAlert());
     await update();
   } catch (e) {
-    messagesNode.innerHTML = errorAlert(e);
+    messagesNode.insertAdjacentHTML("beforeend", errorAlert(e));
   }
 }
 
 function loadingAlert() {
   return `
-    <div class="alert alert-secondary alert-dismissible fade show" role="alert" id="${uuidv4()}">
+    <div class="alert alert-secondary alert-dismissible fade show m-0 p-0" role="alert" id="${uuidv4()}">
       <h6 class="alert-heading">Loading</h6>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -53,7 +54,7 @@ function loadingAlert() {
 
 function loadedAlert() {
   return `
-    <div class="alert alert-info alert-dismissible fade show" role="alert" id="${uuidv4()}">
+    <div class="alert alert-info alert-dismissible fade show m-0 p-0" role="alert" id="${uuidv4()}">
       <h6 class="alert-heading">Loaded</h6>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -64,7 +65,7 @@ function loadedAlert() {
 
 function errorAlert(e) {
   return `
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show m-0 p-0" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -72,30 +73,13 @@ function errorAlert(e) {
     </div>`;
 }
 
-
-async function initLetters() {
-  const ABC = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-  const row = document.getElementById("head-letters");
-  row.onclick = function (event) {
-    let td = event.target.closest('td');
-    if (!td) return;
-    if (!row.contains(td)) return;
-    highlight(td);
-  };
-  Array.from(ABC).forEach((e, i) =>
-    row.insertAdjacentHTML("beforeend",
-      `<td id="letter-${i}" title="${e}">${e}</td>`));
-}
-
 async function update() {
-  messagesNode.innerHTML = loadedAlert(`/api/feeds/${contentNode.dataset.feedId}/source`);
-
   let match = document.getElementById('current-name');
   match.innerHTML = `${currentNode.nodeName}`;
 
   await clearChildNodes(listNodes);
   currentNode.childNodes.forEach(function (child, index) {
-    if (child.nodeName == '#text') {
+    if (child.nodeValue) {
       if (child.nodeValue.trim().length > 0) {
         listNodes.innerHTML += `
       <div class="card card-body" data-id="${index}">
