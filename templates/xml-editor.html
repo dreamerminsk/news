@@ -9,13 +9,13 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-  <title>xmlEditor - {{ feed['link'] }}</title>
+  <title>xmlEditor - {{ feed['title'] }}</title>
   <meta name="description" content="xmlEditor">
   <meta name="author" content="Micah Teeuws">
 </head>
 
 <body>
-  <div id="messages">
+  <div id="messages" class="container-fluid">
   </div>
   <div id="content" class="container-fluid" data-feed-id="{{ feed['_id'] }}" data-feed-title="{{ feed['title'] }}">
     <div id="parent-node" class="card border-secondary">
