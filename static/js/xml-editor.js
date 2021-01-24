@@ -78,7 +78,9 @@ async function update() {
   $('#child-nodes').empty();
 
   currentNode.childNodes.forEach(function (child, index) {
-    listNodes.insertAdjacentHTML('beforeend', ChildCard(child, index));
+    if (hasValue(childNode)) {
+      listNodes.insertAdjacentHTML('beforeend', ChildCard(child, index));
+    }
   });
 }
 
@@ -93,15 +95,22 @@ function ChildCard(childNode, index) {
 }
 
 function NodeValue(childNode) {
-  if (childNode.nodeValue) {
-    if (childNode.nodeValue.trim().length > 0) {
-      return `
-        <div class="card-body">
-          <p class="card-text">${childNode.nodeValue.trim()}</p>
-        </div>`;
-    }
+  if (hasValue(childNode)) {
+    return `
+      <div class="card-body">
+        <p class="card-text">${childNode.nodeValue.trim()}</p>
+      </div>`;
   }
   return ``;
+}
+
+function hasValue(childNode) {
+  if (childNode.nodeValue) {
+    if (childNode.nodeValue.trim().length > 0) {
+      return true;
+    }
+  }
+  return false;
 }
 
 async function nodeClick(event) {
