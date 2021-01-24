@@ -11,10 +11,10 @@ let headers = new Headers({
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  document.getElementById('child-nodes').onclick = nodeClick;
   contentNode = document.getElementById('content');
   messagesNode = document.getElementById('messages');
   listNodes = document.getElementById('child-nodes');
+  listNodes.onclick = nodeClick;
   loadFeed();
 });
 
@@ -100,11 +100,6 @@ async function update() {
     }
   });
 }
-
-async function clearChildNodes() {
-  $('#child-nodes').empty();
-}
-
 
 async function nodeClick(event) {
   let div = event.target.closest('div.card');
