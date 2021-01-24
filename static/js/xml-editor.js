@@ -75,7 +75,7 @@ async function update() {
   let match = document.getElementById('current-name');
   match.innerHTML = `${currentNode.nodeName}`;
 
-  setTimeout(() => { $('#child-nodes').empty(); }, 0);
+  $('#child-nodes').empty();
 
   currentNode.childNodes.forEach(function (child, index) {
     listNodes.insertAdjacentHTML('beforeend', ChildCard(child, index));
