@@ -44,7 +44,7 @@ function loadingAlert() {
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button></h6>
-      <p class="m-0 p-0"><a href="${getUrl()}" class="alert-link">${getTitle()}</a></p>
+      <p class="m-0 p-1"><a href="${getUrl()}" class="alert-link">${getTitle()}</a></p>
     </div>`;
 }
 
