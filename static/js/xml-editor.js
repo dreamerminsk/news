@@ -39,12 +39,12 @@ async function loadFeed() {
 
 function loadingAlert() {
   return `
-    <div class="alert alert-secondary alert-dismissible fade show m-0 p-2" role="alert" id="${uuidv4()}">
+    <div class="alert alert-light alert-dismissible fade show m-0 p-2" role="alert" id="${uuidv4()}">
       <h6 class="alert-heading">Loading
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button></h6>
-      <p><a href="${getUrl()}" class="alert-link">${getTitle()}</a></p>
+      <p class="m-0 p-0"><a href="${getUrl()}" class="alert-link">${getTitle()}</a></p>
     </div>`;
 }
 
