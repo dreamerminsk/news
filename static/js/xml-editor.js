@@ -78,27 +78,30 @@ async function update() {
   setTimeout(() => { $('#child-nodes').empty(); }, 0);
 
   currentNode.childNodes.forEach(function (child, index) {
-    if (child.nodeValue) {
-      if (child.nodeValue.trim().length > 0) {
-        listNodes.innerHTML += `
-      <div class="card border-dark" data-id="${index}">
-        <div class="card-body">
-          <h6 class="card-title">${child.nodeName}</h6>
-        </div>
-        <div class="card-body">
-          <p class="card-text">${child.nodeValue.trim()}</p>
-        </div>
-      </div>`;
-      }
-    } else {
-      listNodes.innerHTML += `
-      <div class="card border-dark" data-id="${index}">
-        <div class="card-body">
-          <h6 class="card-title">${child.nodeName}</h6>
-        </div>
-      </div>`;
-    }
+    listNodes.insertAdjacentHTML('beforeend', ChildCard(child, index));
   });
+}
+
+function ChildCard(childNode, index) {
+  return `
+    <div class="card border-dark" data-id="${index}">
+      <div class="card-body">
+        <h6 class="card-title">${childNode.nodeName}</h6>
+      </div>
+      ${NodeValue(childNode)}
+    </div>`;
+}
+
+function NodeValue(childNode) {
+  if (childNode.nodeValue) {
+    if (childNode.nodeValue.trim().length > 0) {
+      return `
+        <div class="card-body">
+          <p class="card-text">${childNode.nodeValue.trim()}</p>
+        </div>`;
+    }
+  }
+  return ``;
 }
 
 async function nodeClick(event) {
