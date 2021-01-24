@@ -98,7 +98,7 @@ async function update() {
 
 function ParentCard() {
   return `
-    <div class="card bg-secondary border-dark">
+    <div class="card text-white bg-secondary border-dark">
       <div class="card-body">
         <h6 class="card-title">${currentNode.parentNode.nodeName}</h6>
       </div>
