@@ -79,7 +79,7 @@ async function update() {
 
   currentNode.childNodes.forEach(function (child, index) {
     if (child.nodeName.startsWith('#')) {
-      if (hasValue(childNode)) {
+      if (hasValue(child)) {
         listNodes.insertAdjacentHTML('beforeend', ChildCard(child, index));
       }
     } else {
