@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   contentNode = document.getElementById('content');
   messagesNode = document.getElementById('messages');
   parentNode = document.getElementById('parent-node');
+  parentNode.onclick = parentClick;
   listNodes = document.getElementById('child-nodes');
   listNodes.onclick = nodeClick;
   loadFeed();
@@ -132,6 +133,14 @@ function hasValue(childNode) {
   }
   return false;
 }
+
+async function parentClick(event) {
+  let div = event.target.closest('div.card');
+  if (!div) return;
+  currentNode = currentNode.parentNode;
+  await update();
+};
+
 
 async function nodeClick(event) {
   let div = event.target.closest('div.card');
