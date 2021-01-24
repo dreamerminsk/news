@@ -1,4 +1,5 @@
 let xmlDoc;
+let parentNode;
 let currentNode;
 let contentNode;
 let messagesNode;
@@ -13,6 +14,7 @@ let headers = new Headers({
 document.addEventListener('DOMContentLoaded', function (event) {
   contentNode = document.getElementById('content');
   messagesNode = document.getElementById('messages');
+  parentNode = document.getElementById('parent-node');
   listNodes = document.getElementById('child-nodes');
   listNodes.onclick = nodeClick;
   loadFeed();
@@ -77,6 +79,11 @@ async function update() {
 
   $('#child-nodes').empty();
 
+  if (currentNode.parentNode) {
+    $('#parent-node').empty();
+    parentNode.insertAdjacentHTML('beforeend', ParentCard());
+  }
+
   currentNode.childNodes.forEach(function (child, index) {
     if (child.nodeName.startsWith('#')) {
       if (hasValue(child)) {
@@ -86,6 +93,15 @@ async function update() {
       listNodes.insertAdjacentHTML('beforeend', ChildCard(child, index));
     }
   });
+}
+
+function ParentCard() {
+  return `
+    <div class="card bg-secondary border-dark">
+      <div class="card-body">
+        <h6 class="card-title">${currentNode.parentNode.nodeName}</h6>
+      </div>
+    </div>`;
 }
 
 function ChildCard(childNode, index) {
