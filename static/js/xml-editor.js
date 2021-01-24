@@ -78,8 +78,10 @@ async function update() {
   $('#child-nodes').empty();
 
   currentNode.childNodes.forEach(function (child, index) {
+    if (child.nodeName) {
     if (hasValue(childNode)) {
       listNodes.insertAdjacentHTML('beforeend', ChildCard(child, index));
+    }
     }
   });
 }
