@@ -75,7 +75,8 @@ async function update() {
   let match = document.getElementById('current-name');
   match.innerHTML = `${currentNode.nodeName}`;
 
-  await clearChildNodes();
+  setTimeout(() => { $('#child-nodes').empty(); }, 0);
+
   currentNode.childNodes.forEach(function (child, index) {
     if (child.nodeValue) {
       if (child.nodeValue.trim().length > 0) {
