@@ -99,17 +99,19 @@ async function update() {
 }
 
 function DetailsCard() {
-  let attrs = `
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
-  `;
+  let attrs = ``;
+  if (currentNode.hasAttributes()) {
+    attrs += `<ul class="list-group list-group-flush">`;
+    for (let attr of currentNode.attributes) {
+      attrs += `<li class="list-group-item">${attr.name}: ${attr.value}</li>`;
+    }
+    attrs += `</ul>`;
+  }
   return `
-    <div class="card text-white bg-primary border-dark">
+    <div class="card text-white fw-bold bg-primary border-dark">
       <div class="card-body">
         <h6 class="card-title">${currentNode.nodeName}</h6>
+        ${attrs}
       </div>
     </div>`;
 }
