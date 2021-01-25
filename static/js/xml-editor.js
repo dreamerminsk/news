@@ -76,7 +76,7 @@ function errorAlert(e) {
 
 async function update() {
   let match = document.getElementById('current-name');
-  match.innerHTML = `${currentNode.nodeName}`;
+  match.replaceWith(DetailsNode());
 
   $('#child-nodes').empty();
 
