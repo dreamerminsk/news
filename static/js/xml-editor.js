@@ -76,7 +76,7 @@ function errorAlert(e) {
 
 async function update() {
   let match = document.getElementById('current-node');
-  match.replaceWith(DetailsCard());
+  $('#current-node').replaceWith(DetailsCard());
 
   $('#child-nodes').empty();
 
