@@ -103,7 +103,7 @@ function DetailsCard() {
   if (currentNode.hasAttributes()) {
     attrs += `<ul class="list-group list-group-flush bg-primary">`;
     for (let attr of currentNode.attributes) {
-      attrs += `<li class="list-group-item">${attr.name}: ${attr.value}</li>`;
+      attrs += `<li class="list-group-item list-group-item-primary">${attr.name}: ${attr.value}</li>`;
     }
     attrs += `</ul>`;
   }
