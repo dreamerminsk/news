@@ -111,8 +111,8 @@ function DetailsCard() {
     <div class="card text-white fw-bold bg-primary border-dark">
       <div class="card-body">
         <h6 class="card-title">${currentNode.nodeName}</h6>
-        ${attrs}
       </div>
+      ${attrs}
     </div>`;
 }
 
