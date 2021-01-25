@@ -112,7 +112,7 @@ function ChildCard(childNode, index) {
     <div class="card border-dark" data-id="${index}">
       <div class="card-body">
         <h6 class="card-title">${childNode.nodeName}</h6>
-        <p> - ${(childNode.innerHTML ?? childNode.nodeValue ?? '').length}</p>
+        <p>outerHTML: ${(childNode.outerHTML ?? '').length}, innerHTML: ${(childNode.innerHTML ?? '').length}, nodeValue: ${(childNode.nodeValue ?? '').length}</p>
       </div>
       ${NodeValue(childNode)}
     </div>`;
