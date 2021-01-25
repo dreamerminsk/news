@@ -83,6 +83,8 @@ async function update() {
   if (currentNode.parentNode) {
     $('#parent-node').empty();
     parentNode.insertAdjacentHTML('beforeend', ParentCard());
+  } else {
+    $('#parent-node').empty();
   }
 
   currentNode.childNodes.forEach(function (child, index) {
