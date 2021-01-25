@@ -101,14 +101,14 @@ async function update() {
 function DetailsCard() {
   let attrs = ``;
   if (currentNode.hasAttributes()) {
-    attrs += `<ul class="list-group list-group-flush">`;
+    attrs += `<ul class="list-group list-group-flush bg-primary">`;
     for (let attr of currentNode.attributes) {
       attrs += `<li class="list-group-item">${attr.name}: ${attr.value}</li>`;
     }
     attrs += `</ul>`;
   }
   return `
-    <div class="card text-white fw-bold bg-primary border-dark">
+    <div id="current-node" class="card text-white fw-bold bg-primary border-dark">
       <div class="card-body">
         <h6 class="card-title">${currentNode.nodeName}</h6>
       </div>
