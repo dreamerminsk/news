@@ -98,6 +98,15 @@ async function update() {
   });
 }
 
+function DetailsCard() {
+  return `
+    <div class="card text-white bg-primary border-dark">
+      <div class="card-body">
+        <h6 class="card-title">${currentNode.nodeName}</h6>
+      </div>
+    </div>`;
+}
+
 function ParentCard() {
   return `
     <div class="card text-white bg-secondary border-dark">
