@@ -201,7 +201,7 @@ async def update_feed2(feed):
                 '$set': {
                     'title': channel['title'],
                     'description': channel['description'],
-                    'image': channel['image']}},
+                    'image': channel.get('image', '')}},
                 upsert=False)
             for channel_node in root.findall('channel'):
                 for item in channel_node.findall('item'):
