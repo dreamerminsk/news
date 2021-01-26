@@ -131,7 +131,6 @@ async def latest_feeds(request):
         latest.append(feed)
     return JSONResponse({'status': 'ok', 'feeds': latest})
 
-
 async def start_job():
     count = articles.count_documents({})
     print('{}. {}'.format(datetime.now(), count))
@@ -140,6 +139,8 @@ async def start_job():
     feeds.update_one({'link': 'https://wst.tv/feed/'}, {
       '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     feeds.update_one({'link': 'http://feeds.bbci.co.uk/sport/snooker/rss.xml'}, {
+      '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
+    feeds.update_one({'link': 'https://www.rferl.org/api/zgoiqe_giq'}, {
       '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
