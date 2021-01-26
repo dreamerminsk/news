@@ -138,7 +138,7 @@ async def start_job():
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     feeds.update_one({'link': 'https://echo.msk.ru/interview/rss-fulltext.xml'}, {
       '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
-    feeds.update_one({'link': 'http://feeds.bbci.co.uk/sport/snooker/rss.xml'}, {
+    feeds.update_one({'link': 'https://echo.msk.ru/blog/rss.xml'}, {
       '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     feeds.update_one({'link': 'https://www.rferl.org/api/zgoiqe_giq'}, {
       '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
