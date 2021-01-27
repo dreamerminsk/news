@@ -40,6 +40,13 @@
       {{ feed['title'] }}
     </span>
   </div>
+  {% if feed['exception'] %}
+  <div class='card-body bg-danger text-white'>
+    <div class='card-text'>
+      {{ feed['exception'] }}
+    </div>
+  </div>
+  {% endif %}
   <div class='card-body'>
     <div class='card-text'>
       {{ feed['description'] }}
