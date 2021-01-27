@@ -188,6 +188,14 @@ async def process_feeds(q):
             q.task_done()
             news.tasks.update_one({'name': 'feeds'}, {
                 '$inc': {'feeds': 1}}, upsert=True)
+            
+            
+def get_news_calendar():
+    r = requests.get('http://www.forexfactory.com/ffcal_week_this.xml')
+    soup = BeautifulSoup(r.text , 'lxml')
+    events = soup.find_all('event')
+    for event in events:
+        print event.find('title').text, event.find('country').text, event.find('date')
 
 
 async def update_feed2(feed):
