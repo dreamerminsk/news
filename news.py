@@ -4,7 +4,6 @@ import xml.etree.ElementTree as etree
 from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
-from bson.objectid import ObjectId
 from pymongo import MongoClient
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
@@ -131,17 +130,18 @@ async def latest_feeds(request):
         latest.append(feed)
     return JSONResponse({'status': 'ok', 'feeds': latest})
 
+
 async def start_job():
     count = articles.count_documents({})
     print('{}. {}'.format(datetime.now(), count))
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     feeds.update_one({'link': 'https://echo.msk.ru/interview/rss-fulltext.xml'}, {
-      '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
+        '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     feeds.update_one({'link': 'https://echo.msk.ru/blog/rss.xml'}, {
-      '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
+        '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     feeds.update_one({'link': 'https://www.espn.co.uk/espn/rss/tennis/news'}, {
-      '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
+        '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
@@ -188,11 +188,11 @@ async def process_feeds(q):
             q.task_done()
             news.tasks.update_one({'name': 'feeds'}, {
                 '$inc': {'feeds': 1}}, upsert=True)
-            
-            
+
+
 def get_news_calendar():
     r = requests.get('http://www.forexfactory.com/ffcal_week_this.xml')
-    soup = BeautifulSoup(r.text , 'lxml')
+    soup = BeautifulSoup(r.text, 'lxml')
     events = soup.find_all('event')
     for event in events:
         print event.find('title').text, event.find('country').text, event.find('date')
