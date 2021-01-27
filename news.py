@@ -183,7 +183,7 @@ async def process_feeds(q):
     while True:
         try:
             feed = await q.get()
-            await update_feed2(feed)
+            await update_feed(feed)
         finally:
             q.task_done()
             news.tasks.update_one({'name': 'feeds'}, {
@@ -242,47 +242,6 @@ async def get_channel(soup):
             for url in image.find_all('url'):
                 channel['image'] = url.text
     return channel
-
-
-async def update_feed2(feed):
-    i = 0
-    text = get_text(feed['link'])
-    if text:
-        try:
-            root = etree.fromstring(text)
-            channel = await get_channel(root)
-            feeds.update_one({'_id': feed['_id']}, {
-                '$set': {
-                    'title': channel['title'],
-                    'description': channel['description'],
-                    'image': channel.get('image', '')}},
-                upsert=False)
-            for channel_node in root.findall('channel'):
-                for item in channel_node.findall('item'):
-                    title = item.find('title').text
-                    link = item.find('link').text
-                    if '?' in link:
-                        link = link[:link.find('?')]
-                    if not articles.find_one({"link": link}):
-                        i += 1
-                        articles.insert_one({"link": link, "title": title})
-        except Exception as e:
-            print(feed['link'], e)
-
-        feeds.update_one({'_id': feed['_id']}, {
-                         '$set': {'last_access': datetime.now()}}, upsert=False)
-        if i > 0:
-            feeds.update_one({'_id': feed['_id']}, {
-                '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
-            feeds.update_one({'_id': feed['_id']}, {
-                '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
-                         }}, upsert=False)
-        else:
-            feeds.update_one({'_id': feed['_id']}, {
-                '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
-            feeds.update_one({'_id': feed['_id']}, {
-                '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
-                         }}, upsert=False)
 
 
 middleware = [
