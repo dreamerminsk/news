@@ -136,7 +136,7 @@ async def start_job():
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     feeds.update_one({'link': 'https://echo.msk.ru/videos/rss.xml'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
-    feeds.update_one({'link': 'https://www.espn.com/espn/rss/nhl/news'}, {
+    feeds.update_one({'link': 'https://www.goal.com/feeds/en/news'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     feeds.update_one({'link': 'https://www.espn.com/espn/rss/nba/news'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
@@ -238,8 +238,7 @@ async def get_channel(soup):
         channel['title'] = node.find('title').text
         channel['description'] = node.find('description').text
         for image in node.find_all('image'):
-            for url in image.find_all('url'):
-                channel['image'] = url.text
+            channel['image'] = image.find('url').text
     return channel
 
 
