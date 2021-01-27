@@ -242,7 +242,7 @@ async def get_channel(soup):
                 channel['description'] = child.text        
             if child.name == 'image':
                 for image in child.children:
-                    if child.name == 'url':
+                    if image.name == 'url':
                         channel['image'] = image.text      
     return channel
 
