@@ -1,6 +1,4 @@
 import asyncio
-import pprint
-import xml.etree.ElementTree as etree
 from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
