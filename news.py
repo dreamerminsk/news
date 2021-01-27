@@ -235,12 +235,16 @@ async def update_feed(feed):
 async def get_channel(soup):
     channel = {}
     for node in soup.find_all('channel'):
-        channel['title'] = node.find('title').text
-        channel['description'] = node.find('description').text
-        for image in node.find_all('image'):
-            channel['image'] = image.find('url').text
+        for child in node.children:
+            if child.name == 'title':
+                channel['title'] = child.text
+            if child.name == 'description':
+                channel['description'] = child.text        
+            if child.name == 'image':
+                for image in child.children:
+                    if child.name == 'url':
+                        channel['image'] = image.text      
     return channel
-
 
 middleware = [
     Middleware(LoggingMiddleware)
