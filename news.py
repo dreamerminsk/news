@@ -199,7 +199,8 @@ async def update_feed(feed):
                 '$set': {
                     'title': channel['title'],
                     'description': channel['description'],
-                    'image': channel.get('image', '')}},
+                    'image': channel.get('image', ''),
+                    'exception': None}},
                 upsert=False)
             for channel_node in soup.find_all('channel'):
                 for item in channel_node.find_all('item'):
