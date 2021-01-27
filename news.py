@@ -190,22 +190,13 @@ async def process_feeds(q):
                 '$inc': {'feeds': 1}}, upsert=True)
 
 
-def update_feed3(feed):
-    text = get_text(feed['link'])
-    if text:
-        soup = BeautifulSoup(text, 'lxml-xml')
-        events = soup.find_all('event')
-        for event in events:
-            print event.find('title').text, event.find('country').text, event.find('date')
-
-
 async def update_feed(feed):
     i = 0
     text = get_text(feed['link'])
     if text:
         try:
             soup = BeautifulSoup(text, 'lxml-xml')
-            channel = await get_channel2(soup)
+            channel = await get_channel(soup)
             feeds.update_one({'_id': feed['_id']}, {
                 '$set': {
                     'title': channel['title'],
@@ -242,7 +233,7 @@ async def update_feed(feed):
                          }}, upsert=False)
 
 
-async def get_channel2(soup):
+async def get_channel(soup):
     channel = {}
     for node in soup.find_all('channel'):
         channel['title'] = node.find('title').text
@@ -292,17 +283,6 @@ async def update_feed2(feed):
             feeds.update_one({'_id': feed['_id']}, {
                 '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
                          }}, upsert=False)
-
-
-async def get_channel(root):
-    channel = {}
-    for node in root.findall('channel'):
-        channel['title'] = node.find('title').text
-        channel['description'] = node.find('description').text
-        for image in node.findall('image'):
-            for url in image.findall('url'):
-                channel['image'] = url.text
-    return channel
 
 
 middleware = [
