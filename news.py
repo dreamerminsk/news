@@ -212,8 +212,8 @@ async def update_feed(feed):
                     'description': channel['description'],
                     'image': channel.get('image', '')}},
                 upsert=False)
-            for channel_node in root.findall('channel'):
-                for item in channel_node.findall('item'):
+            for channel_node in soup.find_all('channel'):
+                for item in channel_node.find_all('item'):
                     title = item.find('title').text
                     link = item.find('link').text
                     if '?' in link:
@@ -239,6 +239,7 @@ async def update_feed(feed):
                 '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
                          }}, upsert=False)
 
+
 async def get_channel2(soup):
     channel = {}
     for node in soup.find_all('channel'):
@@ -248,6 +249,7 @@ async def get_channel2(soup):
             for url in image.find_all('url'):
                 channel['image'] = url.text
     return channel
+
 
 async def update_feed2(feed):
     i = 0
