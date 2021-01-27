@@ -190,13 +190,24 @@ async def process_feeds(q):
                 '$inc': {'feeds': 1}}, upsert=True)
 
 
-def get_news_calendar():
-    r = requests.get('http://www.forexfactory.com/ffcal_week_this.xml')
-    soup = BeautifulSoup(r.text, 'lxml')
-    events = soup.find_all('event')
-    for event in events:
-        print event.find('title').text, event.find('country').text, event.find('date')
+def update_feed3(feed):
+    text = get_text(feed['link'])
+    if text:
+        soup = BeautifulSoup(text, 'lxml-xml')
+        events = soup.find_all('event')
+        for event in events:
+            print event.find('title').text, event.find('country').text, event.find('date')
 
+
+async def get_channel2(root):
+    channel = {}
+    for node in root.findall('channel'):
+        channel['title'] = node.find('title').text
+        channel['description'] = node.find('description').text
+        for image in node.findall('image'):
+            for url in image.findall('url'):
+                channel['image'] = url.text
+    return channel
 
 async def update_feed2(feed):
     i = 0
