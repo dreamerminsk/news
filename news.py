@@ -214,7 +214,7 @@ async def update_feed(feed):
                         articles.insert_one({"link": link, "title": title})
         except Exception as e:
             feeds.update_one({'_id': feed['_id']}, {
-                '$set': {'exception': ellipsis}},
+                '$set': {'exception': e}},
                 upsert=False)
 
         feeds.update_one({'_id': feed['_id']}, {
