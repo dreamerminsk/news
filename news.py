@@ -199,13 +199,53 @@ def update_feed3(feed):
             print event.find('title').text, event.find('country').text, event.find('date')
 
 
-async def get_channel2(root):
+async def update_feed(feed):
+    i = 0
+    text = get_text(feed['link'])
+    if text:
+        try:
+            soup = BeautifulSoup(text, 'lxml-xml')
+            channel = await get_channel2(soup)
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {
+                    'title': channel['title'],
+                    'description': channel['description'],
+                    'image': channel.get('image', '')}},
+                upsert=False)
+            for channel_node in root.findall('channel'):
+                for item in channel_node.findall('item'):
+                    title = item.find('title').text
+                    link = item.find('link').text
+                    if '?' in link:
+                        link = link[:link.find('?')]
+                    if not articles.find_one({"link": link}):
+                        i += 1
+                        articles.insert_one({"link": link, "title": title})
+        except Exception as e:
+            print(feed['link'], e)
+
+        feeds.update_one({'_id': feed['_id']}, {
+                         '$set': {'last_access': datetime.now()}}, upsert=False)
+        if i > 0:
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {'ttl': 0.9 * feed['ttl']}}, upsert=False)
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {'next_access': datetime.now() + timedelta(seconds=0.9 * feed['ttl'])
+                         }}, upsert=False)
+        else:
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {'ttl': 1.1 * feed['ttl']}}, upsert=False)
+            feeds.update_one({'_id': feed['_id']}, {
+                '$set': {'next_access': datetime.now() + timedelta(seconds=1.1 * feed['ttl'])
+                         }}, upsert=False)
+
+async def get_channel2(soup):
     channel = {}
-    for node in root.findall('channel'):
+    for node in soup.find_all('channel'):
         channel['title'] = node.find('title').text
         channel['description'] = node.find('description').text
-        for image in node.findall('image'):
-            for url in image.findall('url'):
+        for image in node.find_all('image'):
+            for url in image.find_all('url'):
                 channel['image'] = url.text
     return channel
 
