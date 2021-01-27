@@ -136,9 +136,9 @@ async def start_job():
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
     feeds.update_one({'link': 'https://echo.msk.ru/videos/rss.xml'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
-    feeds.update_one({'link': 'https://echo.msk.ru/blog/rss.xml'}, {
+    feeds.update_one({'link': 'https://www.espn.com/espn/rss/nhl/news'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
-    feeds.update_one({'link': 'https://www.espn.co.uk/espn/rss/tennis/news'}, {
+    feeds.update_one({'link': 'https://www.espn.com/espn/rss/nba/news'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
