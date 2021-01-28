@@ -21,8 +21,8 @@ async def process_season(season):
             if '/biathlon/_biathlonworldcup/' in url:
                 if '/players/' in url:
                     player = get_player(node)
-                    client.ibustats.racers.update_one({'link': 'https://nn.by/?c=rss-top'}, {
-                        '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
+                    client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
+                        '$set': {'champ.cc_id': player['cc_id']}}, upsert=True)
     text = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/teams/'.format(season['cc_id']))
     if text:
