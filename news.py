@@ -21,6 +21,7 @@ from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
 from workers.web import get_text
 from workers.wiki import get_info
+from workers.championat import process_seasons
 
 #print = pprint.pprint
 
@@ -145,7 +146,8 @@ async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
-             loop.create_task(queue_wiki_info())]
+             loop.create_task(queue_wiki_info()),
+             loop.create_task(process_seasons())]
 
 
 async def queue_wiki_info():
