@@ -36,6 +36,18 @@ def get_country(node):
         prev = part
     return country
 
+def get_player(node):
+    player = {}
+    prev = ''
+    parts = node.get('href').split('/')
+    for part in parts:
+        if prev == 'tournament':
+            player['tournament'] = part
+        if prev == 'players':
+            player['cc_id'] = part
+            player['name'] = node.text
+        prev = part
+    return player
 
 
 async def process_seasons():
