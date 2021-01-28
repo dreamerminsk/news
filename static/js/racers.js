@@ -41,19 +41,19 @@ async function filter() {
          ${racer_image(racer.image)}         
          <div class="card-header">${racer.wiki.ru}</div>
          <div class="card-body text-dark">
-           <h6 class="card-title">${racer.name}</h6>
+           <h6 class="card-title">${racer?.name}</h6>
            <p class="card-text">
              <div class="button-toolbar">
-               ${country_list(racer.countries)}
+               ${country_list(racer.countries ?? [])}
              </div>
            </p>
-           <p class="card-text">${new Date(racer.bday)?.toLocaleDateString()}</p>
+           <p class="card-text">${new Date(racer?.bday)?.toLocaleDateString()}</p>
          </div>
 		 <div class="card-body text-dark">
- 		   <p class="card-text">${racer.desc}</p>
+ 		   <p class="card-text">${racer?.desc}</p>
 		 </div>
 		 <div class="card-body text-dark">
-           <p class="card-text"><small class="text-muted">Last updated at ${racer.last_modified}</small></p>
+           <p class="card-text"><small class="text-muted">Last updated at ${racer?.last_modified}</small></p>
 		 </div>
        </div>`;
     });
