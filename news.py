@@ -136,7 +136,7 @@ async def start_job():
     print('{}. {}'.format(datetime.now(), count))
     news.tasks.update_one({'name': 'feeds'}, {
         '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
-    feeds.update_one({'link': 'https://nn.by/?c=rss-top'}, {
+    feeds.update_one({'link': 'https://www.youtube.com/feeds/videos.xml?user=SkatingISU'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     feeds.update_one({'link': 'https://nn.by/?c=rss-all'}, {
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
