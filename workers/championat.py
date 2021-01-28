@@ -19,8 +19,8 @@ async def process_season(season):
         soup = BeautifulSoup(text2, 'html.parser')
         nodes = soup.select('a[href]')
         for node in nodes:
-            if '/biathlon/_biathlonworldcup/' in url:
-                if '/players/' in url:
+            if '/biathlon/_biathlonworldcup/' in node.get('href'):
+                if '/players/' in node.get('href'):
                     player = get_player(node)
                     client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
                         '$set': {'champ.cc_id': player['cc_id']}}, upsert=True)
@@ -33,8 +33,8 @@ async def process_season(season):
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select('a[href]')
         for node in nodes:
-            if '/biathlon/_biathlonworldcup/' in url:
-                if '/teams/' in url:
+            if '/biathlon/_biathlonworldcup/' in node.get('href'):
+                if '/teams/' in node.get('href'):
                     country = get_country(node)
 
 
