@@ -1,4 +1,5 @@
 import asyncio
+import random
 from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
@@ -152,6 +153,7 @@ async def queue_wiki_info():
     wikis = []
     for racer in racers:
         wikis.append(racer['wiki']['ru'])
+    random.shuffle(wikis)
     for wiki in wikis:
         info = await get_info('ru', wiki)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
