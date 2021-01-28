@@ -19,7 +19,8 @@ async def process_season(season):
         nodes = soup.select('a[href]')
         for node in nodes:
             if '/biathlon/_biathlonworldcup/' in url:
-                player = get_player(node)
+                if '/players/' in url:
+                    player = get_player(node)
     text = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/teams/'.format(season['cc_id']))
     if text:
@@ -27,7 +28,8 @@ async def process_season(season):
         nodes = soup.select('a[href]')
         for node in nodes:
             if '/biathlon/_biathlonworldcup/' in url:
-                country = get_country(node)
+                if '/teams/' in url:
+                    country = get_country(node)
 
 
 
