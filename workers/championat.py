@@ -62,6 +62,7 @@ def get_player(node):
         if prev == 'players':
             player['cc_id'] = part
             player['name'] = node.text
+            print('player: {}'.format(node.text))
         prev = part
     return player
 
