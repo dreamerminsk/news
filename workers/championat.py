@@ -48,7 +48,7 @@ def get_country(node):
             country['tournament'] = part
         if prev == 'teams':
             country['cc_id'] = part
-            country['name'] = node.text
+            country['name'] = node.text.strip()
         prev = part
     return country
 
@@ -61,8 +61,8 @@ def get_player(node):
             player['tournament'] = part
         if prev == 'players':
             player['cc_id'] = part
-            player['name'] = node.text
-            print('player: {}'.format(node.text))
+            player['name'] = node.text.strip()
+            print('player: {}'.format(player['name']))
         prev = part
     return player
 
