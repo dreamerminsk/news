@@ -23,6 +23,8 @@ async def process_season(season):
                     player = get_player(node)
                     client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
                         '$set': {'champ.cc_id': player['cc_id']}}, upsert=True)
+                    client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
+                        '$addToSet': {'champ.tournaments': player['tournament']}}, upsert=False)
     text = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/teams/'.format(season['cc_id']))
     if text:
