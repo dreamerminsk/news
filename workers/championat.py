@@ -1,4 +1,5 @@
 import asyncio
+import random
 import pprint
 from datetime import datetime, timedelta
 
@@ -25,6 +26,7 @@ async def process_season(season):
                         '$set': {'champ.cc_id': player['cc_id']}}, upsert=True)
                     client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
                         '$addToSet': {'champ.tournaments': player['tournament']}}, upsert=False)
+    await asyncio.sleep(4 + random.randint(4, 12))
     text = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/teams/'.format(season['cc_id']))
     if text:
@@ -68,6 +70,7 @@ async def process_seasons():
     seasons = client.ibustats.seasons.find({})
     for season in seasons:
         await process_season(season)
+        await asyncio.sleep(4 + random.randint(4, 12))
 
 
 async def process_tournaments():
