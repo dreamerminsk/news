@@ -4,6 +4,8 @@ span[data-wikidata-property-id='P569'] > span.country-name nation
 div.mw-parser-output > p[0] first paragraph
 a.interlanguage-link-target title, 
 
+nav#p-lang a.interlanguage-link title, lang
+
 div[data-name="External links"]
     https://www.facebook.com/DoroWierer
     https://twitter.com/dorotheawierer
