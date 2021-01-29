@@ -17,4 +17,5 @@ https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/match/36313
     
     
 https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/players/10689/
-    div.entity-header__info div.entity-header__title div.entity-header__title-name
+    div.entity-header__info div.entity-header__title div.entity-header__title-name -- [Александр Логинов]
+    div.entity-header__info > div.entity-header__img > a > img -- [https://zoomdecorate.rambler.ru/laplslt/dzNma28uNHhzNTlAeyJkYXRhIjp7IkFjdGlvbiI6IlByb3h5IiwiUmVmZmVyZXIiOiJodHRwczov/L3d3dy5jaGFtcGlvbmF0LmNvbS9iaWF0aGxvbi9fYmlhdGhsb253b3JsZGN1cC90b3VybmFtZW50/LzU5Ny9wbGF5ZXJzLzEwNjg5LyIsIlByb3/?adajs=RvY29sIjoiaHR0cHM6IiwiSG9zdCI6Ind3dy5jaGFtcGlvb&bbum=mF0LmNvbSIsIkxpbmtUeXBlIjoiaW1hZ2UvKiJ9LCJsaW5r&czclht=IjoiaHR0cHM6Ly9pbWcuY2hhbXBpb25hdC5jb20vYXN0YXQ&snjlk=vcGxheWVyLzEzOTE4NjE5OTAxNDAzMjI4ODkyLmpwZyJ9]
