@@ -17,4 +17,4 @@ https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/match/36313
     
     
 https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/players/10689/
-    div.entity-header__title div.entity-header__title-name
+    div.entity-header__info div.entity-header__title div.entity-header__title-name
