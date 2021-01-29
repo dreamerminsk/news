@@ -15,6 +15,8 @@ https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/match/36313
     div.match-info__head div.match-info__stage  [Этап 3, Хохфильцен, Австрия]
     div.match-info__head div.match-info__title  [12 декабря 2020, суббота. 16:45 МСК]
     
+    div.tournament-tabs.match-tabs.js-tournament-tabs > div._active.js-tournament-tab-content.tournament-tabs__content.tabs-content.match-tabs__content > table.js-table-responsive.table-row-hover.table-responsive.table-stripe.match-table.js-match-table.table._astat._processed._active > tbody > tr.table-responsive__row
+    
     
 https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/players/10689/
     div.entity-header__info div.entity-header__title div.entity-header__title-name -- [Александр Логинов]
