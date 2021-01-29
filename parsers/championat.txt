@@ -18,6 +18,9 @@ https://www.championat.com/biathlon/_biathlonworldcup/tournament/597/match/36313
     div.tournament-tabs.match-tabs.js-tournament-tabs > div._active.js-tournament-tab-content.tournament-tabs__content.tabs-content.match-tabs__content > table.js-table-responsive.table-row-hover.table-responsive.table-stripe.match-table.js-match-table.table._astat._processed._active > tbody > tr.table-responsive__row
         td._num.table-responsive__row-item
         td._player.table-responsive__row-item
+            a.table-item
+                span.table-item__flag img._country_flag
+                span.table-item__name
         td.table-responsive__row-item._team
         td.table-responsive__row-item._result
         td._gap.table-responsive__row-item
