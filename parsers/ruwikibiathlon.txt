@@ -4,8 +4,12 @@ span[data-wikidata-property-id='P569'] > span.country-name nation
 div.mw-parser-output > p[0] first paragraph
 a.interlanguage-link-target title, 
 
-
-https://biathlonresults.com/?IBUId=BTSVK22510199201
+div[data-name="External links"]
+    https://www.facebook.com/DoroWierer
+    https://twitter.com/dorotheawierer
+    https://instagram.com/dorothea_wierer
+    https://www.biathlon.com.ua/profile.php?id=2613&lang=rus
+    https://biathlonresults.com/?IBUId=BTITA20304199001
 
 https://pageviews.toolforge.org/?project=en.wikipedia.org&pages={{FULLPAGENAMEE}}
 
