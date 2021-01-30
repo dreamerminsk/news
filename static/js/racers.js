@@ -31,7 +31,7 @@ function racer_image(image) {
 
 function racer_image2(image) {
   if (image !== null && image !== undefined) {
-    return `<img async src="${image.replace('200px', '1000px')}"></img>`;
+    return `<img class="img-fluid" async src="${image.replace('200px', '1000px')}"></img>`;
   }
   else return '';
 }
