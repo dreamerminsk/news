@@ -23,14 +23,6 @@ function country_list(countries) {
 
 function racer_image(image) {
   if (image !== null && image !== undefined) {
-    return `<img class="card-img-top" async src="${image.replace('200px', '1000px')}"></img>`;
-  }
-  else return '';
-}
-
-
-function racer_image2(image) {
-  if (image !== null && image !== undefined) {
     return `<img class="img-fluid" async src="${image.replace('200px', '1000px')}"></img>`;
   }
   else return '';
@@ -45,8 +37,7 @@ async function filter() {
     .sort((a, b) => a.wiki.ru.localeCompare(b.wiki.ru))
     .forEach(racer => {
       node.innerHTML +=
-        `<div class="card border-dark mb-3">
-         ${racer_image(racer.image)}         
+        `<div class="card border-dark mb-3">         
          <div class="card-header">${racer.wiki.ru}</div>
          <div class="card-body text-dark">
            <div class="row"><div class="col-6">
@@ -58,7 +49,7 @@ async function filter() {
            </p>
            <p class="card-text">${new Date(racer?.bday)?.toLocaleDateString()}</p>
            </div><div class="col-6">
-             ${racer_image2(racer.image)}
+             ${racer_image(racer.image)}
            </div></div>
          </div>
 		 <div class="card-body text-dark">
