@@ -37,9 +37,9 @@ async function filter() {
     .sort((a, b) => a.wiki.ru.localeCompare(b.wiki.ru))
     .forEach(racer => {
       node.innerHTML +=
-        `<div class="card border-dark mb-3">         
-         <div class="card-header">${racer.wiki.ru}</div>
-         <div class="card-body text-dark">
+        `<div class="card border-info mb-3">         
+         <div class="card-header bg-info">${racer.wiki.ru}</div>
+         <div class="card-body text-white">
            <div class="row"><div class="col-6">
            <h6 class="card-title">${racer?.name}</h6>
            <p class="card-text">
