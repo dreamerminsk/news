@@ -1,4 +1,5 @@
 import requests
+import httpx
 
 from fake_useragent import UserAgent
 
