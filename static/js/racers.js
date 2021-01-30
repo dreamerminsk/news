@@ -28,6 +28,14 @@ function racer_image(image) {
   else return '';
 }
 
+
+function racer_image2(image) {
+  if (image !== null && image !== undefined) {
+    return `<img async src="${image.replace('200px', '1000px')}"></img>`;
+  }
+  else return '';
+}
+
 async function filter() {
   if (!selectedTd) return;
   const node = document.getElementById("racers");
@@ -41,7 +49,7 @@ async function filter() {
          ${racer_image(racer.image)}         
          <div class="card-header">${racer.wiki.ru}</div>
          <div class="card-body text-dark">
-           <div class="row"><div class="col">
+           <div class="row"><div class="col-6">
            <h6 class="card-title">${racer?.name}</h6>
            <p class="card-text">
              <div class="button-toolbar">
@@ -49,7 +57,8 @@ async function filter() {
              </div>
            </p>
            <p class="card-text">${new Date(racer?.bday)?.toLocaleDateString()}</p>
-           </div><div class="col">
+           </div><div class="col-6">
+             ${racer_image2(racer.image)}
            </div></div>
          </div>
 		 <div class="card-body text-dark">
