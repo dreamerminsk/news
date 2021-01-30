@@ -17,7 +17,6 @@ async def get_text_async(url):
     try:
         async with httpx.AsyncClient() as client:
             r = await client.get(url, headers={'User-Agent': UserAgent().random})
-        return r.text
+        return (r.text, None)
     except Exception as e:
-        print('ERROR: {}\r\n{}'.format(url, e))
-        return None
+        return (None, e)
