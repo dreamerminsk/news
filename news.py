@@ -19,7 +19,7 @@ from middleware.logging import LoggingMiddleware
 from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
-from workers.web import get_text
+from workers.web import get_text, get_text_async
 from workers.wiki import get_info
 from workers.championat import process_seasons
 
