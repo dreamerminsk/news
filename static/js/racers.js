@@ -41,6 +41,7 @@ async function filter() {
          ${racer_image(racer.image)}         
          <div class="card-header">${racer.wiki.ru}</div>
          <div class="card-body text-dark">
+           <div class="row"><div class="col">
            <h6 class="card-title">${racer?.name}</h6>
            <p class="card-text">
              <div class="button-toolbar">
@@ -48,6 +49,8 @@ async function filter() {
              </div>
            </p>
            <p class="card-text">${new Date(racer?.bday)?.toLocaleDateString()}</p>
+           </div><div class="col">
+           </div></div>
          </div>
 		 <div class="card-body text-dark">
  		   <p class="card-text">${racer?.desc}</p>
