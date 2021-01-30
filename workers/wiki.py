@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
 
-from workers.web import get_text
+from workers.web import get_text, get_text_async
 
 
 async def get_category(title):
@@ -75,7 +75,7 @@ def get_bday_info(soup):
 
 
 async def get_info(lang, title):
-    print('INFO\tget_info({}, {}'.format(lang, title))
+    print('INFO\tget_info({}, {})'.format(lang, title))
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
         return {'name': title, 'countries': []}
