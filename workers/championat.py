@@ -57,7 +57,7 @@ async def process_player(player):
                         bday = None
                     print('{} - {} - {}'.format(player['champ']['cc_id'], player['name'], bday))
                     client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
-                        '$set': {'bday': bday}}, upsert=False)
+                        '$set': {'bday': str(bday)}}, upsert=False)
     await asyncio.sleep(16 + random.randint(4, 12))
 
 
