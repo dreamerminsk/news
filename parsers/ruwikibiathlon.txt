@@ -12,6 +12,11 @@ div[data-name="External links"]
     https://instagram.com/dorothea_wierer
     https://www.biathlon.com.ua/profile.php?id=2613&lang=rus
     https://biathlonresults.com/?IBUId=BTITA20304199001
+    
+    
+https://ru.wikipedia.org/w/index.php?title={}&action=info    
+    div.mw-pvi-month
+    
 
 https://pageviews.toolforge.org/?project=en.wikipedia.org&pages={{FULLPAGENAMEE}}
 
