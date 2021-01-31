@@ -21,7 +21,7 @@ from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
 from workers.web import get_text, get_text_async
 from workers.wiki import get_info
-from workers.championat import process_seasons
+from workers.championat import process_seasons, process_players
 
 #print = pprint.pprint
 
@@ -143,7 +143,7 @@ async def start_job():
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
              loop.create_task(queue_wiki_info()),
-             loop.create_task(process_seasons())]
+             loop.create_task(process_players())]
 
 
 async def queue_wiki_info():
