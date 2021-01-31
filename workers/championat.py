@@ -30,8 +30,8 @@ async def process_players():
         await process_player(wiki)
         await asyncio.sleep(16 + random.randint(4, 12))
     await asyncio.sleep(32)
-
-
+    
+ 
 async def process_player(player):
     text2 = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'.format(player['champ']['tournaments'][0], player['champ']['cc_id']))
@@ -47,6 +47,17 @@ async def process_player(player):
                         '$addToSet': {'countries': team}}, upsert=False)
                     client.ibustats.countries.update_one({'wiki.ru': team}, {
                         '$set': {'last_modified': datetime.now()}}, upsert=True)
+            if 'Дата рождения:' in node.text:
+                team = node.text.split(':')[-1].strip()
+                bday = None
+                if team:
+                    try:
+                        bday = datetime.strptime(team, '%d.%m.%Y').date()
+                    except Exception as e:
+                        bday = None
+                    print('{} - {} - {}'.format(player['champ']['cc_id'], player['name'], bday))
+                    client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
+                        '$set': {'bday': bday}}, upsert=False)
     await asyncio.sleep(16 + random.randint(4, 12))
 
 
