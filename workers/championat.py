@@ -19,6 +19,18 @@ client = MongoClient()
 #        [Вес:]
 
 
+async def process_players():
+    racers = client.ibustats.racers.find({})
+    wikis = []
+    for racer in racers:
+        wikis.append(racer)
+    random.shuffle(wikis)
+    for wiki in wikis:
+        await process_player(wiki)
+        await asyncio.sleep(16 + random.randint(4, 12))
+    await asyncio.sleep(32)
+
+
 async def process_player(player):
     text2 = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'.format(player['champ']['tournaments'][0], player['champ']['cc_id']))
@@ -28,6 +40,12 @@ async def process_player(player):
         for node in nodes:
             if 'Команда:' in node.text:
                 team = node.text.split(':')[-1].strip()
+                if team:
+                    print('{} - {}'.format(player['champ']['cc_id'], team))
+                    client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
+                        '$addToSet': {'countries': team}}, upsert=False)
+                    client.ibustats.countries.update_one({'wiki.ru': team}, {
+                        '$set': {'last_modified': datetime.now()}}, upsert=True)
     await asyncio.sleep(16 + random.randint(4, 12))
 
 
