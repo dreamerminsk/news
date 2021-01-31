@@ -38,8 +38,8 @@ async function filter() {
     .forEach(racer => {
       node.innerHTML +=
         `<div class="card border-info mb-3">         
-         <div class="card-header bg-info">${racer.wiki.ru}</div>
-         <div class="card-body text-white">
+         <div class="card-header bg-info text-white">${racer.wiki.ru}</div>
+         <div class="card-body text-dark">
            <div class="row"><div class="col-6">
            <h6 class="card-title">${racer?.name}</h6>
            <p class="card-text">
