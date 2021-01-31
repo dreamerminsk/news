@@ -12,21 +12,23 @@ from workers.web import get_text
 client = MongoClient()
 
 
+div._player.js-entity-header.entity-header > div > ul > li
+        [Команда:]
+        [Дата рождения:]
+        [Рост:]
+        [Вес:]
+
+
 async def process_player(player):
     text2 = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'.format(player['champ']['tournaments'][0], player['champ']['cc_id']))
     if text2:
         soup = BeautifulSoup(text2, 'html.parser')
-        nodes = soup.select('a[href]')
+        nodes = soup.select('div._player.entity-header > div > ul > li')
         for node in nodes:
-            if '/biathlon/_biathlonworldcup/' in node.get('href'):
-                if '/players/' in node.get('href'):
-                    player = get_player(node)
-                    client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
-                        '$set': {'champ.cc_id': player['cc_id']}}, upsert=True)
-                    client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
-                        '$addToSet': {'champ.tournaments': player['tournament']}}, upsert=False)
-    await asyncio.sleep(4 + random.randint(4, 12))
+            if 'Команда:' in node.text:
+                pass
+    await asyncio.sleep(16 + random.randint(4, 12))
 
 
 async def process_season(season):
