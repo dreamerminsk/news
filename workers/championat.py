@@ -12,11 +12,11 @@ from workers.web import get_text
 client = MongoClient()
 
 
-div._player.js-entity-header.entity-header > div > ul > li
-        [Команда:]
-        [Дата рождения:]
-        [Рост:]
-        [Вес:]
+#div._player.js-entity-header.entity-header > div > ul > li
+#        [Команда:]
+#        [Дата рождения:]
+#        [Рост:]
+#        [Вес:]
 
 
 async def process_player(player):
@@ -27,7 +27,7 @@ async def process_player(player):
         nodes = soup.select('div._player.entity-header > div > ul > li')
         for node in nodes:
             if 'Команда:' in node.text:
-                pass
+                team = node.text.split(':')[-1].strip()
     await asyncio.sleep(16 + random.randint(4, 12))
 
 
