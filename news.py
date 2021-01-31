@@ -154,9 +154,9 @@ async def queue_wiki_info():
     random.shuffle(wikis)
     for wiki in wikis:
         info = await get_info('ru', wiki)
-        client.ibustats.racers.update_one({'wiki.ru': wiki}, {
-            '$set': {'countries': info['countries']}}, upsert=False)
         for country in info['countries']:
+            client.ibustats.racers.update_one({'wiki.ru': wiki}, {
+                '$addToSet': {'countries': country}}, upsert=False)
             client.ibustats.countries.update_one({'wiki.ru': country}, {
                 '$set': {'last_modified': datetime.now()}}, upsert=True)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
