@@ -54,8 +54,8 @@ async def process_player(player):
                     try:
                         bday = datetime.strptime(team, '%d.%m.%Y').date()
                     except Exception as e:
-                        bday = None
-                    print('{} - {} - {}'.format(player['champ']['cc_id'], player['name'], bday))
+                        bday = datetime.now().date()
+                    print('{} - {} - {}'.format(player['champ']['cc_id'], player['name'], str(bday)))
                     client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
                         '$set': {'bday': str(bday)}}, upsert=False)
     await asyncio.sleep(16 + random.randint(4, 12))
