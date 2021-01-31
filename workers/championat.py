@@ -23,7 +23,8 @@ async def process_players():
     racers = client.ibustats.racers.find({})
     wikis = []
     for racer in racers:
-        wikis.append(racer)
+        if 'champ' in racer:
+            wikis.append(racer)
     random.shuffle(wikis)
     for wiki in wikis:
         await process_player(wiki)
@@ -41,7 +42,7 @@ async def process_player(player):
             if 'Команда:' in node.text:
                 team = node.text.split(':')[-1].strip()
                 if team:
-                    print('{} - {}'.format(player['champ']['cc_id'], team))
+                    print('{} - {} - {}'.format(player['champ']['cc_id'], player['name'], team))
                     client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
                         '$addToSet': {'countries': team}}, upsert=False)
                     client.ibustats.countries.update_one({'wiki.ru': team}, {
