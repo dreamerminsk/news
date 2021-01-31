@@ -65,11 +65,13 @@ async function filter() {
 
 async function highlight(td) {
   if (selectedTd) {
-    selectedTd.classList.remove('table-success');
+    selectedTd.classList.remove('table-info');
+    selectedTd.classList.remove('text-white');
   }
   selectedTd = td;
   await filter();
-  selectedTd.classList.add('table-success');
+  selectedTd.classList.add('table-info');
+  selectedTd.classList.add('text-white');
 }
 
 async function initLetters() {
