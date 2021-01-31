@@ -156,6 +156,9 @@ async def queue_wiki_info():
         info = await get_info('ru', wiki)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
             '$set': {'countries': info['countries']}}, upsert=False)
+        for country in info['countries']:
+            client.ibustats.countries.update_one({'wiki.ru': country}, {
+                '$set': {'last_modified': datetime.now()}}, upsert=True)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
             '$set': {'name': info['name']}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
