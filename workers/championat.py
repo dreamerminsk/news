@@ -14,7 +14,7 @@ client = MongoClient()
 
 async def process_player(player):
     text2 = get_text(
-        'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'.format(season['cc_id'], player['champ']['cc_id']))
+        'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'.format(player['champ']['tournaments'][0], player['champ']['cc_id']))
     if text2:
         soup = BeautifulSoup(text2, 'html.parser')
         nodes = soup.select('a[href]')
