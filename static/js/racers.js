@@ -27,7 +27,7 @@ function racer_image(r) {
   } else if (r.images !== null && r.images !== undefined && r.images.length > 0) {
     for (let img of r.images) {
       if (img !== null && img !== undefined) {
-        return `<img class="img-fluid" async src="${r.images[0]}"></img>`;
+        return `<img class="img-fluid" async src="${img}"></img>`;
       }
     }    
   }
