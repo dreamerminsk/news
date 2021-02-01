@@ -21,9 +21,11 @@ function country_list(countries) {
   `).join('');
 }
 
-function racer_image(image) {
-  if (image !== null && image !== undefined) {
-    return `<img class="img-fluid" async src="${image.replace('200px', '1000px')}"></img>`;
+function racer_image(r) {
+  if (r.image !== null && r.image !== undefined) {
+    return `<img class="img-fluid" async src="${r.image.replace('200px', '1000px')}"></img>`;
+  } else if (r.images !== null && r.images !== undefined && r.images.length > 0) {
+    return `<img class="img-fluid" async src="${r.images[0]}"></img>`;
   }
   else return '';
 }
@@ -49,7 +51,7 @@ async function filter() {
            </p>
            <p class="card-text">${new Date(racer?.bday)?.toLocaleDateString()}</p>
            </div><div class="col-6">
-             ${racer_image(racer.image)}
+             ${racer_image(racer)}
            </div></div>
          </div>
 		 <div class="card-body text-dark">
@@ -71,7 +73,7 @@ async function highlight(td) {
   selectedTd = td;
   selectedTd.classList.add('table-info');
   selectedTd.classList.add('text-white');
-  await filter();  
+  await filter();
 }
 
 async function initLetters() {
