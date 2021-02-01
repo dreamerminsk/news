@@ -63,14 +63,17 @@ async function filter() {
                    <p class="card-text"><small class="text-muted">Last updated at ${racer?.last_modified}</small></p>
 		 </div>
 		 <div class="card-footer text-dark">
-                   ${links(racer)}
+                   <div class='btn-group float-right' role='group'>${links(racer)}</div>
 		 </div>
        </div>`;
     });
 }
       
 function links(racer) {
-      var links = `<a href=""></a>`;
+      var links = `    
+      <a class='btn btn-outline-info active' href='{{ racer.wiki.ru }}'>Читать</a>
+      <a class='btn btn-danger active' href='#'>Удалить</a>
+    `;
       return links;
 }
 
