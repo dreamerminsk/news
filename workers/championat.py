@@ -40,7 +40,7 @@ async def process_player(player):
     if text2:
         soup = BeautifulSoup(text2, 'html.parser')
         images = soup.select(
-            'div.entity-header__info > div.entity-header__img > a > img')
+            'div._player div.entity-header__info > div.entity-header__img > a > img')
         for image in images:
             update_image(player, image)
         nodes = soup.select('div._player.entity-header > div > ul > li')
