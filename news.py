@@ -163,10 +163,12 @@ async def queue_wiki_info():
             '$set': {'name': info['name']}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
             '$set': {'image': info['image']}}, upsert=False)
-        client.ibustats.racers.update_one({'wiki.ru': wiki}, {
-            '$set': {'desc': info['desc']}}, upsert=False)
-        client.ibustats.racers.update_one({'wiki.ru': wiki}, {
-            '$set': {'bday': str(info['bday'])}}, upsert=False)
+        if info['desc']:
+            client.ibustats.racers.update_one({'wiki.ru': wiki}, {
+                '$set': {'desc': info['desc']}}, upsert=False)
+        if info['bday']:
+            client.ibustats.racers.update_one({'wiki.ru': wiki}, {
+                '$set': {'bday': str(info['bday'])}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
             '$set': {'last_modified': datetime.now()}}, upsert=False)
         await asyncio.sleep(4 + random.randint(4, 12))
