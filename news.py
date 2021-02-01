@@ -19,9 +19,9 @@ from middleware.logging import LoggingMiddleware
 from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
+from workers.championat import process_players, process_seasons
 from workers.web import get_text, get_text_async
 from workers.wiki import get_info
-from workers.championat import process_seasons, process_players
 
 #print = pprint.pprint
 
@@ -242,11 +242,11 @@ async def get_channel(soup):
             if child.name == 'title':
                 channel['title'] = child.text
             if child.name == 'description':
-                channel['description'] = child.text        
+                channel['description'] = child.text
             if child.name == 'image':
                 for image in child.children:
                     if image.name == 'url':
-                        channel['image'] = image.text      
+                        channel['image'] = image.text
     return channel
 
 middleware = [
