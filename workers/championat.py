@@ -35,7 +35,8 @@ async def process_players():
 
 async def process_player(player):
     text2 = get_text(
-        'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'.format(player['champ']['tournaments'][0], player['champ']['cc_id']))
+        'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'
+        .format(player['champ']['tournaments'][0], player['champ']['cc_id']))
     if text2:
         soup = BeautifulSoup(text2, 'html.parser')
         nodes = soup.select('div._player.entity-header > div > ul > li')
@@ -43,18 +44,22 @@ async def process_player(player):
             if 'Команда:' in node.text:
                 update_team(player, node)
             if 'Дата рождения:' in node.text:
-                team = node.text.split(':')[-1].strip()
-                bday = None
-                if team:
-                    try:
-                        bday = datetime.strptime(team, '%d.%m.%Y').date()
-                    except Exception as e:
-                        bday = datetime.now().date()
-                    print(
-                        '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], str(bday)))
-                    client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
-                        '$set': {'bday': str(bday)}}, upsert=False)
+                update_bday(player, node)
     await asyncio.sleep(16 + random.randint(4, 12))
+
+
+def update_bday(player, node):
+    team = node.text.split(':')[-1].strip()
+    bday = datetime.now().date()
+    if team:
+        try:
+            bday = datetime.strptime(team, '%d.%m.%Y').date()
+        except Exception as e:
+            bday = datetime.now().date()
+        print(
+            '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], str(bday)))
+        client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
+            '$set': {'bday': str(bday)}}, upsert=False)
 
 
 def update_team(player, node):
