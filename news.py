@@ -163,6 +163,8 @@ async def queue_wiki_info():
             '$set': {'name': info['name']}}, upsert=False)
         client.ibustats.racers.update_one({'wiki.ru': wiki}, {
             '$set': {'image': info['image']}}, upsert=False)
+        client.ibustats.racers.update_one({'wiki.ru': wiki}, {
+            '$addToSet': {'images': info['image']}}, upsert=False)
         if info['desc']:
             client.ibustats.racers.update_one({'wiki.ru': wiki}, {
                 '$set': {'desc': info['desc']}}, upsert=False)
