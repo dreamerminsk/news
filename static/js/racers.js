@@ -13,10 +13,10 @@ async function loadRacers() {
 function country_list(countries) {
   return countries.map((c) => `
   <div class='btn-group mr-1'>
-  <a class='btn btn-outline-dark btn-sm' href='#'>${c}</a>
-  <a class='btn btn-outline-dark btn-sm' href='https://ru.wikipedia.org/wiki/${c}'>
-    ru
-  </a>
+    <a class='btn btn-outline-dark btn-sm' href='#'>${c}</a>
+    <a class='btn btn-outline-dark btn-sm' href='https://ru.wikipedia.org/wiki/${c}'>
+      ru
+    </a>
   </div>
   `).join('');
 }
@@ -69,9 +69,9 @@ async function highlight(td) {
     selectedTd.classList.remove('text-white');
   }
   selectedTd = td;
-  await filter();
   selectedTd.classList.add('table-info');
   selectedTd.classList.add('text-white');
+  await filter();  
 }
 
 async function initLetters() {
