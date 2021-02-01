@@ -70,9 +70,8 @@ async function filter() {
 }
       
 function links(racer) {
-      var links = `    
-      <a class='btn btn-outline-info active' href='{{ racer.wiki.ru }}'>Читать</a>
-      <a class='btn btn-danger active' href='#'>Удалить</a>
+      let links = `    
+      <a class="btn btn-outline-info active" href="https://ru.wikipedia.org/wiki/${ racer.wiki.ru }">wiki</a>
     `;
       return links;
 }
