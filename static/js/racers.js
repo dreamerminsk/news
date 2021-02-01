@@ -70,9 +70,10 @@ async function filter() {
 }
       
 function links(racer) {
-      let links = `    
-      <a class="btn btn-outline-info active" href="https://ru.wikipedia.org/wiki/${ racer.wiki.ru }">wiki</a>
-    `;
+      let links = `<a class="btn btn-outline-info active" href="https://ru.wikipedia.org/wiki/${racer.wiki.ru}">wiki</a>`;
+      if (racer.champ) {
+        links += `https://www.championat.com/biathlon/_biathlonworldcup/tournament/${racer.champ.tournaments[0]}/players/${racer.champ.cc_id}/`
+      }
       return links;
 }
 
