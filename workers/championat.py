@@ -10,7 +10,7 @@ from workers.web import get_text
 client = MongoClient()
 
 
-#div._player.js-entity-header.entity-header > div > ul > li
+# div._player.js-entity-header.entity-header > div > ul > li
 #        [Команда:]
 #        [Дата рождения:]
 #        [Рост:]
@@ -39,6 +39,10 @@ async def process_player(player):
         .format(player['champ']['tournaments'][0], player['champ']['cc_id']))
     if text2:
         soup = BeautifulSoup(text2, 'html.parser')
+        images = soup.select(
+            'div.entity-header__info > div.entity-header__img > a > img')
+        for image in images:
+            update_image(player, image)
         nodes = soup.select('div._player.entity-header > div > ul > li')
         for node in nodes:
             if 'Команда:' in node.text:
@@ -46,6 +50,15 @@ async def process_player(player):
             if 'Дата рождения:' in node.text:
                 update_bday(player, node)
     await asyncio.sleep(16 + random.randint(4, 12))
+
+
+def update_image(player, node):
+    if node:
+        print(
+            '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], node))
+        client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
+            '$addToSet': {'countries': team}}, upsert=False)
+
 
 
 def update_bday(player, node):
