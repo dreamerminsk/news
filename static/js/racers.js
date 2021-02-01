@@ -25,7 +25,11 @@ function racer_image(r) {
   if (r.image !== null && r.image !== undefined) {
     return `<img class="img-fluid" async src="${r.image.replace('200px', '1000px')}"></img>`;
   } else if (r.images !== null && r.images !== undefined && r.images.length > 0) {
-    return `<img class="img-fluid" async src="${r.images[0]}"></img>`;
+    for (let img of r.images) {
+      if (img !== null && img !== undefined) {
+        return `<img class="img-fluid" async src="${r.images[0]}"></img>`;
+      }
+    }    
   }
   else return '';
 }
