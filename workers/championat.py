@@ -38,14 +38,7 @@ async def process_player(player):
         nodes = soup.select('div._player.entity-header > div > ul > li')
         for node in nodes:
             if 'Команда:' in node.text:
-                team = node.text.split(':')[-1].strip()
-                if team:
-                    print(
-                        '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], team))
-                    client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
-                        '$addToSet': {'countries': team}}, upsert=False)
-                    client.ibustats.countries.update_one({'wiki.ru': team}, {
-                        '$set': {'last_modified': datetime.now()}}, upsert=True)
+                update_team(player, node)
             if 'Дата рождения:' in node.text:
                 team = node.text.split(':')[-1].strip()
                 bday = None
@@ -59,6 +52,17 @@ async def process_player(player):
                     client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
                         '$set': {'bday': str(bday)}}, upsert=False)
     await asyncio.sleep(16 + random.randint(4, 12))
+
+
+def update_team(player, node):
+    team = node.text.split(':')[-1].strip()
+    if team:
+        print(
+            '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], team))
+        client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
+            '$addToSet': {'countries': team}}, upsert=False)
+        client.ibustats.countries.update_one({'wiki.ru': team}, {
+            '$set': {'last_modified': datetime.now()}}, upsert=True)
 
 
 async def process_season(season):
