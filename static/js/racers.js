@@ -23,11 +23,11 @@ function country_list(countries) {
 
 function racer_image(r) {
   if (r.image !== null && r.image !== undefined) {
-    return `<img class="img-fluid" async src="${r.image.replace('200px', '1000px')}"></img>`;
+    return `<img class="img-fluid rounded border-info border-3" async src="${r.image.replace('200px', '1000px')}"></img>`;
   } else if (r.images !== null && r.images !== undefined && r.images.length > 0) {
     for (let img of r.images) {
       if (img !== null && img !== undefined) {
-        return `<img class="img-fluid" async src="${img}"></img>`;
+        return `<img class="img-fluid rounded border-info border-3" async src="${img}"></img>`;
       }
     }    
   }
