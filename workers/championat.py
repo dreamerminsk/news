@@ -21,7 +21,7 @@ async def process_players():
     racers = client.ibustats.racers.find({})
     wikis = []
     for racer in racers:
-        if '\n\n\n' in racer['wiki']['ru']:
+        if 'Редактировать' in racer['wiki']['ru']:
             client.ibustats.racers.remove({'wiki.ru': racer['wiki']['ru']})
             continue
         if 'champ' in racer:
