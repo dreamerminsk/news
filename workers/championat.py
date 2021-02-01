@@ -1,10 +1,8 @@
 import asyncio
 import random
-import pprint
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from bs4 import BeautifulSoup
-from bson.objectid import ObjectId
 from pymongo import MongoClient
 
 from workers.web import get_text
@@ -30,8 +28,8 @@ async def process_players():
         await process_player(wiki)
         await asyncio.sleep(16 + random.randint(4, 12))
     await asyncio.sleep(32)
-    
- 
+
+
 async def process_player(player):
     text2 = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'.format(player['champ']['tournaments'][0], player['champ']['cc_id']))
@@ -42,7 +40,8 @@ async def process_player(player):
             if 'Команда:' in node.text:
                 team = node.text.split(':')[-1].strip()
                 if team:
-                    print('{} - {} - {}'.format(player['champ']['cc_id'], player['name'], team))
+                    print(
+                        '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], team))
                     client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
                         '$addToSet': {'countries': team}}, upsert=False)
                     client.ibustats.countries.update_one({'wiki.ru': team}, {
@@ -55,7 +54,8 @@ async def process_player(player):
                         bday = datetime.strptime(team, '%d.%m.%Y').date()
                     except Exception as e:
                         bday = datetime.now().date()
-                    print('{} - {} - {}'.format(player['champ']['cc_id'], player['name'], str(bday)))
+                    print(
+                        '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], str(bday)))
                     client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
                         '$set': {'bday': str(bday)}}, upsert=False)
     await asyncio.sleep(16 + random.randint(4, 12))
@@ -87,7 +87,6 @@ async def process_season(season):
                     country = get_country(node)
 
 
-
 def get_country(node):
     country = {}
     prev = ''
@@ -100,6 +99,7 @@ def get_country(node):
             country['name'] = node.text.strip()
         prev = part
     return country
+
 
 def get_player(node):
     player = {}
