@@ -54,10 +54,11 @@ async def process_player(player):
 
 def update_image(player, node):
     if node:
+        img = node.get('src')
         print(
-            '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], node))
+            '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], img))
         client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
-            '$addToSet': {'countries': team}}, upsert=False)
+            '$addToSet': {'images': img}}, upsert=False)
 
 
 
