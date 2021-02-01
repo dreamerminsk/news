@@ -60,12 +60,18 @@ async function filter() {
          </div>
 		 <div class="card-body text-dark">
  		   <p class="card-text">${racer?.desc}</p>
+                   <p class="card-text"><small class="text-muted">Last updated at ${racer?.last_modified}</small></p>
 		 </div>
-		 <div class="card-body text-dark">
-           <p class="card-text"><small class="text-muted">Last updated at ${racer?.last_modified}</small></p>
+		 <div class="card-footer text-dark">
+                   ${links(racer)}
 		 </div>
        </div>`;
     });
+}
+      
+function links(racer) {
+      var links = `<a href=""></a>`;
+      return links;
 }
 
 
