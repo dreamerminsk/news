@@ -20,6 +20,8 @@ class NationsEndpoint(HTTPEndpoint):
             country['_id'] = str(country['_id'])
             if 'last_modified' in country:
                 country['last_modified'] = str(country['last_modified'])
+            pp = pprint.PrettyPrinter(indent=4)
+            pp.pprint(country)
             latest.append(country)
         return JSONResponse({'status': 'ok', 'countries': latest})
 
