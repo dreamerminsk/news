@@ -77,7 +77,7 @@ function links(racer) {
   if (racer.champ) {
     links += `
     <a class="btn btn-outline-info" href="https://www.championat.com/biathlon/_biathlonworldcup/tournament/${racer.champ.tournaments[0]}/players/${racer.champ.cc_id}/">
-      <img src="https://st.championat.com/i/favicon/favicon-48x48.png">
+      <img src="https://st.championat.com/i/favicon/favicon-32x32.png">
     </a>`
   }
   return links;
