@@ -104,7 +104,7 @@ async def process_countries():
         wikis.append(racer)
     random.shuffle(wikis)
     for wiki in wikis:
-        await process_player(wiki)
+        fi = await get_flag('ru', wiki)
         await asyncio.sleep(16 + random.randint(4, 12))
     await asyncio.sleep(32)
 
