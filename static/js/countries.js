@@ -3,7 +3,7 @@ let countries;
 async function loadCountries() {
   let response = await fetch(`/api/ibu/countries/`);
   let json = await response.json();
-  seasons = [];
+  countries = [];
   for (const country of json.countries) {
     countries.push(country);
   }
