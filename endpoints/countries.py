@@ -14,13 +14,13 @@ ibustats = client.ibustats
 
 class CountriesEndpoint(HTTPEndpoint):
     async def get(self, request):
-        racers = ibustats.countries.find({})
+        countries = ibustats.countries.find({})
         latest = []
-        for racer in racers:
-            racer['_id'] = str(racer['_id'])
-            if 'last_modified' in racer:
-                racer['last_modified'] = str(racer['last_modified'])
-            latest.append(racer)
+        for country in countries:
+            country['_id'] = str(country['_id'])
+            if 'last_modified' in country:
+                country['last_modified'] = str(country['last_modified'])
+            latest.append(country)
         return JSONResponse({'status': 'ok', 'countries': latest})
 
     async def post(self, request):
