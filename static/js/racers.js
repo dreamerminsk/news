@@ -31,7 +31,8 @@ function racer_image(r) {
       }
     }
   }
-  else return '';
+  else return `
+    <img class="img-fluid rounded" async src="https://img.championat.com/i/nopic/person.png"></img>`;
 }
 
 async function filter() {
