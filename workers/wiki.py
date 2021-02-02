@@ -2,8 +2,11 @@ import asyncio
 from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
+from pymongo import MongoClient
 
 from workers.web import get_text, get_text_async
+
+client = MongoClient()
 
 
 async def get_category(title):
@@ -91,6 +94,22 @@ async def get_info(lang, title):
         category['bday'] = get_bday_info(soup)
     print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
     return category
+
+
+async def process_countriess():
+    racers = client.ibustats.racers.find({})
+    wikis = []
+    for racer in racers:
+        if 'Редактировать' in racer['wiki']['ru']:
+            client.ibustats.racers.remove({'wiki.ru': racer['wiki']['ru']})
+            continue
+        if 'champ' in racer:
+            wikis.append(racer)
+    random.shuffle(wikis)
+    for wiki in wikis:
+        await process_player(wiki)
+        await asyncio.sleep(16 + random.randint(4, 12))
+    await asyncio.sleep(32)
 
 
 async def get_flag(lang, title):
