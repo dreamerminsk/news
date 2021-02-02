@@ -92,6 +92,7 @@ async def get_info(lang, title):
     print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
+
 async def get_flag(lang, title):
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
@@ -99,9 +100,19 @@ async def get_flag(lang, title):
     category = {'name': title}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        category['image'] = get_image_info(soup)
+        category['image'] = get_flag_info(soup)
     print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, category))
     return category
+
+
+def get_flag_info(soup):
+    name = None
+    nodes = soup.select(
+        "span[data-wikidata-property-id='P41'] a.image img[src]")
+    if nodes:
+        for node in nodes:
+            name = 'https:{}'.format(node.get('src'))
+    return name
 
 
 async def get_links(lang, title):
