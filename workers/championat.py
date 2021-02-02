@@ -34,6 +34,8 @@ async def process_players():
 
 
 async def process_player(player):
+    client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
+            '$set': {'images': []}}, upsert=False)
     text2 = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'
         .format(player['champ']['tournaments'][0], player['champ']['cc_id']))
@@ -49,7 +51,7 @@ async def process_player(player):
                 update_team(player, node)
             if 'Дата рождения:' in node.text:
                 update_bday(player, node)
-    await asyncio.sleep(16 + random.randint(4, 12))
+    await asyncio.sleep(16 + random.randint(8, 16))
 
 
 def update_image(player, node):
