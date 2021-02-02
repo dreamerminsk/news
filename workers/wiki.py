@@ -105,7 +105,7 @@ async def process_countries():
     random.shuffle(wikis)
     for wiki in wikis:
         fi = await get_flag('ru', wiki)
-        await asyncio.sleep(16 + random.randint(4, 12))
+        await asyncio.sleep(16 + random.randint(16, 32))
     await asyncio.sleep(32)
 
 
