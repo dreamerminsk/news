@@ -1,4 +1,5 @@
 import asyncio
+import random
 from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
@@ -96,15 +97,11 @@ async def get_info(lang, title):
     return category
 
 
-async def process_countriess():
-    racers = client.ibustats.racers.find({})
+async def process_countries():
+    countries = client.ibustats.countries.find({})
     wikis = []
-    for racer in racers:
-        if 'Редактировать' in racer['wiki']['ru']:
-            client.ibustats.racers.remove({'wiki.ru': racer['wiki']['ru']})
-            continue
-        if 'champ' in racer:
-            wikis.append(racer)
+    for racer in countries:
+        wikis.append(racer)
     random.shuffle(wikis)
     for wiki in wikis:
         await process_player(wiki)
