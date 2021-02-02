@@ -12,7 +12,7 @@ client = MongoClient()
 ibustats = client.ibustats
 
 
-class CountriesEndpoint(HTTPEndpoint):
+class NationsEndpoint(HTTPEndpoint):
     async def get(self, request):
         countries = ibustats.countries.find({})
         latest = []
@@ -27,7 +27,7 @@ class CountriesEndpoint(HTTPEndpoint):
         pass
 
 
-class CountryEndpoint(HTTPEndpoint):
+class NationEndpoint(HTTPEndpoint):
     async def get(self, request):
         wdid = request.path_params['wikidataid']
         task = ibustats.countries.find_one({'WikiDataID': wdid})
