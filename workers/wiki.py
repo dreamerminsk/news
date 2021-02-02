@@ -99,13 +99,8 @@ async def get_flag(lang, title):
     category = {'name': title}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        category['countries'] = get_country_info(soup)
         category['image'] = get_image_info(soup)
-        category['desc'] = get_desc(soup)
-        category['name'] = get_name_info(soup)
-        if category['name'] == None:
-            category['name'] = title
-    print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
+    print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
 
