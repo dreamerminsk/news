@@ -133,7 +133,6 @@ async def latest_feeds(request):
 
 
 async def start_job():
-    client.ibustats.countries.remove({})
     count = articles.count_documents({})
     print('{}. {}'.format(datetime.now(), count))
     news.tasks.update_one({'name': 'feeds'}, {
