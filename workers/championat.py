@@ -10,13 +10,6 @@ from workers.web import get_text
 client = MongoClient()
 
 
-# div._player.js-entity-header.entity-header > div > ul > li
-#        [Команда:]
-#        [Дата рождения:]
-#        [Рост:]
-#        [Вес:]
-
-
 async def process_players():
     racers = client.ibustats.racers.find({})
     wikis = []
@@ -35,7 +28,7 @@ async def process_players():
 
 async def process_player(player):
     client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
-            '$set': {'images': []}}, upsert=False)
+        '$set': {'images': []}}, upsert=False)
     text2 = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/players/{}/'
         .format(player['champ']['tournaments'][0], player['champ']['cc_id']))
@@ -61,7 +54,6 @@ def update_image(player, node):
             '{} - {} - {}'.format(player['champ']['cc_id'], player['name'], img))
         client.ibustats.racers.update_one({'champ.cc_id': player['champ']['cc_id']}, {
             '$addToSet': {'images': img}}, upsert=False)
-
 
 
 def update_bday(player, node):
