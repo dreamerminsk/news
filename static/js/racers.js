@@ -72,12 +72,12 @@ async function filter() {
 function links(racer) {
   let links = `
     <a class="btn btn-outline-info active" href="https://ru.wikipedia.org/wiki/${racer.wiki.ru}">
-      <img src="https://ru.wikipedia.org/static/favicon/wikipedia.ico">
+      <img width="16" height="16" src="https://ru.wikipedia.org/static/favicon/wikipedia.ico">
     </a>`;
   if (racer.champ) {
     links += `
     <a class="btn btn-outline-info" href="https://www.championat.com/biathlon/_biathlonworldcup/tournament/${racer.champ.tournaments[0]}/players/${racer.champ.cc_id}/">
-      <img src="https://st.championat.com/i/favicon/favicon-32x32.png">
+      <img src="https://st.championat.com/i/favicon/favicon-16x16.png">
     </a>`
   }
   return links;
