@@ -105,18 +105,20 @@ async def process_countries():
     random.shuffle(wikis)
     for wiki in wikis:
         fi = await get_flag('ru', wiki)
+        client.ibustats.countries.update_one({'wiki.ru': wiki}, {
+            '$set': {'flag': fi['flag']}}, upsert=True)
         await asyncio.sleep(16 + random.randint(16, 32))
     await asyncio.sleep(32)
 
 
 async def get_flag(lang, title):
-    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
+    text = get_text('https://{}.wkipedia.org/wiki/{}'.format(lang, title))
     if text is None:
         return {'name': title}
     category = {'name': title}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        category['image'] = get_flag_info(soup)
+        category['flag'] = get_flag_info(soup)
     print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
