@@ -106,9 +106,10 @@ async def process_countries():
         wikis.append(racer)
     random.shuffle(wikis)
     for wiki in wikis:
-        fi = await get_flag('ru', wiki)
-        client.ibustats.countries.update_one({'wiki.ru': wiki}, {
-            '$set': {'flag': fi['flag']}}, upsert=True)
+        title = wiki['wiki']['ru']
+        fi = await get_flag('ru', title)
+        client.ibustats.countries.update_one({'wiki.ru': title}, {
+            '$set': {'flag': fi['flag']}}, upsert=False)
         await asyncio.sleep(16 + random.randint(16, 32))
     await asyncio.sleep(32)
 
