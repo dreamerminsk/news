@@ -86,11 +86,11 @@ function links(racer) {
 
 async function highlight(td) {
   if (selectedTd) {
-    selectedTd.classList.remove('table-info');
+    selectedTd.classList.remove('table-primary');
     selectedTd.classList.remove('text-white');
   }
   selectedTd = td;
-  selectedTd.classList.add('table-info');
+  selectedTd.classList.add('table-primary');
   selectedTd.classList.add('text-white');
   await filter();
 }
