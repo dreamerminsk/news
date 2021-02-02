@@ -114,3 +114,17 @@ async function initLetters() {
 document.addEventListener('DOMContentLoaded', function (event) {
   initLetters();
 });
+
+
+
+
+
+function getAge( birthDate ) {
+    let today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
