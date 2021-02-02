@@ -23,13 +23,13 @@ function country_list(countries) {
 
 function racer_image(r) {
   if (r.image !== null && r.image !== undefined) {
-    return `<img class="img-fluid rounded border-info border-3" async src="${r.image.replace('200px', '1000px')}"></img>`;
+    return `<img class="img-fluid rounded" async src="${r.image.replace('200px', '1000px')}"></img>`;
   } else if (r.images !== null && r.images !== undefined && r.images.length > 0) {
     for (let img of r.images) {
       if (img !== null && img !== undefined) {
-        return `<img class="img-fluid rounded border-info border-3" async src="${img}"></img>`;
+        return `<img class="img-fluid rounded" async src="${img}"></img>`;
       }
-    }    
+    }
   }
   else return '';
 }
@@ -68,13 +68,13 @@ async function filter() {
        </div>`;
     });
 }
-      
+
 function links(racer) {
-      let links = `<a class="btn btn-outline-info active" href="https://ru.wikipedia.org/wiki/${racer.wiki.ru}">wiki</a>`;
-      if (racer.champ) {
-        links += `https://www.championat.com/biathlon/_biathlonworldcup/tournament/${racer.champ.tournaments[0]}/players/${racer.champ.cc_id}/`
-      }
-      return links;
+  let links = `<a class="btn btn-outline-info active" href="https://ru.wikipedia.org/wiki/${racer.wiki.ru}">wiki</a>`;
+  if (racer.champ) {
+    links += `<a class="btn btn-outline-info" href="https://www.championat.com/biathlon/_biathlonworldcup/tournament/${racer.champ.tournaments[0]}/players/${racer.champ.cc_id}/">champ</a>`
+  }
+  return links;
 }
 
 
