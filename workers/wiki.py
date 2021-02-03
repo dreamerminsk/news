@@ -129,7 +129,7 @@ async def get_flag(lang, title):
 def get_flag_info(soup):
     name = None
     nodes = soup.select(
-        'span[data-wikidata-property-id="P41"] a.image img[src]')
+        'span[data-wikidata-property-id="P41"] img')
     if nodes:
         for node in nodes:
             print('INFO\tget_flag_info - {}'.format(node))
