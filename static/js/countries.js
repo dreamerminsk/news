@@ -25,6 +25,7 @@ async function filter() {
 			 </div>
 			 <div class="col-xs-6 col-sm-6 col-md-7 col-lg-9">
 			   <h6 class="card-title">${country.wiki.ru}</h6>
+			   <p class="card-text">${country.pvi_month}</p>
 			 </div>
 		   </div>
          </div>
