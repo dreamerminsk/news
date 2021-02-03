@@ -114,6 +114,18 @@ async def process_countries():
     await asyncio.sleep(32)
 
 
+async def get_pi(lang, title):
+    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
+    if text is None:
+        return {'name': title}
+    category = {'name': title}
+    if text:
+        soup = BeautifulSoup(text, 'html.parser')
+        category['flag'] = get_flag_info(soup)
+    print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, category))
+    return category
+
+
 async def get_ci(lang, title):
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
