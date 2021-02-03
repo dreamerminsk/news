@@ -129,10 +129,12 @@ async def get_flag(lang, title):
 def get_flag_info(soup):
     name = None
     nodes = soup.select(
-        "span[data-wikidata-property-id='P41'] a.image img[src]")
+        'span[data-wikidata-property-id="P41"] a.image img[src]')
     if nodes:
         for node in nodes:
+            print('INFO\tget_flag_info - {}'.format(node))
             name = 'https:{}'.format(node.get('src'))
+            print('INFO\tget_flag_info - {}'.format(name))
     return name
 
 
