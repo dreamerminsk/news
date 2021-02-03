@@ -107,14 +107,14 @@ async def process_countries():
     random.shuffle(wikis)
     for wiki in wikis:
         title = wiki['wiki']['ru']
-        fi = await get_flag('ru', title)
+        fi = await get_ci('ru', title)
         client.ibustats.countries.update_one({'wiki.ru': title}, {
             '$set': {'flag': fi['flag']}}, upsert=False)
         await asyncio.sleep(16 + random.randint(16, 32))
     await asyncio.sleep(32)
 
 
-async def get_flag(lang, title):
+async def get_ci(lang, title):
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
         return {'name': title}
