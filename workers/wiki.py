@@ -115,15 +115,25 @@ async def process_countries():
 
 
 async def get_pi(lang, title):
-    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
+    text = get_text('https://{}.wikipedia.org/w/index.php?title={}&action=info'.format(lang, title))
     if text is None:
         return {'name': title}
     category = {'name': title}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        category['flag'] = get_flag_info(soup)
+        category['flag'] = get_pvi_month(soup)
     print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, category))
     return category
+
+
+def get_pvi_month(soup):
+    name = None
+    nodes = soup.select('div.mw-pvi-month')
+    if nodes:
+        for node in nodes:
+            name = node.text
+            print('get_pvi_month - {}'.format(name))
+    return name
 
 
 async def get_ci(lang, title):
