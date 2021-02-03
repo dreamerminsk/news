@@ -115,8 +115,7 @@ async def process_countries():
 
 
 async def get_flag(lang, title):
-    print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, 'https://{}.wkipedia.org/wiki/{}'.format(lang, title)))
-    text = get_text('https://{}.wkipedia.org/wiki/{}'.format(lang, title))
+    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
         return {'name': title}
     category = {'name': title}
@@ -130,7 +129,7 @@ async def get_flag(lang, title):
 def get_flag_info(soup):
     name = None
     nodes = soup.select(
-        'span[data-wikidata-property-id="P41"] img')
+        'span[data-wikidata-property-id="P41"] a.image img[src]')
     if nodes:
         for node in nodes:
             print('INFO\tget_flag_info - {}'.format(node))
