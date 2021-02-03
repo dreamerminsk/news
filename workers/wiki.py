@@ -100,10 +100,10 @@ async def get_info(lang, title):
 async def process_countries():
     countries = client.ibustats.countries.find({})
     wikis = []
-    for racer in countries:
+    for country in countries:
         pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(racer)
-        wikis.append(racer)
+        pp.pprint(country)
+        wikis.append(country)
     random.shuffle(wikis)
     for wiki in wikis:
         title = wiki['wiki']['ru']
