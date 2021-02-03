@@ -132,8 +132,7 @@ def get_flag_info(soup):
         'span[data-wikidata-property-id="P41"] a.image img[src]')
     if nodes:
         for node in nodes:
-            print('INFO\tget_flag_info - {}'.format(node))
-            name = 'https:{}'.format(node.get('src'))
+            name = 'https:{}'.format(node.get('src').replace('{}px'.format(node.get('width')), '1024px'))
             print('INFO\tget_flag_info - {}'.format(name))
     return name
 
