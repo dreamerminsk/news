@@ -20,10 +20,10 @@ async function filter() {
          <div class="card-header">${country.wiki.ru}</div>
          <div class="card-body text-dark">
 		   <div class="row">
-		     <div class="col-6 col-4-lg">
+		     <div class="col-6-sm col-4-lg">
 			   <img class="card-img-top" src="${country.flag}">
 			 </div>
-			 <div class="col-6 col-8-lg">
+			 <div class="col-6-sm col-8-lg">
 			   <h6 class="card-title">${country.wiki.ru}</h6>
 			 </div>
 		   </div>
