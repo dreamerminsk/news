@@ -133,7 +133,7 @@ def get_flag_info(soup):
     if nodes:
         for node in nodes:
             name = 'https:{}'.format(node.get('src').replace('{}px'.format(node.get('width')), '1024px'))
-            print('INFO\tget_flag_info - {}'.format(name))
+            print('{}'.format(name))
     return name
 
 
