@@ -115,6 +115,7 @@ async def process_countries():
 
 
 async def get_flag(lang, title):
+    print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, 'https://{}.wkipedia.org/wiki/{}'.format(lang, title)))
     text = get_text('https://{}.wkipedia.org/wiki/{}'.format(lang, title))
     if text is None:
         return {'name': title}
