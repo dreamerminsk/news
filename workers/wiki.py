@@ -111,6 +111,10 @@ async def process_countries():
         client.ibustats.countries.update_one({'wiki.ru': title}, {
             '$set': {'flag': fi['flag']}}, upsert=False)
         await asyncio.sleep(16 + random.randint(16, 32))
+        pi = await get_pi('ru', title)
+        client.ibustats.countries.update_one({'wiki.ru': title}, {
+            '$set': {'pvi_month': pi['pvi_month']}}, upsert=False)
+        await asyncio.sleep(16 + random.randint(16, 32))
     await asyncio.sleep(32)
 
 
@@ -121,7 +125,7 @@ async def get_pi(lang, title):
     category = {'name': title}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        category['flag'] = get_pvi_month(soup)
+        category['pvi_month'] = get_pvi_month(soup)
     print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
