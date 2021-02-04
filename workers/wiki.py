@@ -122,7 +122,7 @@ async def process_countries():
         await asyncio.sleep(16 + random.randint(16, 32))
         pi = await get_pi('ru', title)
         client.ibustats.countries.update_one({'wiki.ru': title}, {
-            '$set': {'pvi_month': pi['pvi_month']}}, upsert=False)
+            '$set': {'pvi_month': pi['pvi_month'], 'lasttime': pi['lasttime']}}, upsert=False)
         await asyncio.sleep(16 + random.randint(16, 32))
     await asyncio.sleep(32)
 
@@ -136,6 +136,7 @@ async def get_pi(lang, title):
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         category['pvi_month'] = get_pvi_month(soup)
+        category['lasttime'] = get_lasttime(soup)
     return category
 
 
@@ -148,6 +149,15 @@ def get_pvi_month(soup):
             print('get_pvi_month - {}'.format(name))
     return name
 
+
+def get_lasttime(soup):
+    name = None
+    nodes = soup.select('tr#mw-pageinfo-lasttime td a')
+    if nodes:
+        for node in nodes:
+            name = node.text.strip()
+            print('get_lasttime - {}'.format(name))
+    return name
 
 async def get_ci(lang, title):
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
