@@ -30,7 +30,7 @@ async function filter() {
 		   </div>
          </div>
 		 <div class="card-body text-dark">
-           <p class="card-text"><small class="text-muted">Last updated at ...</small></p>
+           <p class="card-text"><small class="text-muted">${country.lasttime}</small></p>
 		 </div>
        </div>`;
     });
