@@ -125,7 +125,6 @@ async def get_pi(lang, title):
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         category['pvi_month'] = get_pvi_month(soup)
-    print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
 
