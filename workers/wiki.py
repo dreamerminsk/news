@@ -101,8 +101,6 @@ async def process_countries():
     countries = client.ibustats.countries.find({})
     wikis = []
     for country in countries:
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(country)
         wikis.append(country)
     random.shuffle(wikis)
     for wiki in wikis:
