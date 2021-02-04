@@ -14,7 +14,7 @@ async function filter() {
   node.innerHTML = '';
   await loadCountries();
   countries
-    .sort((a, b) => b - a)
+    .sort((a, b) => b.pvi_month - a.pvi_month)
     .forEach(country => {
       node.innerHTML +=
         `<div class="card border-primary mb-3">
