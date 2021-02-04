@@ -134,7 +134,7 @@ def get_pvi_month(soup):
     nodes = soup.select('div.mw-pvi-month')
     if nodes:
         for node in nodes:
-            name = ''.join(node.text.split())
+            name = int(''.join(node.text.split()))
             print('get_pvi_month - {}'.format(name))
     return name
 
