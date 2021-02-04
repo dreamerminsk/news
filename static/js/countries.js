@@ -16,14 +16,14 @@ async function filter() {
   countries
     .forEach(country => {
       node.innerHTML +=
-        `<div class="card border-primary mb-3">
+        `<div class="card bg-primary border-primary mb-3">
          <div class="card-header">${country.wiki.ru}</div>
          <div class="card-body text-dark">
 		   <div class="row">
-		     <div class="col-xs-6 col-sm-6 col-md-5 col-lg-3">
-			   <img class="img-fluid" src="${country.flag}">
+		     <div class="col-6 col-sm-6 col-md-5 col-lg-3">
+			   <img class="img-fluid rounded shaded" src="${country.flag}">
 			 </div>
-			 <div class="col-xs-6 col-sm-6 col-md-7 col-lg-9">
+			 <div class="col-6 col-sm-6 col-md-7 col-lg-9">
 			   <h6 class="card-title">${country.wiki.ru}</h6>
 			   <p class="card-text">${country.pvi_month}</p>
 			 </div>
