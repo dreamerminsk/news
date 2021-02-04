@@ -20,9 +20,10 @@ async function filter() {
          <div class="card-header">${season.title}</div>
          <div class="card-body text-dark">
            <h6 class="card-title">${season.title}</h6>
+           <p class="card-text">${season.pvi_month}</p>
          </div>
 		 <div class="card-body text-dark">
-           <p class="card-text"><small class="text-muted">Last updated at ...</small></p>
+           <p class="card-text"><small class="text-muted">${season.lasttime}</small></p>
 		 </div>
        </div>`;
     });
