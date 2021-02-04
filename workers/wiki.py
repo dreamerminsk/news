@@ -104,8 +104,11 @@ async def process_seasons():
         wikis.append(season)
     random.shuffle(wikis)
     for wiki in wikis:
-        pass
-    await asyncio.sleep(1 + random.randint(1, 2))
+        pi = await get_pi('en', wiki['wiki']['en'])
+        client.ibustats.seasons.update_one({'wiki.en': wiki['wiki']['en']}, {
+            '$set': {'pvi_month': pi['pvi_month'], 'lasttime': pi['lasttime']}}, upsert=False)
+        await asyncio.sleep(16 + random.randint(16, 32))
+    await asyncio.sleep(32)
 
 
 async def process_countries():
