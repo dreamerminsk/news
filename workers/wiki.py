@@ -106,6 +106,8 @@ async def process_seasons():
     for wiki in wikis:
         client.ibustats.seasons.update_one({'cc_id': wiki['cc_id']}, {
             '$set': {'cc.cc_id': wiki['cc_id']}}, upsert=False)
+        client.ibustats.seasons.update_one({'cc_id': wiki['cc_id']}, {
+            '$set': {'wiki.en': '{}{}'.format(wiki['title'].replace('/20', '–'), ' Biathlon World Cup')}}, upsert=False)
     await asyncio.sleep(1 + random.randint(1, 2))
 
 
