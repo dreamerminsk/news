@@ -97,6 +97,18 @@ async def get_info(lang, title):
     return category
 
 
+async def process_seasons():
+    seasons = client.ibustats.seasons.find({})
+    wikis = []
+    for season in seasons:
+        wikis.append(season)
+    random.shuffle(wikis)
+    for wiki in wikis:
+        client.ibustats.seasons.update_one({'cc_id': wiki['cc_id']}, {
+            '$set': {'cc.cc_id': wiki['cc_id']}}, upsert=False)
+    await asyncio.sleep(1 + random.randint(1, 2))
+
+
 async def process_countries():
     countries = client.ibustats.countries.find({})
     wikis = []
