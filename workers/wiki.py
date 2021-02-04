@@ -117,7 +117,8 @@ async def process_countries():
 
 
 async def get_pi(lang, title):
-    text = get_text('https://{}.wikipedia.org/w/index.php?title={}&action=info'.format(lang, title))
+    text = get_text(
+        'https://{}.wikipedia.org/w/index.php?title={}&action=info'.format(lang, title))
     if text is None:
         return {'name': title}
     category = {'name': title}
@@ -133,7 +134,7 @@ def get_pvi_month(soup):
     nodes = soup.select('div.mw-pvi-month')
     if nodes:
         for node in nodes:
-            name = node.text
+            name = ''.join(node.text.split())
             print('get_pvi_month - {}'.format(name))
     return name
 
@@ -156,7 +157,8 @@ def get_flag_info(soup):
         'span[data-wikidata-property-id="P41"] a.image img[src]')
     if nodes:
         for node in nodes:
-            name = 'https:{}'.format(node.get('src').replace('{}px'.format(node.get('width')), '1024px'))
+            name = 'https:{}'.format(node.get('src').replace(
+                '{}px'.format(node.get('width')), '1024px'))
             print('{}'.format(name))
     return name
 
