@@ -14,6 +14,7 @@ async function filter() {
   node.innerHTML = '';
   await loadCountries();
   countries
+    .sort((a, b) => b - a)
     .forEach(country => {
       node.innerHTML +=
         `<div class="card border-primary mb-3">
