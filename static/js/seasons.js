@@ -16,8 +16,8 @@ async function filter() {
   seasons
     .forEach(season => {
       node.innerHTML +=
-        `<div class="card border-dark mb-3">
-         <div class="card-header">${season.title}</div>
+        `<div class="card border-primary mb-3">
+         <div class="card-header bg-primary text-white">${season.title}</div>
          <div class="card-body text-dark">
            <h6 class="card-title">${season.title}</h6>
            <p class="card-text">${season.pvi_month}</p>
