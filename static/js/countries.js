@@ -16,8 +16,8 @@ async function filter() {
   countries
     .forEach(country => {
       node.innerHTML +=
-        `<div class="card bg-primary border-primary mb-3">
-         <div class="card-header">${country.wiki.ru}</div>
+        `<div class="card border-primary mb-3">
+         <div class="card-header bg-primary text-white">${country.wiki.ru}</div>
          <div class="card-body text-dark">
 		   <div class="row">
 		     <div class="col-6 col-sm-6 col-md-5 col-lg-3">
