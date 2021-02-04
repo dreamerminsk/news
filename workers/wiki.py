@@ -115,6 +115,7 @@ async def process_seasons():
             t = '1999–2000 Biathlon World Cup'
         client.ibustats.seasons.update_one({'wiki.en': t}, {
             '$set': {'title': t}}, upsert=True)
+        y += 1
     await asyncio.sleep(1 + random.randint(1, 2))
 
 
