@@ -108,6 +108,13 @@ async def process_seasons():
             '$set': {'cc.cc_id': wiki['cc_id']}}, upsert=False)
         client.ibustats.seasons.update_one({'cc_id': wiki['cc_id']}, {
             '$set': {'wiki.en': '{}{}'.format(wiki['title'].replace('/20', '–'), ' Biathlon World Cup')}}, upsert=False)
+    y = 1977
+    while y < 2008:
+        t = '{}–{} Biathlon World Cup'.format(y, str(y+1)[-2:])
+        if y == 1999:
+            t = '1999–2000 Biathlon World Cup'
+        client.ibustats.seasons.update_one({'wiki.en': t}, {
+            '$set': {'title': t}}, upsert=True)
     await asyncio.sleep(1 + random.randint(1, 2))
 
 
