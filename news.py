@@ -20,9 +20,9 @@ from middleware.logging import LoggingMiddleware
 from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
-from workers.championat import process_players, process_seasons
+from workers.championat import process_players
 from workers.web import get_text, get_text_async
-from workers.wiki import get_info, process_countries
+from workers.wiki import get_info, process_countries, process_seasons
 
 #print = pprint.pprint
 
@@ -145,7 +145,8 @@ async def start_job():
              loop.create_task(process_feeds(q)),
              loop.create_task(queue_wiki_info()),
              loop.create_task(process_players()),
-             loop.create_task(process_countries())]
+             loop.create_task(process_countries()),
+             loop.create_task(process_seasons())]
 
 
 async def queue_wiki_info():
