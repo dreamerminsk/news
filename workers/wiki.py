@@ -104,10 +104,7 @@ async def process_seasons():
         wikis.append(season)
     random.shuffle(wikis)
     for wiki in wikis:
-        client.ibustats.seasons.update_one({'cc_id': wiki['cc_id']}, {
-            '$set': {'cc.cc_id': wiki['cc_id']}}, upsert=False)
-        client.ibustats.seasons.update_one({'cc_id': wiki['cc_id']}, {
-            '$set': {'wiki.en': '{}{}'.format(wiki['title'].replace('/20', '–'), ' Biathlon World Cup')}}, upsert=False)
+        pass
     y = 1977
     while y < 2008:
         t = '{}–{} Biathlon World Cup'.format(y, str(y+1)[-2:])
