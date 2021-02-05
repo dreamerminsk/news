@@ -144,11 +144,16 @@ async def get_pi(lang, title):
 
 
 def get_pvi_month(soup):
-    name = None
+    name = 0
     nodes = soup.select('div.mw-pvi-month')
     if nodes:
         for node in nodes:
-            name = int(''.join(node.text.split()))
+            text = ''.join(node.text.split())
+            text = ''.join(text.split(','))
+            try:
+                name = int(text)
+            except:
+                name = 0
             print('get_pvi_month - {}'.format(name))
     return name
 
