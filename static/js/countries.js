@@ -14,7 +14,7 @@ async function filter() {
   node.innerHTML = '';
   await loadCountries();
   countries
-    .sort((a, b) => b.pvi_month.ru + b.pvi_month.en - a.pvi_month.ru - a.pvi_month.en)
+    .sort((a, b) => (b?.pvi_month?.ru ?? 0) + (b?.pvi_month?.en ?? 0) - (a?.pvi_month?.ru ?? 0) - (a?.pvi_month?.en ?? 0))
     .forEach(country => {
       node.innerHTML +=
         `<div class="card border-primary mb-3">
