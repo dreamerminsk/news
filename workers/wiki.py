@@ -129,8 +129,9 @@ async def process_countries():
     for wiki in wikis:
         for lang in wiki['wiki'].keys():
             pi = await get_pi(lang, wiki['wiki'][lang])
-            client.ibustats.countries.update_one({'wiki.ru': wiki['wiki'][lang]}, {
-                '$set': {'pvi_month': pi['pvi_month'], 'lasttime': pi['lasttime']}}, upsert=False)
+            client.ibustats.countries.update_one({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
+                '$set': {'pvi_month.{}'.format(lang): pi['pvi_month'],
+                         'lasttime.{}'.format(lang): pi['lasttime']}}, upsert=False)
             await asyncio.sleep(16 + random.randint(16, 32))
 
 
