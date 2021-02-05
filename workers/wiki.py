@@ -126,11 +126,12 @@ async def process_countries():
         client.ibustats.countries.update_one({'wiki.ru': title}, {
             '$set': {'flag': fi['flag']}}, upsert=False)
         await asyncio.sleep(16 + random.randint(16, 32))
+    for wiki in wikis:
+        for lang in wiki['wiki']:
         pi = await get_pi('ru', title)
         client.ibustats.countries.update_one({'wiki.ru': title}, {
             '$set': {'pvi_month': pi['pvi_month'], 'lasttime': pi['lasttime']}}, upsert=False)
         await asyncio.sleep(16 + random.randint(16, 32))
-    await asyncio.sleep(32)
 
 
 async def get_pi(lang, title):
@@ -169,6 +170,7 @@ def get_lasttime(soup):
             name = node.text.strip()
             print('get_lasttime - {}'.format(name))
     return name
+
 
 async def get_ci(lang, title):
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
