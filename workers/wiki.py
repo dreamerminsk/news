@@ -116,7 +116,7 @@ async def process_countries():
     wikis = []
     for country in countries:
         if 'Сборная' in country['wiki']['ru']:
-            client.ibustats.countries.remove({'_id': country['id']})
+            client.ibustats.countries.remove({'_id': country['_id']})
         else:
             wikis.append(country)
     random.shuffle(wikis)
