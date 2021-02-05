@@ -14,19 +14,21 @@ async function filter() {
   node.innerHTML = '';
   await loadCountries();
   countries
-    .sort((a, b) => b.pvi_month - a.pvi_month)
+    .sort((a, b) => b.pvi_month.ru + b.pvi_month.en - a.pvi_month.ru - a.pvi_month.en)
     .forEach(country => {
       node.innerHTML +=
         `<div class="card border-primary mb-3">
-         <div class="card-header bg-primary text-white">${country.wiki.ru}</div>
+         <div class="card-header bg-primary text-white">${country?.wiki?.ru}</div>
          <div class="card-body text-dark">
 		   <div class="row">
 		     <div class="col-6 col-sm-6 col-md-5 col-lg-3">
-			   <img class="img-fluid rounded shadow-sm" src="${country.flag}">
+			   <img class="img-fluid rounded shadow-sm" src="${country?.flag}">
 			 </div>
 			 <div class="col-6 col-sm-6 col-md-7 col-lg-9">
-			   <h6 class="card-title">${country.wiki.ru}</h6>
-			   <p class="card-text">${country.pvi_month}</p>
+			   <p class="card-text">${country?.wiki?.ru}</p>
+         <p class="card-text">${country?.pvi_month?.ru}</p>
+         <p class="card-text">${country?.wiki?.en}</p>
+			   <p class="card-text">${country?.pvi_month?.en}</p>
 			 </div>
 		   </div>
          </div>
