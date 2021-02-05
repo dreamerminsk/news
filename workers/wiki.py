@@ -143,7 +143,7 @@ async def process_countries():
 
 
 async def get_interwikis(lang, title):
-    wikis = {'lang': lang, 'name': title, 'interwikis': []}
+    wikis = {'lang': lang, 'name': title, 'interwikis': {}}
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text:
         soup = BeautifulSoup(text, 'html.parser')
