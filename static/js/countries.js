@@ -24,7 +24,7 @@ async function filter() {
              <div class="col-6 col-sm-6 col-md-5 col-lg-3">
                <img class="img-fluid rounded shadow-sm" src="${country?.flag}">
              </div>
-             <div class="mp-1 col-6 col-sm-6 col-md-7 col-lg-9">
+             <div class="m-0 p-0 col-6 col-sm-6 col-md-7 col-lg-9">
                <p class="card-text">${country?.wiki?.ru}</p>
                <p class="card-text">${country?.pvi_month?.ru}</p>
                <small class="text-muted">${country?.lasttime?.ru}</small>
