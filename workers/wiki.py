@@ -135,6 +135,18 @@ async def process_countries():
             await asyncio.sleep(16 + random.randint(16, 32))
 
 
+async def get_interwikis(lang, title):
+    wikis = {'lang': lang, 'name': title, 'interwikis': []}
+    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
+    if text:
+        soup = BeautifulSoup(text, 'html.parser')
+        nodes = soup.select(
+            'li.interlanguage-link a.interlanguage-link-target')
+        for node in nodes:
+            wikis['interwikis'][node.get('lang')] = node.get('title')
+    return wikis
+
+
 async def get_pi(lang, title):
     text = get_text(
         'https://{}.wikipedia.org/w/index.php?title={}&action=info'.format(lang, title))
