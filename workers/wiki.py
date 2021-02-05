@@ -115,17 +115,8 @@ async def process_countries():
     countries = client.ibustats.countries.find({})
     wikis = []
     for country in countries:
-        if 'Сборная' in country['wiki']['ru']:
-            client.ibustats.countries.remove({'_id': country['_id']})
-        else:
-            wikis.append(country)
+        wikis.append(country)
     random.shuffle(wikis)
-    for wiki in wikis:
-        title = wiki['wiki']['ru']
-        fi = await get_ci('ru', title)
-        client.ibustats.countries.update_one({'wiki.ru': title}, {
-            '$set': {'flag': fi['flag']}}, upsert=False)
-        await asyncio.sleep(16 + random.randint(16, 32))
     for wiki in wikis:
         iws = await get_interwikis('ru', wiki['wiki']['ru'])
         await asyncio.sleep(16 + random.randint(16, 32))
@@ -133,6 +124,8 @@ async def process_countries():
             if iw == 'en':
                 client.ibustats.countries.update_one({'wiki.ru': wiki['wiki']['ru']}, {
                     '$set': {'wiki.{}'.format(iw): iws['interwikis'][iw]}}, upsert=False)
+                client.ibustats.countries.update_one({'wiki.ru': wiki['wiki']['ru']}, {
+                    '$unset': {'pvi_month': 1, 'lasttime': 1}}, upsert=False)
     for wiki in wikis:
         for lang in wiki['wiki'].keys():
             pi = await get_pi(lang, wiki['wiki'][lang])
@@ -140,6 +133,13 @@ async def process_countries():
                 '$set': {'pvi_month.{}'.format(lang): pi['pvi_month'],
                          'lasttime.{}'.format(lang): pi['lasttime']}}, upsert=False)
             await asyncio.sleep(16 + random.randint(16, 32))
+    for wiki in wikis:
+        title = wiki['wiki']['ru']
+        fi = await get_ci('ru', title)
+        client.ibustats.countries.update_one({'wiki.ru': title}, {
+            '$set': {'flag': fi['flag']}}, upsert=False)
+        await asyncio.sleep(16 + random.randint(16, 32))
+    
 
 
 async def get_interwikis(lang, title):
