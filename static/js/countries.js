@@ -27,13 +27,16 @@ async function filter() {
 			 <div class="col-6 col-sm-6 col-md-7 col-lg-9">
 			   <p class="card-text">${country?.wiki?.ru}</p>
          <p class="card-text">${country?.pvi_month?.ru}</p>
+         <small class="text-muted">${country?.lasttime?.ru}</small>
+         <hr/>
          <p class="card-text">${country?.wiki?.en}</p>
 			   <p class="card-text">${country?.pvi_month?.en}</p>
+         <small class="text-muted">${country?.lasttime?.en}</small>
 			 </div>
 		   </div>
          </div>
 		 <div class="card-body text-dark">
-           <p class="card-text"><small class="text-muted">${country.lasttime}</small></p>
+           <p class="card-text"><small class="text-muted">${country?.lasttime?.ru}</small></p>
 		 </div>
        </div>`;
     });
