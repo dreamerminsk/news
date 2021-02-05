@@ -127,6 +127,12 @@ async def process_countries():
             '$set': {'flag': fi['flag']}}, upsert=False)
         await asyncio.sleep(16 + random.randint(16, 32))
     for wiki in wikis:
+        iws = await get_interwikis('ru', wiki['wiki']['ru'])
+        for iw in iws['interwikis'].keys():
+            if iw == 'en':
+                client.ibustats.countries.update_one({'wiki.ru': wiki['wiki']['ru']}, {
+                    '$set': {'wiki.{}'.format(iw): iws['interwikis'][iw]}}, upsert=False)
+    for wiki in wikis:
         for lang in wiki['wiki'].keys():
             pi = await get_pi(lang, wiki['wiki'][lang])
             client.ibustats.countries.update_one({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
@@ -143,7 +149,8 @@ async def get_interwikis(lang, title):
         nodes = soup.select(
             'li.interlanguage-link a.interlanguage-link-target')
         for node in nodes:
-            wikis['interwikis'][node.get('lang')] = node.get('title')
+            title = node.get('title').split(' – ')[0].strip()
+            wikis['interwikis'][node.get('lang')] = title
     return wikis
 
 
