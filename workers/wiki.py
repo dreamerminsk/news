@@ -122,21 +122,21 @@ async def process_countries():
         await asyncio.sleep(16 + random.randint(16, 32))
         for iw in iws['interwikis'].keys():
             if iw == 'en':
-                client.ibustats.countries.update_one({'wiki.ru': wiki['wiki']['ru']}, {
+                client.ibustats.countries.update({'wiki.ru': wiki['wiki']['ru']}, {
                     '$set': {'wiki.{}'.format(iw): iws['interwikis'][iw]}}, upsert=False)
-                client.ibustats.countries.update_one({'wiki.ru': wiki['wiki']['ru']}, {
+                client.ibustats.countries.update({'wiki.ru': wiki['wiki']['ru']}, {
                     '$unset': {'pvi_month': 1, 'lasttime': 1}}, upsert=False)
     for wiki in wikis:
         for lang in wiki['wiki'].keys():
             pi = await get_pi(lang, wiki['wiki'][lang])
-            client.ibustats.countries.update_one({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
+            client.ibustats.countries.update({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
                 '$set': {'pvi_month.{}'.format(lang): pi['pvi_month'],
                          'lasttime.{}'.format(lang): pi['lasttime']}}, upsert=False)
             await asyncio.sleep(16 + random.randint(16, 32))
     for wiki in wikis:
         title = wiki['wiki']['ru']
         fi = await get_ci('ru', title)
-        client.ibustats.countries.update_one({'wiki.ru': title}, {
+        client.ibustats.countries.update({'wiki.ru': title}, {
             '$set': {'flag': fi['flag']}}, upsert=False)
         await asyncio.sleep(16 + random.randint(16, 32))
     
