@@ -33,9 +33,9 @@ async function filter() {
                <p class="card-text">${country?.pvi_month?.en}</p>
                <small class="text-muted">${country?.lasttime?.en}</small>
                <hr/>
-               <p class="card-text">${country?.wiki?.ua}</p>
-               <p class="card-text">${country?.pvi_month?.ua}</p>
-               <small class="text-muted">${country?.lasttime?.ua}</small>
+               <p class="card-text">${country?.wiki?.uk}</p>
+               <p class="card-text">${country?.pvi_month?.uk}</p>
+               <small class="text-muted">${country?.lasttime?.uk}</small>
              </div>
            </div>
          </div>
