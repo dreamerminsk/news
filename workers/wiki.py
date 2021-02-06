@@ -195,12 +195,13 @@ async def get_ci(lang, title):
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
         return {'name': title}
-    category = {'name': title}
+    info = {'name': title}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
-        category['flag'] = get_flag_info(soup)
-    print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, category))
-    return category
+        info['flag'] = get_flag_info(soup)
+        info['emblem'] = get_emblem_info(soup)
+    print('INFO\tget_flag({}, {})\r\n\t{}'.format(lang, title, info))
+    return info
 
 
 def get_flag_info(soup):
