@@ -143,8 +143,8 @@ async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
-             loop.create_task(process_countries()),
-             loop.create_task(process_seasons())]
+             loop.create_task(process_countries())]
+           # loop.create_task(process_seasons())]
 #loop.create_task(queue_wiki_info()),
 #loop.create_task(process_players()),
 
