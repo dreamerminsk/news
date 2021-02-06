@@ -42,7 +42,17 @@ async function filter() {
            </div>
          </div>
          <div class="card-body text-dark">
-           <p class="card-text"><small class="text-muted">${country?.lasttime?.ru}</small></p>
+           <ul class="nav nav-pills card-header-pills">
+  		     <li class="nav-item">
+               <a class="nav-link active" href="#">info</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="#">racers</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link disabled" href="#">races</a>
+             </li>
+           </ul>
          </div>
        </div>`;
     });
