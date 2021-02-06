@@ -213,6 +213,18 @@ def get_flag_info(soup):
                 '{}px'.format(node.get('width')), '1024px'))
             print('{}'.format(name))
     return name
+    
+    
+def get_emblem_info(soup):
+    name = None
+    nodes = soup.select(
+        'span[data-wikidata-property-id="P94"] a.image img[src]')
+    if nodes:
+        for node in nodes:
+            name = 'https:{}'.format(node.get('src').replace(
+                '{}px'.format(node.get('width')), '1024px'))
+            print('{}'.format(name))
+    return name
 
 
 async def get_links(lang, title):
