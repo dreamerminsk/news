@@ -126,6 +126,9 @@ async def process_countries():
                 client.ibustats.countries.update_many({'wiki.ru': wiki['wiki']['ru']}, {
                     '$set': {'wiki.{}'.format(iw): iws['interwikis'][iw]}}, upsert=False)
     for wiki in wikis:
+        client.ibustats.countries.update_many({'wiki.ru': wiki['wiki']['ru']}, {
+                '$unset': {'pvi_month': 1,
+                         'lasttime': 1}}, upsert=False)
         for lang in wiki['wiki'].keys():
             pi = await get_pi(lang, wiki['wiki'][lang])
             client.ibustats.countries.update_many({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
