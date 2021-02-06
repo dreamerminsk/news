@@ -24,7 +24,7 @@ async function filter() {
              <div class="col-6 col-sm-6 col-md-5 col-lg-3">
                <img class="img-fluid rounded shadow-sm" src="${country?.flag}">
 			   <hr/>
-			   <img class="img-fluid rounded shadow-sm" src="${country?.emblem}">
+			   <img class="img-fluid rounded shadow-sm" src="${country?.emblem ?? 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Herb_%C5%81ab%C4%99d%C5%BA_1.svg/1024px-Herb_%C5%81ab%C4%99d%C5%BA_1.svg.png'}">
              </div>
              <div class="m-0 p-0 col-6 col-sm-6 col-md-7 col-lg-9">
                <p class="card-text">${country?.wiki?.ru}</p>
@@ -35,9 +35,9 @@ async function filter() {
                <p class="card-text">${country?.pvi_month?.en}</p>
                <small class="text-muted">${country?.lasttime?.en}</small>
                <hr/>
-               <p class="card-text">${country?.wiki?.uk}</p>
-               <p class="card-text">${country?.pvi_month?.uk}</p>
-               <small class="text-muted">${country?.lasttime?.uk}</small>
+               <p class="card-text">${country?.wiki?.de}</p>
+               <p class="card-text">${country?.pvi_month?.de}</p>
+               <small class="text-muted">${country?.lasttime?.de}</small>
              </div>
            </div>
          </div>
