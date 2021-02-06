@@ -217,7 +217,7 @@ def get_flag_info(soup):
     
     
 def get_emblem_info(soup):
-    name = None
+    name = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Herb_%C5%81ab%C4%99d%C5%BA_1.svg/1024px-Herb_%C5%81ab%C4%99d%C5%BA_1.svg.png'
     nodes = soup.select(
         'span[data-wikidata-property-id="P94"] a.image img[src]')
     if nodes:
