@@ -6,4 +6,31 @@ Spanish	Latn	es	4
 Japanese	Jpan	ja	4	
 Russian	Cyrl	ru	4	
 Italian	Latn	it	4	
-Portuguese	Latn	pt	
+Portuguese	Latn	pt
+
+
+Chinese	Hans/Hant	zh	3	
+Arabic	Arab	ar	3	
+Persian	Persian	fa	3	
+Polish	Latn	pl	3	
+Dutch	Latn	nl	3	
+Indonesian	Latn	id	3	
+Ukrainian	Cyrl	uk	3	
+Hebrew	Hebr	he	3	
+Swedish	Latn	sv	3	
+Czech	Latn	cs	3	
+Korean	Hang	ko	3	
+Vietnamese	Latn	vi	3	
+Catalan	Latn	ca	3	
+Norwegian (Bokmål)	Latn	no	3	
+Finnish	Latn	fi	3	
+Hungarian	Latn	hu	3	
+Turkish	Latn	tr	3	
+Romanian	Latn	ro	3	
+Danish	Latn	da	3	
+Greek	Grek	el	3	
+Thai	Thai	th	3	
+Hindi	Deva	hi	3	
+Bengali	Beng	bn	3	
+Azerbaijani	Latn	az	3	
+Simple English	Latn	simple	3
