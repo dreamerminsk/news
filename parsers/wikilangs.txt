@@ -1,0 +1,9 @@
+English	Latn	en
+
+French	Latn	fr	4	
+German	Latn	de	4	
+Spanish	Latn	es	4	
+Japanese	Jpan	ja	4	
+Russian	Cyrl	ru	4	
+Italian	Latn	it	4	
+Portuguese	Latn	pt	
