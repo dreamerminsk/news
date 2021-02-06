@@ -112,6 +112,7 @@ async def process_seasons():
 
 
 async def process_countries():
+    print('--process_countries--')
     countries = client.ibustats.countries.find({})
     wikis = []
     for country in countries:
@@ -141,6 +142,7 @@ async def process_countries():
 
 
 async def get_interwikis(lang, title):
+    print('--get_interwikis--{}--{}'.format(lang, title))
     wikis = {'lang': lang, 'name': title, 'interwikis': {}}
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text:
@@ -154,6 +156,7 @@ async def get_interwikis(lang, title):
 
 
 async def get_pi(lang, title):
+    print('--get_pi--{}--{}'.format(lang, title))
     text = get_text(
         'https://{}.wikipedia.org/w/index.php?title={}&action=info'.format(lang, title))
     if text is None:
@@ -167,6 +170,7 @@ async def get_pi(lang, title):
 
 
 def get_pvi_month(soup):
+    print('--get_pvi_month--')
     name = 0
     nodes = soup.select('div.mw-pvi-month')
     if nodes:
@@ -182,6 +186,7 @@ def get_pvi_month(soup):
 
 
 def get_lasttime(soup):
+    print('--get_lasttime--')
     name = None
     nodes = soup.select('tr#mw-pageinfo-lasttime td a')
     if nodes:
@@ -192,6 +197,7 @@ def get_lasttime(soup):
 
 
 async def get_ci(lang, title):
+    print('--get_ci--{}--{}'.format(lang, title))
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text is None:
         return {'name': title}
@@ -205,6 +211,7 @@ async def get_ci(lang, title):
 
 
 def get_flag_info(soup):
+    print('--get_flag_info--')
     name = None
     nodes = soup.select(
         'span[data-wikidata-property-id="P41"] a.image img[src]')
@@ -217,6 +224,7 @@ def get_flag_info(soup):
     
     
 def get_emblem_info(soup):
+    print('--get_emblem_info--')
     name = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Herb_%C5%81ab%C4%99d%C5%BA_1.svg/1024px-Herb_%C5%81ab%C4%99d%C5%BA_1.svg.png'
     nodes = soup.select(
         'span[data-wikidata-property-id="P94"] a.image img[src]')
