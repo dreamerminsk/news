@@ -23,6 +23,8 @@ async function filter() {
            <div class="row">
              <div class="col-6 col-sm-6 col-md-5 col-lg-3">
                <img class="img-fluid rounded shadow-sm" src="${country?.flag}">
+			   <hr/>
+			   <img class="img-fluid rounded shadow-sm" src="${country?.emblem}">
              </div>
              <div class="m-0 p-0 col-6 col-sm-6 col-md-7 col-lg-9">
                <p class="card-text">${country?.wiki?.ru}</p>
