@@ -177,6 +177,7 @@ def get_pvi_month(soup):
         for node in nodes:
             text = ''.join(node.text.split())
             text = ''.join(text.split(','))
+            text = ''.join(text.split('.'))
             try:
                 name = int(text)
             except:
