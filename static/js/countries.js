@@ -42,7 +42,7 @@ async function filter() {
            </div>
          </div>
          <div class="card-body text-dark">
-           <ul class="nav nav-pills card-header-pills">
+           <ul class="nav nav-pills card-header-pills" id="pills-tab" role="tablist">
   		     <li class="nav-item">
                <a class="nav-link active" href="#">info</a>
              </li>
