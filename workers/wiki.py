@@ -119,7 +119,7 @@ async def process_countries():
     random.shuffle(wikis)
     for wiki in wikis:
         iws = await get_interwikis('ru', wiki['wiki']['ru'])
-        await asyncio.sleep(16 + random.randint(16, 32))
+        await asyncio.sleep(1 + random.randint(1, 8))
         for iw in iws['interwikis'].keys():
             if (iw == 'en') or (iw == 'de'):
                 client.ibustats.countries.update_many({'wiki.ru': wiki['wiki']['ru']}, {
@@ -130,13 +130,13 @@ async def process_countries():
             client.ibustats.countries.update_many({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
                 '$set': {'pvi_month.{}'.format(lang): pi['pvi_month'],
                          'lasttime.{}'.format(lang): pi['lasttime']}}, upsert=False)
-            await asyncio.sleep(16 + random.randint(16, 32))
+            await asyncio.sleep(1 + random.randint(1, 8))
     for wiki in wikis:
         title = wiki['wiki']['ru']
         fi = await get_ci('ru', title)
         client.ibustats.countries.update_many({'wiki.ru': title}, {
             '$set': {'flag': fi['flag'], 'emblem': fi['emblem']}}, upsert=False)
-        await asyncio.sleep(16 + random.randint(16, 32))
+        await asyncio.sleep(1 + random.randint(1, 8))
     
 
 
@@ -212,7 +212,7 @@ def get_flag_info(soup):
         for node in nodes:
             name = 'https:{}'.format(node.get('src').replace(
                 '{}px'.format(node.get('width')), '1024px'))
-            print('{}'.format(name))
+            print('get_flag_info - {}'.format(name))
     return name
     
     
@@ -224,7 +224,7 @@ def get_emblem_info(soup):
         for node in nodes:
             name = 'https:{}'.format(node.get('src').replace(
                 '{}px'.format(node.get('width')), '1024px'))
-            print('{}'.format(name))
+            print('get_emblem_info - {}'.format(name))
     return name
 
 
