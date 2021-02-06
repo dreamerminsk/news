@@ -135,7 +135,7 @@ async def process_countries():
         title = wiki['wiki']['ru']
         fi = await get_ci('ru', title)
         client.ibustats.countries.update_many({'wiki.ru': title}, {
-            '$set': {'flag': fi['flag']}}, upsert=False)
+            '$set': {'flag': fi['flag'], 'emblem': fi['emblem']}}, upsert=False)
         await asyncio.sleep(16 + random.randint(16, 32))
     
 
