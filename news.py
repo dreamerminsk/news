@@ -144,7 +144,7 @@ async def start_job():
     tasks = [loop.create_task(queue_feeds(q)),
              loop.create_task(process_feeds(q)),
              loop.create_task(queue_wiki_info()),
-             loop.create_task(process_players()),
+            #loop.create_task(process_players()),
              loop.create_task(process_countries()),
              loop.create_task(process_seasons())]
 
