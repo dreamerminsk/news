@@ -1,5 +1,5 @@
 async function init() {
-  let row = document;
+  let row = document.querySelector();
   row.onclick = function (event) {
     let button = event.target.closest('button');
     if (!button) return;
