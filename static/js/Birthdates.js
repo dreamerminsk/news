@@ -10,7 +10,7 @@ async function init() {
   row2.onclick = function (event) {
     let button = event.target.closest('button');
     if (!button) return;
-    if (!row.contains(button)) return;
+    if (!row2.contains(button)) return;
     document.querySelector('#birthdates').textContent =
       (Number(document.querySelector('.dropdown-toggle').textContent) + Number(button.textContent)).toString();
   };
