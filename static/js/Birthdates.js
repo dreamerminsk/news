@@ -4,7 +4,7 @@ async function init() {
     let button = event.target.closest('button');
     if (!button) return;
     if (!row.contains(button)) return;
-    document.querySelector('.dropdown-toggle').innerText = button.text()
+    document.querySelector('.dropdown-toggle').textContent = button.textContent;
   };
 }
 
