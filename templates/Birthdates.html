@@ -1,0 +1,16 @@
+{% extends "snooker.html" %}
+{% block title %}ibustats{% endblock %}
+{% block content %}
+<div id="div-letters" class="container-fluid">
+  <div class="row">
+    <div class="col">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div id="birthdates"></div>
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', path='/js/Birthdates.js') }}"></script>
+{% endblock %}
