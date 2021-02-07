@@ -66,6 +66,10 @@ class NamesEndpoint(HTTPEndpoint):
         pass
 
 
+class YearMonthEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        pass
+
 class BirthdatesEndpoint(HTTPEndpoint):
     async def get(self, request):
         return templates.TemplateResponse('Birthdates.html', {'request': request})
