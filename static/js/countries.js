@@ -38,6 +38,10 @@ async function filter() {
                <p class="card-text">${country?.wiki?.de}</p>
                <p class="card-text">${country?.pvi_month?.de}</p>
                <small class="text-muted">${country?.lasttime?.de}</small>
+               <hr/>
+               <p class="card-text">${country?.wiki?.fr}</p>
+               <p class="card-text">${country?.pvi_month?.fr}</p>
+               <small class="text-muted">${country?.lasttime?.fr}</small>
              </div>
            </div>
          </div>

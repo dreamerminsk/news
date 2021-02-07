@@ -122,7 +122,7 @@ async def process_countries():
         iws = await get_interwikis('ru', wiki['wiki']['ru'])
         await asyncio.sleep(1 + random.randint(1, 8))
         for iw in iws['interwikis'].keys():
-            if (iw == 'en') or (iw == 'de'):
+            if (iw == 'en') or (iw == 'de') or (iw == 'fr'):
                 client.ibustats.countries.update_many({'wiki.ru': wiki['wiki']['ru']}, {
                     '$set': {'wiki.{}'.format(iw): iws['interwikis'][iw]}}, upsert=False)
     for wiki in wikis:
