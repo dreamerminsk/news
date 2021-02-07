@@ -83,7 +83,7 @@ async def show_feeds(request):
         fds.append(art)
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': fds})
 
-
+#db.collectionName.aggregate([{$project: {field1_you_need_in_result: 1,field12_you_need_in_result: 1,your_year_variable: {$year: '$your_date_field'}, your_month_variable: {$month: '$your_date_field'}}},{$match: {your_year_variable:2017, your_month_variable: 3}}]);
 async def show_users(request):
     user_list = users.find({}).limit(32)
     letter_list = users.aggregate(
