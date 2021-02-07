@@ -14,7 +14,7 @@ from starlette.templating import Jinja2Templates
 from endpoints.countries import NationsEndpoint, NationEndpoint
 from endpoints.news import (FeedEndpoint, FeedSourceEndpoint,
                             RssReaderEndpoint, TaskEndpoint, XmlEditorEndpoint)
-from endpoints.racers import NamesEndpoint, RacersEndpoint, BirthdatesEndpoint
+from endpoints.racers import YearMonthEndpoint, NamesEndpoint, RacersEndpoint, BirthdatesEndpoint
 from endpoints.seasons import SeasonsEndpoint
 from middleware.logging import LoggingMiddleware
 from rels.countries import CountriesEndpoint, CountryEndpoint
@@ -290,6 +290,7 @@ app = Starlette(debug=True, routes=[
 
     Route('/api/ibu/racers', RacersEndpoint),
     Route('/api/ibu/racers/names/{startswith}', NamesEndpoint),
+    Route('/api/ibu/racers/year/{year}/month/{month}', YearMonthEndpoint),
     Route('/api/ibu/seasons', SeasonsEndpoint),
     Route('/api/ibu/countries', NationsEndpoint),
     Route('/api/ibu/countries/{wikidataid}', NationEndpoint),
