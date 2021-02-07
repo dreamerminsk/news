@@ -1,10 +1,10 @@
 async function init() {
-  let row = document.querySelector('div.querySelector');
+  let row = document.querySelector('.dropdown-menu');
   row.onclick = function (event) {
     let button = event.target.closest('button');
     if (!button) return;
     if (!row.contains(button)) return;
-    highlight(td);
+    document.querySelector('.dropdown-toggle').innerText = button.text()
   };
 }
 
