@@ -6,7 +6,7 @@ let yearProxy = new Proxy(selected, {
       if (property === 'decade') {
           success = Reflect.set(target, 'year', value + (target.year % 10), receiver);
           if (success) {
-            handler(property, value);
+            decade(value);
           }
       }
       if (property === 'year') {
@@ -20,14 +20,18 @@ let yearProxy = new Proxy(selected, {
 });
 
 
+function decade(value) {
+    document.querySelector('.dropdown-toggle').textContent = value;
+}
+
+
 async function init() {
   let row = document.querySelector('.dropdown-menu');
   row.onclick = function (event) {
     let button = event.target.closest('button');
     if (!button) return;
     if (!row.contains(button)) return;
-    selected.decade = Number(button.textContent);
-    document.querySelector('.dropdown-toggle').textContent = button.textContent;
+    selected.decade = Number(button.textContent);    
   };
   let row2 = document.querySelector('#years');
   row2.onclick = function (event) {
