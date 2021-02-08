@@ -68,7 +68,19 @@ class NamesEndpoint(HTTPEndpoint):
 
 class YearMonthEndpoint(HTTPEndpoint):
     async def get(self, request):
-        pass
+        year = request.path_params['year']
+        month = request.path_params['month']
+        racers = ibustats.racers.find({})
+        latest = []
+        for racer in racers:
+            if str(racer['bday']).startswith('{}-{}'.format(year, month)):
+                racer['_id'] = str(racer['_id'])
+                if 'bday' in racer:
+                    racer['bday'] = str(racer['bday'])
+                if 'last_modified' in racer:
+                    racer['last_modified'] = str(racer['last_modified'])
+                latest.append(racer)
+        return JSONResponse({'status': 'ok', 'racers': latest})
 
 class BirthdatesEndpoint(HTTPEndpoint):
     async def get(self, request):
