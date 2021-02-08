@@ -11,8 +11,14 @@ async function init() {
     let button = event.target.closest('button');
     if (!button) return;
     if (!row2.contains(button)) return;
+    let d = document.querySelector('.dropdown-toggle').textContent;
+    let y = button.textContent;
     document.querySelector('#birthdates').textContent =
-      (Number(document.querySelector('.dropdown-toggle').textContent) + Number(button.textContent)).toString();
+      (Number(y) + Number(y)).toString();
+    for (let i = 0; i < 12; i++) {
+      let d=;
+      d.setFullYear(Number(y) + Number(y), i);
+    }
   };
 }
 
