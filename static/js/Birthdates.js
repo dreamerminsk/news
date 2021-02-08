@@ -31,7 +31,7 @@ async function init() {
     let button = event.target.closest('button');
     if (!button) return;
     if (!row.contains(button)) return;
-    selected.decade = Number(button.textContent);    
+    yearProxy.decade = Number(button.textContent);    
   };
   let row2 = document.querySelector('#years');
   row2.onclick = function (event) {
