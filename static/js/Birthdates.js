@@ -2,9 +2,18 @@ let selected = {};
 
 let yearProxy = new Proxy(selected, {
     set(target, property, value, receiver) {
-      let success = Reflect.set(...arguments);
-      if (success) {
-        handler(property, value);
+      let success = false;
+      if (property === 'decade') {
+          success = Reflect.set(target, 'year', value + (target.year % 10), receiver);
+          if (success) {
+            handler(property, value);
+          }
+      }
+      if (property === 'year') {
+          success = Reflect.set(target, 'year', target.year - (target.year % 10) + value, receiver);
+          if (success) {
+            handler(property, value);
+          }
       }
       return success;
     }
