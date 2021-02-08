@@ -12,7 +12,7 @@ let yearProxy = new Proxy(selected, {
       if (property === 'year') {
           success = Reflect.set(target, 'year', target.year - (target.year % 10) + value, receiver);
           if (success) {
-            handler(property, value);
+            year(value);
           }
       }
       return success;
@@ -27,12 +27,10 @@ function decade(value) {
 
 
 function year(value) {
-    let d = document.querySelector('.dropdown-toggle').textContent;
-    let y = button.textContent;
-    document.querySelector('#birthdates').textContent =  (Number(d) + Number(y)).toString();
+    document.querySelector('#birthdates').textContent =  yearProxy.year;
     for (let i = 0; i < 12; i++) {
-      let dt=new Date();
-      dt.setFullYear(Number(d) + Number(y), i);
+      let dt = new Date();
+      dt.setFullYear(yearProxy.year, i);
       document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
     }
 }
