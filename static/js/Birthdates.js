@@ -1,4 +1,4 @@
-let selected = {};
+let selected = {'year':2000};
 
 let yearProxy = new Proxy(selected, {
     set(target, property, value, receiver) {
