@@ -2,7 +2,11 @@ let decade = 2000;
 let year = 5;
 
 let decadeProxy = new Proxy(decade, {});
-let yearProxy = new Proxy(year, {});
+let yearProxy = new Proxy(year, {
+    set(target, prop, val) {
+        return true;
+    }
+});
 
 
 async function init() {
