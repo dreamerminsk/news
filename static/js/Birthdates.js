@@ -1,8 +1,8 @@
 let decade = 2000;
 let year = 5;
 
-let decadeProxy = new Proxy(target, handler);
-let yearProxy = new Proxy(target, handler);
+let decadeProxy = new Proxy(decade, {});
+let yearProxy = new Proxy(year, {});
 
 
 async function init() {
