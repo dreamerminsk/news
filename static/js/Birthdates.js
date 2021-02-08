@@ -1,3 +1,7 @@
+let decade = 2000;
+let year = 5;
+
+
 async function init() {
   let row = document.querySelector('.dropdown-menu');
   row.onclick = function (event) {
