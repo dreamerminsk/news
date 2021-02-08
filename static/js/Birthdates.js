@@ -3,8 +3,12 @@ let year = 5;
 
 let decadeProxy = new Proxy(decade, {});
 let yearProxy = new Proxy(year, {
-    set(target, prop, val) {
-        return true;
+    set(target, property, value, receiver) {
+      let success = Reflect.set(...arguments);
+      if (success) {
+        handler(property, value);
+      }
+      return success;
     }
 });
 
