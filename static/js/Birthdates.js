@@ -26,6 +26,7 @@ async function init() {
     let button = event.target.closest('button');
     if (!button) return;
     if (!row.contains(button)) return;
+    selected.decade = Number(button.textContent);
     document.querySelector('.dropdown-toggle').textContent = button.textContent;
   };
   let row2 = document.querySelector('#years');
