@@ -16,9 +16,9 @@ async function init() {
     document.querySelector('#birthdates').textContent =
       (Number(d) + Number(y)).toString();
     for (let i = 0; i < 12; i++) {
-      let d=new Date();
-      d.setFullYear(Number(d) + Number(y), i);
-      document.querySelector(`#m-${i}`).textContent = d.toLocaleString('default', { month: 'long', year: 'numeric' });
+      let dt=new Date();
+      dt.setFullYear(Number(d) + Number(y), i);
+      document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
     }
   };
 }
