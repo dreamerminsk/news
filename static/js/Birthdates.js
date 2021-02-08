@@ -17,7 +17,7 @@ async function init() {
       (Number(d) + Number(y)).toString();
     for (let i = 0; i < 12; i++) {
       let d=new Date();
-      d.setFullYear(Number(y) + Number(y), i);
+      d.setFullYear(Number(d) + Number(y), i);
       document.querySelector(`#m-${i}`).textContent = d.toLocaleString('default', { month: 'long', year: 'numeric' });
     }
   };
