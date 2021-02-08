@@ -25,6 +25,19 @@ function decade(value) {
 }
 
 
+
+function year(value) {
+    let d = document.querySelector('.dropdown-toggle').textContent;
+    let y = button.textContent;
+    document.querySelector('#birthdates').textContent =  (Number(d) + Number(y)).toString();
+    for (let i = 0; i < 12; i++) {
+      let dt=new Date();
+      dt.setFullYear(Number(d) + Number(y), i);
+      document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
+    }
+}
+
+
 async function init() {
   let row = document.querySelector('.dropdown-menu');
   row.onclick = function (event) {
@@ -38,15 +51,7 @@ async function init() {
     let button = event.target.closest('button');
     if (!button) return;
     if (!row2.contains(button)) return;
-    let d = document.querySelector('.dropdown-toggle').textContent;
-    let y = button.textContent;
-    document.querySelector('#birthdates').textContent =
-      (Number(d) + Number(y)).toString();
-    for (let i = 0; i < 12; i++) {
-      let dt=new Date();
-      dt.setFullYear(Number(d) + Number(y), i);
-      document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
-    }
+    yearProxy.year = Number(button.textContent);
   };
 }
 
