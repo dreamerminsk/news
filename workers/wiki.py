@@ -120,7 +120,7 @@ async def process_countries():
     random.shuffle(wikis)
     for wiki in wikis:
         iws = await get_interwikis('ru', wiki['wiki']['ru'])
-        await asyncio.sleep(1 + random.randint(1, 8))
+        await asyncio.sleep(1 + random.randint(8, 16))
         for iw in iws['interwikis'].keys():
             if (iw == 'en') or (iw == 'de') or (iw == 'fr'):
                 client.ibustats.countries.update_many({'wiki.ru': wiki['wiki']['ru']}, {
@@ -134,13 +134,13 @@ async def process_countries():
             client.ibustats.countries.update_many({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
                 '$set': {'pvi_month.{}'.format(lang): pi['pvi_month'],
                          'lasttime.{}'.format(lang): pi['lasttime']}}, upsert=False)
-            await asyncio.sleep(1 + random.randint(1, 8))
+            await asyncio.sleep(1 + random.randint(8, 16))
     for wiki in wikis:
         title = wiki['wiki']['ru']
         fi = await get_ci('ru', title)
         client.ibustats.countries.update_many({'wiki.ru': title}, {
             '$set': {'flag': fi['flag'], 'emblem': fi['emblem']}}, upsert=False)
-        await asyncio.sleep(1 + random.randint(1, 8))
+        await asyncio.sleep(1 + random.randint(8, 16))
     
 
 
@@ -153,8 +153,9 @@ async def get_interwikis(lang, title):
         nodes = soup.select(
             'li.interlanguage-link a.interlanguage-link-target')
         for node in nodes:
-            title = node.get('title').split('—')[0].strip()
-            wikis['interwikis'][node.get('lang')] = title
+            lang_title = node.get('title').split('—')[0].strip()
+            wikis['interwikis'][node.get('lang')] = lang_title
+            print('\t--interwiki--{}--{}'.format(node.get('lang'), lang_title))
     return wikis
 
 
