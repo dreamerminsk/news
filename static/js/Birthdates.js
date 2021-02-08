@@ -14,11 +14,11 @@ async function init() {
     let d = document.querySelector('.dropdown-toggle').textContent;
     let y = button.textContent;
     document.querySelector('#birthdates').textContent =
-      (Number(y) + Number(y)).toString();
+      (Number(d) + Number(y)).toString();
     for (let i = 0; i < 12; i++) {
       let d=new Date();
       d.setFullYear(Number(y) + Number(y), i);
-      document.querySelector(`m-${i}`).textContent = d.toLocaleString('default', { month: 'short' });
+      document.querySelector(`#m-${i}`).textContent = d.toLocaleString('default', { month: 'short' });
     }
   };
 }
