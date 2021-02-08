@@ -1,8 +1,6 @@
-let decade = 2000;
-let year = 5;
+let selected = {};
 
-let decadeProxy = new Proxy(decade, {});
-let yearProxy = new Proxy(year, {
+let yearProxy = new Proxy(selected, {
     set(target, property, value, receiver) {
       let success = Reflect.set(...arguments);
       if (success) {
