@@ -18,6 +18,7 @@ async function init() {
     for (let i = 0; i < 12; i++) {
       let d=;
       d.setFullYear(Number(y) + Number(y), i);
+      today.toLocaleString('default', { month: 'short' });
     }
   };
 }
