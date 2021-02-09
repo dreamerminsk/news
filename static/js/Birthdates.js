@@ -29,13 +29,16 @@ function decade(value) {
 
 function year(value) {
     document.querySelector('#birthdates').textContent =  yearProxy.year;
+    for (let i = 0; i < 10; i++) {
+      document.querySelector(`#y-${i}`).removeClass('active');
+    }
     for (let i = 0; i < 12; i++) {
-      document.querySelector(`#m-${i}`).removeClass('active');
+      document.querySelector(`#y-${i}`).removeClass('active');
       let dt = new Date();
       dt.setFullYear(yearProxy.year, i);
       document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
     }
-    document.querySelector(`#m-${yearProxy.year}`).addClass('active');
+    document.querySelector(`#y-${yearProxy.year}`).addClass('active');
 }
 
 
