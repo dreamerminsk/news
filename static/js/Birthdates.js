@@ -61,7 +61,7 @@ function yearMonth(year, month, racers) {
     document.querySelector(`#r-${month}`).innerHtml = 'Loading...';
     for(let racer of racers) {
         console.log(`${racer}`);
-        document.querySelector(`#r-${month}`).innerHtml += `<p>${racer}</p>`;
+        document.querySelector(`#r-${month}`).textContent += `<p>${racer}</p>`;
     }
 }
 
