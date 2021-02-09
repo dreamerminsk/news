@@ -40,7 +40,7 @@ function year(value) {
       dt.setFullYear(yearProxy.year, i);
       document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
     }
-    document.querySelector(`#y-${yearProxy.year}`).classList.add('active');
+    document.querySelector(`#y-${value}`).classList.add('active');
 }
 
 
