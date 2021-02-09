@@ -48,11 +48,20 @@ async function year(value) {
     for (let i = 0; i < 12; i++) {
       let url = `http://172.105.80.145:8000/api/ibu/racers/year/${yearProxy.year}/month/${String(i).padStart(2, '0')}`;
       let page = await fetch(url);
-      let dt = new Date();
-      dt.setFullYear(yearProxy.year, i);
-      document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
+      let json = page.json();   
+      yearMonth(yearProxy.year, i, json.racers);
     }
     document.querySelector(`#y-${value}`).classList.add('active');
+}
+
+function yearMonth(year, month, racers) {
+    let dt = new Date();
+    dt.setFullYear(year, i);
+    document.querySelector(`#m-${month}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
+    document.querySelector(`#r-${month}`).innerHtml = '';
+    for(let racer of racers) {
+        document.querySelector(`#r-${month}`).innerHtml += `<p>${p.name}</p>`;
+    }
 }
 
 
