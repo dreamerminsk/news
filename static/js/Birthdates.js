@@ -64,4 +64,5 @@ async function init() {
 
 document.addEventListener('DOMContentLoaded', function (event) {
   init();
+  yearProxy.decade = 1990;
 });
