@@ -32,11 +32,10 @@ function year(value) {
     for (let i = 0; i < 10; i++) {
         const yearButton = document.querySelector(`#y-${i}`);
         if (yearButton.classList.contains('active')) {
-            yearButton.remove('active');
+            yearButton.classList.remove('active');
         }
     }
     for (let i = 0; i < 12; i++) {
-      document.querySelector(`#y-${i}`).removeClass('active');
       let dt = new Date();
       dt.setFullYear(yearProxy.year, i);
       document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
