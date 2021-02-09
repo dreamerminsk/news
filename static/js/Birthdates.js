@@ -60,7 +60,7 @@ function yearMonth(year, month, racers) {
     document.querySelector(`#m-${month}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
     document.querySelector(`#r-${month}`).innerHtml = '';
     for(let racer of racers) {
-        document.querySelector(`#r-${month}`).innerHtml += `<p>${p.name}</p>`;
+        document.querySelector(`#r-${month}`).innerHtml += `<p>${racer.name}</p>`;
     }
 }
 
