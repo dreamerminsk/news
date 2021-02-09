@@ -6,7 +6,7 @@ let yearProxy = new Proxy(selected, {
       if (property === 'fullYear') {
           success = Reflect.set(target, 'year', value, receiver);
           if (success) {
-            decade(10 * (value % 10));
+            decade(value - (value % 10));
             year(value % 10);
           }
       }
