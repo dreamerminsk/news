@@ -46,6 +46,7 @@ function year(value) {
         }
     }
     for (let i = 0; i < 12; i++) {
+      let url = `http://172.105.80.145:8000/api/ibu/racers/year/${yearProxy.year}/month/${i}`;
       let dt = new Date();
       dt.setFullYear(yearProxy.year, i);
       document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
