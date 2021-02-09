@@ -58,10 +58,10 @@ function yearMonth(year, month, racers) {
     let dt = new Date();
     dt.setFullYear(year, month);
     document.querySelector(`#m-${month}`).textContent = `${dt.toLocaleString('default', { month: 'long', year: 'numeric' })} - ${racers.length}`;
-    document.querySelector(`#r-${month}`).innerHtml = 'Loading...';
+    document.querySelector(`#r-${month}`).innerHTML = '';
     for(let racer of racers) {
         console.log(`${racer}`);
-        document.querySelector(`#r-${month}`).textContent += `<p>${racer}</p>`;
+        document.querySelector(`#r-${month}`).innerHTML += `<p>${racer.name}</p>`;
     }
 }
 
