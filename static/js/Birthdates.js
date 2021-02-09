@@ -37,7 +37,7 @@ function decade(value) {
 
 
 
-function year(value) {
+async function year(value) {
     document.querySelector('#birthdates').textContent =  yearProxy.year;
     for (let i = 0; i < 10; i++) {
         const yearButton = document.querySelector(`#y-${i}`);
@@ -47,6 +47,7 @@ function year(value) {
     }
     for (let i = 0; i < 12; i++) {
       let url = `http://172.105.80.145:8000/api/ibu/racers/year/${yearProxy.year}/month/${String(i).padStart(2, '0')}`;
+      let page = await fetch(url);
       let dt = new Date();
       dt.setFullYear(yearProxy.year, i);
       document.querySelector(`#m-${i}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
