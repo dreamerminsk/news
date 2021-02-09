@@ -57,7 +57,7 @@ async function year(value) {
 function yearMonth(year, month, racers) {
     let dt = new Date();
     dt.setFullYear(year, month);
-    document.querySelector(`#m-${month}`).textContent = dt.toLocaleString('default', { month: 'long', year: 'numeric' });
+    document.querySelector(`#m-${month}`).textContent = `${dt.toLocaleString('default', { month: 'long', year: 'numeric' })} - ${racers.length}`;
     document.querySelector(`#r-${month}`).innerHtml = 'Loading...';
     for(let racer of racers) {
         document.querySelector(`#r-${month}`).innerHtml += `<p>${racer.name}</p>`;
