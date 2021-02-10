@@ -22,11 +22,11 @@ function country_list(countries) {
 }
 
 function racer_image(r) {
-  if (r.image !== null && r.image !== undefined) {
+  if (r.image) {
     return `<img class="img-fluid rounded" async src="${r.image.replace('200px', '1000px')}"></img>`;
-  } else if (r.images !== null && r.images !== undefined && r.images.length > 0) {
+  } else if (r.images && r.images.length > 0) {
     for (let img of r.images) {
-      if (img !== null && img !== undefined) {
+      if (img) {
         return `<img class="img-fluid rounded" async src="${img}"></img>`;
       }
     }
@@ -45,28 +45,31 @@ async function filter() {
     .forEach(racer => {
       node.innerHTML +=
         `<div class="card ${racer.wiki.ru.includes('страница отсутствует') ? 'border-danger' : 'border-info'} mb-3">         
-         <div class="card-header ${racer.wiki.ru.includes('страница отсутствует') ? 'bg-danger' : 'bg-info'} text-white fw-bold">${racer.wiki.ru}</div>
-         <div class="card-body text-dark">
-           <div class="row"><div class="col-6">
-           <h6 class="card-title">${racer?.name}</h6>
-           <p class="card-text">
-             <div class="button-toolbar">
-               ${country_list(racer.countries ?? [])}
-             </div>
-           </p>
-           <p class="card-text">${new Date(racer?.bday)?.toLocaleDateString()}</p>
-           </div><div class="col-6">
-             ${racer_image(racer)}
-           </div></div>
-         </div>
-		 <div class="card-body text-dark">
- 		   <p class="card-text">${racer?.desc}</p>
-                   <p class="card-text"><small class="text-muted">Last updated at ${racer?.last_modified}</small></p>
-		 </div>
-		 <div class="card-footer text-dark">
-                   <div class='btn-group float-right' role='group'>${links(racer)}</div>
-		 </div>
-       </div>`;
+           <div class="card-header ${racer.wiki.ru.includes('страница отсутствует') ? 'bg-danger' : 'bg-info'} text-white fw-bold">${racer.wiki.ru}</div>
+           <div class="card-body text-dark">
+             <div class="row">
+               <div class="col-6">
+                 <h6 class="card-title">${racer?.name}</h6>
+                 <p class="card-text">
+                   <div class="button-toolbar">
+                     ${country_list(racer.countries ?? [])}
+                   </div>
+                 </p>
+                 <p class="card-text">${new Date(racer?.bday)?.toLocaleDateString()}</p>
+               </div>
+	       <div class="col-6">
+                 ${racer_image(racer)}
+               </div>
+	     </div>
+           </div>
+           <div class="card-body text-dark">
+             <p class="card-text">${racer?.desc}</p>
+             <p class="card-text"><small class="text-muted">Last updated at ${racer?.last_modified}</small></p>
+           </div>
+           <div class="card-footer text-dark">
+             <div class='btn-group float-right' role='group'>${links(racer)}</div>
+           </div>
+         </div>`;
     });
 }
 
