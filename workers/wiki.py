@@ -9,6 +9,8 @@ from workers.web import get_text, get_text_async
 
 client = MongoClient()
 
+langs=['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs', 'ar', 'he', 'zh', 'tr', 'az', 'vi', 'id', 'fi', 'hu', 'ja', 'fa', 'hi', 'bn', 'ko', 'el', 'th']
+
 
 async def get_category(title):
     text = get_text('https://en.wikipedia.org/wiki/{}'.format(title))
