@@ -11,11 +11,12 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
-from endpoints.countries import NationsEndpoint, NationEndpoint
 from endpoints.admin import AdminView
+from endpoints.countries import NationEndpoint, NationsEndpoint
 from endpoints.news import (FeedEndpoint, FeedSourceEndpoint,
                             RssReaderEndpoint, TaskEndpoint, XmlEditorEndpoint)
-from endpoints.racers import YearMonthEndpoint, NamesEndpoint, RacersEndpoint, BirthdatesEndpoint
+from endpoints.racers import (BirthdatesEndpoint, NamesEndpoint,
+                              RacersEndpoint, YearMonthEndpoint)
 from endpoints.seasons import SeasonsEndpoint
 from middleware.logging import LoggingMiddleware
 from rels.countries import CountriesEndpoint, CountryEndpoint
@@ -84,7 +85,9 @@ async def show_feeds(request):
         fds.append(art)
     return templates.TemplateResponse('feeds.html', {'request': request, 'feeds': fds})
 
-#db.collectionName.aggregate([{$project: {field1_you_need_in_result: 1,field12_you_need_in_result: 1,your_year_variable: {$year: '$your_date_field'}, your_month_variable: {$month: '$your_date_field'}}},{$match: {your_year_variable:2017, your_month_variable: 3}}]);
+# db.collectionName.aggregate([{$project: {field1_you_need_in_result: 1,field12_you_need_in_result: 1,your_year_variable: {$year: '$your_date_field'}, your_month_variable: {$month: '$your_date_field'}}},{$match: {your_year_variable:2017, your_month_variable: 3}}]);
+
+
 async def show_users(request):
     user_list = users.find({}).limit(32)
     letter_list = users.aggregate(
@@ -136,10 +139,9 @@ async def latest_feeds(request):
 async def start_job():
     loop = asyncio.get_event_loop()
     tasks = [loop.create_task(process_countries()),
-            loop.create_task(queue_wiki_info()),
-            loop.create_task(process_players()),
-            loop.create_task(process_seasons())]
-
+             loop.create_task(queue_wiki_info()),
+             loop.create_task(process_players()),
+             loop.create_task(process_seasons())]
 
 
 async def queue_wiki_info():
@@ -171,7 +173,6 @@ async def queue_wiki_info():
             '$set': {'last_modified': datetime.now()}}, upsert=False)
         await asyncio.sleep(4 + random.randint(4, 12))
     await asyncio.sleep(32)
-
 
 
 middleware = [
@@ -212,14 +213,14 @@ app = Starlette(debug=True, routes=[
     Route('/api/ibu/seasons', SeasonsEndpoint),
     Route('/api/ibu/countries', NationsEndpoint),
     Route('/api/ibu/countries/{wikidataid}', NationEndpoint),
-   
+
 
     Route('/view/ibu', show_ibu),
     Route('/view/ibu/racers', show_ibu),
     Route('/view/ibu/countries', show_ibu_countries),
     Route('/view/ibu/seasons', show_ibu_seasons),
     Route('/view/ibu/birthdates', BirthdatesEndpoint),
-  
+
     Route('/view/admin', AdminView),
 
     Mount('/static', StaticFiles(directory='static'), name='static')
