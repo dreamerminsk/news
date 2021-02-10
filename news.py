@@ -141,12 +141,13 @@ async def start_job():
         '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
     q = asyncio.Queue()
     loop = asyncio.get_event_loop()
-    tasks = [loop.create_task(queue_feeds(q)),
-             loop.create_task(process_feeds(q)),
-             loop.create_task(process_countries())]
-           # loop.create_task(process_seasons())]
-#loop.create_task(queue_wiki_info()),
-#loop.create_task(process_players()),
+    tasks = [#loop.create_task(queue_feeds(q)),
+             #loop.create_task(process_feeds(q)),
+            loop.create_task(process_countries()),
+            loop.create_task(queue_wiki_info()),
+            loop.create_task(process_players()),
+            loop.create_task(process_seasons())]
+
 
 
 async def queue_wiki_info():
@@ -276,7 +277,7 @@ app = Starlette(debug=True, routes=[
     Route('/reader/feeds/{feed_id}', RssReaderEndpoint),
     Route('/editor/feeds/{feed_id}', XmlEditorEndpoint),
 
-    Route('/', show),
+    Route('/', show_ibu),
     Route('/view/news', show_news),
     Route('/view/feeds', show_feeds),
     Route('/view/users', show_users),
@@ -301,8 +302,6 @@ app = Starlette(debug=True, routes=[
     Route('/view/ibu/countries', show_ibu_countries),
     Route('/view/ibu/seasons', show_ibu_seasons),
     Route('/view/ibu/birthdates', BirthdatesEndpoint),
-
-    Route('/view/talksby', show_talks),
 
     Mount('/static', StaticFiles(directory='static'), name='static')
 ], middleware=middleware, on_startup=[start_job])
