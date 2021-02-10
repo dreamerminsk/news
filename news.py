@@ -133,17 +133,8 @@ async def latest_feeds(request):
 
 
 async def start_job():
-    count = articles.count_documents({})
-    print('{}. {}'.format(datetime.now(), count))
-    news.tasks.update_one({'name': 'feeds'}, {
-        '$set': {'start': datetime.now(), 'feeds': 0, 'articles': count}}, upsert=True)
-    feeds.update_one({'link': 'https://dev.by/rss'}, {
-        '$set': {'last_access': datetime.now(), 'next_access': datetime.now(), 'ttl': 1000}}, upsert=True)
-    q = asyncio.Queue()
     loop = asyncio.get_event_loop()
-    tasks = [#loop.create_task(queue_feeds(q)),
-             #loop.create_task(process_feeds(q)),
-            loop.create_task(process_countries()),
+    tasks = [loop.create_task(process_countries()),
             loop.create_task(queue_wiki_info()),
             loop.create_task(process_players()),
             loop.create_task(process_seasons())]
