@@ -61,7 +61,14 @@ function yearMonth(year, month, racers) {
     document.querySelector(`#r-${month}`).innerHTML = '';
     for(let racer of racers) {
         console.log(`${racer}`);
-        document.querySelector(`#r-${month}`).innerHTML += `<p>${racer.name}</p>`;
+        document.querySelector(`#r-${month}`).innerHTML += `
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="${racer._id}">
+          <label class="form-check-label" for="${racer._id}">
+          ${racer.name}
+          </label>
+        </div>
+        `;
     }
 }
 
