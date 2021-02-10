@@ -47,10 +47,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col d-flex flex-column justify-content-start align-items-center my-2">
+        <div class="col d-flex flex-column justify-content-start align-items-start my-2 ml-3">
           {% for i in range(12) %}
           <div class=""><p id="m-{{ i }}" class="px-2 border border-primary rounded-pill">{{ i }}</p></div>
-          <div id="r-{{ i }}" class=""></div>
+            <div><form id="r-{{ i }}"></form></div>
           {% endfor %}
         </div>
     </div>
