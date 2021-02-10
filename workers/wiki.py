@@ -9,7 +9,8 @@ from workers.web import get_text, get_text_async
 
 client = MongoClient()
 
-langs=['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs', 'ar', 'he', 'zh', 'tr', 'az', 'vi', 'id', 'fi', 'hu', 'ja', 'fa', 'hi', 'bn', 'ko', 'el', 'th']
+langs = ['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs', 'ar',
+         'he', 'zh', 'tr', 'az', 'vi', 'id', 'fi', 'hu', 'ja', 'fa', 'hi', 'bn', 'ko', 'el', 'th']
 
 
 async def get_category(title):
@@ -129,8 +130,8 @@ async def process_countries():
                     '$set': {'wiki.{}'.format(iw): iws['interwikis'][iw]}}, upsert=False)
     for wiki in wikis:
         client.ibustats.countries.update_many({'wiki.ru': wiki['wiki']['ru']}, {
-                '$unset': {'pvi_month': 1,
-                         'lasttime': 1}}, upsert=False)
+            '$unset': {'pvi_month': 1,
+                       'lasttime': 1}}, upsert=False)
         for lang in wiki['wiki'].keys():
             pi = await get_pi(lang, wiki['wiki'][lang])
             client.ibustats.countries.update_many({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
@@ -143,7 +144,6 @@ async def process_countries():
         client.ibustats.countries.update_many({'wiki.ru': title}, {
             '$set': {'flag': fi['flag'], 'emblem': fi['emblem']}}, upsert=False)
         await asyncio.sleep(1 + random.randint(8, 16))
-    
 
 
 async def get_interwikis(lang, title):
@@ -228,8 +228,8 @@ def get_flag_info(soup):
                 '{}px'.format(node.get('width')), '1024px'))
             print('get_flag_info - {}'.format(name))
     return name
-    
-    
+
+
 def get_emblem_info(soup):
     print('--get_emblem_info--')
     name = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Herb_%C5%81ab%C4%99d%C5%BA_1.svg/1024px-Herb_%C5%81ab%C4%99d%C5%BA_1.svg.png'
