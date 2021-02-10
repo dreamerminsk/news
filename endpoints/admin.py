@@ -16,4 +16,4 @@ client = MongoClient()
 
 class AdminView(HTTPEndpoint):
     async def get(self, request):
-        return templates.TemplateResponse('AdminView.html', {'request': request})
+        return templates.TemplateResponse('/admin/AdminView.html', {'request': request})
