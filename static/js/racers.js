@@ -48,7 +48,10 @@ async function filter() {
            <div class="card-header ${racer.wiki.ru.includes('страница отсутствует') ? 'bg-danger' : 'bg-info'} text-white fw-bold">${racer.wiki.ru}</div>
            <div class="card-body text-dark">
              <div class="row">
-               <div class="col-6">
+               <div class="col-6 col-xl-4">
+                 ${racer_image(racer)}
+               </div>
+               <div class="col-6 col-xl-8">
                  <h6 class="card-title">${racer?.name}</h6>
                  <p class="card-text">
                    <div class="button-toolbar">
@@ -56,9 +59,6 @@ async function filter() {
                    </div>
                  </p>
                  <p class="card-text">${new Date(racer?.bday)?.toLocaleDateString()}</p>
-               </div>
-	       <div class="col-6">
-                 ${racer_image(racer)}
                </div>
 	     </div>
            </div>
