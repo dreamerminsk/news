@@ -17,19 +17,8 @@ async function filter() {
     .forEach(season => {
       node.innerHTML +=
         `<div class="card border-primary mb-3">
-           <div class="card-header bg-primary text-white">${season.title}</div>
-           <div class="card-body text-dark">
-             <h6 class="card-title">${season.wiki.en}</h6>
-             <p class="card-text">${season.pvi_month.en}</p>
-           </div>
-           <div class="card-body text-dark">
-             <h6 class="card-title">${season.wiki.de}</h6>
-             <p class="card-text">${season.pvi_month.de}</p>
-           </div>
-           <div class="card-body text-dark">
-             <h6 class="card-title">${season.wiki.ru}</h6>
-             <p class="card-text">${season.pvi_month.ru}</p>
-           </div>
+           <div class="card-header bg-primary text-white">${season.wiki.en}</div>
+           ${WikiPages(season)}
            <div class="card-body text-dark">
              <p class="card-text"><small class="text-muted">${season.lasttime}</small></p>
            </div>
@@ -38,7 +27,9 @@ async function filter() {
 }
 
 function WikiPages(season) {
-  
+  return season.wiki.keys()
+    .map((lang) => WikiPage(lang, season))
+    .join('');
 }
 
 function WikiPage(lang, season) {
