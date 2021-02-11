@@ -115,10 +115,15 @@ async def process_seasons():
                 client.ibustats.seasons.update_many({'wiki.en': wiki['wiki']['en']}, {
                     '$set': {'wiki.{}'.format(iw): iws['interwikis'][iw]}}, upsert=False)
     for wiki in wikis:
-        pi = await get_pi('en', wiki['wiki']['en'])
-        client.ibustats.seasons.update_one({'wiki.en': wiki['wiki']['en']}, {
-            '$set': {'pvi_month': pi['pvi_month'], 'lasttime': pi['lasttime']}}, upsert=False)
-        await asyncio.sleep(16 + random.randint(16, 32))
+        client.ibustats.seasons.update_many({'wiki.en': wiki['wiki']['en']}, {
+            '$unset': {'pvi_month': 1,
+                       'lasttime': 1}}, upsert=False)
+        for lang in wiki['wiki'].keys():
+            pi = await get_pi(lang, wiki['wiki'][lang])
+            client.ibustats.seasons.update_many({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
+                '$set': {'pvi_month.{}'.format(lang): pi['pvi_month'],
+                         'lasttime.{}'.format(lang): pi['lasttime']}}, upsert=False)
+            await asyncio.sleep(1 + random.randint(8, 16))
     await asyncio.sleep(32)
 
 
