@@ -37,8 +37,8 @@ function WikiPage(lang, season) {
   return `
   <div class="card-body text-dark">
     <h6 class="card-title">
-      <span class="badge bg-primary text-white pe-1">
-        <small>${lang}</small>
+      <span class="badge bg-primary pe-1">
+        <small class="text-white fw-bold">${lang}</small>
       </span>
       ${season.wiki[lang]}</h6>
     <p class="card-text">${season.pvi_month[lang]}
