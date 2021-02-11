@@ -27,8 +27,8 @@ async function filter() {
 }
 
 function WikiPages(season) {
-  return Object.keys(season.wiki)
-    .sort((a, b) => (season.pvi_month[b] ?? 0) - (season.pvi_month[a] ?? 0)).
+  return Object.keys(season.wiki).
+    sort((a, b) => (season.pvi_month[b] ?? 0) - (season.pvi_month[a] ?? 0)).
     .map((lang) => WikiPage(lang, season))
     .join('');
 }
