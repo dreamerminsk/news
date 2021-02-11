@@ -27,7 +27,7 @@ async function filter() {
 }
 
 function WikiPages(season) {
-  return season.wiki.keys
+  return Object.keys(season.wiki)
     .map((lang) => WikiPage(lang, season))
     .join('');
 }
