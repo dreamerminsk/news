@@ -19,12 +19,16 @@ async function filter() {
         `<div class="card border-primary mb-3">
            <div class="card-header bg-primary text-white">${season.title}</div>
            <div class="card-body text-dark">
-             <h6 class="card-title">${season.title}</h6>
-             <p class="card-text">${season.pvi_month}</p>
+             <h6 class="card-title">${season.wiki.en}</h6>
+             <p class="card-text">${season.pvi_month.en}</p>
+           </div>
+           <div class="card-body text-dark">
+             <h6 class="card-title">${season.wiki.de}</h6>
+             <p class="card-text">${season.pvi_month.de}</p>
            </div>
            <div class="card-body text-dark">
              <h6 class="card-title">${season.wiki.ru}</h6>
-             <p class="card-text">${season.pvi_month}</p>
+             <p class="card-text">${season.pvi_month.ru}</p>
            </div>
            <div class="card-body text-dark">
              <p class="card-text"><small class="text-muted">${season.lasttime}</small></p>
