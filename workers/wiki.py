@@ -168,7 +168,10 @@ async def get_interwikis(lang, title):
         nodes = soup.select(
             'li.interlanguage-link a.interlanguage-link-target')
         for node in nodes:
-            lang_title = node.get('title').split('—')[0].strip()
+            if '–' in node.get('title'):
+                
+            elif '—' in node.get('title'):
+                lang_title = node.get('title').split('—')[0].strip()
             wikis['interwikis'][node.get('lang')] = lang_title
             print('\t--interwiki--{}--{}'.format(node.get('lang'), lang_title))
     return wikis
