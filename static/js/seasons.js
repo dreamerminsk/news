@@ -37,6 +37,19 @@ async function filter() {
     });
 }
 
+function WikiPages(season) {
+  
+}
+
+function WikiPage(lang, season) {
+  return `
+  <div class="card-body text-dark">
+    <h6 class="card-title">${season.wiki[lang]}</h6>
+    <p class="card-text">${season.pvi_month[lang]}</p>
+  </div>
+  `;
+}
+
 
 document.addEventListener('DOMContentLoaded', function (event) {
   filter();
