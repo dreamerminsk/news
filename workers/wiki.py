@@ -205,7 +205,7 @@ def get_pvi_month(soup):
                 name = int(text)
             except:
                 name = 0
-            print('get_pvi_month - {}'.format(name))
+            print('get_pvi_month - [{}] - {}'.format(node.text, name))
     return name
 
 
