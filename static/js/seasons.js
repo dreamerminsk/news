@@ -19,8 +19,8 @@ async function filter() {
         `<div class="card border-primary mb-3">
            <div class="card-header bg-primary text-white">${season.wiki.en}</div>
            ${WikiPages(season)}
-           <div class="card-body text-dark">
-             <p class="card-text"><small class="text-muted">${season.lasttime}</small></p>
+           <div class="card-footer">
+             
            </div>
          </div>`;
     });
@@ -36,8 +36,14 @@ function WikiPages(season) {
 function WikiPage(lang, season) {
   return `
   <div class="card-body text-dark">
-    <h6 class="card-title">[${lang}:]${season.wiki[lang]}</h6>
-    <p class="card-text">${season.pvi_month[lang]}<small class="pl-3 text-muted">${season.lasttime[lang]}</small></p>
+    <h6 class="card-title">
+      <span class="badge bg-primary text-white pe-1">
+        <small>${lang}</small>
+      </span>
+      ${season.wiki[lang]}</h6>
+    <p class="card-text">${season.pvi_month[lang]}
+      <small class="text-muted ps-3">${season.lasttime[lang]}</small>
+    </p>
   </div>
   `;
 }
