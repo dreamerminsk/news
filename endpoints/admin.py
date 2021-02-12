@@ -20,19 +20,17 @@ class DbsEndpoint(HTTPEndpoint):
         latest = []
         for db in dbs:
             latest.append(db)
-        return JSONResponse({'status': 'ok', 'racers': latest})
+        return JSONResponse({'status': 'ok', 'dbs': latest})
 
 
 class DbEndpoint(HTTPEndpoint):
     async def get(self, request):
         name = request.path_params['name']
-        task = ibustats.countries.find_one({'WikiDataID': wdid})
-        if task is not None:
-            task['_id'] = str(task['_id'])
-        else:
-            task = {
-            }
-        return JSONResponse(task)
+        try:
+            stats = client[name].command({'dbstats': 1})
+            return JSONResponse({'status': 'ok', 'dbstats': stats})
+        except Exception as e:
+            return JSONResponse({'status': 'error', 'exception': str(e)})
 
 
 class AdminView(HTTPEndpoint):
