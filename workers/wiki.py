@@ -120,7 +120,7 @@ async def get_externals(lang, title):
                 wikis['externals'].append(node.get('href'))
             if 'IBU' in node.text:
                 wikis['externals'].append(node.get('href'))
-            print('\t--externals--{}'.format(lang_title))
+            print('\t--externals--{}'.format(wikis['externals']))
     return wikis
 
 
