@@ -100,6 +100,19 @@ async def get_info(lang, title):
     print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
     return category
 
+async def get_externals(lang, title):
+    print('--get_externals--{}--{}'.format(lang, title))
+    wikis = {'lang': lang, 'name': title, 'externals': {}}
+    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
+    if text:
+        soup = BeautifulSoup(text, 'html.parser')
+        nodes = soup.select('a.external.text')
+        for node in nodes:
+            if 'Facebook' in node.text:
+                wikis['externals'] = node.get('href')
+            print('\t--externals--{}'.format(lang_title))
+    return wikis
+
 
 async def process_seasons():
     seasons = client.ibustats.seasons.find({})
