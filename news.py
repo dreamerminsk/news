@@ -24,7 +24,7 @@ from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
 from workers.championat import process_players
 from workers.web import get_text, get_text_async
-from workers.wiki import get_info, process_countries, process_seasons
+from workers.wiki import get_info, process_countries, process_seasons, get_externals
 
 #print = pprint.pprint
 
@@ -150,6 +150,13 @@ async def queue_wiki_info():
     for racer in racers:
         wikis.append(racer['wiki']['ru'])
     random.shuffle(wikis)
+    for wiki in wikis:
+        info = await get_externals('ru', wiki)
+        for external in info['externals']:
+            client.ibustats.racers.update_one({'wiki.ru': wiki}, {
+                '$addToSet': {'externals': external}}, upsert=False)
+            client.ibustats.countries.update_one({'wiki.ru': country}, {
+                '$set': {'last_modified': datetime.now()}}, upsert=True)
     for wiki in wikis:
         info = await get_info('ru', wiki)
         for country in info['countries']:
