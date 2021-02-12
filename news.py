@@ -11,7 +11,7 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
-from endpoints.admin import AdminView
+from endpoints.admin import AdminView, DbEndpoint
 from endpoints.countries import NationEndpoint, NationsEndpoint
 from endpoints.news import (FeedEndpoint, FeedSourceEndpoint,
                             RssReaderEndpoint, TaskEndpoint, XmlEditorEndpoint)
@@ -225,6 +225,8 @@ app = Starlette(debug=True, routes=[
     Route('/view/ibu/countries', show_ibu_countries),
     Route('/view/ibu/seasons', show_ibu_seasons),
     Route('/view/ibu/birthdates', BirthdatesEndpoint),
+
+    Route('/api/admin/dbs', DbEndpoint),
 
     Route('/view/admin', AdminView),
 
