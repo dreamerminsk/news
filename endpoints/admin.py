@@ -25,11 +25,14 @@ class DbsEndpoint(HTTPEndpoint):
 
 class DbEndpoint(HTTPEndpoint):
     async def get(self, request):
-        dbs = client.list_databases()
-        latest = []
-        for db in dbs:
-            latest.append(db)
-        return JSONResponse({'status': 'ok', 'racers': latest})
+        name = request.path_params['name']
+        task = ibustats.countries.find_one({'WikiDataID': wdid})
+        if task is not None:
+            task['_id'] = str(task['_id'])
+        else:
+            task = {
+            }
+        return JSONResponse(task)
 
 
 class AdminView(HTTPEndpoint):
