@@ -121,6 +121,7 @@ async def get_externals(lang, title):
             if 'IBU' in node.text:
                 wikis['externals'].append(node.get('href'))
             print('\t--externals--{}'.format(wikis['externals']))
+    await asyncio.sleep(1 + random.randint(4, 8))
     return wikis
 
 
