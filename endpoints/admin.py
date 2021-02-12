@@ -14,6 +14,15 @@ templates = Jinja2Templates(directory='templates')
 client = MongoClient()
 
 
+class DbsEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        dbs = client.list_databases()
+        latest = []
+        for db in dbs:
+            latest.append(db)
+        return JSONResponse({'status': 'ok', 'racers': latest})
+
+
 class DbEndpoint(HTTPEndpoint):
     async def get(self, request):
         dbs = client.list_databases()
