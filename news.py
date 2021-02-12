@@ -11,7 +11,7 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
-from endpoints.admin import AdminView, DbsEndpoint, DbEndpoint
+from endpoints.admin import AdminView, DbEndpoint, DbsEndpoint
 from endpoints.countries import NationEndpoint, NationsEndpoint
 from endpoints.news import (FeedEndpoint, FeedSourceEndpoint,
                             RssReaderEndpoint, TaskEndpoint, XmlEditorEndpoint)
@@ -24,7 +24,8 @@ from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
 from workers.championat import process_players
 from workers.web import get_text, get_text_async
-from workers.wiki import get_info, process_countries, process_seasons, get_externals
+from workers.wiki import (get_externals, get_info, process_countries,
+                          process_seasons)
 
 #print = pprint.pprint
 
