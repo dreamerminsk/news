@@ -102,14 +102,24 @@ async def get_info(lang, title):
 
 async def get_externals(lang, title):
     print('--get_externals--{}--{}'.format(lang, title))
-    wikis = {'lang': lang, 'name': title, 'externals': {}}
+    wikis = {'lang': lang, 'name': title, 'externals': []}
     text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select('a.external.text')
         for node in nodes:
             if 'Facebook' in node.text:
-                wikis['externals'] = node.get('href')
+                wikis['externals'].append(node.get('href'))
+            if 'Instagram' in node.text:
+                wikis['externals'].append(node.get('href'))
+            if 'Твиттер' in node.text:
+                wikis['externals'].append(node.get('href'))
+            if 'ВКонтакте' in node.text:
+                wikis['externals'].append(node.get('href'))
+            if 'biathlon.com.ua' in node.text:
+                wikis['externals'].append(node.get('href'))
+            if 'IBU' in node.text:
+                wikis['externals'].append(node.get('href'))
             print('\t--externals--{}'.format(lang_title))
     return wikis
 
