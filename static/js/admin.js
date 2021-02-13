@@ -39,7 +39,7 @@ async function init() {
   let page = await fetch(url);
   let json = await page.json();
   let t = `
-  <table class="table m-3 table-sm table-bordered border-primary border-2">
+  <table class="table m-3 table-sm table-bordered border-danger border-2">
   <thead>
     <tr>
       <th scope="col">name</th>
