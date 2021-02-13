@@ -42,14 +42,14 @@ async function init() {
   <table class="table">
   <thead>
     <tr>
-      <th scope="col">db</th>
-      <th scope="col">db</th>
+      <th scope="col">name</th>
+      <th scope="col">sizeOnDisk</th>
     </tr>
   </thead>
   <tbody>
   `;
   for (let db of json.dbs) {
-    row.innerHTML += `<tr><th scope="row">${db.name}</th><td></td></tr>`;
+    row.innerHTML += `<tr><th scope="row">${db.name}</th><td>${db.sizeOnDisk}</td></tr>`;
   }
   row.innerHTML += `
     </tbody>
