@@ -34,7 +34,7 @@ let yearProxy = new Proxy(selected, {
 
 
 async function init() {
-  let row = document.querySelector('.dropdown-menu');
+  let row = document.querySelector('#content');
   let url = `/api/admin/dbs`;
   let page = await fetch(url);
   let json = await page.json();
