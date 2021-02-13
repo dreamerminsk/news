@@ -39,7 +39,7 @@ async function init() {
   let page = await fetch(url);
   let json = await page.json();
   for (let db of json.dbs) {
-    row.innerHTML += `${db.name}<hr/>`;
+    row.innerHTML += `<tr><th scope="row">${db.name}</th><td></td></tr>`;
   }
 }
 
