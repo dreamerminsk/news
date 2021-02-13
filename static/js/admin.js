@@ -38,6 +38,9 @@ async function init() {
   let url = `/api/admin/dbs`;
   let page = await fetch(url);
   let json = await page.json();
+  for (let db of json.dbs) {
+    row.innerHTML += `${db.name}<hr/>`;
+  }
 }
 
 
