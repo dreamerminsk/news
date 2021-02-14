@@ -133,6 +133,9 @@ async def process_seasons():
         wikis.append(season)
     random.shuffle(wikis)
     for wiki in wikis:
+        iws = await get_infobox('en', wiki['wiki']['en'])
+        await asyncio.sleep(1 + random.randint(8, 16))
+    for wiki in wikis:
         iws = await get_interwikis('en', wiki['wiki']['en'])
         await asyncio.sleep(1 + random.randint(8, 16))
         for iw in iws['interwikis'].keys():
