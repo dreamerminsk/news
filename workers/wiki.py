@@ -155,6 +155,19 @@ async def process_seasons():
     await asyncio.sleep(32)
 
 
+async def get_infobox(lang, title):
+    print('--get_infobox--{}--{}'.format(lang, title))
+    wikis = {'lang': lang, 'name': title, 'infobox': {}}
+    text = get_text('https://{}.wikipedia.org/wiki/{}'.format(lang, title))
+    if text:
+        soup = BeautifulSoup(text, 'html.parser')
+        nodes = soup.select(
+            'li.interlanguage-link a.interlanguage-link-target')
+        for node in nodes:
+            pass
+    return wikis
+
+
 async def process_countries():
     print('--process_countries--')
     countries = client.ibustats.countries.find({})
