@@ -33,6 +33,15 @@ class DbEndpoint(HTTPEndpoint):
             return JSONResponse({'status': 'error', 'exception': str(e)})
 
 
+class CollsEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        dbs = client.list_databases()
+        latest = []
+        for db in dbs:
+            latest.append(db)
+        return JSONResponse({'status': 'ok', 'dbs': latest})
+
+
 class AdminView(HTTPEndpoint):
     async def get(self, request):
         return templates.TemplateResponse('/admin/AdminView.html', {'request': request})
