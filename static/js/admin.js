@@ -58,8 +58,8 @@ async function init() {
 
   <div class="card-body">
     <div class="tab-content">
-  <div class="tab-pane active" id="home-${index}" role="tabpanel" aria-labelledby="home-tab">${index}</div>
-  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">${index}</div>
+  <div class="tab-pane active" id="home-${index}" role="tabpanel" aria-labelledby="home-tab">home-${index}</div>
+  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">profile-${index}</div>
   <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
   <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
 </div>
