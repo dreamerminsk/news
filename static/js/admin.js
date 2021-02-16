@@ -39,7 +39,7 @@ async function init() {
   let page = await fetch(url);
   let json = await page.json();
   let t = ``;
-  for (let db of json.dbs) {
+  for (let [index, db] of json.dbs.entries()) {
     t += `
     <div class="card text-center">
   <div class="card-header">
