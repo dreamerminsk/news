@@ -45,10 +45,10 @@ async function init() {
   <div class="card-header">
     <ul class="nav nav-pills card-header-pills" role="tablist">
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="home-tab-${index}" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">${db.name}</a>
+        <a class="nav-link active" id="home-tab-${index}" data-bs-toggle="tab" href="#home-${index}" role="tab" aria-controls="home" aria-selected="true">${db.name}</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="home-tab-${index}" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Link</a>
+        <a class="nav-link" id="home-tab-${index}" data-bs-toggle="tab" href="#profile-${index}" role="tab" aria-controls="home" aria-selected="true">Link</a>
       </li>
       <li class="nav-item" role="presentation">
         <a class="nav-link id="home-tab-${index}" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Disabled</a>
@@ -59,7 +59,7 @@ async function init() {
   <div class="card-body">
     <div class="tab-content">
   <div class="tab-pane active" id="home-${index}" role="tabpanel" aria-labelledby="home-tab">home-${index}</div>
-  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">profile-${index}</div>
+  <div class="tab-pane" id="profile-${index}" role="tabpanel" aria-labelledby="profile-tab">profile-${index}</div>
   <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
   <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
 </div>
