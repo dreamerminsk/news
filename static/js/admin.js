@@ -43,15 +43,15 @@ async function init() {
     t += `
     <div class="card text-center">
   <div class="card-header">
-    <ul class="nav nav-pills card-header-pills">
-      <li class="nav-item">
-        <a class="nav-link active" href="#">${db.name}</a>
+    <ul class="nav nav-pills card-header-pills" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">${db.name}</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Link</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link href="#">Disabled</a>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Disabled</a>
       </li>
     </ul>
   </div>
