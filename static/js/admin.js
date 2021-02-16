@@ -45,21 +45,21 @@ async function init() {
   <div class="card-header">
     <ul class="nav nav-pills card-header-pills" role="tablist">
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">${db.name}</a>
+        <a class="nav-link active" id="home-tab-${index}" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">${db.name}</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Link</a>
+        <a class="nav-link" id="home-tab-${index}" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Link</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Disabled</a>
+        <a class="nav-link id="home-tab-${index}" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Disabled</a>
       </li>
     </ul>
   </div>
 
   <div class="card-body">
     <div class="tab-content">
-  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+  <div class="tab-pane active" id="home-${index}" role="tabpanel" aria-labelledby="home-tab">${index}</div>
+  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">${index}</div>
   <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
   <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
 </div>
