@@ -38,22 +38,11 @@ async function init() {
   let url = `/api/admin/dbs`;
   let page = await fetch(url);
   let json = await page.json();
-  let t = `
-  <table class="m-3 w-75 table-light table-sm table-bordered border-primary">
-  <thead>
-    <tr>
-      <th scope="col">name</th>
-      <th scope="col">sizeOnDisk</th>
-    </tr>
-  </thead>
-  <tbody>
-  `;
+  let t = ``;
   for (let db of json.dbs) {
-    t += `<tr><th scope="row">${db.name}</th><td>${db.sizeOnDisk}</td></tr>`;
+    t += `<div class="card"><div class="card-body">${db.name}</th><td>${db.sizeOnDisk}</div></div>`;
   }
-  t += `
-    </tbody>
-  </table>`;
+  t += ``;
   row.innerHTML += t;
 }
 
