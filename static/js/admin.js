@@ -55,16 +55,14 @@ async function init() {
       </li>
     </ul>
   </div>
-<div class="tab-content">
+
+  <div class="card-body">
+    <div class="tab-content">
   <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
   <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
   <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
   <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
 </div>
-  <div class="card-body">
-    <h5 class="card-title">${db.sizeOnDisk}</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
     `;
