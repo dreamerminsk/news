@@ -34,6 +34,7 @@ async function init() {
   }
   t += ``;
   row.innerHTML += t;
+  setTimer();
 }
 
 
