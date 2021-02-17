@@ -44,17 +44,6 @@ async function init() {
   }, 100);
   }
   row.innerHTML += t;
-  setInterval(function() {
-    var triggerTabList = [].slice.call(document.querySelectorAll('#card-header-pills-0 a'));
-    triggerTabList.forEach(function (triggerEl) {
-      var tabTrigger = new bootstrap.Tab(triggerEl);
-
-      triggerEl.addEventListener('click', function (event) {
-        event.preventDefault();
-        tabTrigger.show();
-      });
-    });
-  }, 100);
 }
 
 
