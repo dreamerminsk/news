@@ -8,7 +8,7 @@ async function init() {
     t += `
     <div class="card text-center">
   <div class="card-header">
-    <ul class="nav nav-pills card-header-pills" role="tablist">
+    <ul class="nav nav-pills card-header-pills" id="card-header-pills-${index}" role="tablist">
       <li class="nav-item" role="presentation">
         <a class="nav-link active" data-bs-toggle="pill" id="home-tab-${index}" href="#home-${index}" role="tab" aria-controls="home" aria-selected="true">${db.name}</a>
       </li>
