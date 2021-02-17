@@ -31,8 +31,18 @@ async function init() {
   </div>
 </div>
     `;
+    setInterval(function() {
+    var triggerTabList = [].slice.call(document.querySelectorAll(`#card-header-pills-${index} a`));
+    triggerTabList.forEach(function (triggerEl) {
+      var tabTrigger = new bootstrap.Tab(triggerEl);
+
+      triggerEl.addEventListener('click', function (event) {
+        event.preventDefault();
+        tabTrigger.show();
+      });
+    });
+  }, 100);
   }
-  t += ``;
   row.innerHTML += t;
   setInterval(function() {
     var triggerTabList = [].slice.call(document.querySelectorAll('#card-header-pills-0 a'));
