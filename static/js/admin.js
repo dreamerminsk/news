@@ -13,7 +13,7 @@ async function init() {
             <a class="nav-link active" data-bs-toggle="pill" id="home-tab-${index}" href="#home-${index}" role="tab" aria-controls="home" aria-selected="true">${db.name}</a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link" data-bs-toggle="pill" id="profile-tab-${index}" href="#profile-${index}" role="tab" aria-controls="profile" aria-selected="false">profile</a>
+            <a class="nav-link" data-bs-toggle="pill" id="collections-tab-${index}" href="#collections-${index}" role="tab" aria-controls="profile" aria-selected="false">collections</a>
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link data-bs-toggle="pill" id="messages-tab-${index}" href="#messages-${index}" role="tab" aria-controls="messages" aria-selected="false">messages</a>
@@ -26,7 +26,7 @@ async function init() {
           <div class="tab-pane  fade show active" id="home-${index}" role="tabpanel" aria-labelledby="home-tab">
             home-${index}
           </div>
-          <div class="tab-pane  fade show" id="profile-${index}" role="tabpanel" aria-labelledby="profile-tab">profile-${index}</div>
+          <div class="tab-pane  fade show" id="collections-${index}" role="tabpanel" aria-labelledby="profile-tab">collections-${index}</div>
           <div class="tab-pane  fade show" id="messages-${index}" role="tabpanel" aria-labelledby="messages-tab">messages-${index}</div>
           <div class="tab-pane  fade show" id="settings-${index}" role="tabpanel" aria-labelledby="settings-tab">...</div>
         </div>
