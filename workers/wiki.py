@@ -19,7 +19,7 @@ class Article(object):
         super().__init__()
 
     @classmethod
-    def parse(cls):
+    def parse(cls, html):
         return Article()
 
 
