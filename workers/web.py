@@ -1,7 +1,7 @@
-import requests
-import httpx
 import asyncio
 
+import httpx
+import requests
 from fake_useragent import UserAgent
 
 
