@@ -14,12 +14,19 @@ langs = ['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs',
          'he', 'zh', 'tr', 'az', 'vi', 'id', 'fi', 'hu', 'ja', 'fa', 'hi', 'bn', 'ko', 'el', 'th']
 
 
-class Wiki:
+class Article(object):
+    def __init__(self) -> None:
+        super().__init__()
+
+
+class Wiki(object):
     def __init__(self):
         pass
 
-    def get_page():
-        pass
+
+@staticmethod
+def get_page(lang, title):
+    return Article()
 
 
 async def get_category(title):
