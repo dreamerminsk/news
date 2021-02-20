@@ -14,11 +14,16 @@ langs = ['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs',
          'he', 'zh', 'tr', 'az', 'vi', 'id', 'fi', 'hu', 'ja', 'fa', 'hi', 'bn', 'ko', 'el', 'th']
 
 
+class Wiki:
+    def __init__(self):
+        pass
+
+
 async def get_category(title):
     text = get_text('https://en.wikipedia.org/wiki/{}'.format(title))
     if text is None:
         return {'wikidataid': None, 'categories': []}
-    category = {'wikidataid': 'None', 'categories': []}
+    category = {'wikidataid': None, 'categories': []}
     if text:
         soup = BeautifulSoup(text, 'html.parser')
         wdi_node = soup.select_one('li#t-wikibase a[href]')
