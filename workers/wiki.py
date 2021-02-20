@@ -24,8 +24,8 @@ class Article(object):
     def url(self):
         return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
 
-    @classmethod
-    def parse(cls, html):
+    def parse(self):
+        
         return Article()
 
 
