@@ -15,8 +15,9 @@ langs = ['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs',
 
 
 class Article(object):
-    def __init__(self) -> None:
+    def __init__(self, lang, title) -> None:
         super().__init__()
+        self.lang = lang
 
     @classmethod
     def parse(cls, html):
