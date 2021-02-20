@@ -20,7 +20,8 @@ class Article(object):
         self.lang = lang
         self.title = title
 
-    def get_url(self):
+    @property
+    def url(self):
         return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
 
     @classmethod
