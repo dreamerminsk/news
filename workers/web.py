@@ -12,7 +12,8 @@ def get_text(url):
     except Exception as e:
         print('ERROR: {}\r\n{}'.format(url, e))
         return None
-    
+
+
 async def get_text_async(url):
     try:
         async with httpx.AsyncClient() as client:
