@@ -18,6 +18,9 @@ class Wiki:
     def __init__(self):
         pass
 
+    def get_page():
+        pass
+
 
 async def get_category(title):
     text = get_text('https://en.wikipedia.org/wiki/{}'.format(title))
