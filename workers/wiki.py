@@ -18,6 +18,10 @@ class Article(object):
     def __init__(self) -> None:
         super().__init__()
 
+    @classmethod
+    def parse(cls):
+        return Article()
+
 
 class Wiki(object):
     def __init__(self):
