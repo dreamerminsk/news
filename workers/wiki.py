@@ -18,6 +18,10 @@ class Article(object):
     def __init__(self, lang, title) -> None:
         super().__init__()
         self.lang = lang
+        self.title = title
+
+    def get_url(self):
+        return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
 
     @classmethod
     def parse(cls, html):
