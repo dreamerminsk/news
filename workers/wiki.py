@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
-from workers.web import get_text, get_text_async
+from workers.web import get_html_async, get_text, get_text_async
 
 client = MongoClient()
 
@@ -25,7 +25,7 @@ class Article(object):
         return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
 
     def parse(self):
-        text, error = get_text_async(self.url)
+        text, error = get_html_async(self.url)
         return Article()
 
 
