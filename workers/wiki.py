@@ -29,6 +29,11 @@ class Article(object):
         title_node = html.select_one('h1#firstHeading')
         if title_node:
             self.title = title_node.text.strip()
+        cat_nodes = html.select(
+            '#catlinks div#mw-normal-catlinks ul li a[title]')
+        if cat_nodes:
+            for cat_node in cat_nodes:
+                self.categories.append(cat_node.get('title').strip())
         return Article()
 
 
