@@ -26,6 +26,9 @@ class Article(object):
 
     async def parse(self):
         html, error = await get_html_async(self.url)
+        title_node = html.select_one('h1#firstHeading')
+        if title_node:
+            self.title = title_node.text.strip()
         return Article()
 
 
