@@ -13,6 +13,19 @@ client = MongoClient()
 langs = ['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs', 'ar',
          'he', 'zh', 'tr', 'az', 'vi', 'id', 'fi', 'hu', 'ja', 'fa', 'hi', 'bn', 'ko', 'el', 'th']
 
+class Category(object):
+    def __init__(self, lang, title) -> None:
+        super().__init__()
+        self.lang = lang
+        self.title = title
+
+    @property
+    def url(self):
+        return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
+
+    async def parse(self):
+        html, error = await get_html_async(self.url)
+
 
 class Article(object):
     def __init__(self, lang, title) -> None:
@@ -35,7 +48,6 @@ class Article(object):
             self.categories = []
             for cat_node in cat_nodes:
                 self.categories.append(cat_node.get('title').strip())
-        return Article()
 
 
 class Wiki(object):
