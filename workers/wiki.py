@@ -24,8 +24,8 @@ class Article(object):
     def url(self):
         return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
 
-    def parse(self):
-        text, error = get_html_async(self.url)
+    async def parse(self):
+        html, error = await get_html_async(self.url)
         return Article()
 
 
