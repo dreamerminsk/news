@@ -48,6 +48,16 @@ class Article(object):
             self.categories = []
             for cat_node in cat_nodes:
                 self.categories.append(cat_node.get('title').strip())
+        nodes = html.select(
+            'li.interlanguage-link a.interlanguage-link-target')
+        for node in nodes:
+            lang_title = node.get('title')
+            if '–' in lang_title:
+                lang_title = lang_title[:lang_title.rfind('–')].strip()
+            elif '—' in lang_title:
+                lang_title = lang_title[:lang_title.rfind('—')].strip()
+            wikis['interwikis'][node.get('lang')] = lang_title
+
 
 
 class Wiki(object):
