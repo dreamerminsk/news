@@ -9,6 +9,10 @@ from workers.web import get_text
 
 client = MongoClient()
 
+class Champ(object):
+    def __init__(self):
+        pass
+
 
 async def process_players():
     racers = client.ibustats.racers.find({})
