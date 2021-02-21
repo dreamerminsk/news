@@ -32,6 +32,7 @@ class Article(object):
         cat_nodes = html.select(
             '#catlinks div#mw-normal-catlinks ul li a[title]')
         if cat_nodes:
+            self.categories = []
             for cat_node in cat_nodes:
                 self.categories.append(cat_node.get('title').strip())
         return Article()
