@@ -2,6 +2,7 @@ import asyncio
 import pprint
 import random
 from datetime import datetime, timedelta
+from urllib.parse import unquote
 
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
@@ -54,11 +55,7 @@ class Article(object):
         if nodes:
             self.interwikis = []
             for node in nodes:
-                lang_title = node.get('title')
-                if '–' in lang_title:
-                    lang_title = lang_title[:lang_title.rfind('–')].strip()
-                elif '—' in lang_title:
-                    lang_title = lang_title[:lang_title.rfind('—')].strip()
+                lang_title = unquote(node.get('href'))
                 self.interwikis[node.get('lang')] = lang_title
 
 
