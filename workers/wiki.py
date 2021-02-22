@@ -13,6 +13,7 @@ client = MongoClient()
 langs = ['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs', 'ar',
          'he', 'zh', 'tr', 'az', 'vi', 'id', 'fi', 'hu', 'ja', 'fa', 'hi', 'bn', 'ko', 'el', 'th']
 
+
 class Category(object):
     def __init__(self, lang, title) -> None:
         super().__init__()
@@ -50,14 +51,15 @@ class Article(object):
                 self.categories.append(cat_node.get('title').strip())
         nodes = html.select(
             'li.interlanguage-link a.interlanguage-link-target')
-        for node in nodes:
-            lang_title = node.get('title')
-            if '–' in lang_title:
-                lang_title = lang_title[:lang_title.rfind('–')].strip()
-            elif '—' in lang_title:
-                lang_title = lang_title[:lang_title.rfind('—')].strip()
-            wikis['interwikis'][node.get('lang')] = lang_title
-
+        if nodes:
+            self.interwikis = []
+            for node in nodes:
+                lang_title = node.get('title')
+                if '–' in lang_title:
+                    lang_title = lang_title[:lang_title.rfind('–')].strip()
+                elif '—' in lang_title:
+                    lang_title = lang_title[:lang_title.rfind('—')].strip()
+                self.interwikis[node.get('lang')] = lang_title
 
 
 class Wiki(object):
