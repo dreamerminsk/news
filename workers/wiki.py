@@ -36,8 +36,18 @@ class Article(object):
         self.__title = title
 
     @property
+    def lang(self):
+        return self.__lang
+
+    @property
+    def title(self):
+        return self.__title
+
+
+
+    @property
     def url(self):
-        return 'https://{}.wikipedia.org/wiki/{}'.format(self.__lang, self.__title)
+        return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
 
     async def parse(self):
         html, error = await get_html_async(self.url)
