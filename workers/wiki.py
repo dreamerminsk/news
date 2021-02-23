@@ -18,12 +18,12 @@ langs = ['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs',
 class Category(object):
     def __init__(self, lang, title) -> None:
         super().__init__()
-        self.lang = lang
-        self.title = title
+        self.__lang = lang
+        self.__title = title
 
     @property
     def url(self):
-        return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
+        return 'https://{}.wikipedia.org/wiki/{}'.format(self.__lang, self.__title)
 
     async def parse(self):
         html, error = await get_html_async(self.url)
@@ -32,31 +32,31 @@ class Category(object):
 class Article(object):
     def __init__(self, lang, title) -> None:
         super().__init__()
-        self.lang = lang
-        self.title = title
+        self.__lang = lang
+        self.__title = title
 
     @property
     def url(self):
-        return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
+        return 'https://{}.wikipedia.org/wiki/{}'.format(self.__lang, self.__title)
 
     async def parse(self):
         html, error = await get_html_async(self.url)
         title_node = html.select_one('h1#firstHeading')
         if title_node:
-            self.title = title_node.text.strip()
+            self.__title = title_node.text.strip()
         cat_nodes = html.select(
             '#catlinks div#mw-normal-catlinks ul li a[title]')
         if cat_nodes:
-            self.categories = []
+            self.__categories = []
             for cat_node in cat_nodes:
-                self.categories.append(cat_node.get('title').strip())
+                self.__categories.append(cat_node.get('title').strip())
         nodes = html.select(
             'li.interlanguage-link a.interlanguage-link-target')
         if nodes:
-            self.interwikis = []
+            self.__interwikis = []
             for node in nodes:
                 lang_title = unquote(node.get('href'))
-                self.interwikis[node.get('lang')] = lang_title
+                self.__interwikis[node.get('lang')] = lang_title
 
 
 class Wiki(object):
