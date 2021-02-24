@@ -55,7 +55,7 @@ class Article(object):
     def url(self):
         return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
 
-    async def parse(self):
+    async def __parse(self):
         html, error = await get_html_async(self.url)
         title_node = html.select_one('h1#firstHeading')
         if title_node:
