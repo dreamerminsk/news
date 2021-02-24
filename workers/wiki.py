@@ -54,6 +54,12 @@ class Article(object):
     @property
     def url(self):
         return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
+        
+    @property
+    def param(self):
+        if not hasattr(self, '_param'):
+            self._param = __parse(self)
+        return self._param
 
     async def __parse(self):
         html, error = await get_html_async(self.url)
