@@ -51,8 +51,6 @@ class Article(object):
     def title(self):
         return self.__title
 
-
-
     @property
     def url(self):
         return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
