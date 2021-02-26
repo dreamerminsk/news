@@ -54,12 +54,12 @@ class Article(object):
     @property
     def url(self):
         return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
-        
+
     async def categories(self):
         if not hasattr(self, '__categories'):
             await self.__parse(self)
         return self.__categories
-        
+
     async def interwikis(self):
         if not hasattr(self, '__interwikis'):
             await self.__parse(self)
@@ -75,7 +75,8 @@ class Article(object):
         if cat_nodes:
             self.__categories = []
             for cat_node in cat_nodes:
-                self.__categories.append(cat_node.get('title').strip())
+                self.__categories.append(
+                    Category(self.lang, cat_node.get('title').strip()))
         nodes = html.select(
             'li.interlanguage-link a.interlanguage-link-target')
         if nodes:
