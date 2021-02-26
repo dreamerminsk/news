@@ -83,7 +83,7 @@ class Article(object):
             self.__interwikis = []
             for node in nodes:
                 lang_title = unquote(node.get('href'))
-                self.__interwikis[node.get('lang')] = lang_title
+                self.__interwikis.append(Article(node.get('lang'), lang_title))
 
 
 class Wiki(object):
