@@ -58,13 +58,13 @@ class Article(object):
     @property
     async def categories(self):
         if not hasattr(self, '__categories'):
-            await __parse(self)
+            await self.__parse(self)
         return self.__categories
         
     @property
     async def interwikis(self):
         if not hasattr(self, '__interwikis'):
-            await __parse(self)
+            await self.__parse(self)
         return self.__interwikis
 
     async def __parse(self):
