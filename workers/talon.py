@@ -6,3 +6,4 @@ import time
 
 
 
+talon = 'https://talon.by/'
