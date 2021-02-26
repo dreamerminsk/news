@@ -86,16 +86,6 @@ class Article(object):
                 self.__interwikis.append(Article(node.get('lang'), lang_title))
 
 
-class Wiki(object):
-    def __init__(self):
-        pass
-
-
-@staticmethod
-def get_page(lang, title):
-    return Article()
-
-
 async def get_category(title):
     text = get_text('https://en.wikipedia.org/wiki/{}'.format(title))
     if text is None:
