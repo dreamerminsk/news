@@ -55,13 +55,11 @@ class Article(object):
     def url(self):
         return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
         
-    @property
     async def categories(self):
         if not hasattr(self, '__categories'):
             await self.__parse(self)
         return self.__categories
         
-    @property
     async def interwikis(self):
         if not hasattr(self, '__interwikis'):
             await self.__parse(self)
