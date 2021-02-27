@@ -165,17 +165,17 @@ async def get_externals(lang, title):
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select('a.external.text')
         for node in nodes:
-            if 'Facebook' in node.text:
+            if node.text == 'Facebook':
                 wikis['externals'].append(node.get('href'))
-            if 'Instagram' in node.text:
+            if node.text == 'Instagram':
                 wikis['externals'].append(node.get('href'))
-            if 'Твиттер' in node.text:
+            if node.text == 'Твиттер':
                 wikis['externals'].append(node.get('href'))
-            if 'ВКонтакте' in node.text:
+            if node.text == 'ВКонтакте':
                 wikis['externals'].append(node.get('href'))
-            if 'biathlon.com.ua' in node.text:
+            if node.text == 'biathlon.com.ua':
                 wikis['externals'].append(node.get('href'))
-            if 'IBU' in node.text:
+            if node.text == 'IBU':
                 wikis['externals'].append(node.get('href'))
             print('\t--externals--{}'.format(wikis['externals']))
     await asyncio.sleep(1 + random.randint(4, 8))
