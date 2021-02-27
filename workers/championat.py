@@ -9,6 +9,7 @@ from workers.web import get_text
 
 client = MongoClient()
 
+
 class Champ(object):
     def __init__(self):
         pass
@@ -92,13 +93,14 @@ async def process_season(season):
         soup = BeautifulSoup(text2, 'html.parser')
         nodes = soup.select('a[href]')
         for node in nodes:
-            if '/biathlon/_biathlonworldcup/' in node.get('href'):
-                if '/players/' in node.get('href'):
-                    player = get_player(node)
-                    client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
-                        '$set': {'champ.cc_id': player['cc_id']}}, upsert=True)
-                    client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
-                        '$addToSet': {'champ.tournaments': player['tournament']}}, upsert=False)
+            if '/biathlon/_biathlonworldcup/' in node.get(
+                'href'
+            ) and '/players/' in node.get('href'):
+                player = get_player(node)
+                client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
+                    '$set': {'champ.cc_id': player['cc_id']}}, upsert=True)
+                client.ibustats.racers.update_one({'wiki.ru': player['name']}, {
+                    '$addToSet': {'champ.tournaments': player['tournament']}}, upsert=False)
     await asyncio.sleep(4 + random.randint(4, 12))
     text = get_text(
         'https://www.championat.com/biathlon/_biathlonworldcup/tournament/{}/teams/'.format(season['cc_id']))
@@ -106,9 +108,10 @@ async def process_season(season):
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select('a[href]')
         for node in nodes:
-            if '/biathlon/_biathlonworldcup/' in node.get('href'):
-                if '/teams/' in node.get('href'):
-                    country = get_country(node)
+            if '/biathlon/_biathlonworldcup/' in node.get(
+                'href'
+            ) and '/teams/' in node.get('href'):
+                country = get_country(node)
 
 
 def get_country(node):
@@ -116,11 +119,11 @@ def get_country(node):
     prev = ''
     parts = node.get('href').split('/')
     for part in parts:
-        if prev == 'tournament':
-            country['tournament'] = part
         if prev == 'teams':
             country['cc_id'] = part
             country['name'] = node.text.strip()
+        elif prev == 'tournament':
+            country['tournament'] = part
         prev = part
     return country
 
@@ -130,12 +133,12 @@ def get_player(node):
     prev = ''
     parts = node.get('href').split('/')
     for part in parts:
-        if prev == 'tournament':
-            player['tournament'] = part
         if prev == 'players':
             player['cc_id'] = part
             player['name'] = node.text.strip()
             print('player: {}'.format(player['name']))
+        elif prev == 'tournament':
+            player['tournament'] = part
         prev = part
     return player
 
