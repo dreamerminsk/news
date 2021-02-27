@@ -30,8 +30,16 @@ policlinics = 'https://talon.by/policlinics'
 class Policlinic(object):
     def __init__(self, title, url) -> None:
         super().__init__()
-        self.title = title
-        self.url = url
+        self.__title = title
+        self.__url = url
+
+    @property
+    def title(self):
+        return self.__title
+
+    @property
+    def url(self):
+        return self.__url
 
 
 class Talon(object):
@@ -53,13 +61,12 @@ class Talon(object):
         if pol_nodes:
             self.__categories = []
             for pol_node in pol_nodes:
-                self.__policlinics.append(
-                    Category(self.lang, cat_node.get('title').strip()))
-        nodes = html.select('div.policlinic h5 a')
-        for node in nodes:
-            pass
+                self.__policlinics.append(Policlinic(
+                    pol_node.text, pol_node.get('href')))
 
 
 async def process_policlinics():
     print('--process_policlinics--')
     talon = Talon()
+    for p in await talon.policlinics:
+        print('\t--process_policlinics--\r\n\t{}\r\n\t{}'.format(p.title, p.url))
