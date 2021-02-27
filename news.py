@@ -1,6 +1,7 @@
 import asyncio
 import random
 from datetime import datetime, timedelta
+from workers.talon import process_policlinics
 
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
@@ -107,18 +108,14 @@ async def show_users(request):
                 '$sort': {'_id': 1}
         }
         ])
-    fds = []
-    for user in user_list:
-        fds.append(user)
+    fds = [user for user in user_list]
     return templates.TemplateResponse('users.html', {
         'request': request, 'counts': letter_list, 'letters': letter_list, 'users': fds})
 
 
 async def show_hosts(request):
     host_stats = client.stats.hosts.find({})
-    hosts = []
-    for host in host_stats:
-        hosts.append(host)
+    hosts = [host for host in host_stats]
     return templates.TemplateResponse('hosts.html', {'request': request, 'hosts': hosts})
 
 
@@ -142,14 +139,13 @@ async def start_job():
     tasks = [loop.create_task(process_countries()),
              loop.create_task(queue_wiki_info()),
              loop.create_task(process_players()),
+             loop.create_task(process_policlinics()),
              loop.create_task(process_seasons())]
 
 
 async def queue_wiki_info():
     racers = client.ibustats.racers.find({})
-    wikis = []
-    for racer in racers:
-        wikis.append(racer['wiki']['ru'])
+    wikis = [racer['wiki']['ru'] for racer in racers]
     random.shuffle(wikis)
     for wiki in wikis:
         info = await get_externals('ru', wiki)

@@ -1,3 +1,16 @@
+import asyncio
+
+from pymongo import MongoClient
+
+from workers.wiki import get_links, get_pages
+
+client = MongoClient()
+news = client.news
+feeds = news.feeds
+articles = news.articles
+users = news.users
+
+
 async def queue_ibu2():
     await asyncio.sleep(4)
     total = 0

@@ -2,11 +2,12 @@ import asyncio
 import pprint
 import random
 from datetime import datetime, timedelta
+from urllib.parse import unquote
 
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
-from workers.web import get_text, get_text_async
+from workers.web import get_html_async, get_text, get_text_async
 
 client = MongoClient()
 
@@ -14,21 +15,76 @@ langs = ['en', 'sv', 'de', 'nl', 'fr', 'it', 'es', 'pt', 'ru', 'pl', 'uk', 'cs',
          'he', 'zh', 'tr', 'az', 'vi', 'id', 'fi', 'hu', 'ja', 'fa', 'hi', 'bn', 'ko', 'el', 'th']
 
 
-async def get_category(title):
-    text = get_text('https://en.wikipedia.org/wiki/{}'.format(title))
-    if text is None:
-        return {'wikidataid': None, 'categories': []}
-    category = {'wikidataid': 'None', 'categories': []}
-    if text:
-        soup = BeautifulSoup(text, 'html.parser')
-        wdi_node = soup.select_one('li#t-wikibase a[href]')
-        if wdi_node:
-            category['wikidataid'] = wdi_node.get('href').split('/')[-1]
-        cat_nodes = soup.select('div#mw-normal-catlinks ul li a[title]')
+class Category(object):
+    def __init__(self, lang, title) -> None:
+        super().__init__()
+        self.__lang = lang
+        self.__title = title
+
+    @property
+    def lang(self):
+        return self.__lang
+
+    @property
+    def title(self):
+        return self.__title
+
+    @property
+    def url(self):
+        return 'https://{}.wikipedia.org/wiki/{}'.format(self.__lang, self.__title)
+
+    async def parse(self):
+        html, error = await get_html_async(self.url)
+
+
+class Article(object):
+    def __init__(self, lang, title) -> None:
+        super().__init__()
+        self.__lang = lang
+        self.__title = title
+
+    @property
+    def lang(self):
+        return self.__lang
+
+    @property
+    def title(self):
+        return self.__title
+
+    @property
+    def url(self):
+        return 'https://{}.wikipedia.org/wiki/{}'.format(self.lang, self.title)
+
+    async def categories(self):
+        if not hasattr(self, '__categories'):
+            await self.__parse(self)
+        return self.__categories
+
+    async def interwikis(self):
+        if not hasattr(self, '__interwikis'):
+            await self.__parse(self)
+        return self.__interwikis
+
+    async def __parse(self):
+        html, error = await get_html_async(self.url)
+        title_node = html.select_one('h1#firstHeading')
+        if title_node:
+            self.__title = title_node.text.strip()
+        cat_nodes = html.select(
+            '#catlinks div#mw-normal-catlinks ul li a[title]')
         if cat_nodes:
+            self.__categories = []
             for cat_node in cat_nodes:
-                category['categories'].append(cat_node.get('title'))
-    return category
+                self.__categories.append(
+                    Category(self.lang, cat_node.get('title').strip()))
+        nodes = html.select(
+            'li.interlanguage-link a.interlanguage-link-target')
+        if nodes:
+            self.__interwikis = []
+            for node in nodes:
+                lang_title = unquote(node.get('href'))
+                lang_title = lang_title[lang_title.find('/wiki/') + 6:]
+                self.__interwikis.append(Article(node.get('lang'), lang_title))
 
 
 def get_country_info(soup):
@@ -94,7 +150,7 @@ async def get_info(lang, title):
         category['image'] = get_image_info(soup)
         category['desc'] = get_desc(soup)
         category['name'] = get_name_info(soup)
-        if category['name'] == None:
+        if category['name'] is None:
             category['name'] = title
         category['bday'] = get_bday_info(soup)
     print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
@@ -109,17 +165,17 @@ async def get_externals(lang, title):
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select('a.external.text')
         for node in nodes:
-            if 'Facebook' in node.text:
+            if node.text == 'Facebook':
                 wikis['externals'].append(node.get('href'))
-            if 'Instagram' in node.text:
+            if node.text == 'Instagram':
                 wikis['externals'].append(node.get('href'))
-            if 'Твиттер' in node.text:
+            if node.text == 'Твиттер':
                 wikis['externals'].append(node.get('href'))
-            if 'ВКонтакте' in node.text:
+            if node.text == 'ВКонтакте':
                 wikis['externals'].append(node.get('href'))
-            if 'biathlon.com.ua' in node.text:
+            if node.text == 'biathlon.com.ua':
                 wikis['externals'].append(node.get('href'))
-            if 'IBU' in node.text:
+            if node.text == 'IBU':
                 wikis['externals'].append(node.get('href'))
             print('\t--externals--{}'.format(wikis['externals']))
     await asyncio.sleep(1 + random.randint(4, 8))
@@ -128,9 +184,7 @@ async def get_externals(lang, title):
 
 async def process_seasons():
     seasons = client.ibustats.seasons.find({})
-    wikis = []
-    for season in seasons:
-        wikis.append(season)
+    wikis = [season for season in seasons]
     random.shuffle(wikis)
     for wiki in wikis:
         iws = await get_infobox('en', wiki['wiki']['en'])
@@ -163,7 +217,7 @@ async def get_infobox(lang, title):
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select(
             'li.interlanguage-link a.interlanguage-link-target')
-        for node in nodes:
+        for _ in nodes:
             pass
     return wikis
 
@@ -171,15 +225,13 @@ async def get_infobox(lang, title):
 async def process_countries():
     print('--process_countries--')
     countries = client.ibustats.countries.find({})
-    wikis = []
-    for country in countries:
-        wikis.append(country)
+    wikis = [country for country in countries]
     random.shuffle(wikis)
     for wiki in wikis:
         iws = await get_interwikis('ru', wiki['wiki']['ru'])
         await asyncio.sleep(1 + random.randint(8, 16))
         for iw in iws['interwikis'].keys():
-            if (iw == 'en') or (iw == 'de') or (iw == 'fr'):
+            if iw in ['en', 'de', 'fr']:
                 client.ibustats.countries.update_many({'wiki.ru': wiki['wiki']['ru']}, {
                     '$set': {'wiki.{}'.format(iw): iws['interwikis'][iw]}}, upsert=False)
     for wiki in wikis:
@@ -322,10 +374,8 @@ async def get_pages(lang, title):
         ps = await _get_pages(url)
         for p in ps['pages']:
             pages.append(p)
-        if ps['next']:
-            url = 'https://ru.wikipedia.org{}'.format(ps['next'])
-        else:
-            url = None
+        url = 'https://ru.wikipedia.org{}'.format(
+            ps['next']) if ps['next'] else None
     return pages
 
 
