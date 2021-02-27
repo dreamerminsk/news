@@ -48,6 +48,23 @@ async function init2() {
   row.innerHTML += t;
 }
 
+async function init() {
+  let row = document.querySelector('#content');
+  let url = `/api/admin/dbs`;
+  let page = await fetch(url);
+  let json = await page.json();
+  let t = ``;
+  for (let [index, db] of json.dbs.entries()) {
+    t += `
+    <div class="card text-center">
+      <div class="card-body">
+      </div>
+    </div>
+    `;
+  }
+  row.innerHTML += t;
+}
+
 
 document.addEventListener('DOMContentLoaded', function (event) {
   init();
