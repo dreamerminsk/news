@@ -57,12 +57,12 @@ class Article(object):
 
     async def categories(self):
         if not hasattr(self, '__categories'):
-            await self.__parse(self)
+            await self.__parse()
         return self.__categories
 
     async def interwikis(self):
         if not hasattr(self, '__interwikis'):
-            await self.__parse(self)
+            await self.__parse()
         return self.__interwikis
 
     async def __parse(self):
@@ -178,7 +178,7 @@ async def get_externals(lang, title):
             if node.text == 'IBU':
                 wikis['externals'].append(node.get('href'))
             print('\t--externals--{}'.format(wikis['externals']))
-    await asyncio.sleep(1 + random.randint(4, 8))
+    await asyncio.sleep(10 + random.randint(4, 8))
     return wikis
 
 
@@ -188,10 +188,10 @@ async def process_seasons():
     random.shuffle(wikis)
     for wiki in wikis:
         iws = await get_infobox('en', wiki['wiki']['en'])
-        await asyncio.sleep(1 + random.randint(8, 16))
+        await asyncio.sleep(10 + random.randint(8, 16))
     for wiki in wikis:
         iws = await get_interwikis('en', wiki['wiki']['en'])
-        await asyncio.sleep(1 + random.randint(8, 16))
+        await asyncio.sleep(10 + random.randint(8, 16))
         for iw in iws['interwikis'].keys():
             if iw in langs:
                 client.ibustats.seasons.update_many({'wiki.en': wiki['wiki']['en']}, {
@@ -205,7 +205,7 @@ async def process_seasons():
             client.ibustats.seasons.update_many({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
                 '$set': {'pvi_month.{}'.format(lang): pi['pvi_month'],
                          'lasttime.{}'.format(lang): pi['lasttime']}}, upsert=False)
-            await asyncio.sleep(1 + random.randint(8, 16))
+            await asyncio.sleep(10 + random.randint(8, 16))
     await asyncio.sleep(32)
 
 
@@ -229,7 +229,7 @@ async def process_countries():
     random.shuffle(wikis)
     for wiki in wikis:
         iws = await get_interwikis('ru', wiki['wiki']['ru'])
-        await asyncio.sleep(1 + random.randint(8, 16))
+        await asyncio.sleep(10 + random.randint(8, 16))
         for iw in iws['interwikis'].keys():
             if iw in ['en', 'de', 'fr']:
                 client.ibustats.countries.update_many({'wiki.ru': wiki['wiki']['ru']}, {
@@ -243,13 +243,13 @@ async def process_countries():
             client.ibustats.countries.update_many({'wiki.{}'.format(lang): wiki['wiki'][lang]}, {
                 '$set': {'pvi_month.{}'.format(lang): pi['pvi_month'],
                          'lasttime.{}'.format(lang): pi['lasttime']}}, upsert=False)
-            await asyncio.sleep(1 + random.randint(8, 16))
+            await asyncio.sleep(10 + random.randint(8, 16))
     for wiki in wikis:
         title = wiki['wiki']['ru']
         fi = await get_ci('ru', title)
         client.ibustats.countries.update_many({'wiki.ru': title}, {
             '$set': {'flag': fi['flag'], 'emblem': fi['emblem']}}, upsert=False)
-        await asyncio.sleep(1 + random.randint(8, 16))
+        await asyncio.sleep(10 + random.randint(8, 16))
 
 
 async def get_interwikis(lang, title):
