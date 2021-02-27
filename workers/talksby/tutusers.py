@@ -7,7 +7,6 @@ from urllib import parse
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from pymongo import MongoClient
-
 from workers.web import get_text
 
 #print = pprint
@@ -17,14 +16,15 @@ client = MongoClient()
 news = client.news
 users = news.users
 
-turls = set()
-
 urls = set()
 
-for i in range(64):
-    turls.add('https://talks.by/forumdisplay.php?f=45&page={}&order=desc'.format(i))
+turls = {
+    'https://talks.by/forumdisplay.php?f=45&page={}&order=desc'.format(i)
+    for i in range(64)
+}
 
-while len(turls) > 0:
+
+while turls:
     turl = turls.pop()
     print(turl)
     threads_page = get_text(turl)
@@ -40,7 +40,7 @@ while len(turls) > 0:
                         'https://talks.by/showthread.php?t={}'.format(params['t'][0]))
     print(len(urls))
 
-while len(urls) > 0:
+while urls:
     url = urls.pop()
     print(url)
     text = get_text(url)
