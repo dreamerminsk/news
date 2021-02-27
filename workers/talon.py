@@ -52,7 +52,7 @@ class Talon(object):
 
     async def policlinics(self):
         if not hasattr(self, '__policlinics'):
-            await self.__parse(self)
+            await self.__parse()
         return self.__policlinics
 
     async def __parse(self):
