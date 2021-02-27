@@ -19,5 +19,20 @@ ddtt = 'https://talon.by/policlinic/minsk-1dp/order/1944/3483/2125898'
 policlinics = 'https://talon.by/policlinics'
 
 
+class Talon(object):
+    def __init__(self) -> None:
+        super().__init__()
+
+    @property
+    def url(self):
+        return 'https://talon.by/policlinics'
+
+    async def __parse(self):
+        html, error = await get_html_async(self.url)
+        title_node = html.select_one('h1#firstHeading')
+        if title_node:
+            self.__title = title_node.text.strip()
+
+
 async def process_policlinics():
     print('--process_policlinics--')
