@@ -19,7 +19,6 @@ from urllib import parse
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from pymongo import MongoClient
-
 from workers.web import get_text
 
 client = MongoClient()
