@@ -17,9 +17,7 @@ client = MongoClient()
 class DbsEndpoint(HTTPEndpoint):
     async def get(self, request):
         dbs = client.list_databases()
-        latest = []
-        for db in dbs:
-            latest.append(db)
+        latest = [db for db in dbs]
         return JSONResponse({'status': 'ok', 'dbs': latest})
 
 
@@ -36,9 +34,7 @@ class DbEndpoint(HTTPEndpoint):
 class CollsEndpoint(HTTPEndpoint):
     async def get(self, request):
         dbs = client.list_databases()
-        latest = []
-        for db in dbs:
-            latest.append(db)
+        latest = [db for db in dbs]
         return JSONResponse({'status': 'ok', 'dbs': latest})
 
 
