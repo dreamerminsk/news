@@ -1,6 +1,7 @@
 import asyncio
 import random
 from datetime import datetime, timedelta
+from workers.talon import process_policlinics
 
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
@@ -138,6 +139,7 @@ async def start_job():
     tasks = [loop.create_task(process_countries()),
              loop.create_task(queue_wiki_info()),
              loop.create_task(process_players()),
+             loop.create_task(process_policlinics()),
              loop.create_task(process_seasons())]
 
 
