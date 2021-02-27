@@ -1,3 +1,6 @@
+from workers.wiki import get_links, get_pages
+
+
 async def queue_ibu2():
     await asyncio.sleep(4)
     total = 0
