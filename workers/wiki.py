@@ -217,7 +217,7 @@ async def get_infobox(lang, title):
         soup = BeautifulSoup(text, 'html.parser')
         nodes = soup.select(
             'li.interlanguage-link a.interlanguage-link-target')
-        for node in nodes:
+        for _ in nodes:
             pass
     return wikis
 
