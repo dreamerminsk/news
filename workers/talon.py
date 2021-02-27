@@ -27,6 +27,13 @@ ddtt = 'https://talon.by/policlinic/minsk-1dp/order/1944/3483/2125898'
 policlinics = 'https://talon.by/policlinics'
 
 
+class Policlinic(object):
+    def __init__(self, title, url) -> None:
+        super().__init__()
+        self.title = title
+        self.url = url
+
+
 class Talon(object):
     def __init__(self) -> None:
         super().__init__()
@@ -35,8 +42,19 @@ class Talon(object):
     def url(self):
         return 'https://talon.by/policlinics'
 
+    async def policlinics(self):
+        if not hasattr(self, '__policlinics'):
+            await self.__parse(self)
+        return self.__policlinics
+
     async def __parse(self):
         html, error = await get_html_async(self.url)
+        pol_nodes = html.select('div.policlinic h5 a')
+        if pol_nodes:
+            self.__categories = []
+            for pol_node in pol_nodes:
+                self.__policlinics.append(
+                    Category(self.lang, cat_node.get('title').strip()))
         nodes = html.select('div.policlinic h5 a')
         for node in nodes:
             pass
