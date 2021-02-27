@@ -59,7 +59,7 @@ class Talon(object):
         html, error = await get_html_async(self.url)
         pol_nodes = html.select('div.policlinic h5 a')
         if pol_nodes:
-            self.__categories = []
+            self.__policlinics = []
             for pol_node in pol_nodes:
                 self.__policlinics.append(Policlinic(
                     pol_node.text, pol_node.get('href')))
