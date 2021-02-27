@@ -1,3 +1,5 @@
+import asyncio
+
 from workers.wiki import get_links, get_pages
 
 
