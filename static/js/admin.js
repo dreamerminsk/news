@@ -58,7 +58,8 @@ async function init() {
     t += `
     <div class="card text-center">
       <div class="card-body">
-        ${db.name}
+        <p class="card-text">${db.name}</p>
+        <p class="card-text">${db.sizeOnDisk}</p>
       </div>
     </div>
     `;
