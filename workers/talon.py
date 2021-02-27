@@ -37,9 +37,9 @@ class Talon(object):
 
     async def __parse(self):
         html, error = await get_html_async(self.url)
-        title_node = html.select_one('h1#firstHeading')
-        if title_node:
-            self.__title = title_node.text.strip()
+        nodes = html.select('a')
+        for node in nodes:
+            pass
 
 
 async def process_policlinics():
