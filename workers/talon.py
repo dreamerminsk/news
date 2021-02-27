@@ -37,10 +37,11 @@ class Talon(object):
 
     async def __parse(self):
         html, error = await get_html_async(self.url)
-        nodes = html.select('a')
+        nodes = html.select('div.policlinic h5 a')
         for node in nodes:
             pass
 
 
 async def process_policlinics():
     print('--process_policlinics--')
+    talon = Talon()
