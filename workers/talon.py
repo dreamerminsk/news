@@ -1,9 +1,17 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import asyncio
+import pprint
+import random
 import time
+from datetime import datetime, timedelta
+from urllib.parse import unquote
 
 import requests
 from bs4 import BeautifulSoup
+from pymongo import MongoClient
+
+from workers.web import get_html_async, get_text, get_text_async
 
 talon = 'https://talon.by/'
 
