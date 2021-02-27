@@ -150,7 +150,7 @@ async def get_info(lang, title):
         category['image'] = get_image_info(soup)
         category['desc'] = get_desc(soup)
         category['name'] = get_name_info(soup)
-        if category['name'] == None:
+        if category['name'] is None:
             category['name'] = title
         category['bday'] = get_bday_info(soup)
     print('INFO\tget_info({}, {})\r\n\t{}'.format(lang, title, category))
@@ -184,9 +184,7 @@ async def get_externals(lang, title):
 
 async def process_seasons():
     seasons = client.ibustats.seasons.find({})
-    wikis = []
-    for season in seasons:
-        wikis.append(season)
+    wikis = [season for season in seasons]
     random.shuffle(wikis)
     for wiki in wikis:
         iws = await get_infobox('en', wiki['wiki']['en'])
@@ -227,15 +225,13 @@ async def get_infobox(lang, title):
 async def process_countries():
     print('--process_countries--')
     countries = client.ibustats.countries.find({})
-    wikis = []
-    for country in countries:
-        wikis.append(country)
+    wikis = [country for country in countries]
     random.shuffle(wikis)
     for wiki in wikis:
         iws = await get_interwikis('ru', wiki['wiki']['ru'])
         await asyncio.sleep(1 + random.randint(8, 16))
         for iw in iws['interwikis'].keys():
-            if (iw == 'en') or (iw == 'de') or (iw == 'fr'):
+            if iw in ['en', 'de', 'fr']:
                 client.ibustats.countries.update_many({'wiki.ru': wiki['wiki']['ru']}, {
                     '$set': {'wiki.{}'.format(iw): iws['interwikis'][iw]}}, upsert=False)
     for wiki in wikis:
@@ -378,10 +374,8 @@ async def get_pages(lang, title):
         ps = await _get_pages(url)
         for p in ps['pages']:
             pages.append(p)
-        if ps['next']:
-            url = 'https://ru.wikipedia.org{}'.format(ps['next'])
-        else:
-            url = None
+        url = 'https://ru.wikipedia.org{}'.format(
+            ps['next']) if ps['next'] else None
     return pages
 
 
