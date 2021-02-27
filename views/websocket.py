@@ -2,11 +2,8 @@
 import json
 import logging
 
-from starlette.websockets import WebSocket
-
-import constants
 from core.handlers.websocket import WebSocketEndpointCustom
-
+from starlette.websockets import WebSocket
 
 ch = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -23,7 +20,8 @@ class WebsocketView(WebSocketEndpointCustom):
         return {param.split('=')[0]: param.split('=')[1] for param in params_raw.split('&')}
 
     async def on_connect(self, websocket: WebSocket):
-        self.channel_name = self.get_params(websocket).get('username', 'default_name')
+        self.channel_name = self.get_params(
+            websocket).get('username', 'default_name')
         if self.channel_name == '__ALL__':
             await websocket.close()
 
@@ -60,7 +58,8 @@ class WebsocketView(WebSocketEndpointCustom):
     async def send_message(self, channel, type, message_raw, username):
         message = json.loads(message_raw)
         message.update({'user': username, 'type': type})
-        logger.info('send_message: User {} send: {}'.format(username, message_raw))
+        logger.info('send_message: User {} send: {}'.format(
+            username, message_raw))
         await self.pub.publish_json(channel, message)
 
     async def get_users(self):
