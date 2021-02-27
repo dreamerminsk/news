@@ -17,3 +17,7 @@ ddtt = 'https://talon.by/policlinic/minsk-1dp/order/1944/3483/2125898'
 
 
 policlinics = 'https://talon.by/policlinics'
+
+
+async def process_policlinics():
+    print('--process_policlinics--')
