@@ -68,5 +68,6 @@ class Talon(object):
 async def process_policlinics():
     print('--process_policlinics--')
     talon = Talon()
-    for p in await talon.policlinics:
+    ps = await talon.policlinics
+    for p in ps:
         print('\t--process_policlinics--\r\n\t{}\r\n\t{}'.format(p.title, p.url))
