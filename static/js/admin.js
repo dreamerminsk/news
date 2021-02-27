@@ -1,4 +1,4 @@
-async function init() {
+async function init2() {
   let row = document.querySelector('#content');
   let url = `/api/admin/dbs`;
   let page = await fetch(url);
