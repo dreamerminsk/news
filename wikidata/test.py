@@ -1,8 +1,7 @@
-from qwikidata.sparql import (get_subclasses_of_item,
-                              return_sparql_query_results)
 from qwikidata.entity import WikidataItem, WikidataLexeme, WikidataProperty
 from qwikidata.linked_data_interface import get_entity_dict_from_api
-
+from qwikidata.sparql import (get_subclasses_of_item,
+                              return_sparql_query_results)
 
 query_string = """SELECT ?book ?title ?illustratorLabel ?publisherLabel ?published
 WHERE
@@ -18,8 +17,8 @@ WHERE
 res = return_sparql_query_results(query_string)
 print(res)
 for row in res["results"]["bindings"]:
-   print(row)
-   
+    print(row)
+
 Q_RIVER = "Q4022"
 subclasses_of_river = get_subclasses_of_item(Q_RIVER)
 print(subclasses_of_river)
