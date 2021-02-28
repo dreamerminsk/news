@@ -36,8 +36,8 @@ function WikiPages(season) {
 function WikiPage(lang, season) {
   return `
   <div class="card-body text-dark">
-    <div class="d-flex flex-row">
-      <span class="badge rounded-pill bg-primary me-1 text-white fw-bold">
+    <div class="d-flex flex-row align-items-center">
+      <span class="badge rounded-pill bg-primary text-white fw-bold">
         ${lang}
       </span>
       ${season.wiki[lang]}
