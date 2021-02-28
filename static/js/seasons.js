@@ -36,7 +36,7 @@ function WikiPages(season) {
 function WikiPage(lang, season) {
   return `
   <div class="card-body text-dark">
-    <div class="d-flex flex-row align-items-center">
+    <div class="d-flex flex-row justify-content-start align-items-center">
       <span class="badge rounded-pill bg-primary text-white fw-bold">
         ${lang}
       </span>
