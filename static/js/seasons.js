@@ -36,12 +36,12 @@ function WikiPages(season) {
 function WikiPage(lang, season) {
   return `
   <div class="card-body text-dark">
-    <p class="d-flex flex-row card-text">
-      <span class="badge rounded-pill bg-primary me-1">
-        <p class="text-white fw-bold">${lang}</p>
+    <div class="d-flex flex-row">
+      <span class="badge rounded-pill bg-primary me-1 text-white fw-bold">
+        ${lang}
       </span>
       ${season.wiki[lang]}
-    </p>
+    </div>
     <p class="card-text">${season.pvi_month[lang]}
       <small class="text-muted ms-3">${season.lasttime[lang]}</small>
     </p>
