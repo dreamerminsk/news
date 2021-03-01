@@ -3,7 +3,7 @@
 {% block content %}
 {% for host in hosts %}
 <div id='{{ host['_id'] }}' class='card card-dark border-dark m-2'>
-  <div class='card-header'>
+  <div class='card-header' data-host="{{ host['host'] }}">
     {{ host['host'] }}
   </div>
   <div class='card-body'>
