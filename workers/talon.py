@@ -26,6 +26,8 @@ ddtt = 'https://talon.by/policlinic/minsk-1dp/order/1944/3483/2125898'
 
 policlinics = 'https://talon.by/policlinics'
 
+ws = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/ru.wikipedia/all-access/user/Слон/daily/2020070100/2021020723'
+
 
 class Policlinic(object):
     def __init__(self, title, url) -> None:
