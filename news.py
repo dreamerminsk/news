@@ -1,7 +1,6 @@
 import asyncio
 import random
 from datetime import datetime, timedelta
-from workers.talon import process_policlinics
 
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
@@ -24,6 +23,7 @@ from rels.countries import CountriesEndpoint, CountryEndpoint
 from rels.humans import HumanEndpoint, HumansEndpoint
 from rels.instances import InstanceEndpoint, InstancesEndpoint
 from workers.championat import process_players
+from workers.talon import process_policlinics
 from workers.web import get_text, get_text_async
 from workers.wiki import (get_externals, get_info, process_countries,
                           process_seasons)
