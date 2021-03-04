@@ -10,6 +10,6 @@ async function init(header) {
 document.addEventListener('DOMContentLoaded', function (event) {
   let hs = document.querySelectorAll('.card-header');
   hs.forEach(function (h, index) {
-    setTimeout(init, index * 1000, h);
+    setTimeout(init, Math.floor(Math.random() * 2000) + 2000, h);
   });
 });
