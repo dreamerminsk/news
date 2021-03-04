@@ -1,5 +1,5 @@
 async function init(header) {
-  url = `http://ip-api.com/json/${header.dataset.host}`;
+  let url = `http://ip-api.com/json/${header.dataset.host}`;
   let r = await fetch(url);
   if (r.ok) {
     let json = await r.json();
@@ -10,6 +10,6 @@ async function init(header) {
 document.addEventListener('DOMContentLoaded', function (event) {
   let hs = document.querySelectorAll('.card-header');
   hs.forEach(function (h, index) {
-    setTimeout((h) => init(h), index * 1000);
+    setTimeout(init, index * 1000, h);
   });
 });
