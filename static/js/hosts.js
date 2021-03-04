@@ -4,6 +4,13 @@ async function init(header) {
   if (r.ok) {
     let json = await r.json();
     header.textContent += ` - ${json.country} - ${json.timezone}`;
+    parent = header.parentNode;
+    parent.classList.add('border-primary')
+    parent.classList.remove('border-dark')
+  } else {
+    parent = header.parentNode;
+    parent.classList.add('border-danger');
+    parent.classList.remove('border-dark');
   }
 }
 
