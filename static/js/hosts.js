@@ -7,13 +7,16 @@ async function init(header) {
     parent = header.parentNode;
     parent.classList.add('border-primary');
     parent.classList.remove('border-dark');
-    parent.classList.add('card-primary');
+    parent.classList.add('bg-primary');
+    parent.classList.add('text-white');
     parent.classList.remove('card-dark');
   } else {
+    header.textContent += ` - ${}`;
     parent = header.parentNode;
     parent.classList.add('border-danger');
     parent.classList.remove('border-dark');
-    parent.classList.add('card-danger');
+    parent.classList.add('bg-danger');
+    parent.classList.add('text-white');
     parent.classList.remove('card-dark');
   }
 }
