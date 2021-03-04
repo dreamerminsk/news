@@ -4,20 +4,14 @@ async function init(header) {
   if (r.ok) {
     let json = await r.json();
     header.textContent += ` - ${json.country} - ${json.timezone}`;
-    parent = header.parentNode;
-    parent.classList.add('border-primary');
-    parent.classList.remove('border-dark');
-    parent.classList.add('bg-primary');
-    parent.classList.add('text-white');
-    parent.classList.remove('card-dark');
+    header.classList.add('border-primary');
+    header.classList.add('bg-primary');
+    header.classList.add('text-white');
   } else {
     header.textContent += ` - ${r.status}`;
-    parent = header.parentNode;
-    parent.classList.add('border-danger');
-    parent.classList.remove('border-dark');
-    parent.classList.add('bg-danger');
-    parent.classList.add('text-white');
-    parent.classList.remove('card-dark');
+    header.classList.add('border-danger');
+    header.classList.add('bg-danger');
+    header.classList.add('text-white');
   }
 }
 
