@@ -5,7 +5,7 @@ async function init(header) {
     let json = await r.json();
     header.textContent += ` - ${json.country} - ${json.timezone}`;
     header.setAttribute('data-country', json.country);
-    header.className = 'card-header border-success bg-success text-white';
+    header.className = 'card-header border-primary bg-primary text-white';
   } else {
     header.textContent += ` - ${r.status}`;
     header.className = 'card-header border-danger bg-danger text-white';
@@ -14,17 +14,15 @@ async function init(header) {
 
 async function update() {
   let hs = document.querySelectorAll('.card-header');
-  let list = Array.from(hs);
-  alert(list);
-  let h = list.find(function(item) {
+  let hl = Array.from(hs);
+  let h = hl.find(function(item) {
     return !item.hasAttribute('data-country');
   });
-  alert(h);
   if (h) {
     init(h);
   }
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  setTimeout(update, Math.floor(Math.random() * 6000) + 2000);
+  setInterval(update, Math.floor(Math.random() * 6000) + 2000);
 });
