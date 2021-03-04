@@ -25,6 +25,5 @@ async function update() {
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  alert('DOMContentLoaded');
   setTimeout(update, Math.floor(Math.random() * 6000) + 2000);
 });
