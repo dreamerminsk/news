@@ -20,8 +20,6 @@ class NationsEndpoint(HTTPEndpoint):
             country['_id'] = str(country['_id'])
             if 'last_modified' in country:
                 country['last_modified'] = str(country['last_modified'])
-            pp = pprint.PrettyPrinter(indent=4)
-            pp.pprint(country)
             latest.append(country)
         return JSONResponse({'status': 'ok', 'countries': latest})
 
@@ -42,3 +40,15 @@ class NationEndpoint(HTTPEndpoint):
 
     async def put(self, request):
         pass
+
+
+class NationTitleEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        wdid = request.path_params['wikidataid']
+        task = ibustats.countries.find_one({'WikiDataID': wdid})
+        if task is not None:
+            task['_id'] = str(task['_id'])
+        else:
+            task = {
+            }
+        return JSONResponse(task)
