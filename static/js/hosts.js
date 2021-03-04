@@ -11,7 +11,7 @@ async function init(header) {
     parent.classList.add('text-white');
     parent.classList.remove('card-dark');
   } else {
-    header.textContent += ` - ${}`;
+    header.textContent += ` - ${r.status}`;
     parent = header.parentNode;
     parent.classList.add('border-danger');
     parent.classList.remove('border-dark');
