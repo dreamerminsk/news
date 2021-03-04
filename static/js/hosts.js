@@ -15,8 +15,8 @@ async function init(header) {
 async function update() {
   let hs = document.querySelectorAll('.card-header');
   alert(hs);
-  let h = hs.find(function(item) {
-    return !item.hasAttribute('data-country');
+  let h = hs.filter(function(item) {
+    return item.hasAttribute('data-country');
   });
   alert(h);
   if (h) {
