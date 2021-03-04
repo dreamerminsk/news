@@ -24,6 +24,6 @@ async function init(header) {
 document.addEventListener('DOMContentLoaded', function (event) {
   let hs = document.querySelectorAll('.card-header');
   hs.forEach(function (h, index) {
-    setTimeout(init, Math.floor(Math.random() * 3000) + 2000, h);
+    setTimeout(init, Math.floor(Math.random() * 3000) + 4000 * index, h);
   });
 });
