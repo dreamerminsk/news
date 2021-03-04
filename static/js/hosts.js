@@ -3,7 +3,7 @@ async function init(header) {
   let r = await fetch(url);
   if (r.ok) {
     let json = await r.json();
-    header.textContent += ` - ${json.country}`;
+    header.textContent += ` - ${json.country} - ${json.timezone}`;
   }
 }
 
