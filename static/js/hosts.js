@@ -4,19 +4,20 @@ async function init(header) {
   if (r.ok) {
     let json = await r.json();
     header.textContent += ` - ${json.country} - ${json.timezone}`;
-    header.classList.add('border-primary');
-    header.classList.add('bg-primary');
-    header.classList.add('text-white');
+    header.setAttribute('data-country', json.country);
+    header.className = 'card-header border-primary bg-primary text-white';
   } else {
     header.textContent += ` - ${r.status}`;
-    header.classList.add('border-danger');
-    header.classList.add('bg-danger');
-    header.classList.add('text-white');
+    header.className = 'card-header border-danger bg-danger text-white';
   }
 }
 
 async function update() {
   let hs = document.querySelectorAll('.card-header');
+  let h = hs.find((item) => !item.hasAttribute('data-country'));
+  if (h) {
+    init(h);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
