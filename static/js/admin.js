@@ -58,7 +58,7 @@ async function init() {
     t += `
     <div class="card text-dark bg-light m-2 text-center">
       <div class="card-body">
-        <h5 class="card-title"><a class="link-dark" href="/view/dbs/${db.name}">${db.name}</a></h5>
+        <h5 class="card-title"><a class="link-dark stretched-link" href="/view/dbs/${db.name}">${db.name}</a></h5>
         <p class="card-text">${db.sizeOnDisk}</p>
       </div>
     </div>
