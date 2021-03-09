@@ -60,24 +60,17 @@ async function init() {
       <div class="card-body">
         <h5 class="card-title"><a class="link-dark stretched-link" href="/view/dbs/${db.name}">${db.name}</a></h5>
         <p class="card-text">${db.sizeOnDisk}</p>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+          <label class="form-check-label" for="flexCheckChecked">
+            ${db.sizeOnDisk}
+          </label>
+        </div>
       </div>
     </div>
     `;
   }
   row.innerHTML += t;
-  row.innerHTML += '<hr/>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-    <label class="form-check-label" for="flexCheckDefault">
-      Default checkbox
-    </label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-    <label class="form-check-label" for="flexCheckChecked">
-      Checked checkbox
-    </label>
-  </div>';
 }
 
 
