@@ -60,12 +60,6 @@ async function init() {
       <div class="card-body">
         <h5 class="card-title"><a class="link-dark stretched-link" href="/view/dbs/${db.name}">${db.name}</a></h5>
         <p class="card-text">${db.sizeOnDisk}</p>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-          <label class="form-check-label" for="flexCheckChecked">
-            ${db.sizeOnDisk}
-          </label>
-        </div>
       </div>
     </div>
     `;
