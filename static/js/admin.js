@@ -56,9 +56,9 @@ async function init() {
   let t = ``;
   for (let [index, db] of json.dbs.entries()) {
     t += `
-    <div class="card text-white bg-dark mb-3 text-center">
+    <div class="card text-white bg-secondary mt-1 mb-1 mx-2 text-center">
       <div class="card-body">
-        <h5 class="card-title">${db.name}</h5>
+        <h5 class="card-title"><a href="`/view/dbs/${db.name}`">${db.name}</a></h5>
         <p class="card-text">${db.sizeOnDisk}</p>
       </div>
     </div>
