@@ -86,11 +86,13 @@ function handleClick(e) {
     const link = findLink(e.target);
     if (link == null) { return; }
     e.preventDefault();
-    // Do something here
+	history.pushState({}, '', link.href);
+    router();
 };
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
   document.addEventListener('click', handleClick);
-  init();
+  history.replaceState({}, '', '/admin/dbs')
+  router();
 });
