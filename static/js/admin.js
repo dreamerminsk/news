@@ -48,7 +48,7 @@ async function init2() {
   row.innerHTML += t;
 }
 
-async function init() {
+async function dbs() {
   let row = document.querySelector('#content');
   let url = `/api/admin/dbs`;
   let page = await fetch(url);
@@ -58,7 +58,7 @@ async function init() {
     t += `
     <div class="card text-dark bg-light m-2 text-center">
       <div class="card-body">
-        <h5 class="card-title"><a class="link-dark stretched-link" href="/view/dbs/${db.name}">${db.name}</a></h5>
+        <h5 class="card-title"><a class="link-dark stretched-link" href="/admin/dbs/${db.name}">${db.name}</a></h5>
         <p class="card-text">${db.sizeOnDisk}</p>
       </div>
     </div>
@@ -68,7 +68,9 @@ async function init() {
 }
 
 async function router() {
-	
+	if (window.location.pathname === '/admin/dbs') {
+		await dbs();
+	}		
 }
 
 
@@ -92,6 +94,7 @@ function handleClick(e) {
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
+  window.addEventListener('popstate', () => router());
   document.addEventListener('click', handleClick);
   history.replaceState({}, '', '/admin/dbs')
   router();
