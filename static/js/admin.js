@@ -1,11 +1,11 @@
 async function init2() {
-  let row = document.querySelector('#content');
-  let url = `/api/admin/dbs`;
-  let page = await fetch(url);
-  let json = await page.json();
-  let t = ``;
-  for (let [index, db] of json.dbs.entries()) {
-    t += `
+    let row = document.querySelector('#content');
+    let url = `/api/admin/dbs`;
+    let page = await fetch(url);
+    let json = await page.json();
+    let t = ``;
+    for (let [index, db] of json.dbs.entries()) {
+        t += `
     <div class="card text-center">
       <div class="card-header">
         <ul class="nav nav-pills card-header-pills" id="card-header-pills-${index}" role="tablist">
@@ -33,29 +33,29 @@ async function init2() {
       </div>
     </div>
     `;
-    setInterval(function () {
-      var triggerTabList = [].slice.call(document.querySelectorAll(`#card-header-pills-${index} a`));
-      triggerTabList.forEach(function (triggerEl) {
-        var tabTrigger = new bootstrap.Tab(triggerEl);
+        setInterval(function() {
+            var triggerTabList = [].slice.call(document.querySelectorAll(`#card-header-pills-${index} a`));
+            triggerTabList.forEach(function(triggerEl) {
+                var tabTrigger = new bootstrap.Tab(triggerEl);
 
-        triggerEl.addEventListener('click', function (event) {
-          event.preventDefault();
-          tabTrigger.show();
-        });
-      });
-    }, 100);
-  }
-  row.innerHTML += t;
+                triggerEl.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    tabTrigger.show();
+                });
+            });
+        }, 100);
+    }
+    row.innerHTML += t;
 }
 
 async function dbs() {
-  let row = document.querySelector('#content');
-  let url = `/api/admin/dbs`;
-  let page = await fetch(url);
-  let json = await page.json();
-  let t = ``;
-  for (let [index, db] of json.dbs.entries()) {
-    t += `
+    let row = document.querySelector('#content');
+    let url = `/api/admin/dbs`;
+    let page = await fetch(url);
+    let json = await page.json();
+    let t = ``;
+    for (let [index, db] of json.dbs.entries()) {
+        t += `
     <div class="card text-dark bg-light m-2 text-center">
       <div class="card-body">
         <h5 class="card-title"><a class="link-dark stretched-link" href="/admin/dbs/${db.name}">${db.name}</a></h5>
@@ -63,8 +63,8 @@ async function dbs() {
       </div>
     </div>
     `;
-  }
-  row.innerHTML += t;
+    }
+    row.innerHTML += t;
 }
 
 
@@ -85,13 +85,13 @@ async function db(name) {
 
 
 async function router() {
-	if (window.location.pathname === '/admin/dbs') {
-		await dbs();
-	}
+    if (window.location.pathname === '/admin/dbs') {
+        await dbs();
+    }
     if (window.location.pathname.startsWith('/admin/dbs/')) {
-		let name = window.location.pathname.replace('/admin/dbs/', '')
-		await db(name);
-	}	
+        let name = window.location.pathname.replace('/admin/dbs/', '')
+        await db(name);
+    }
 }
 
 
@@ -107,16 +107,18 @@ function findLink(el) {
 
 function handleClick(e) {
     const link = findLink(e.target);
-    if (link == null) { return; }
+    if (link == null) {
+        return;
+    }
     e.preventDefault();
-	history.pushState({}, '', link.href);
+    history.pushState({}, '', link.href);
     router();
 };
 
 
-document.addEventListener('DOMContentLoaded', function (event) {
-  window.addEventListener('popstate', () => router());
-  document.addEventListener('click', handleClick);
-  history.replaceState({}, '', '/admin/dbs')
-  router();
+document.addEventListener('DOMContentLoaded', function(event) {
+    window.addEventListener('popstate', () => router());
+    document.addEventListener('click', handleClick);
+    history.replaceState({}, '', '/admin/dbs')
+    router();
 });
