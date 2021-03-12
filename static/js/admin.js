@@ -67,12 +67,30 @@ async function dbs() {
   row.innerHTML += t;
 }
 
+
+
+async function db(name) {
+    let row = document.querySelector('#content');
+    let t = ``;
+    t += `
+    <div class="card text-dark bg-light m-2 text-center">
+      <div class="card-body">
+        <h5 class="card-title"><a class="link-dark stretched-link" href="/admin/dbs/${name}">${name}</a></h5>
+      </div>
+    </div>
+    `;
+    row.innerHTML = t;
+}
+
+
+
 async function router() {
 	if (window.location.pathname === '/admin/dbs') {
 		await dbs();
 	}
-    if (window.location.pathname === '/admin/dbs') {
-		await dbs();
+    if (window.location.pathname.startsWith('/admin/dbs/')) {
+		let name = window.location.pathname.replace('/admin/dbs/', '')
+		await db(name);
 	}	
 }
 
