@@ -70,7 +70,10 @@ async function dbs() {
 async function router() {
 	if (window.location.pathname === '/admin/dbs') {
 		await dbs();
-	}		
+	}
+    if (window.location.pathname === '/admin/dbs') {
+		await dbs();
+	}	
 }
 
 
