@@ -97,11 +97,9 @@ async function db(name) {
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <div class="card text-dark bg-light m-2 text-center">
-            <ul class="list-group list-group-flush">
-              ${lis}
-            </ul>
-          </div>
+          <ul class="list-group list-group-flush">
+            ${lis}
+          </ul>
         </div>
       </div>
     </div>
