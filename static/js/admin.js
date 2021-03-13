@@ -112,7 +112,7 @@ function handleClick(e) {
         return;
     }
     e.preventDefault();
-    history.pushState({'url': link}, '', link.href);
+    history.pushState({'url': link}, '', link);
     router();
 };
 
