@@ -85,11 +85,28 @@ async function db(name) {
       <div class="card-body">
         <h5 class="card-title">${name}</h5>
       </div>
-      <ul class="list-group list-group-flush">
-        ${lis}
-      </ul>
     </div>
     `;
+  t += `
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          dbstats
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="card text-dark bg-light m-2 text-center">
+            <ul class="list-group list-group-flush">
+              ${lis}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
   row.innerHTML = t;
 }
 
