@@ -45,7 +45,7 @@ class CollEndpoint(HTTPEndpoint):
         db = request.path_params['db']
         coll = request.path_params['coll']
         try:
-            stats = client[db].command({'collstats': 1})
+            stats = client[db].command({'collstats': coll})
             return JSONResponse({'status': 'ok', 'collstats': stats})
         except Exception as e:
             return JSONResponse({'status': 'error', 'exception': str(e)})
