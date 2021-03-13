@@ -46,7 +46,7 @@ async function year(value) {
     }
   }
   for (let i = 0; i < 12; i++) {
-    let url = `http://172.105.80.145:8000/api/ibu/racers/year/${yearProxy.year}/month/${String(i + 1).padStart(2, '0')}`;
+    let url = `/api/ibu/racers/year/${yearProxy.year}/month/${String(i + 1).padStart(2, '0')}`;
     let page = await fetch(url);
     let json = await page.json();
     setTimeout(() => yearMonth(yearProxy.year, i, json.racers));
@@ -60,7 +60,6 @@ function yearMonth(year, month, racers) {
   document.querySelector(`#m-${month}`).textContent = `${dt.toLocaleString('default', { month: 'long', year: 'numeric' })} - ${racers.length}`;
   document.querySelector(`#r-${month}`).innerHTML = '';
   for (let racer of racers) {
-    console.log(`${racer}`);
     document.querySelector(`#r-${month}`).innerHTML += `
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="${racer._id}">
