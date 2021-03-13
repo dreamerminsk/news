@@ -77,6 +77,9 @@ async function db(name) {
   let page = await fetch(url);
   let json = await page.json();
   let dbstats = json.dbstats;
+  Object.getOwnPropertyNames(dbstats).forEach((key) => {
+    return `<li class="">${key}</li>`;
+  });
   let t = ``;
   t += `
     <div class="card text-dark bg-light m-2 text-center">
