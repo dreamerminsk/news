@@ -23,9 +23,9 @@ class DbsEndpoint(HTTPEndpoint):
 
 class DbEndpoint(HTTPEndpoint):
     async def get(self, request):
-        name = request.path_params['name']
+        db = request.path_params['db']
         try:
-            stats = client[name].command({'dbstats': 1})
+            stats = client[db].command({'dbstats': 1})
             return JSONResponse({'status': 'ok', 'dbstats': stats})
         except Exception as e:
             return JSONResponse({'status': 'error', 'exception': str(e)})
@@ -36,6 +36,19 @@ class CollsEndpoint(HTTPEndpoint):
         dbs = client.list_databases()
         latest = [db for db in dbs]
         return JSONResponse({'status': 'ok', 'dbs': latest})
+
+
+
+class CollEndpoint(HTTPEndpoint):
+    async def get(self, request):
+        db = request.path_params['db']
+        try:
+            stats = client[name].command({'dbstats': 1})
+            return JSONResponse({'status': 'ok', 'dbstats': stats})
+        except Exception as e:
+            return JSONResponse({'status': 'error', 'exception': str(e)})
+
+
 
 
 class AdminView(HTTPEndpoint):
