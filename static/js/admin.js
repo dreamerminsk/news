@@ -66,7 +66,7 @@ async function dbs() {
     </div>
     `;
   }
-  row.innerHTML += t;
+  row.innerHTML = t;
 }
 
 
