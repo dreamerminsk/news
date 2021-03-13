@@ -85,7 +85,7 @@ async function db(name) {
 
 
 async function router() {
-	console.print(history.state);
+	console.log(history.state);
     if (window.location.pathname === '/admin/dbs') {
         await dbs();
     }
