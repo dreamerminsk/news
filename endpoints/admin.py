@@ -43,9 +43,10 @@ class CollsEndpoint(HTTPEndpoint):
 class CollEndpoint(HTTPEndpoint):
     async def get(self, request):
         db = request.path_params['db']
+        coll = request.path_params['coll']
         try:
-            stats = client[db].command({'dbstats': 1})
-            return JSONResponse({'status': 'ok', 'dbstats': stats})
+            stats = client[db].command({'collstats': 1})
+            return JSONResponse({'status': 'ok', 'collstats': stats})
         except Exception as e:
             return JSONResponse({'status': 'error', 'exception': str(e)})
 
