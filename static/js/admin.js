@@ -85,6 +85,7 @@ async function db(name) {
 
 
 async function router() {
+	console.print(history.state);
     if (window.location.pathname === '/admin/dbs') {
         await dbs();
     }
@@ -111,7 +112,7 @@ function handleClick(e) {
         return;
     }
     e.preventDefault();
-    history.pushState({}, '', link.href);
+    history.pushState({'url': link.href}, '', link.href);
     router();
 };
 
@@ -119,6 +120,6 @@ function handleClick(e) {
 document.addEventListener('DOMContentLoaded', function(event) {
     window.addEventListener('popstate', () => router());
     document.addEventListener('click', handleClick);
-    history.replaceState({}, '', '/admin/dbs')
+    history.replaceState({'url': '/admin/dbs'}, '', '/admin/dbs')
     router();
 });
