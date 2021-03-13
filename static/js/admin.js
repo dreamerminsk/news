@@ -88,7 +88,7 @@ async function db(name) {
     </div>
     `;
   t += `
-  <div class="accordion" id="accordionExample">
+  <div class="accordion m-2" id="accordionExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingOne">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
