@@ -76,11 +76,12 @@ async function db(name) {
   let url = `/api/admin/dbs/${name}`;
   let page = await fetch(url);
   let json = await page.json();
+  let dbstats = json.dbstats;
   let t = ``;
   t += `
     <div class="card text-dark bg-light m-2 text-center">
       <div class="card-body">
-        <h5 class="card-title"><a class="link-dark stretched-link" href="/admin/dbs/${name}">${name}</a></h5>
+        <h5 class="card-title">${name}</h5>
       </div>
     </div>
     `;
