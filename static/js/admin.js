@@ -71,6 +71,9 @@ async function dbs() {
 
 async function db(name) {
     let row = document.querySelector('#content');
+	let url = `/api/admin/dbs/${name}`;
+    let page = await fetch(url);
+    let json = await page.json();
     let t = ``;
     t += `
     <div class="card text-dark bg-light m-2 text-center">
