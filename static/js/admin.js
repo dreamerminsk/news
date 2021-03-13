@@ -78,7 +78,7 @@ async function db(name) {
   let json = await page.json();
   let dbstats = json.dbstats;
   Object.getOwnPropertyNames(dbstats).forEach((key) => {
-    return `<li class="">${key}</li>`;
+    return `<li class="list-group-item">${key}</li>`;
   });
   let t = ``;
   t += `
