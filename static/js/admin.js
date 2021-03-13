@@ -77,15 +77,17 @@ async function db(name) {
   let page = await fetch(url);
   let json = await page.json();
   let dbstats = json.dbstats;
-  Object.getOwnPropertyNames(dbstats).forEach((key) => {
-    return `<li class="list-group-item">${key}</li>`;
-  });
-  let t = ``;
-  t += `
+  let lis = Object.getOwnPropertyNames(dbstats).map((key) => {
+    return `<li class="list-group-item">${key}: ${dbstats[key]}</li>`;
+  }).join('');
+  let t = `
     <div class="card text-dark bg-light m-2 text-center">
       <div class="card-body">
         <h5 class="card-title">${name}</h5>
       </div>
+      <ul class="list-group list-group-flush">
+        ${lis}
+      </ul>
     </div>
     `;
   row.innerHTML = t;
