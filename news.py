@@ -226,7 +226,7 @@ app = Starlette(debug=True, routes=[
     Route('/api/admin/dbs', DbsEndpoint),
     Route('/api/admin/dbs/{name}', DbEndpoint),
 
-    Route('/view/admin', AdminView),
+    Route('/admin/dbs', AdminView),
 
     Mount('/static', StaticFiles(directory='static'), name='static')
 ], middleware=middleware, on_startup=[start_job])
