@@ -58,7 +58,7 @@ async function db(name) {
   let cjson = await cpage.json();
   let colls = cjson.colls;
   let lics = colls.map((coll) => {
-    return `<li class="list-group-item"><a href="`/api/admin/dbs/${name}/colls/${coll}`">${coll}</a></li>`;
+    return `<li class="list-group-item"><a href="/api/admin/dbs/${name}/colls/${coll}">${coll}</a></li>`;
   }).join('');
   t += `
   <div class="accordion m-2" id="accordionColls">
