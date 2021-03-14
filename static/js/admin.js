@@ -108,9 +108,9 @@ async function db(name) {
   let curl = `/api/admin/dbs/${name}/colls`;
   let cpage = await fetch(curl);
   let cjson = await cpage.json();
-  let dbstats = json.dbstats;
-  let lis = Object.getOwnPropertyNames(dbstats).map((key) => {
-    return `<li class="list-group-item">${key}: ${dbstats[key]}</li>`;
+  let colls = json.colls;
+  let lics = colls.map((coll) => {
+    return `<li class="list-group-item">${coll}</li>`;
   }).join('');
   t += `
   <div class="accordion m-2" id="accordionColls">
@@ -123,7 +123,7 @@ async function db(name) {
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionColl">
         <div class="accordion-body">
           <ul class="list-group list-group-flush">
-            ${lis}
+            ${lics}
           </ul>
         </div>
       </div>
