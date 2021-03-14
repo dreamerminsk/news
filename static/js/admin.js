@@ -95,7 +95,32 @@ async function db(name) {
           dbstats
         </button>
       </h2>
-      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <ul class="list-group list-group-flush">
+            ${lis}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
+  let curl = `/api/admin/dbs/${name}/colls`;
+  let cpage = await fetch(curl);
+  let cjson = await cpage.json();
+  let dbstats = json.dbstats;
+  let lis = Object.getOwnPropertyNames(dbstats).map((key) => {
+    return `<li class="list-group-item">${key}: ${dbstats[key]}</li>`;
+  }).join('');
+  t += `
+  <div class="accordion m-2" id="accordionColls">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          colls
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionColl">
         <div class="accordion-body">
           <ul class="list-group list-group-flush">
             ${lis}
