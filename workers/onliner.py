@@ -13,23 +13,9 @@ from pymongo import MongoClient
 
 from workers.web import get_html_async, get_text, get_text_async
 
-talon = 'https://talon.by/'
+onliner = 'https://onliner.by/'
 
-p = 'https://talon.by/policlinic/minsk-1dp/order'
-d = 'https://talon.by/policlinic/minsk-1dp/order/1943'
-t = 'https://talon.by/policlinic/minsk-1dp/order/1943/3473'
-
-dd = 'https://talon.by/policlinic/minsk-1dp/doctors/16484'
-ddt = 'https://talon.by/policlinic/minsk-1dp/order/1944/3483'
-ddtt = 'https://talon.by/policlinic/minsk-1dp/order/1944/3483/2125898'
-
-
-policlinics = 'https://talon.by/policlinics'
-
-ws = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/ru.wikipedia/all-access/user/Слон/daily/2020070100/2021020723'
-
-
-class Policlinic(object):
+class Article(object):
     def __init__(self, title, url) -> None:
         super().__init__()
         self.__title = title
@@ -44,7 +30,7 @@ class Policlinic(object):
         return self.__url
 
 
-class Talon(object):
+class Onliner(object):
     def __init__(self) -> None:
         super().__init__()
 
