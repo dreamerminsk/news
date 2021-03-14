@@ -39,7 +39,7 @@ async function db(name) {
   <div class="accordion m-2" id="accordionExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingOne">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
           dbstats
         </button>
       </h2>
@@ -58,13 +58,13 @@ async function db(name) {
   let cjson = await cpage.json();
   let colls = cjson.colls;
   let lics = colls.map((coll) => {
-    return `<li class="list-group-item">${coll}</li>`;
+    return `<li class="list-group-item"><a href="`/api/admin/dbs/${name}/colls/${coll}`">${coll}</a></li>`;
   }).join('');
   t += `
   <div class="accordion m-2" id="accordionColls">
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingTwo">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           colls
         </button>
       </h2>
