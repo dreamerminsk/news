@@ -108,7 +108,7 @@ async function db(name) {
   let curl = `/api/admin/dbs/${name}/colls`;
   let cpage = await fetch(curl);
   let cjson = await cpage.json();
-  let colls = json.colls;
+  let colls = cjson.colls;
   let lics = colls.map((coll) => {
     return `<li class="list-group-item">${coll}</li>`;
   }).join('');
