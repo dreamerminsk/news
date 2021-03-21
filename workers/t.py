@@ -22,6 +22,8 @@ time_selector = 'div.news-header__time'
 author_selector = 'div.news-header__author'  
 
 def get_article(url):
+    print('---------------------------------')
+    print(url)
     html, error = get_text(url)
     title_nodes = html.select(title_selector)
     if title_nodes:
