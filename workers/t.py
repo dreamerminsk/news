@@ -30,11 +30,12 @@ def get_article(url):
         print(title_nodes[0].text.strip())
     views_nodes = html.select(views_selector)
     if views_nodes:
-        print(views_nodes[0].text.strip())
+        views = int(''.join(views_nodes[0].text.split()))
+        print('\tviews: {}'.format(views))
     comments_nodes = html.select(comments_selector)
     if comments_nodes:
-        print(comments_nodes[0].text.strip())
-        
+        comments = int(''.join(comments_nodes[0].text.split()))
+        print('\tcomments: {}'.format(comments))        
     time_nodes = html.select(time_selector)
     if time_nodes:
         print(time_nodes[0].text.strip())
@@ -42,16 +43,26 @@ def get_article(url):
     if author_nodes:
         print(author_nodes[0].text.strip())
         
-html, error = get_text('https://people.onliner.by/')
-pol_nodes = html.select('a[href]')
-if pol_nodes:
-    for pol_node in pol_nodes:
-        if '#comments' in pol_node.get('href'):
-            continue
-        if '/2021/' in pol_node.get('href'):
-            time.sleep(4)
-            if 'https://' in pol_node.get('href'):
-                get_article(pol_node.get('href'))
-            else:
-                get_article('https://people.onliner.by{}'.format(pol_node.get('href')))
-            time.sleep(30)
+
+def get_articles(url):
+    html, error = get_text(url)
+    pol_nodes = html.select('a[href]')
+    urls = set()
+    if pol_nodes:
+        for pol_node in pol_nodes:
+            if '#comments' in pol_node.get('href'):
+                continue
+            if '/2021/' in pol_node.get('href'):
+                if 'https://' in pol_node.get('href'):
+                    urls.add(pol_node.get('href'))
+                else:
+                    urls.add('{}{}'.format(url, pol_node.get('href')))
+    return urls
+
+topics = ['https://auto.onliner.by', 'https://people.onliner.by', 'https://realt.onliner.by', 'https://tech.onliner.by']
+for topic in topics:  
+    urls = get_articles(topic)              
+    for url in urls:
+        time.sleep(4)
+        get_article(url)
+        time.sleep(30)
