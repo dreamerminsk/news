@@ -45,6 +45,8 @@ pol_nodes = html.select('a[href]')
 if pol_nodes:
     cs = []
     for pol_node in pol_nodes:
+        if '#comments' in pol_node.get('href'):
+            continue
         if '/2021/' in pol_node.get('href'):
             time.sleep(4)
             get_article(pol_node.get('href'))
