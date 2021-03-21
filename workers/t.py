@@ -42,14 +42,16 @@ def get_article(url):
     if author_nodes:
         print(author_nodes[0].text.strip())
         
-html, error = get_text('https://onliner.by/')
+html, error = get_text('https://people.onliner.by/')
 pol_nodes = html.select('a[href]')
 if pol_nodes:
-    cs = []
     for pol_node in pol_nodes:
         if '#comments' in pol_node.get('href'):
             continue
         if '/2021/' in pol_node.get('href'):
             time.sleep(4)
-            get_article(pol_node.get('href'))
+            if 'https://' in pol_node.get('href'):
+                get_article(pol_node.get('href'))
+            else:
+                get_article('https://people.onliner.by{}'.format(pol_node.get('href')))
             time.sleep(30)
