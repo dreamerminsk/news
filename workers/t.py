@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import time
+import re
 
 
 def get_text(url):
@@ -20,6 +21,8 @@ views_selector = 'div.news-header__button_views'
 comments_selector = '#news-header-comments-counter' 
 time_selector = 'div.news-header__time'  
 author_selector = 'div.news-header__author'  
+date_pattern = re.compile('(\d\d\d\d)[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])')
+time_pattern = re.compile('([0-9]|1[0-9]|2[0123])[:](\d\d)')
 
 def get_article(url):
     print('---------------------------------')
@@ -38,10 +41,14 @@ def get_article(url):
         print('\tcomments: {}'.format(comments))        
     time_nodes = html.select(time_selector)
     if time_nodes:
-        print(time_nodes[0].text.strip())
+        time = time_pattern.findall(time_nodes[0].text.strip())
+        date = date_pattern.findall(url)
+        print('\tdate: {}'.format(date)) 
+        print('\ttime: {}'.format(time)) 
     author_nodes = html.select(author_selector)
     if author_nodes:
         print(author_nodes[0].text.strip())
+    
         
 
 def get_articles(url):
