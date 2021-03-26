@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import time
 import re
+from urllib.parse import urlsplit
 
 
 def get_text(url):
@@ -43,8 +44,8 @@ def get_article(url):
     if time_nodes:
         time = time_pattern.findall(time_nodes[0].text.strip())
         date = date_pattern.findall(url)
-        print('\tdate: {}'.format(date[0])) 
-        print('\ttime: {}'.format(time[0])) 
+        print('\tdate: {}-{}-{}'.format(date[0][0], date[0][1], date[0][2])) 
+        print('\ttime: {}:{}'.format(time[0][0], time[0][1])) 
     author_nodes = html.select(author_selector)
     if author_nodes:
         print(author_nodes[0].text.strip())
@@ -58,6 +59,7 @@ def get_article(url):
         
 
 def get_articles(url):
+    base_url = "{0.scheme}://{0.netloc}".format(urlsplit(url))
     html, error = get_text(url)
     pol_nodes = html.select('a[href]')
     urls = set()
@@ -70,7 +72,7 @@ def get_articles(url):
                 if 'https://' in ref:
                     urls.add(ref)
                 else:
-                    urls.add('{}{}'.format(url, ref))
+                    urls.add('{}{}'.format(base_url, ref))
     return urls
 
 topics = ['https://tech.onliner.by/tag/muzyka', 'https://realt.onliner.by/tag/za-rubezhom', 'https://people.onliner.by/tag/aukciony', 'https://auto.onliner.by', 'https://people.onliner.by', 'https://realt.onliner.by', 'https://tech.onliner.by']
