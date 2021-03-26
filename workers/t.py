@@ -51,6 +51,7 @@ def get_article(url):
     tag_nodes = html.select('a[href]')
     if tag_nodes:
         for tag_node in tag_nodes:
+            ref = tag_node.get('href')
             if '/tag/' in ref:
                 print('\ttag: {}'.format(tag_node.text.strip()))
     
