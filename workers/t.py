@@ -43,8 +43,8 @@ def get_article(url):
     if time_nodes:
         time = time_pattern.findall(time_nodes[0].text.strip())
         date = date_pattern.findall(url)
-        print('\tdate: {}'.format(date)) 
-        print('\ttime: {}'.format(time)) 
+        print('\tdate: {}'.format(date[0])) 
+        print('\ttime: {}'.format(time[0])) 
     author_nodes = html.select(author_selector)
     if author_nodes:
         print(author_nodes[0].text.strip())
@@ -57,16 +57,17 @@ def get_articles(url):
     urls = set()
     if pol_nodes:
         for pol_node in pol_nodes:
-            if '#comments' in pol_node.get('href'):
+            ref = pol_node.get('href')
+            if '#comments' in ref:
                 continue
-            if '/2021/' in pol_node.get('href'):
-                if 'https://' in pol_node.get('href'):
-                    urls.add(pol_node.get('href'))
+            if '/2021/' in ref:
+                if 'https://' in ref:
+                    urls.add(ref)
                 else:
-                    urls.add('{}{}'.format(url, pol_node.get('href')))
+                    urls.add('{}{}'.format(url, ref))
     return urls
 
-topics = ['https://auto.onliner.by', 'https://people.onliner.by', 'https://realt.onliner.by', 'https://tech.onliner.by']
+topics = ['https://realt.onliner.by/tag/za-rubezhom', 'https://people.onliner.by/tag/aukciony', 'https://auto.onliner.by', 'https://people.onliner.by', 'https://realt.onliner.by', 'https://tech.onliner.by']
 for topic in topics:  
     urls = get_articles(topic)              
     for url in urls:
