@@ -12,6 +12,7 @@ from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 from endpoints.admin import AdminView, DbEndpoint, DbsEndpoint, CollEndpoint, CollsEndpoint
+from endpoints.onliner import OnlinerView
 from endpoints.countries import NationEndpoint, NationsEndpoint
 from endpoints.news import (FeedEndpoint, FeedSourceEndpoint,
                             RssReaderEndpoint, TaskEndpoint, XmlEditorEndpoint)
@@ -229,6 +230,8 @@ app = Starlette(debug=True, routes=[
     Route('/api/admin/dbs/{db}/colls/{coll}', CollEndpoint),
 
     Route('/admin/{rest_of_path:path}', AdminView),
+  
+    Route('/onliner/{rest_of_path:path}', OnlinerView),
 
     Mount('/static', StaticFiles(directory='static'), name='static')
 ], middleware=middleware, on_startup=[start_job])
