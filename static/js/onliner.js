@@ -7,7 +7,7 @@ async function dbs() {
     t += `
     <div class="card text-dark bg-light border-primary mb-3">
       <div class="card-body">
-        ${d.toDateString()}
+        <button type="button" class="btn btn-secondary">${d.toDateString()}</button>
       </div>
     </div>`;
   }
