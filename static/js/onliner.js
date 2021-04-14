@@ -5,7 +5,7 @@ async function dbs() {
     let d = new Date();
     d.setUTCDate(d.getUTCDate() + i);
     t += `
-    <div class="card text-dark bg-light border-primary mb-3">
+    <div class="card text-dark bg-light border-dark m-2">
       <div class="card-body">
         <button type="button" class="btn btn-secondary">${d.toDateString()}</button>
       </div>
