@@ -4,7 +4,7 @@ async function dbs() {
   for(let i = 0; i < 8; i++) {
     let d = new Date();
     d.setUTCDate(d.getUTCDate() + i);
-    t += `<div class="card">${d.toLocalDateString()}</div>`;
+    t += `<div class="card">${d}</div>`;
   }
   row.innerHTML = t;
 }
