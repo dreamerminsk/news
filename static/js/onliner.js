@@ -1,10 +1,10 @@
 async function dbs() {
   let row = document.querySelector('#content');
   let t = ``;
-  for(let i = 0; i < 3; i++) {
+  for(let i = 0; i < 8; i++) {
     let d = new Date();
     d.setUTCDate(d.getUTCDate() + i);
-    t += `<div>${d}</div>`;
+    t += `<div class="card">${d}</div>`;
   }
   row.innerHTML = t;
 }
