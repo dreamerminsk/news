@@ -1,3 +1,15 @@
+var options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 1.0
+}
+var callback = function(entries, observer) {
+    /* Content excerpted, show below */
+};
+var observer = new IntersectionObserver(callback, options);
+
+
+
 async function dbs() {
   let row = document.querySelector('#content');
   let t = ``;
