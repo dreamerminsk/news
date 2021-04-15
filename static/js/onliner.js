@@ -55,6 +55,20 @@ function handleClick(e) {
 
 
 
+function intersectionCallback(entries) {
+  entries.forEach(function(entry) {
+    let adBox = entry.target;
+
+    if (entry.isIntersecting) {
+
+    } else {
+
+    }
+  });
+}
+
+
+
 document.addEventListener('DOMContentLoaded', function (event) {
     options = {
         root: null,
