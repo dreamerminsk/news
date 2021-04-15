@@ -1,16 +1,8 @@
-var options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1.0
-}
-var callback = function(entries, observer) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-        }
-    });
-};
-var observer = new IntersectionObserver(callback, options);
+let options;
 
+let callback;
+
+let observer;
 
 
 async function dbs() {
@@ -64,8 +56,20 @@ function handleClick(e) {
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  window.addEventListener('popstate', () => router());
-  document.addEventListener('click', handleClick);
-  history.replaceState({ 'url': '/onliner/' }, '', '/onliner/')
-  router();
+    options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 1.0
+    }
+    callback = function(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+            }
+        });
+    };
+    observer = new IntersectionObserver(callback, options);
+    window.addEventListener('popstate', () => router());
+    document.addEventListener('click', handleClick);
+    history.replaceState({ 'url': '/onliner/' }, '', '/onliner/');
+    router();
 });
