@@ -4,7 +4,10 @@ var options = {
     threshold: 1.0
 }
 var callback = function(entries, observer) {
-    /* Content excerpted, show below */
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+        }
+    });
 };
 var observer = new IntersectionObserver(callback, options);
 
