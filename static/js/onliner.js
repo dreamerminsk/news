@@ -1,7 +1,5 @@
 let options;
 
-let callback;
-
 let observer;
 
 
@@ -75,13 +73,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         rootMargin: '0px',
         threshold: 1.0
     }
-    callback = function(entries, observer) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-            }
-        });
-    };
-    observer = new IntersectionObserver(callback, options);
+    observer = new IntersectionObserver(intersectionCallback, options);
     window.addEventListener('popstate', () => router());
     document.addEventListener('click', handleClick);
     history.replaceState({ 'url': '/onliner/' }, '', '/onliner/');
