@@ -16,12 +16,14 @@ function DayView(day) {
 
 async function dbs() {
   let row = document.querySelector('#content');
-  let t = ``;
+  let t = `<div id="days">`;
   for(let i = 0; i < 11; i++) {
     let d = new Date();
     d.setUTCDate(d.getUTCDate() + i);
     t += DayView(d);
   }
+  t += `</div>`;
+  t += `<div id="loading">loading...</div>`;
   row.innerHTML = t;
 }
 
