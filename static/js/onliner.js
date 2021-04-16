@@ -25,6 +25,9 @@ async function dbs() {
   t += `</div>`;
   t += `<div id="loading">loading...</div>`;
   row.innerHTML = t;
+  let timerId = setTimeout(function {
+    
+  }, 0);
 }
 
 
