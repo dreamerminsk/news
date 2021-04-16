@@ -3,6 +3,16 @@ let options;
 let observer;
 
 
+function day() {
+  let t = `
+    <div class="card text-dark bg-light border-dark m-2">
+      <div class="card-body">
+        <button type="button" class="btn btn-secondary">${d.toDateString()}</button>
+      </div>
+    </div>`;
+}
+
+
 async function dbs() {
   let row = document.querySelector('#content');
   let t = ``;
