@@ -26,7 +26,8 @@ async function dbs() {
   t += `<div id="loading">loading...</div>`;
   row.innerHTML = t;
   let timerId = setTimeout(function {
-    
+    let ld = document.getElementById('loading');
+	observer.observe(ld);
   }, 0);
 }
 
@@ -69,7 +70,7 @@ function intersectionCallback(entries) {
     let adBox = entry.target;
 
     if (entry.isIntersecting) {
-
+		alert(adBox); 
     } else {
 
     }
