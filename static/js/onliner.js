@@ -20,7 +20,7 @@ async function dbs() {
   let row = document.querySelector('#content');
   let t = `<div id="days">`;
   for(let i = 0; i < 11; i++) {
-    lastDay.setUTCDate(lastDay.getUTCDate() + i);
+    lastDay.setUTCDate(lastDay.getUTCDate() + 1);
     t += DayView(lastDay);
   }
   t += `</div>`;
@@ -71,7 +71,9 @@ function intersectionCallback(entries) {
     let adBox = entry.target;
 
     if (entry.isIntersecting) {
-		alert(adBox); 
+		lastDay.setUTCDate(lastDay.getUTCDate() + 1);
+		let row = document.querySelector('#days');
+		row.innerHTML += DayView(lastDay);
     } else {
 
     }
