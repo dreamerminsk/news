@@ -7,7 +7,7 @@ function DayView(day) {
   let t = `
     <div class="card text-dark bg-light border-dark m-2">
       <div class="card-body">
-        <button type="button" class="btn btn-secondary">${day.toDateString()}</button>
+        ${day.toDateString()}
       </div>
     </div>`;
 	return t;
