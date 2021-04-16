@@ -3,13 +3,14 @@ let options;
 let observer;
 
 
-function day() {
+function DayView(day) {
   let t = `
     <div class="card text-dark bg-light border-dark m-2">
       <div class="card-body">
-        <button type="button" class="btn btn-secondary">${d.toDateString()}</button>
+        <button type="button" class="btn btn-secondary">${day.toDateString()}</button>
       </div>
     </div>`;
+	return t;
 }
 
 
@@ -19,12 +20,7 @@ async function dbs() {
   for(let i = 0; i < 11; i++) {
     let d = new Date();
     d.setUTCDate(d.getUTCDate() + i);
-    t += `
-    <div class="card text-dark bg-light border-dark m-2">
-      <div class="card-body">
-        <button type="button" class="btn btn-secondary">${d.toDateString()}</button>
-      </div>
-    </div>`;
+    t += DayView(d);
   }
   row.innerHTML = t;
 }
