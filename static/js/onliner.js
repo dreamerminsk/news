@@ -8,19 +8,18 @@ let lastDay = new Date();
 
 
 function DayView(day) {
-  let t = `
+  return `
     <div class="card text-dark bg-light border-dark m-2">
       <div class="card-body">
         ${day.toDateString()}
       </div>
     </div>`;
-	return t;
 }
 
 
 async function dbs() {
   let row = document.querySelector('#content');
-  let t = '';
+  let t = ``;
   for(let i = 0; i < 7; i--) {
     firstDay.setUTCDate(firstDay.getUTCDate() - 1);
     t = DayView(firstDay) + t;
