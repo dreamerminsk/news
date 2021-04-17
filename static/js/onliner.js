@@ -7,6 +7,28 @@ let firstDay = new Date();
 let lastDay = new Date();
 
 
+function PrevItems() {
+  return `
+  <div id="loading" class="card text-dark bg-light border-dark m-2">
+      <div class="card-body">
+        loading...
+      </div>
+  </div>
+`;
+}
+
+
+function NextItems() {
+  return `
+  <div id="loading" class="card text-dark bg-light border-dark m-2">
+      <div class="card-body">
+        loading...
+      </div>
+  </div>
+    `;
+}
+
+
 function DayView(day) {
   return `
     <div class="card text-dark bg-light border-dark m-2">
