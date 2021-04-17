@@ -10,6 +10,9 @@ let lastDay = new Date();
 function DayView(day) {
   return `
     <div class="card text-dark bg-light border-dark m-2">
+	  <div class="card-header">
+        ${day.toDateString()}
+      </div>
       <div class="card-body">
         ${day.toDateString()}
       </div>
