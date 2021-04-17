@@ -20,7 +20,7 @@ function DayView(day) {
 async function dbs() {
   let row = document.querySelector('#content');
   let t = ``;
-  for(let i = 0; i < 7; i--) {
+  for(let i = 0; i < 7; i++) {
     firstDay.setUTCDate(firstDay.getUTCDate() - 1);
     t = DayView(firstDay) + t;
   }
