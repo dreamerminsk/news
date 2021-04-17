@@ -20,7 +20,7 @@ function PrevItems() {
 
 function NextItems() {
   return `
-  <div id="prev-items" class="card text-white bg-secondary border-dark m-3">
+  <div id="next-items" class="card text-white bg-secondary border-dark m-3">
       <div class="card-body text-center">
         loading...
       </div>
@@ -53,13 +53,8 @@ async function dbs() {
     lastDay.setUTCDate(lastDay.getUTCDate() + 1);
     t += DayView(lastDay);
   }
-  t = `<div id="days">${t}</div>`;
-  t += `
-  <div id="loading" class="card text-dark bg-light border-dark m-2">
-      <div class="card-body">
-        loading...
-      </div>
-  </div>`;
+  t = `${PrevItems()}<div id="days">${t}</div>${NextItems()}`;
+
   row.innerHTML = t;
   let timerId = setTimeout(() => {
     let ld = document.getElementById('loading');
