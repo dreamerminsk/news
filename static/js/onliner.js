@@ -9,8 +9,8 @@ let lastDay = new Date();
 
 function PrevItems() {
   return `
-  <div id="loading" class="card text-dark bg-light border-dark m-2">
-      <div class="card-body">
+  <div id="prev-items" class="card text-white bg-secondary border-dark m-3">
+      <div class="card-body text-center">
         loading...
       </div>
   </div>
@@ -20,8 +20,8 @@ function PrevItems() {
 
 function NextItems() {
   return `
-  <div id="loading" class="card text-dark bg-light border-dark m-2">
-      <div class="card-body">
+  <div id="prev-items" class="card text-white bg-secondary border-dark m-3">
+      <div class="card-body text-center">
         loading...
       </div>
   </div>
