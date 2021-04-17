@@ -2,6 +2,8 @@ let options;
 
 let observer;
 
+let firstDay = new Date();
+
 let lastDay = new Date();
 
 
@@ -19,11 +21,15 @@ function DayView(day) {
 async function dbs() {
   let row = document.querySelector('#content');
   let t = `<div id="days">`;
+  for(let i = 0; i < 7; i--) {
+    firstDay.setUTCDate(firstDay.getUTCDate() - 1);
+    t = DayView(firstDay) + t;
+  }
   for(let i = 0; i < 7; i++) {
     lastDay.setUTCDate(lastDay.getUTCDate() + 1);
     t += DayView(lastDay);
   }
-  t += `</div>`;
+  t = `<div id="days">${t}</div>`;
   t += `
   <div id="loading" class="card text-dark bg-light border-dark m-2">
       <div class="card-body">
