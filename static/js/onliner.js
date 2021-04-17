@@ -57,7 +57,7 @@ async function dbs() {
 
   row.innerHTML = t;
   let timerId = setTimeout(() => {
-    let ld = document.getElementById('loading');
+    let ld = document.getElementById('next-items');
 	observer.observe(ld);
   }, 0);
 }
