@@ -24,7 +24,12 @@ async function dbs() {
     t += DayView(lastDay);
   }
   t += `</div>`;
-  t += `<div id="loading">loading...</div>`;
+  t += `
+  <div id="loading" class="card text-dark bg-light border-dark m-2">
+      <div class="card-body">
+        loading...
+      </div>
+  </div>`;
   row.innerHTML = t;
   let timerId = setTimeout(() => {
     let ld = document.getElementById('loading');
