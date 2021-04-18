@@ -101,11 +101,11 @@ function intersectionCallback(entries) {
     let adBox = entry.target;
 
     if (entry.isIntersecting) {
-		for(let i = 0; i < 4; i++) {
-			lastDay.setUTCDate(lastDay.getUTCDate() + 1);
-			let row = document.querySelector('#days');
-			row.innerHTML += DayView(lastDay);
-		}
+      for(let i = 0; i < 4; i++) {
+        lastDay.setUTCDate(lastDay.getUTCDate() + 1);
+        let row = document.querySelector('#days');
+        row.innerHTML += DayView(lastDay);
+      }
     } else {
 
     }
