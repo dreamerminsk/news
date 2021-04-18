@@ -42,6 +42,19 @@ function DayView(day) {
 }
 
 
+function addPrevItem() {
+  firstDay.setUTCDate(firstDay.getUTCDate() - 1);
+  let row = document.querySelector('#days');
+  row.innerHTML += DayView(lastDay);
+}
+
+function addNextItem() {
+  lastDay.setUTCDate(lastDay.getUTCDate() + 1);
+  let row = document.querySelector('#days');
+  row.innerHTML += DayView(lastDay);
+}
+
+
 async function dbs() {
   let row = document.querySelector('#content');
   let t = ``;
