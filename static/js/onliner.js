@@ -116,9 +116,9 @@ function intersectionCallback(entries) {
 
 document.addEventListener('DOMContentLoaded', function (event) {
     options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 1.0
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0
     }
     observer = new IntersectionObserver(intersectionCallback, options);
     window.addEventListener('popstate', () => router());
