@@ -45,13 +45,13 @@ function DayView(day) {
 function addPrevItem() {
   firstDay.setUTCDate(firstDay.getUTCDate() - 1);
   let row = document.querySelector('#days');
-  row.innerHTML += DayView(lastDay);
+  row.insertAdjacentHTML('afterbegin', DayView(lastDay));
 }
 
 function addNextItem() {
   lastDay.setUTCDate(lastDay.getUTCDate() + 1);
   let row = document.querySelector('#days');
-  row.innerHTML += DayView(lastDay);
+  row.insertAdjacentHTML('beforeend', DayView(lastDay));
 }
 
 
