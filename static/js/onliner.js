@@ -114,7 +114,7 @@ function handleClick(e) {
 function intersectionCallback(entries) {
   entries.forEach(function(entry) {
     let adBox = entry.target;
-    alert(adBox);
+    alert(adBox.getAttribute('id'));
     if (entry.isIntersecting) {
       if (adBox.getAttribute('id') === 'prev-items') {
         for (let i = 0; i < 7; i++) {
