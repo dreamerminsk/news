@@ -58,18 +58,22 @@ function addNextItem() {
 async function dbs() {
   let row = document.querySelector('#content');
   row.innerHTML = `${PrevItems()}<div id="days"></div>${NextItems()}`;
-  for(let i = 0; i < 7; i++) {
-    firstDay.setUTCDate(firstDay.getUTCDate() - 1);
-    t = DayView(firstDay) + t;
-  }
-  for(let i = 0; i < 7; i++) {
-    lastDay.setUTCDate(lastDay.getUTCDate() + 1);
-    t += DayView(lastDay);
-  }
+  
+  setTimeout(() => {
+    for (const x of Array(7).keys()) {
+      addPrevItem();
+    }
+  }, 0);
+
+  setTimeout(() => {
+    for (const x of Array(7).keys()) {
+      addNextItem();
+    }
+  }, 0);
 
   setTimeout(() => {
     let ld = document.getElementById('next-items');
-	observer.observe(ld);
+    observer.observe(ld);
   }, 0);
 }
 
@@ -113,9 +117,7 @@ function intersectionCallback(entries) {
 
     if (entry.isIntersecting) {
       for(let i = 0; i < 4; i++) {
-        lastDay.setUTCDate(lastDay.getUTCDate() + 1);
-        let row = document.querySelector('#days');
-        row.innerHTML += DayView(lastDay);
+        
       }
     } else {
 
