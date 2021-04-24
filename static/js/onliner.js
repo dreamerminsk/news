@@ -129,7 +129,7 @@ function intersectionCallback(entries) {
 
 document.addEventListener('DOMContentLoaded', function (event) {
     options = {
-      root: null,
+      root: document.querySelector('#content'),
       rootMargin: '0px',
       threshold: 1.0
     }
