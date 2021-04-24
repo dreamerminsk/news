@@ -57,7 +57,7 @@ function addNextItem() {
 
 async function dbs() {
   let row = document.querySelector('#content');
-  row.innerHTML = `${PrevItems()}<div id="days"></div>${NextItems()}`;
+  row.innerHTML = `${PrevItems()}<div id="days">${DayView(new Date())}</div>${NextItems()}`;
   
   setTimeout(() => {
     for (const x of Array(7).keys()) {
@@ -119,17 +119,15 @@ function intersectionCallback(entries) {
     
     if (entry.isIntersecting) {
       if (adBox.getAttribute('id') === 'prev-items') {
-        alert(adBox.getAttribute('id'));
         setTimeout(() => {
-          for (const x of Array(7).keys()) {
+          for (const x of Array(4).keys()) {
             addPrevItem();
           }
         }, 0);
       }
       if (adBox.getAttribute('id') === 'next-items') {
-        alert(adBox.getAttribute('id'));
         setTimeout(() => {
-          for (const x of Array(7).keys()) {
+          for (const x of Array(4).keys()) {
             addNextItem();
           }
         }, 0);
