@@ -72,8 +72,10 @@ async function dbs() {
   }, 0);
 
   setTimeout(() => {
-    let ld = document.getElementById('next-items');
-    observer.observe(ld);
+    let nd = document.getElementById('next-items');
+    observer.observe(nd);
+    let pd = document.getElementById('prev-items');
+    observer.observe(pd);
   }, 0);
 }
 
@@ -117,18 +119,18 @@ function intersectionCallback(entries) {
     alert(adBox.getAttribute('id'));
     if (entry.isIntersecting) {
       if (adBox.getAttribute('id') === 'prev-items') {
-        for (let i = 0; i < 7; i++) {
-          setTimeout(() => {
+        setTimeout(() => {
+          for (const x of Array(7).keys()) {
             addPrevItem();
-          }, 0);
-        }
+          }
+        }, 0);
       }
       if (adBox.getAttribute('id') === 'next-items') {
-        for(let i = 0; i < 7; i++) {
-          setTimeout(() => {
+        setTimeout(() => {
+          for (const x of Array(7).keys()) {
             addNextItem();
-          }, 0);
-        }
+          }
+        }, 0);
       }
     } else {
 
