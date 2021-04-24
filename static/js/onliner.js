@@ -45,7 +45,7 @@ function DayView(day) {
 function addPrevItem() {
   firstDay.setUTCDate(firstDay.getUTCDate() - 1);
   let row = document.querySelector('#days');
-  row.insertAdjacentHTML('afterbegin', DayView(lastDay));
+  row.insertAdjacentHTML('afterbegin', DayView(firstDay));
 }
 
 function addNextItem() {
@@ -116,9 +116,10 @@ function handleClick(e) {
 function intersectionCallback(entries) {
   entries.forEach(function(entry) {
     let adBox = entry.target;
-    alert(adBox.getAttribute('id'));
+    
     if (entry.isIntersecting) {
       if (adBox.getAttribute('id') === 'prev-items') {
+        alert(adBox.getAttribute('id'));
         setTimeout(() => {
           for (const x of Array(7).keys()) {
             addPrevItem();
@@ -126,6 +127,7 @@ function intersectionCallback(entries) {
         }, 0);
       }
       if (adBox.getAttribute('id') === 'next-items') {
+        alert(adBox.getAttribute('id'));
         setTimeout(() => {
           for (const x of Array(7).keys()) {
             addNextItem();
