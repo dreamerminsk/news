@@ -116,8 +116,19 @@ function intersectionCallback(entries) {
     let adBox = entry.target;
 
     if (entry.isIntersecting) {
-      for(let i = 0; i < 4; i++) {
-        
+      if (adBox.getAttribute('id') === 'prev-items') {
+        for (let i = 0; i < 7; i++) {
+          setTimeout(() => {
+            addPrevItem();
+          }, 0);
+        }
+      }
+      if (adBox.getAttribute('id') === 'next-items') {
+        for(let i = 0; i < 7; i++) {
+          setTimeout(() => {
+            addNextItem();
+          }, 0);
+        }
       }
     } else {
 
