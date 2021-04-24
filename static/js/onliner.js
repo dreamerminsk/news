@@ -57,7 +57,7 @@ function addNextItem() {
 
 async function dbs() {
   let row = document.querySelector('#content');
-  let t = ``;
+  row.innerHTML = `${PrevItems()}<div id="days"></div>${NextItems()}`;
   for(let i = 0; i < 7; i++) {
     firstDay.setUTCDate(firstDay.getUTCDate() - 1);
     t = DayView(firstDay) + t;
@@ -66,10 +66,8 @@ async function dbs() {
     lastDay.setUTCDate(lastDay.getUTCDate() + 1);
     t += DayView(lastDay);
   }
-  t = `${PrevItems()}<div id="days">${t}</div>${NextItems()}`;
 
-  row.innerHTML = t;
-  let timerId = setTimeout(() => {
+  setTimeout(() => {
     let ld = document.getElementById('next-items');
 	observer.observe(ld);
   }, 0);
