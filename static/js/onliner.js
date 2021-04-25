@@ -9,9 +9,9 @@ let lastDay = new Date();
 
 function PrevItems() {
   return `
-  <div id="prev-items" class="card text-center text-white bg-secondary border-dark m-3">
+  <div id="prev-items" class="card text-center text-dark bg-info border-dark m-3">
       <div class="card-body">
-        loading...
+        load
       </div>
   </div>
 `;
@@ -20,9 +20,9 @@ function PrevItems() {
 
 function NextItems() {
   return `
-  <div id="next-items" class="card text-center text-white bg-secondary border-dark m-3">
+  <div id="next-items" class="card text-center text-dark bg-info border-dark m-3">
       <div class="card-body">
-        loading...
+        load
       </div>
   </div>
     `;
