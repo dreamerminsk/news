@@ -71,9 +71,9 @@ class Onliner(object):
                     pol_node.text, pol_node.get('href')))
 
 
-async def process_policlinics():
-    print('--process_policlinics--')
-    talon = Talon()
-    ps = await talon.policlinics()
+async def process_articles():
+    print('--process_articles--')
+    onliner = Onliner()
+    ps = await onliner.policlinics()
     for p in ps:
         print('\t--process_policlinics--\r\n\t{}\r\n\t{}'.format(p.title, p.url))
