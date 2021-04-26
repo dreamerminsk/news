@@ -35,9 +35,11 @@ function DayView(day) {
 	  <div class="card-header">
         ${day.toDateString()}
       </div>
-      <div class="card-body">
-        ${day.toDateString()}
-      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+      </ul>
     </div>`;
 }
 
