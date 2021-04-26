@@ -28,6 +28,24 @@ class Article(object):
     @property
     def url(self):
         return self.__url
+    
+    
+def get_articles(url):
+    base_url = "{0.scheme}://{0.netloc}".format(urlsplit(url))
+    html, error = get_text(url)
+    pol_nodes = html.select('a[href]')
+    urls = set()
+    if pol_nodes:
+        for pol_node in pol_nodes:
+            ref = pol_node.get('href')
+            if '#comments' in ref:
+                continue
+            if '/2021/' in ref or '/2020/' in ref:
+                if 'https://' in ref:
+                    urls.add(ref)
+                else:
+                    urls.add('{}{}'.format(base_url, ref))
+    return urls
 
 
 class Onliner(object):
